@@ -4,21 +4,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import au.edu.anu.rscs.aot.collections.FilteredList;
-import au.edu.anu.rscs.aot.collections.tables.ObjectTable;
-import au.edu.anu.rscs.aot.dsl.Tokenizer;
-import au.edu.anu.rscs.aot.dsl.UniversalParser;
-import au.edu.anu.rscs.aot.graph.AotGraph;
-import au.edu.anu.rscs.aot.graph.AotNode;
-import au.edu.anu.rscs.aot.io.AotReader;
 import au.edu.anu.rscs.aot.collections.DynamicList;
 import au.edu.anu.rscs.aot.queries.Query;
 import au.edu.anu.rscs.aot.queries.graph.uml.Multiplicity;
 import au.edu.anu.rscs.aot.util.IntegerRange;
-import au.edu.anu.rscs.aot.util.Resource;
-import fr.ens.biologie.threeWorlds.ui.modelMakerfx.archetype.Archetype;
 
 import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
-import static au.edu.anu.rscs.aot.queries.base.SequenceQuery.*;
 
 public class SelectQuery extends Query {
 

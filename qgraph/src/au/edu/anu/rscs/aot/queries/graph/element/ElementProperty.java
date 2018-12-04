@@ -4,6 +4,8 @@ import au.edu.anu.rscs.aot.queries.Query;
 import fr.cnrs.iees.graph.properties.ReadOnlyPropertyList;
 
 /**
+ * Checks that an object has a property and/or a value. The object must implement the
+ * <em>ReadonlyPropertyList</em> interface (library <em>omugi</em>).
  * 
  * @author Shayne Flint - 26/3/2012
  *

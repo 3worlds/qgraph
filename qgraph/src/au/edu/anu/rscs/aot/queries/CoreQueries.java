@@ -16,16 +16,18 @@ import au.edu.anu.rscs.aot.queries.base.SelectQuery;
 import au.edu.anu.rscs.aot.queries.base.SizeQuery;
 import au.edu.anu.rscs.aot.queries.base.Value;
 import au.edu.anu.rscs.aot.queries.base.XorQuery;
+import au.edu.anu.rscs.aot.queries.base.primitive.IsClass;
 import au.edu.anu.rscs.aot.queries.graph.*;
 import au.edu.anu.rscs.aot.queries.graph.edge.*;
 import au.edu.anu.rscs.aot.queries.graph.element.*;
 import au.edu.anu.rscs.aot.queries.graph.node.*;
 import au.edu.anu.rscs.aot.queries.graph.uml.Multiplicity;
-import au.edu.anu.rscs.aot.queries.primitive.*;
-import au.edu.anu.rscs.aot.queries.string.*;
+import au.edu.anu.rscs.aot.queries.base.primitive.*;
+import au.edu.anu.rscs.aot.queries.base.string.*;
 import au.edu.anu.rscs.aot.util.IntegerRange;
-import au.edu.anu.rscs.aot.graph.*;
-import au.edu.anu.rscs.aot.graph.generic.Direction;
+import fr.cnrs.iees.graph.generic.Direction;
+import fr.cnrs.iees.graph.generic.Edge;
+import fr.cnrs.iees.graph.generic.Node;
 
 
 /**
@@ -320,13 +322,13 @@ public class CoreQueries {
 		return NodeEdges.edges(direction, query);
 	}
 
-	public static Query logNode(String prefix) {
-		return NodeLog.logNode(prefix);
-	}
-
-	public static Query logNode() {
-		return NodeLog.logNode("");
-	}
+//	public static Query logNode(String prefix) {
+//		return NodeLog.logNode(prefix);
+//	}
+//
+//	public static Query logNode() {
+//		return NodeLog.logNode("");
+//	}
 
 	public static Query isRoot() {
 		return NodeCharacteristics.isRoot();
@@ -336,7 +338,7 @@ public class CoreQueries {
 		return NodeReferenceQuery.matchesRef(reference);
 	}
 
-	public static Query isNode(AotNode node) {
+	public static Query isNode(Node node) {
 		return IsNode.isNode(node);
 	}
 
@@ -388,15 +390,15 @@ public class CoreQueries {
 		return HasParent.hasParent();
 	}
 
-	public static NodeType isGridNode() {
-		return NodeType.isGridNode();
+//	public static IsClass isGridNode() {
+//		return IsClass.isClass(GridNode);
+//	}
+
+	public static IsClass isNodeOfType(Class<?> theClass) {
+		return IsClass.isClass(theClass);
 	}
 
-	public static NodeType isNodeOfType(Class<?> theClass) {
-		return NodeType.isNodeOfType(theClass);
-	}
-
-	// AotNode Lists
+	// Node Lists
 	//
 
 	public static Query hasOnlyNodes(Query nodeQuery) {
@@ -437,7 +439,7 @@ public class CoreQueries {
 		return EdgeNodes.endNode();
 	}
 
-	public static Query otherNode(AotNode refNode) {
+	public static Query otherNode(Node refNode) {
 		return EdgeNodes.otherNode(refNode);
 	}
 
@@ -453,7 +455,7 @@ public class CoreQueries {
 		return EdgeHasNode.hasEndNode(toNodeQuery);
 	}
 
-	public static Query hasOtherNode(Query toNodeQuery, AotNode refNode) {
+	public static Query hasOtherNode(Query toNodeQuery, Node refNode) {
 		return EdgeHasNode.hasOtherNode(toNodeQuery, refNode);
 	}
 
@@ -461,7 +463,7 @@ public class CoreQueries {
 		return EdgeHasNode.hasBothNodes(toNodeQuery);
 	}
 
-	public static Query isEdge(AotEdge edge) {
+	public static Query isEdge(Edge edge) {
 		return IsEdge.isEdge(edge);
 	}
 
@@ -476,7 +478,7 @@ public class CoreQueries {
 		return EdgeListNodes.endNodes();
 	}
 
-	public static Query edgeListOtherNodes(AotNode refNode) {
+	public static Query edgeListOtherNodes(Node refNode) {
 		return EdgeListNodes.otherNodes(refNode);
 	}
 
@@ -606,13 +608,13 @@ public class CoreQueries {
 		return UserNameQuery.isUserName();
 	}
 
-	public static VersionString asVersion() {
-		return VersionString.asVersion();
-	}
-
-	public static VersionString isVersionString() {
-		return VersionString.isVersion();
-	}
+//	public static VersionString asVersion() {
+//		return VersionString.asVersion();
+//	}
+//
+//	public static VersionString isVersionString() {
+//		return VersionString.isVersion();
+//	}
 
 	public static IsStringList isStringList() {
 		return IsStringList.isStringList();

@@ -8,6 +8,7 @@ import au.edu.anu.rscs.aot.queries.Query;
  * @author Shayne Flint - 26/3/2012
  *
  */
+// NOT TESTED
 public class ClassQuery extends Query {
 
 	private Class<?> parentClass = null;

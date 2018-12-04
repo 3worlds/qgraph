@@ -7,6 +7,7 @@ import au.edu.anu.rscs.aot.queries.Query;
  * @author Shayne Flint - 26/3/2012
  *
  */
+//NOT TESTED
 public class Value extends Query {
 
 	private Object obj;

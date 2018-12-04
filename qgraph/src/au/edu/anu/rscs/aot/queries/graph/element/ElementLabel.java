@@ -5,6 +5,10 @@ import au.edu.anu.rscs.aot.queries.Query;
 import fr.ens.biologie.generic.Labelled;
 
 /**
+ * A Query for objects which have a label (interface <em>Labelled</em> in library <em>omhtk</em>)
+ * -- whatever 'label' means.
+ * Checks that the object label matches one of the labels built in the Query.
+ *
  * 
  * @author Shayne Flint - 26/3/2012
  * @author Jacques Gignoux - 7/9/2016

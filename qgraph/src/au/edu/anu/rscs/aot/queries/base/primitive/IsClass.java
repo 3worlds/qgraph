@@ -4,10 +4,12 @@ import au.edu.anu.rscs.aot.QGraphException;
 import au.edu.anu.rscs.aot.queries.Query;
 
 /**
+ * Checks if an object is of a given class
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
+// NOT TESTED
 public class IsClass extends Query {
 
 	private Class<?>[] classList;
