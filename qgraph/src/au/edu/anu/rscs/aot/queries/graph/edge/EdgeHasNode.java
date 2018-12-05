@@ -10,7 +10,7 @@ import fr.cnrs.iees.graph.generic.Node;
  * @author Shayne Flint - 26/3/2012
  *
  */
-// NOT TESTED
+//Tested OK with version 0.0.1 on 5/12/2018 (using Shayne's test suite)
 public class EdgeHasNode extends Query {
 
 	private EdgeNodeSelection edgeNodeSelection;

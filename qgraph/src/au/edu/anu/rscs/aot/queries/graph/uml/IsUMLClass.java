@@ -4,17 +4,17 @@ import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
 
 import au.edu.anu.rscs.aot.queries.base.AndQuery;
 
-public class IsClass extends AndQuery {
+public class IsUMLClass extends AndQuery {
 
-	public IsClass() {
+	public IsUMLClass() {
 		addQuery(
 			hasTheLabel("class"),
 			hasProperty("name"),
-			hasOutEdges(IsAttribute.isAttribute(), Multiplicity.ZERO_MANY));
+			hasOutEdges(IsUMLAttribute.isAttribute(), Multiplicity.ZERO_MANY));
 	}
 
-	public static IsClass isClass() {
-		return new IsClass();
+	public static IsUMLClass isClass() {
+		return new IsUMLClass();
 	}
 
     @Override

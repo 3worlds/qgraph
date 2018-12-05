@@ -11,6 +11,12 @@ import au.edu.anu.rscs.aot.util.IntegerRange;
 
 import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
 
+/**
+ * 
+ * @author Shayne Flint - 28/3/2012
+ *
+ */
+// Tested OK with version 0.0.1 on 5/12/2018 (using Shayne's test suite)
 public class SelectQuery extends Query {
 
 	private Query theQuery = null;

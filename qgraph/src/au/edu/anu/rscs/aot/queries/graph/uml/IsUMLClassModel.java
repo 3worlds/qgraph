@@ -13,19 +13,19 @@ import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
 
 import au.edu.anu.rscs.aot.queries.base.AndQuery;
 
-public class IsClassModel extends AndQuery {
+public class IsUMLClassModel extends AndQuery {
 
 
-	public IsClassModel() {		
+	public IsUMLClassModel() {		
 		addQuery(
 			hasTheLabel("classModel"),
 			hasProperty("name"),
-			hasOutEdges(IsClass.isClass(), Multiplicity.ONE_MANY),
-			hasOutEdges(IsAssociation.isAssociation(), Multiplicity.ZERO_MANY));
+			hasOutEdges(IsUMLClass.isClass(), Multiplicity.ONE_MANY),
+			hasOutEdges(IsUMLAssociation.isAssociation(), Multiplicity.ZERO_MANY));
 	}
 
-	public static IsClassModel isClassModel() {
-		return new IsClassModel();
+	public static IsUMLClassModel isClassModel() {
+		return new IsUMLClassModel();
 	}
 
     @Override

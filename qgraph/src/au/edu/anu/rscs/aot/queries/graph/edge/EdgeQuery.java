@@ -1,6 +1,8 @@
 package au.edu.anu.rscs.aot.queries.graph.edge;
 
 import au.edu.anu.rscs.aot.queries.Query;
+import fr.cnrs.iees.graph.generic.Edge;
+import fr.ens.biologie.generic.Labelled;
 
 /**
   * 
@@ -73,12 +75,13 @@ public class EdgeQuery extends Query {
 	}
 	
 	
+	// this code must be brittle - it assumes an Edge is also Labelled...
 	@Override
 	public Query process(Object item) {
 		defaultProcess(item);
-		ReferenceableEdge localItem = (ReferenceableEdge)item;
-		ReferenceableNode startNode = (ReferenceableNode) localItem.startNode();
-		ReferenceableNode endNode   = (ReferenceableNode) localItem.endNode();
+		Edge localItem = (Edge)item;
+		Labelled startNode = (Labelled) localItem.startNode();
+		Labelled endNode   = (Labelled) localItem.endNode();
 		
 		startNodeQuery.process(startNode);
 		endNodeQuery.process(endNode);
@@ -90,7 +93,7 @@ public class EdgeQuery extends Query {
 		if (startLabel != null)
 			satisfied = satisfied && startNode.getLabel().equals(startLabel);
 		if (label != null)
-			satisfied = satisfied && localItem.getLabel().equals(label);
+			satisfied = satisfied && ((Labelled)localItem).getLabel().equals(label);
 		if (endLabel != null)
 			satisfied = satisfied && endNode.getLabel().equals(endLabel);
 

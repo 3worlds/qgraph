@@ -3,6 +3,8 @@ package au.edu.anu.rscs.aot.queries.graph.node;
 import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
 import au.edu.anu.rscs.aot.collections.DynamicList;
 import au.edu.anu.rscs.aot.queries.Query;
+import fr.cnrs.iees.graph.generic.Direction;
+import fr.cnrs.iees.graph.generic.Edge;
 import fr.cnrs.iees.graph.generic.Node;
 
 import static au.edu.anu.rscs.aot.queries.base.SequenceQuery.get;
@@ -82,7 +84,7 @@ public class Trees extends Query {
 
 	private Node root(Node node) {
 //		Edge parentEdge = node.getInEdge(hasTheLabel(CHILD_LABEL));
-		ReferenceableEdge parentEdge = (ReferenceableEdge) get(node.getEdges(Direction.IN),
+		Edge parentEdge = (Edge) get(node.getEdges(Direction.IN),
 			selectZeroOrOne(hasTheLabel(CHILD_LABEL)));
 		if (parentEdge == null)
 			return node;

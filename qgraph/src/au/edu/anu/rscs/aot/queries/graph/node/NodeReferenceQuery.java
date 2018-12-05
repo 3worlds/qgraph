@@ -9,13 +9,15 @@ package au.edu.anu.rscs.aot.queries.graph.node;
 import java.io.File;
 import au.edu.anu.rscs.aot.queries.Query;
 import au.edu.anu.rscs.aot.util.Uid;
+import fr.cnrs.iees.graph.generic.DataNode;
 
 /**
  * 
  * @author Shayne Flint - 2/4/2012
  *
  */
-public class NodeReferenceQuery extends Query implements IoConstants {
+// Note: this should probably move to a 'configurable graph' library
+public class NodeReferenceQuery extends Query {
 
 	private String reference;
 
@@ -31,14 +33,14 @@ public class NodeReferenceQuery extends Query implements IoConstants {
 
 	@Override
 	public boolean satisfied(Object item) {
-		ReferenceableNode localItem = (ReferenceableNode)item;
+		DataNode localItem = (DataNode)item;
 		return NodeReference.matchesRef(localItem, reference);
 	}
 
 	@Override
 	public Query process(Object item) {
 		defaultProcess(item);
-		ReferenceableNode localItem = (ReferenceableNode)item;
+		DataNode localItem = (DataNode)item;
 //		satisfied = localItem.matchesRef(reference);
 		satisfied = NodeReference.matchesRef(localItem, reference);
 		return this;

@@ -1,9 +1,3 @@
-/**
- * @author shayne.flint@anu.edu.au
- *
- * 
- * 
- */
 package au.edu.anu.rscs.aot.queries.graph.node;
 
 import au.edu.anu.rscs.aot.collections.DynamicList;
@@ -17,6 +11,7 @@ import fr.cnrs.iees.graph.generic.Node;
  * @author Shayne Flint - 2/4/2012
  *
  */
+//Tested OK with version 0.0.1 on 5/12/2018 (using Shayne's test suite)
 public class NodeListEdges extends Query {
 
 	private Direction direction;
@@ -57,43 +52,10 @@ public class NodeListEdges extends Query {
 //		NodeList localItem = (NodeList)item;
 		DynamicList<Edge> tempResult = new DynamicList<Edge>();
 		for (Node n : localItem)
-			tempResult.addAllUnique((DynamicList<Edge>) n.getEdges(direction));
+			tempResult.addAllUnique((Iterable<Edge>) n.getEdges(direction));
 		satisfied = true;
 		result = new DynamicList<Edge>(tempResult);
 		return this;
 	}
-	
-	
-	// TESTING
-	//
-
-//	public static void main(String[] args) {
-//
-//		AotNode n1 = new AotNode().setLabel("n1");
-//		AotNode n2 = new AotNode().setLabel("n2");
-//		AotNode n3 = new AotNode().setLabel("n3");
-//		AotNode n4 = new AotNode().setLabel("n4");
-//
-//		AotEdge e1 = new AotEdge(n1, n2).setLabel("e1");
-//		AotEdge e2 = new AotEdge(n1, n3).setLabel("e2");
-//		AotEdge e3 = new AotEdge(n1, n4).setLabel("e3");
-//		AotEdge e4 = new AotEdge(n2, n3).setLabel("e4");
-//
-//		NodeList nl = n1.traversal();
-//
-//		nl.export(new GraphVisualisation());
-//
-//		for (AotEdge e : (Iterable<AotEdge>)outEdges().process(nl).getResult())
-//			System.out.println("out edge " + e);
-//
-//		for (AotEdge e : (Iterable<AotEdge>)inEdges().process(nl).getResult())
-//			System.out.println("in edge " + e);
-//
-//		for (AotEdge e : (Iterable<AotEdge>)edges().process(nl).getResult())
-//			System.out.println("in-out edge " + e);
-//
-//	}
-
-
 
 }

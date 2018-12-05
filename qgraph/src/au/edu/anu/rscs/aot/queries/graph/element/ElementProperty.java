@@ -10,6 +10,7 @@ import fr.cnrs.iees.graph.properties.ReadOnlyPropertyList;
  * @author Shayne Flint - 26/3/2012
  *
  */
+//Tested OK with version 0.0.1 on 5/12/2018 (using Shayne's test suite)
 public class ElementProperty extends Query {
 
 	private String key;

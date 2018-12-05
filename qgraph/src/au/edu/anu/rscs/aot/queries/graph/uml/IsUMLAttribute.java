@@ -11,15 +11,15 @@ import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
  *
  */
 // NOT TESTED
-public class IsAttribute extends AndQuery {
+public class IsUMLAttribute extends AndQuery {
 
-	public IsAttribute() {
+	public IsUMLAttribute() {
 		addQuery(hasTheLabel("attribute"), hasProperty("name"));
 		addQuery(new OrQuery(hasProperty("type"), hasOutEdges(IsEnumeration.isEnumeration(), Multiplicity.ONE).withLabel("enumeration")));
 	}
 
-	public static IsAttribute isAttribute() {
-		return new IsAttribute();
+	public static IsUMLAttribute isAttribute() {
+		return new IsUMLAttribute();
 	}
 
     @Override

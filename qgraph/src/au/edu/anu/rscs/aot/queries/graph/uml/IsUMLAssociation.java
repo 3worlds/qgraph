@@ -7,22 +7,22 @@ import au.edu.anu.rscs.aot.queries.base.SequenceQuery;
 import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
 
 
-public class IsAssociation extends AndQuery {
+public class IsUMLAssociation extends AndQuery {
 
-	public IsAssociation() {
+	public IsUMLAssociation() {
 		
 		Query edgeQuery = new SequenceQuery(hasProperty("phrase"), hasProperty("multiplicity",
 				isEnum(Multiplicity.values()) ));
 				
 		addQuery(
 			hasTheLabel("association"),
-			hasOutEdges(IsClass.isClass(), Multiplicity.ONE).withLabel("passive").withEdgeQuery(edgeQuery),
-			hasOutEdges(IsClass.isClass(), Multiplicity.ONE).withLabel("active").withEdgeQuery(edgeQuery),
-			hasOutEdges(IsClass.isClass(), Multiplicity.ZERO_ONE).withLabel("associativeClass"));
+			hasOutEdges(IsUMLClass.isClass(), Multiplicity.ONE).withLabel("passive").withEdgeQuery(edgeQuery),
+			hasOutEdges(IsUMLClass.isClass(), Multiplicity.ONE).withLabel("active").withEdgeQuery(edgeQuery),
+			hasOutEdges(IsUMLClass.isClass(), Multiplicity.ZERO_ONE).withLabel("associativeClass"));
 	}
 
-	public static IsAssociation isAssociation() {
-		return new IsAssociation();
+	public static IsUMLAssociation isAssociation() {
+		return new IsUMLAssociation();
 	}
 
     @Override
