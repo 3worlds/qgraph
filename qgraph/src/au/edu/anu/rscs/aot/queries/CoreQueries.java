@@ -320,9 +320,9 @@ public class CoreQueries {
 		return NodeCharacteristics.isRoot();
 	}
 
-	public static Query matchesRef(String reference) {
-		return NodeReferenceQuery.matchesRef(reference);
-	}
+//	public static Query matchesRef(String reference) {
+//		return NodeReferenceQuery.matchesRef(reference);
+//	}
 
 	public static Query isNode(Node node) {
 		return IsNode.isNode(node);
