@@ -37,12 +37,12 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import fr.cnrs.iees.graph.generic.Edge;
-import fr.cnrs.iees.graph.generic.Graph;
-import fr.cnrs.iees.graph.generic.GraphElementFactory;
-import fr.cnrs.iees.graph.generic.Node;
-import fr.cnrs.iees.graph.generic.impl.DefaultGraphFactory;
-import fr.cnrs.iees.graph.generic.impl.ImmutableGraphImpl;
+import fr.cnrs.iees.graph.Edge;
+import fr.cnrs.iees.graph.Graph;
+import fr.cnrs.iees.graph.GraphElementFactory;
+import fr.cnrs.iees.graph.Node;
+import fr.cnrs.iees.graph.impl.DefaultGraphFactory;
+import fr.cnrs.iees.graph.impl.ImmutableGraphImpl;
 
 /**
  * 

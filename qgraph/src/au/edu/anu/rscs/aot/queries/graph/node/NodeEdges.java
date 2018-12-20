@@ -7,8 +7,8 @@
 package au.edu.anu.rscs.aot.queries.graph.node;
 
 import au.edu.anu.rscs.aot.queries.Query;
-import fr.cnrs.iees.graph.generic.Direction;
-import fr.cnrs.iees.graph.generic.Node;
+import fr.cnrs.iees.graph.Direction;
+import fr.cnrs.iees.graph.Node;
 
 import static au.edu.anu.rscs.aot.queries.base.SequenceQuery.get;
 

@@ -1,5 +1,5 @@
 <!--===================================================================================
- ant and ivy scripts for project <qgraph> version 0.0.2 (Thu Dec 20 08:42:40 CET 2018)
+ ant and ivy scripts for project <qgraph> version 0.0.1 (Mon Dec 03 13:29:37 CET 2018)
  author: Jacques Gignoux <jacques.gignoux@upmc.fr>
 
  CAUTION: this file is generated - DO NOT EDIT!
@@ -12,7 +12,7 @@
 
 	<info	organisation="au.edu.anu.rscs.aot"
 			module="qgraph"
-			revision="0.0.2"
+			revision="0.0.1"
 			status="integration">
 		<license name="gpl3" url="https://www.gnu.org/licenses/gpl-3.0.txt"/>
 		<description>This module is a graph querying system. It implements classes to search a graph in variousways by looking at node and edge properties, location in the graph, and many other things.</description>
@@ -30,7 +30,7 @@
 
 	<dependencies>
 		<dependency org="fr.ens.biologie" name="generics" rev="+"/>
-		<dependency org="au.edu.anu.rscs.aot" name="omugi" rev="0.0.4+"/>
+		<dependency org="au.edu.anu.rscs.aot" name="omugi" rev="+"/>
 	</dependencies>
 
 </ivy-module>
