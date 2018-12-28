@@ -111,7 +111,7 @@ public class VersionManager {
 	 */
 	private static String[][] DEPS = { 
 		{"fr.ens.biologie", "generics", "+"},
-		{"au.edu.anu.rscs.aot", "omugi", "0.0.4+"},
+		{"au.edu.anu.rscs.aot", "omugi", "+"},
 	};
 	// ============================================================================================
 	
