@@ -44,13 +44,13 @@ public class EnumerationString extends Query {
 	private List<String> valueList;
 
 	public EnumerationString(String... valueList) {		
-		this.valueList = new ArrayList<String>(valueList.length);
+		this.valueList = new ArrayList<>(valueList.length);
 		for (int i=0; i<valueList.length; i++)
 			this.valueList.add(valueList[i]);
 	}
 	
 	public EnumerationString(Enum<?>... enumList) {
-		this.valueList = new ArrayList<String>(enumList.length);
+		this.valueList = new ArrayList<>(enumList.length);
 		for (Enum<?> e : enumList) 
 			valueList.add(e.name());
 	}
