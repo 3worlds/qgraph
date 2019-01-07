@@ -52,7 +52,7 @@ public class ElementPropertyTest extends TestCase
 		GraphElementFactory gf = new DefaultGraphFactory();
 		SimplePropertyList props = new SimplePropertyListImpl("p1");
 		props.setProperty("p1", 1234);
-		DataNode n = gf.makeNode(props);
+		DataNode n = (DataNode) gf.makeNode(props);
 		try
 		{
 			ElementProperty ep = ElementProperty.hasProperty("p1");
