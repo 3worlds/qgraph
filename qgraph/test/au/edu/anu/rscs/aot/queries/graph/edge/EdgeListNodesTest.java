@@ -39,7 +39,6 @@ import org.junit.jupiter.api.Test;
 
 import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Graph;
-import fr.cnrs.iees.graph.GraphElementFactory;
 import fr.cnrs.iees.graph.Node;
 import fr.cnrs.iees.graph.impl.DefaultGraphFactory;
 import fr.cnrs.iees.graph.impl.ImmutableGraphImpl;
@@ -57,7 +56,7 @@ class EdgeListNodesTest {
 	
 	@BeforeEach
 	private void init() {
-		GraphElementFactory gf = new DefaultGraphFactory();
+		DefaultGraphFactory gf = new DefaultGraphFactory();
 		n1 = gf.makeNode();
 		n2 = gf.makeNode();
 		n3 = gf.makeNode();

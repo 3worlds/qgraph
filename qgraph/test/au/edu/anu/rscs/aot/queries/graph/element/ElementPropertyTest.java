@@ -33,7 +33,6 @@ import org.junit.Test;
 
 import au.edu.anu.rscs.aot.queries.graph.element.ElementProperty;
 import fr.cnrs.iees.graph.DataNode;
-import fr.cnrs.iees.graph.GraphElementFactory;
 import fr.cnrs.iees.graph.impl.DefaultGraphFactory;
 import fr.cnrs.iees.properties.SimplePropertyList;
 import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
@@ -49,7 +48,7 @@ public class ElementPropertyTest extends TestCase
 	@Test
 	public void testHasProperty()
 	{
-		GraphElementFactory gf = new DefaultGraphFactory();
+		DefaultGraphFactory gf = new DefaultGraphFactory();
 		SimplePropertyList props = new SimplePropertyListImpl("p1");
 		props.setProperty("p1", 1234);
 		DataNode n = (DataNode) gf.makeNode(props);
