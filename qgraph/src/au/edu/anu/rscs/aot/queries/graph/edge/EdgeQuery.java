@@ -31,7 +31,7 @@ package au.edu.anu.rscs.aot.queries.graph.edge;
 
 import au.edu.anu.rscs.aot.queries.Query;
 import fr.cnrs.iees.graph.Edge;
-import fr.ens.biologie.generic.Labelled;
+import fr.cnrs.iees.graph.Node;
 
 /**
   * 
@@ -109,8 +109,8 @@ public class EdgeQuery extends Query {
 	public Query process(Object item) {
 		defaultProcess(item);
 		Edge localItem = (Edge)item;
-		Labelled startNode = (Labelled) localItem.startNode();
-		Labelled endNode   = (Labelled) localItem.endNode();
+		Node startNode = localItem.startNode();
+		Node endNode   = localItem.endNode();
 		
 		startNodeQuery.process(startNode);
 		endNodeQuery.process(endNode);
@@ -120,11 +120,11 @@ public class EdgeQuery extends Query {
 		satisfied = satisfied && endNodeQuery.satisfied();
 
 		if (startLabel != null)
-			satisfied = satisfied && startNode.getLabel().equals(startLabel);
+			satisfied = satisfied && startNode.classId().equals(startLabel);
 		if (label != null)
-			satisfied = satisfied && ((Labelled)localItem).getLabel().equals(label);
+			satisfied = satisfied && ((Node)localItem).classId().equals(label);
 		if (endLabel != null)
-			satisfied = satisfied && endNode.getLabel().equals(endLabel);
+			satisfied = satisfied && endNode.classId().equals(endLabel);
 
 		return this;
 	}

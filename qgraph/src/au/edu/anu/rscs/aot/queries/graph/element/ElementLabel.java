@@ -31,7 +31,7 @@ package au.edu.anu.rscs.aot.queries.graph.element;
 
 import au.edu.anu.rscs.aot.collections.tables.ObjectTable;
 import au.edu.anu.rscs.aot.queries.Query;
-import fr.ens.biologie.generic.Labelled;
+import fr.cnrs.iees.graph.GraphElement;
 
 /**
  * A Query for objects which have a label (interface <em>Labelled</em> in library <em>omhtk</em>)
@@ -81,8 +81,8 @@ public class ElementLabel extends Query {
 	@Override
 	public Query process(Object item) {
 		defaultProcess(item);
-		Labelled localItem = (Labelled)item;
-		String label = localItem.getLabel();
+		GraphElement localItem = (GraphElement)item;
+		String label = localItem.classId();
 
 		for (String l : labels) {
 			if (l.equals(label)) {
