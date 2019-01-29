@@ -31,7 +31,7 @@ package au.edu.anu.rscs.aot.queries.graph.node;
 
 import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
 import au.edu.anu.rscs.aot.queries.Query;
-import fr.cnrs.iees.tree.TreeNode;
+import fr.cnrs.iees.graph.TreeNode;
 
 import static au.edu.anu.rscs.aot.queries.base.SequenceQuery.get;
 
