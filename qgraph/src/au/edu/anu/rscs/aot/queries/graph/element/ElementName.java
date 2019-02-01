@@ -71,7 +71,7 @@ public class ElementName extends Query {
 	@Override
 	public boolean satisfied(Object item) {
 		GraphElement localItem = (GraphElement)item;
-		String name = localItem.instanceId();
+		String name = localItem.id();
 
 		for (String l : names) {
 			if (l.equals(name)) {
@@ -85,7 +85,7 @@ public class ElementName extends Query {
 	public Query process(Object item) {
 		defaultProcess(item);
 		GraphElement localItem = (GraphElement)item;
-		String name = localItem.instanceId();
+		String name = localItem.id();
 
 		for (String l : names) {
 			if (l.equals(name)) {
