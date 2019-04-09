@@ -44,7 +44,7 @@ import org.junit.jupiter.api.Test;
 import fr.cnrs.iees.graph.Direction;
 import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Node;
-import fr.cnrs.iees.graph.impl.DefaultGraphFactory;
+import fr.cnrs.iees.graph.impl.GraphFactory;
 
 /**
  * 
@@ -55,7 +55,7 @@ class EdgeHasNodeTest {
 
 	private Node n1,n2,n3;
 	private List<Node> nl = new LinkedList<>();
-	private DefaultGraphFactory gf = new DefaultGraphFactory();
+	private GraphFactory gf = new GraphFactory();
 	
 	@BeforeEach
 	private void init() {
