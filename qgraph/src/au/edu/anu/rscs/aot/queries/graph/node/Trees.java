@@ -41,6 +41,7 @@ import static au.edu.anu.rscs.aot.queries.base.SequenceQuery.get;
 /**
  * 
  * @author Shayne Flint - 2/4/2012
+ * refactored by J. Gignoux - 12/4/2019 to handle new tree structure
  *
  */
 public class Trees extends Query {
