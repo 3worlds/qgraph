@@ -29,8 +29,7 @@
  **************************************************************************/
 package au.edu.anu.rscs.aot.collections;
 
-import java.util.List;
-
+import java.util.Collection;
 import au.edu.anu.rscs.aot.queries.Query;
 
 /**
@@ -41,7 +40,7 @@ import au.edu.anu.rscs.aot.queries.Query;
  */
 public class FilteredList<T> extends DynamicList<T>  {
 
-	public FilteredList(List<T> list, Query query) {
+	public FilteredList(Collection<T> list, Query query) {
 		for (T item : list)
 			if (query.satisfied(item))
 				add(item);

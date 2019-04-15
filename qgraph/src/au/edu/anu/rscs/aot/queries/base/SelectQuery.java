@@ -29,9 +29,8 @@
  **************************************************************************/
 package au.edu.anu.rscs.aot.queries.base;
 
+import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
-
 import au.edu.anu.rscs.aot.collections.FilteredList;
 import au.edu.anu.rscs.aot.collections.DynamicList;
 import au.edu.anu.rscs.aot.queries.Query;
@@ -240,24 +239,28 @@ public class SelectQuery extends Query {
 	public SelectQuery process(Object item) {
 		defaultProcess(item);
 
-		List<Object> localItem;
+		Collection<Object> localItem;
+//		List<Object> localItem;
 		// DynamicList<Object> localItem;
 
 		// Log.debug("Constraint: " + constraint);
 
-		List<Object> list = null;
+		Collection<Object> list = null;
+//		List<Object> list = null;
 		// DynamicList<Object> list = null;
 
 		// if (item instanceof DynamicList)
 		// list = (DynamicList<Object>)item;
-		if (item instanceof List)
-			list = (List<Object>) item;
+		if (item instanceof Collection)
+			list = (Collection<Object>) item;
+//		if (item instanceof List)
+//			list = (List<Object>) item;
 		// else if (item instanceof DynamicList) {
 		// DynamicList<Object> DynamicList = (DynamicList<Object>)item;
 		// list = ((DynamicList) item);
 		// }
 		else
-			failed("expected DynamicList or DynamicList (got " + item.getClass() + ")");
+			failed("expected Collection (got " + item.getClass() + ")");
 
 //		if (searchSubArchetypes && isAotNodeList(list))
 //			searchSubArchetypes(list);
