@@ -30,6 +30,7 @@
 package au.edu.anu.rscs.aot.queries.graph.element;
 
 import au.edu.anu.rscs.aot.queries.Query;
+import fr.cnrs.iees.graph.ReadOnlyDataElement;
 import fr.cnrs.iees.properties.ReadOnlyPropertyList;
 
 /**
@@ -146,7 +147,13 @@ public class ElementProperty extends Query {
 	@Override
 	public Query process(Object item) {
 		defaultProcess(item);
-		ReadOnlyPropertyList localItem = (ReadOnlyPropertyList)item;
+		ReadOnlyPropertyList localItem = null;
+		// fix by JG 15/4/2019 - this should enable one to treat Nodes, Edges, TreeNodes
+		// as well as property lists
+		if (item instanceof ReadOnlyPropertyList)
+			localItem = (ReadOnlyPropertyList)item;
+		else if (item instanceof ReadOnlyDataElement)
+			localItem = ((ReadOnlyDataElement)item).properties();
 
 		Object propertyValue;
 		if (defaultValue == null)

@@ -30,7 +30,7 @@
 package au.edu.anu.rscs.aot.queries.graph.element;
 
 import au.edu.anu.rscs.aot.queries.Query;
-import fr.cnrs.iees.graph.GraphElement;
+import fr.cnrs.iees.identity.Identity;
 
 /**
  * A Query for objects which have a name (interface <em>Named</em> in library <em>omhtk</em>).
@@ -70,7 +70,7 @@ public class ElementName extends Query {
 
 	@Override
 	public boolean satisfied(Object item) {
-		GraphElement localItem = (GraphElement)item;
+		Identity localItem = (Identity)item;
 		String name = localItem.id();
 
 		for (String l : names) {
@@ -84,7 +84,7 @@ public class ElementName extends Query {
 	@Override
 	public Query process(Object item) {
 		defaultProcess(item);
-		GraphElement localItem = (GraphElement)item;
+		Identity localItem = (Identity)item;
 		String name = localItem.id();
 
 		for (String l : names) {
