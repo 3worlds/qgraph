@@ -31,7 +31,7 @@ package au.edu.anu.rscs.aot.queries.graph.element;
 
 import au.edu.anu.rscs.aot.collections.tables.ObjectTable;
 import au.edu.anu.rscs.aot.queries.Query;
-import fr.cnrs.iees.graph.GraphElement;
+import fr.cnrs.iees.graph.Specialized;
 
 /**
  * A Query for objects which have a label (interface <em>Labelled</em> in library <em>omhtk</em>)
@@ -81,7 +81,7 @@ public class ElementLabel extends Query {
 	@Override
 	public Query process(Object item) {
 		defaultProcess(item);
-		GraphElement localItem = (GraphElement)item;
+		Specialized localItem = (Specialized)item;
 		String label = localItem.classId();
 
 		for (String l : labels) {
