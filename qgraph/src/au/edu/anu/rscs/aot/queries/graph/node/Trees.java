@@ -31,10 +31,9 @@ package au.edu.anu.rscs.aot.queries.graph.node;
 
 import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
 import au.edu.anu.rscs.aot.collections.DynamicList;
+import au.edu.anu.rscs.aot.collections.QuickListOfLists;
 import au.edu.anu.rscs.aot.queries.Query;
-import fr.cnrs.iees.graph.Direction;
-import fr.cnrs.iees.graph.Edge;
-import fr.cnrs.iees.graph.Node;
+import fr.cnrs.iees.graph.TreeNode;
 
 import static au.edu.anu.rscs.aot.queries.base.SequenceQuery.get;
 
@@ -112,47 +111,66 @@ public class Trees extends Query {
 	}
 
 
-	private Node root(Node node) {
-//		Edge parentEdge = node.getInEdge(hasTheLabel(CHILD_LABEL));
-		Edge parentEdge = (Edge) get(node.getEdges(Direction.IN),
-			selectZeroOrOne(hasTheLabel(CHILD_LABEL)));
-		if (parentEdge == null)
-			return node;
-		else
-			return root(parentEdge.startNode());
+	private TreeNode root(TreeNode node) {
+//		Edge parentEdge = (Edge) get(node.getEdges(Direction.IN),
+//			selectZeroOrOne(hasTheLabel(CHILD_LABEL)));
+//		if (parentEdge == null)
+//			return node;
+//		else
+//			return root(parentEdge.startNode());
+		TreeNode parent = node.getParent();
+		if (parent==null)
+			parent = node; // is this really the wanted behaviour ? looks unsafe to me. JG 2019
+		return parent;
 	}
 
-	private Node parent(Node node, Query query) {
+	private TreeNode parent(TreeNode node, Query query) {
 		if (query.satisfied(node))
 			return node;
 		else {
-			Node parent = (Node)get(node, 
-				inEdges(hasTheLabel(CHILD_LABEL)), 
-				selectZeroOrOne(), 
-				startNode());
-			if (parent == null)
+//			Node parent = (Node)get(node, 
+//				inEdges(hasTheLabel(CHILD_LABEL)), 
+//				selectZeroOrOne(), 
+//				startNode());
+//			if (parent == null)
+//				return null;
+//			else
+//				return parent(parent, query);
+			TreeNode parent = node.getParent();
+			if (parent==null)
 				return null;
 			else
-				return parent(parent, query);
+				return parent(parent,query);
 		}
 	}
 
+	// using QuickListOfLists rather than DynamicList because more efficient 
+	// for aggregating lists
 	@SuppressWarnings("unchecked")
-	public DynamicList<Node> childTree(Node node) {
-		DynamicList<Node> nodeList = new DynamicList<Node>();
-		nodeList.addAll((DynamicList<Node>)get(node, 
-			outEdges(hasTheLabel(CHILD_LABEL)), 
-			selectZeroOrMany(), 
-			edgeListEndNodes()));
-		for (Node n : nodeList) 
-			nodeList.addAll(childTree(n));
+	public QuickListOfLists<TreeNode> childTree(TreeNode node) {
+//		DynamicList<Node> nodeList = new DynamicList<Node>();
+//		nodeList.addAll((DynamicList<Node>)get(node, 
+//			outEdges(hasTheLabel(CHILD_LABEL)), 
+//			selectZeroOrMany(), 
+//			edgeListEndNodes()));
+//		for (Node n : nodeList) 
+//			nodeList.addAll(childTree(n));
+		QuickListOfLists<TreeNode> nodeList = new QuickListOfLists<TreeNode>();
+		nodeList.addList((Iterable<TreeNode>) node.getChildren());
+		for (TreeNode n : nodeList) 
+			nodeList.addList((Iterable<TreeNode>) childTree(n));
 		return nodeList;
 	}
 	
-	public DynamicList<Node> childTree(Node node, Query query) {
-		DynamicList<Node> childTree = childTree(node);
-		DynamicList<Node> nodeList = new DynamicList<Node>();
-		for (Node n : childTree) 
+	public DynamicList<TreeNode> childTree(TreeNode node, Query query) {
+//		DynamicList<Node> childTree = childTree(node);
+//		DynamicList<Node> nodeList = new DynamicList<Node>();
+//		for (Node n : childTree) 
+//			if (query.satisfied(n))
+//				nodeList.add(n);
+		QuickListOfLists<TreeNode> childTree = childTree(node);
+		DynamicList<TreeNode> nodeList = new DynamicList<TreeNode>();
+		for (TreeNode n : childTree) 
 			if (query.satisfied(n))
 				nodeList.add(n);
 		return nodeList;		
@@ -163,7 +181,7 @@ public class Trees extends Query {
 	@Override
 	public Query process(Object item) {
 		defaultProcess(item);
-		Node localItem = (Node)item;
+		TreeNode localItem = (TreeNode)item;
 		//		NodeList nodeList = new NodeList();
 		//		nodeList.addNode(localItem);		
 		if (traverse) {
@@ -186,19 +204,23 @@ public class Trees extends Query {
 			}
 		} else {
 			if (getParent) {
-				result = (Node)get(localItem, 
-					inEdges(hasTheLabel(CHILD_LABEL)), 
-					selectZeroOrOne(), 
-					startNode());
+//				result = (Node)get(localItem, 
+//					inEdges(hasTheLabel(CHILD_LABEL)), 
+//					selectZeroOrOne(), 
+//					startNode());
+				result = localItem.getParent();
 			} else {
 				if (query == null)
-					result = (DynamicList<Node>)get(localItem, 
-						outEdges(hasTheLabel(CHILD_LABEL)), 
-						edgeListEndNodes());
+//					result = (DynamicList<Node>)get(localItem, 
+//						outEdges(hasTheLabel(CHILD_LABEL)), 
+//						edgeListEndNodes());
+					result = localItem.getChildren();
 				else
-					result = (DynamicList<Node>)get(localItem, 
-						outEdges(hasTheLabel(CHILD_LABEL)), 
-						edgeListEndNodes(), 
+//					result = (DynamicList<Node>)get(localItem, 
+//						outEdges(hasTheLabel(CHILD_LABEL)), 
+//						edgeListEndNodes(), 
+//						selectZeroOrMany(query));
+					result = (DynamicList<TreeNode>)get(localItem.getChildren(),
 						selectZeroOrMany(query));	
 			}
 		}
