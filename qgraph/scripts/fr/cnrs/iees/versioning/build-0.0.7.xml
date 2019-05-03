@@ -1,5 +1,5 @@
 <!--===================================================================================
- ant and ivy scripts for project <qgraph> version 0.0.8 (Fri May 03 17:11:29 CEST 2019)
+ ant and ivy scripts for project <generics> version 0.0.8 (Fri May 03 17:09:45 CEST 2019)
  author: Jacques Gignoux <jacques.gignoux@upmc.fr>
 
  CAUTION: this file is generated - DO NOT EDIT!
@@ -12,10 +12,10 @@
 	<property name="jarRepo" location="${user.dir}/../lib"/>
 
 	<property name="docRepo" location="${user.dir}/../doc/javadoc"/>	<!-- Use this string as the organisation package -->
-	<property name="org" value="au.edu.anu.rscs.aot"/>
+	<property name="org" value="fr.ens.biologie"/>
 
 	<!-- The project name -->
-	<property name="project" value="qgraph"/>
+	<property name="project" value="generics"/>
 
 	<!-- Append the project name to the organisation string -->
 	<property name="jarlib" location="${jarRepo}/${org}.${project}"/>
@@ -41,7 +41,7 @@
 			<fileset dir="src"/>
 			<manifest>
 				<attribute name="Implementation-Vendor" value="CNRS/ANU"/>
-				<attribute name="Implementation-Title" value="au.edu.anu.rscs.aot"/>
+				<attribute name="Implementation-Title" value="fr.ens.biologie"/>
 				<attribute name="Implementation-Version" value="0.0.8"/>
 				<attribute name="Built-By" value="${user.name}"/>
  			</manifest>
