@@ -1,5 +1,5 @@
 <!--===================================================================================
- ant and ivy scripts for project <generics> version 0.0.8 (Fri May 03 17:09:45 CEST 2019)
+ ant and ivy scripts for project <qgraph> version 0.0.8 (Fri May 03 17:11:29 CEST 2019)
  author: Jacques Gignoux <jacques.gignoux@upmc.fr>
 
  CAUTION: this file is generated - DO NOT EDIT!
@@ -11,12 +11,12 @@
 		xmlns:m="http://maven.apache.org/POM/4.0.0"
 		xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
 
-	<info	organisation="fr.ens.biologie"
-			module="generics"
+	<info	organisation="au.edu.anu.rscs.aot"
+			module="qgraph"
 			revision="0.0.8"
 			status="integration">
 		<license name="gpl3" url="https://www.gnu.org/licenses/gpl-3.0.txt"/>
-		<description>This module contains generic, all-purpose, basic utilities for almost any java project.</description>
+		<description>This module is a graph querying system. It implements classes to search a graph in variousways by looking at node and edge properties, location in the graph, and many other things.</description>
 	</info>
 
 	<configurations>
@@ -30,7 +30,8 @@
 	</publications>
 
 	<dependencies>
-		<dependency org="commons-io" name="commons-io" rev="1.+"/>
+		<dependency org="fr.ens.biologie" name="generics" rev="[0.0.6,)"/>
+		<dependency org="au.edu.anu.rscs.aot" name="omugi" rev="[0.0.14,)"/>
 	</dependencies>
 
 </ivy-module>
