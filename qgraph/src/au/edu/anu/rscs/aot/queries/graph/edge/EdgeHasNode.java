@@ -35,39 +35,69 @@ import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Node;
 
 /**
+ * <p>A {@link Query} to check that one or both {@link Node}s of an {@link Edge} 
+ * satisfy some Query.</p>
+ * <dl>
+ * <dt>Type of input to {@code process()}</dt>
+ * <dd>Edge</dd>
+ * <dt>Type of result</dt>
+ * <dd>no result returned</dd>
+ * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
-//Tested OK with version 0.0.1 on 5/12/2018 (using Shayne's test suite)
+// Tested OK with version 0.0.1 on 5/12/2018 (using Shayne's test suite)
+// Tested OK with version 0.1.1 on 21/5/2019
 public class EdgeHasNode extends Query {
 
 	private EdgeNodeSelection edgeNodeSelection;
 	private Query nodeQuery;
 	private Node refNode = null;
 
-	public EdgeHasNode(EdgeNodeSelection edgeNodeSelection, Query nodeQuery) {
+	private EdgeHasNode(EdgeNodeSelection edgeNodeSelection, Query nodeQuery) {
 		this.edgeNodeSelection = edgeNodeSelection;
 		this.nodeQuery = nodeQuery;
 	}
 
-	public EdgeHasNode(EdgeNodeSelection edgeNodeSelection, Query nodeQuery, Node refNode) {
+	private EdgeHasNode(EdgeNodeSelection edgeNodeSelection, Query nodeQuery, Node refNode) {
 		this(edgeNodeSelection, nodeQuery);
 		this.refNode = refNode;
 	}
 
+	/**
+	 * Checks that the end Node of the Edge satisfies a Query.
+	 * @param nodeQuery the query to satisfy
+	 * @return the resulting EdgeHasNode query
+	 */
 	public static Query hasEndNode(Query nodeQuery) {
 		return new EdgeHasNode(EdgeNodeSelection.END, nodeQuery);
 	}
 
+	/**
+	 * Checks that the start Node of the Edge satisfies a Query.
+	 * @param nodeQuery the query to satisfy
+	 * @return the resulting EdgeHasNode query
+	 */
 	public static Query hasStartNode(Query nodeQuery) {
 		return new EdgeHasNode(EdgeNodeSelection.START, nodeQuery);
 	}
 
+	/**
+	 * Checks that the other Node of the Edge satisfies a Query
+	 * @param nodeQuery the Query to satisfy
+	 * @param refNode the node to use as the start (the other node is checked)
+	 * @return the resulting EdgeHasNode query
+	 */
 	public static Query hasOtherNode(Query nodeQuery, Node refNode) {
 		return new EdgeHasNode(EdgeNodeSelection.OTHER, nodeQuery, refNode);
 	}
 
+	/**
+	 * Checks that both Nodes of the Edge satisfies a Query.
+	 * @param nodeQuery the query to satisfy
+	 * @return the resulting EdgeHasNode query
+	 */
 	public static Query hasBothNodes(Query nodeQuery) {
 		return new EdgeHasNode(EdgeNodeSelection.BOTH, nodeQuery);
 	}

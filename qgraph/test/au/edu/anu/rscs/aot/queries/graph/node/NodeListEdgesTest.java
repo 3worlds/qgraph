@@ -39,7 +39,7 @@ import org.junit.jupiter.api.Test;
 
 import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Node;
-import fr.cnrs.iees.graph.impl.GraphFactory;
+import fr.cnrs.iees.graph.impl.ALGraphFactory;
 
 /**
  * 
@@ -54,7 +54,7 @@ class NodeListEdgesTest {
 	
 	@BeforeEach
 	private void init() {
-		GraphFactory gf = new GraphFactory();
+		ALGraphFactory gf = new ALGraphFactory("grünt");
 		n1 = gf.makeNode();
 		n2 = gf.makeNode();
 		n3 = gf.makeNode();

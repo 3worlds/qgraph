@@ -32,8 +32,8 @@ package au.edu.anu.rscs.aot.queries.graph.element;
 import org.junit.Test;
 
 import au.edu.anu.rscs.aot.queries.graph.element.ElementProperty;
-import fr.cnrs.iees.graph.DataNode;
-import fr.cnrs.iees.graph.impl.GraphFactory;
+import fr.cnrs.iees.graph.Node;
+import fr.cnrs.iees.graph.impl.ALGraphFactory;
 import fr.cnrs.iees.properties.SimplePropertyList;
 import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
 import junit.framework.TestCase;
@@ -48,10 +48,10 @@ public class ElementPropertyTest extends TestCase
 	@Test
 	public void testHasProperty()
 	{
-		GraphFactory gf = new GraphFactory();
+		ALGraphFactory gf = new ALGraphFactory("grz");
 		SimplePropertyList props = new SimplePropertyListImpl("p1");
 		props.setProperty("p1", 1234);
-		DataNode n = (DataNode) gf.makeNode(props);
+		Node n = (Node) gf.makeNode(props);
 		try
 		{
 			ElementProperty ep = ElementProperty.hasProperty("p1");
@@ -59,7 +59,7 @@ public class ElementPropertyTest extends TestCase
 		}
 		catch (Exception e) 
 		{
-			fail("shold not throw an exception ");
+			fail("should not throw an exception ");
 		}
 		
 		ElementProperty ep2 =null;
@@ -70,13 +70,13 @@ public class ElementPropertyTest extends TestCase
 		}
 		catch (Exception e) 
 		{
-			fail("shold not throw an exception ");
+			fail("should not throw an exception ");
 		}
 		try
 		{
 			ep2 = ElementProperty.hasProperty("p1", 12345);
 			ep2.check(n);
-			fail("shold have thrown an exception ");
+			fail("should have thrown an exception ");
 		}
 		catch (Exception e) 
 		{

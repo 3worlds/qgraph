@@ -31,17 +31,17 @@ package au.edu.anu.rscs.aot.queries.graph.edge;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Graph;
 import fr.cnrs.iees.graph.Node;
-import fr.cnrs.iees.graph.impl.GraphFactory;
-import fr.cnrs.iees.graph.impl.ImmutableGraphImpl;
+import fr.cnrs.iees.graph.impl.ALEdge;
+import fr.cnrs.iees.graph.impl.ALGraph;
+import fr.cnrs.iees.graph.impl.ALGraphFactory;
+import fr.cnrs.iees.graph.impl.ALNode;
 
 /**
  * 
@@ -51,12 +51,12 @@ import fr.cnrs.iees.graph.impl.ImmutableGraphImpl;
 class EdgeListNodesTest {
 
 	private Node n1,n2,n3,n4;
-	private List<Node> nl = new LinkedList<>();
-	private Graph<Node,Edge> g;
+	private Graph<ALNode,ALEdge> g;
 	
 	@BeforeEach
 	private void init() {
-		GraphFactory gf = new GraphFactory();
+		ALGraphFactory gf = new ALGraphFactory("brouf");
+		g = new ALGraph<ALNode,ALEdge>(gf);
 		n1 = gf.makeNode();
 		n2 = gf.makeNode();
 		n3 = gf.makeNode();
@@ -65,14 +65,13 @@ class EdgeListNodesTest {
 		gf.makeEdge(n1,n3);
 		gf.makeEdge(n1,n4);
 		gf.makeEdge(n2,n3);
-		nl.add(n1); nl.add(n2); nl.add(n3); nl.add(n4);
-		g = new ImmutableGraphImpl<Node,Edge>(nl);
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Test
 	void testStartNodes() {
-		List<Node> nodeList = (List<Node>)EdgeListNodes.startNodes().process(g.edges()).getResult();
+		List<Node> nodeList = (List<Node>)EdgeListNodes
+			.startNodes().process(g.edges()).getResult();
 		assertTrue(nodeList.size() == 2);
 		assertTrue(nodeList.contains(n1));
 		assertTrue(nodeList.contains(n2));
@@ -81,21 +80,34 @@ class EdgeListNodesTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	void testEndNodes() {
-		List<Node> nodeList = (List<Node>)EdgeListNodes.endNodes().process(g.edges()).getResult();
+		List<Node> nodeList = (List<Node>)EdgeListNodes
+			.endNodes().process(g.edges()).getResult();
 		assertTrue(nodeList.size() == 3);
 		assertTrue(nodeList.contains(n2));
 		assertTrue(nodeList.contains(n3));
 		assertTrue(nodeList.contains(n4));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	void testOtherNodes() {
-		fail("Not yet implemented");
+		List<Node> nodeList = (List<Node>)EdgeListNodes
+			.otherNodes(n3).process(g.edges()).getResult();
+		assertTrue(nodeList.size() == 2);
+		assertTrue(nodeList.contains(n1));
+		assertTrue(nodeList.contains(n2));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	void testBothNodes() {
-		fail("Not yet implemented");
+		List<Node> nodeList = (List<Node>)EdgeListNodes
+			.bothNodes().process(g.edges()).getResult();
+		assertTrue(nodeList.size() == 4);
+		assertTrue(nodeList.contains(n1));
+		assertTrue(nodeList.contains(n2));
+		assertTrue(nodeList.contains(n3));
+		assertTrue(nodeList.contains(n4));
 	}
 
 }

@@ -122,7 +122,7 @@ public class EdgeQuery extends Query {
 		if (startLabel != null)
 			satisfied = satisfied && startNode.classId().equals(startLabel);
 		if (label != null)
-			satisfied = satisfied && ((Node)localItem).classId().equals(label);
+			satisfied = satisfied && localItem.classId().equals(label);
 		if (endLabel != null)
 			satisfied = satisfied && endNode.classId().equals(endLabel);
 

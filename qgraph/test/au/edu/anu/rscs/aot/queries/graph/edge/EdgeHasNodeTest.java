@@ -44,7 +44,7 @@ import org.junit.jupiter.api.Test;
 import fr.cnrs.iees.graph.Direction;
 import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Node;
-import fr.cnrs.iees.graph.impl.GraphFactory;
+import fr.cnrs.iees.graph.impl.ALGraphFactory;
 
 /**
  * 
@@ -55,7 +55,7 @@ class EdgeHasNodeTest {
 
 	private Node n1,n2,n3;
 	private List<Node> nl = new LinkedList<>();
-	private GraphFactory gf = new GraphFactory();
+	private ALGraphFactory gf = new ALGraphFactory("zozo");
 	
 	@BeforeEach
 	private void init() {
@@ -72,14 +72,15 @@ class EdgeHasNodeTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	void testHasEndNode() {
-		Iterable<Edge> edges = (Iterable<Edge>)get(n1.getEdges(Direction.OUT), 
-				selectZeroOrMany(EdgeHasNode.hasEndNode(isNode(n2))));
+		Iterable<Edge> edges = (Iterable<Edge>)get(n1.edges(Direction.OUT), 
+			selectZeroOrMany(EdgeHasNode.hasEndNode(isNode(n2))));
 		ArrayList<Edge> temp=new ArrayList<Edge>();
 		for (Edge e : edges)
 			temp.add(e);
 		assertTrue(temp.size()==2);
 		temp.clear();
-		edges = (Iterable<Edge>)get(n1.getEdges(Direction.OUT), selectZeroOrMany(EdgeHasNode.hasEndNode(isNode(n3))));
+		edges = (Iterable<Edge>)get(n1.edges(Direction.OUT), 
+			selectZeroOrMany(EdgeHasNode.hasEndNode(isNode(n3))));
 		for (Edge e : edges)
 			temp.add(e);
 		assertTrue(temp.size()==2);
@@ -88,35 +89,51 @@ class EdgeHasNodeTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	void testHasStartNode() {
-		Iterable<Edge> edges = (Iterable<Edge>)get(n2.getEdges(Direction.IN), selectZeroOrMany(EdgeHasNode.hasStartNode(isNode(n1))));
+		Iterable<Edge> edges = (Iterable<Edge>)get(n2.edges(Direction.IN), 
+			selectZeroOrMany(EdgeHasNode.hasStartNode(isNode(n1))));
 		ArrayList<Edge> temp=new ArrayList<Edge>();
 		for (Edge e : edges)
 			temp.add(e);
 		assertTrue(temp.size()==2);
 		temp.clear();
-		edges = (Iterable<Edge>)get(n3.getEdges(Direction.IN), selectZeroOrMany(EdgeHasNode.hasStartNode(isNode(n1))));
+		edges = (Iterable<Edge>)get(n3.edges(Direction.IN), 
+			selectZeroOrMany(EdgeHasNode.hasStartNode(isNode(n1))));
 		for (Edge e : edges)
 			temp.add(e);
 		assertTrue(temp.size()==2);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	void testHasOtherNode() {
-		fail("Not yet implemented");
+		Iterable<Edge> edges = (Iterable<Edge>)get(n2.edges(), 
+				selectZeroOrMany(EdgeHasNode.hasOtherNode(isNode(n1),n2)));
+			ArrayList<Edge> temp=new ArrayList<Edge>();
+			for (Edge e : edges)
+				temp.add(e);
+			assertTrue(temp.size()==2);
+			temp.clear();
+			edges = (Iterable<Edge>)get(n3.edges(Direction.IN), 
+				selectZeroOrMany(EdgeHasNode.hasOtherNode(isNode(n1),n3)));
+			for (Edge e : edges)
+				temp.add(e);
+			assertTrue(temp.size()==2);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Test
 	void testHasBothNodes() {
 		gf.makeEdge(n1,n1);
-		Iterable<Edge> edges = (Iterable<Edge>)get(n1.getEdges(Direction.IN), selectZeroOrMany(EdgeHasNode.hasBothNodes(isNode(n1))));
+		Iterable<Edge> edges = (Iterable<Edge>)get(n1.edges(Direction.IN), 
+			selectZeroOrMany(EdgeHasNode.hasBothNodes(isNode(n1))));
 		ArrayList<Edge> temp=new ArrayList<Edge>();
 		for (Edge e : edges)
 			temp.add(e);
 		assertTrue(temp.size()==1);
 
 		temp.clear();
-		edges = (Iterable<Edge>)get(n3.getEdges(Direction.IN), selectZeroOrMany(EdgeHasNode.hasBothNodes(isNode(n1))));
+		edges = (Iterable<Edge>)get(n3.edges(Direction.IN), 
+			selectZeroOrMany(EdgeHasNode.hasBothNodes(isNode(n1))));
 		for (Edge e : edges)
 			temp.add(e);
 		assertTrue(temp.size()==0);

@@ -36,37 +36,63 @@ import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Node;
 
 /**
+ * <p>A {@link Query} to select start, end, other-end or both-ends Nodes of a list of Edges</p> 
+ * <dl>
+ * <dt>Type of input to {@code process()}</dt>
+ * <dd>Iterable&lt;Edge&gt;</dd>
+ * <dt>Type of result</dt>
+ * <dd>DynamicList&lt;Node&gt;</dd>
+ * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
 //Tested OK with version 0.0.1 on 5/12/2018 (using Shayne's test suite)
+// tested OK with version 0.1.1 on 21/5/2019
 public class EdgeListNodes extends Query {
 
 	private EdgeNodeSelection edgeNodeSelection;
 	private Node refNode = null;
 
-	public EdgeListNodes(EdgeNodeSelection edgeNodeSelection) {
+	private EdgeListNodes(EdgeNodeSelection edgeNodeSelection) {
 		this.edgeNodeSelection = edgeNodeSelection;
 	}
 
-	public EdgeListNodes(EdgeNodeSelection edgeNodeSelection, Node refNode) {
+	private EdgeListNodes(EdgeNodeSelection edgeNodeSelection, Node refNode) {
 		this(edgeNodeSelection);
 		this.refNode = refNode;
 	}
 
+	/**
+	 * Selects all start nodes of the input edge list
+	 * @return the resulting EdgeListNodes query
+	 */
 	public static Query startNodes() {
 		return new EdgeListNodes(EdgeNodeSelection.START);
 	}
 
+	/**
+	 * Selects all end nodes of the input edge list
+	 * @return the resulting EdgeListNodes query
+	 */
 	public static Query endNodes() {
 		return new EdgeListNodes(EdgeNodeSelection.END);
 	}
 
+	/**
+	 * Selects all nodes of the input edge list which have refNode at the other end of the 
+	 * Edge.
+	 * @param refNode the node to use as the start (the other node is selected) 
+	 * @return the resulting EdgeListNodes query
+	 */
 	public static Query otherNodes(Node refNode) {
 		return new EdgeListNodes(EdgeNodeSelection.OTHER, refNode);
 	}
 
+	/**
+	 * Selects all nodes of the input edge list
+	 * @return the resulting EdgeListNodes query
+	 */
 	public static Query bothNodes() {
 		return new EdgeListNodes(EdgeNodeSelection.BOTH);
 	}
@@ -90,7 +116,8 @@ public class EdgeListNodes extends Query {
 			break;
 		case OTHER:
 			for (Edge e : localItem) 
-				tempResult.addUnique((Node) e.otherNode(refNode));
+				if (e.otherNode(refNode)!=null)
+					tempResult.addUnique((Node) e.otherNode(refNode));
 			satisfied = true;
 			break;
 		case BOTH:

@@ -29,6 +29,8 @@
  **************************************************************************/
 package au.edu.anu.rscs.aot.queries;
 
+import java.util.logging.Logger;
+
 import au.edu.anu.rscs.aot.QGraphException;
 
 /**
@@ -40,30 +42,54 @@ import au.edu.anu.rscs.aot.QGraphException;
  * <li>Later on, a call to {@code Query.satisfied(Object)} will check the condition
  * and return true if the Query was satistfied;</li>
  * <li>Alternatively, a call to {@code Query.check(Object)} can be made, that will return
- * an Exception of the query is not satisfied.</li>
+ * an Exception if the query is not satisfied.</li>
  * </ul>
  * <p>Most Query subclasses come with static methods implementing the most common use cases for their class.</p>
  * <p>Queries in the base package apply to non-graph objects.</p>
+ * <p>The {@code process()} method parameter type is generic ({@link Object}), but for every 
+ * particular Query a specific type is required (cf. the javadoc for each specific Query type).</p>
+ * <p>Some queries compute a result, accessible through the {@code getResult()} method. The 
+ * default return type is {@code Object}, but the actual return type has to be known (cf. the
+ * javadoc for each specific Query type). A typical use case is returning a filtered list
+ * when the input to {@code process()} is a list of items.</p>
  * 
  * @author Shayne Flint - 15/3/2012
  *
  */
 public abstract class Query {
 
+	private static Logger log = Logger.getLogger(Query.class.getSimpleName());
 	protected Object  result    = null;
 	protected boolean satisfied = false;
 
+	/**
+	 * 
+	 * @return the result computed by the Query
+	 */
 	public Object getResult() {
 		return result;
 	}
 
+	/**
+	 * 
+	 * @return true if the Query was satisfied
+	 */
 	public boolean satisfied() {
 		return satisfied;
 	}
 
-
+	/**
+	 * Processes the Query constraint on the input 
+	 * @param input the object to check
+	 * @return this Query (for agile programming)
+	 */
 	public abstract Query process(Object input);
 
+	/**
+	 * Default processing, always returning satisfied = false and result = input.
+	 * @param input the object to check
+	 * @return this Query (for agile programming)
+	 */
 	protected Query defaultProcess(Object input) {
 		//		this.input = input;
 		result = input;
@@ -71,12 +97,21 @@ public abstract class Query {
 		return this;
 	}
 
+	/**
+	 * Calls {@code process(input)} and returns true if satisfied
+	 * @param input the object to check
+	 * @return true if the Query was satisfied
+	 */
 	public boolean satisfied(Object input) {
 		process(input);
 		return satisfied;
 	}
 
 
+	/**
+	 * Calls {@code process(input)} and throws an Exception if not satisfied
+	 * @param input the object to check
+	 */
 	public void check(Object item) {
 		process(item);
 		if (!satisfied()) {
@@ -126,8 +161,11 @@ public abstract class Query {
 		return "[" + stateString() + this.getClass().getName() + "]";
 	}
 
+	/**
+	 * for debugging only
+	 */
 	public void log() {
-		//		Log.log(toString());
+		log.info(toString());
 	}
 
 

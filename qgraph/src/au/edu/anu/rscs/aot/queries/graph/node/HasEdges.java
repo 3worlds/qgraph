@@ -118,12 +118,12 @@ public class HasEdges extends Query {
 		switch (edgeDirection) {
 		case IN:
 			// caution: not tested yet
-			edges = (DynamicList<Edge>) get(localItem.getEdges(Direction.IN),
+			edges = (DynamicList<Edge>) get(localItem.edges(Direction.IN),
 				selectZeroOrMany(hasStartNode(nodeQuery)));
 //			edges = localItem.getInEdges(hasStartNode(nodeQuery));
 			break;
 		case OUT:
-			edges = (DynamicList<Edge>) get(localItem.getEdges(Direction.OUT),
+			edges = (DynamicList<Edge>) get(localItem.edges(Direction.OUT),
 				selectZeroOrMany(hasEndNode(nodeQuery)));
 //			edges = localItem.getOutEdges(hasEndNode(nodeQuery));
 			break;

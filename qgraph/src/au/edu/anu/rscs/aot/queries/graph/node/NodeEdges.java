@@ -75,9 +75,9 @@ public class NodeEdges extends Query {
 		defaultProcess(item);
 		Node localItem = (Node)item;
 		if (query == null)
-		    result = localItem.getEdges(direction);
+		    result = localItem.edges(direction);
 		else {
-		    result = get(localItem.getEdges(direction), selectZeroOrMany(query));
+		    result = get(localItem.edges(direction), selectZeroOrMany(query));
 		}
 		satisfied = true;
 		return this;

@@ -30,17 +30,25 @@
 package au.edu.anu.rscs.aot.queries.graph.element;
 
 import au.edu.anu.rscs.aot.queries.Query;
-import fr.cnrs.iees.graph.ReadOnlyDataElement;
+import fr.cnrs.iees.graph.ReadOnlyDataHolder;
 import fr.cnrs.iees.properties.ReadOnlyPropertyList;
 
 /**
- * Checks that an object has a property and/or a value. The object must implement the
- * <em>ReadonlyPropertyList</em> interface (library <em>omugi</em>).
+ * <p>A {@link Query} to check that an object has a property and/or a value.</p>
+ * <dl>
+ * <dt>Type of input to {@code process()}</dt>
+ * <dd>{@link ReadOnlyPropertyList} or {@link ReadOnlyDataHolder} (remember that
+ * {@link SimplePropertyList} and {@link DataHolder} are descendants of these, and as such
+ * also constitute valid input)</dd>
+ * <dt>Type of result</dt>
+ * <dd>the property value, if applicable - otherwise no result</dd>
+ * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
-//Tested OK with version 0.0.1 on 5/12/2018 (using Shayne's test suite)
+// Tested OK with version 0.0.1 on 5/12/2018 (using Shayne's test suite)
+// Tested OK with version 0.1.1 on 21/5/2019 (NB the test suite is not complete, only checks hasProperty)
 public class ElementProperty extends Query {
 
 	private String key;
@@ -50,7 +58,7 @@ public class ElementProperty extends Query {
 	private boolean getValue;
 	private boolean optional = false;
 
-	public ElementProperty(String key) {
+	private ElementProperty(String key) {
 		this.key = key;
 		this.defaultValue = null;
 		this.value = null;
@@ -60,26 +68,61 @@ public class ElementProperty extends Query {
 	}
 
 
+	/**
+	 * Checks that a property exists in the input
+	 * @param key the name of the property
+	 * @return the resulting ElementProperty query
+	 */
 	public static ElementProperty hasProperty(String key) {
 		return new ElementProperty(key);
 	}
 
+	/**
+	 * Checks that a property exists and has the specified value in the input
+	 * @param key the name of the property
+	 * @param value the expected value
+	 * @return the resulting ElementProperty query
+	 */
 	public static ElementProperty hasProperty(String key, Object value) {
 		return new ElementProperty(key).setValue(value);
 	}
 
+	/**
+	 * Checks that a property exists and satisfied the specified query
+	 * @param key the name of the property
+	 * @param query the query to check for this property
+	 * @return the resulting ElementProperty query
+	 */
 	public static ElementProperty hasProperty(String key, Query query) {
 		return new ElementProperty(key).setQuery(query);
 	}
 
+	/**
+	 * Checks that an <em>optional</em> property exists and satisfied the specified query
+	 * @param key the name of the property
+	 * @param query the query to check for this property
+	 * @return the resulting ElementProperty query
+	 */
 	public static ElementProperty hasOptionalProperty(String key, Query query) {
 		return new ElementProperty(key).setQuery(query).setOptional(true);
 	}
 
+	/**
+	 * Get the value of the specified property, and use the specified default value if
+	 * property not set
+	 * @param key the name of the property
+	 * @param defaultValue the value to set if the property was empty
+	 * @return the resulting ElementProperty query
+	 */
 	public static ElementProperty getProperty(String key, Object defaultValue) {
 		return new ElementProperty(key).setDefaultValue(defaultValue).getValue(true);
 	}
 
+	/**
+	 * Get the value of the specified property
+	 * @param key the name of the property
+	 * @return the resulting ElementProperty query
+	 */
 	public static ElementProperty getProperty(String key) {
 		return getProperty(key, null);
 	}
@@ -152,8 +195,8 @@ public class ElementProperty extends Query {
 		// as well as property lists
 		if (item instanceof ReadOnlyPropertyList)
 			localItem = (ReadOnlyPropertyList)item;
-		else if (item instanceof ReadOnlyDataElement)
-			localItem = ((ReadOnlyDataElement)item).properties();
+		else if (item instanceof ReadOnlyDataHolder)
+			localItem = ((ReadOnlyDataHolder)item).properties();
 
 		Object propertyValue;
 		if (defaultValue == null)

@@ -36,7 +36,14 @@ import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Node;
 
 /**
- * 
+ * <p>A {@link Query} to select In, OUT or all edges of a list of Nodes.</p>
+ * <dl>
+ * <dt>Type of input to {@code process()}</dt>
+ * <dd>Iterable&lt;Node&gt;</dd>
+ * <dt>Type of result</dt>
+ * <dd>DynamicList&lt;Edge&gt;</dd>
+ * </dl>
+
  * @author Shayne Flint - 2/4/2012
  *
  */
@@ -81,7 +88,7 @@ public class NodeListEdges extends Query {
 //		NodeList localItem = (NodeList)item;
 		DynamicList<Edge> tempResult = new DynamicList<Edge>();
 		for (Node n : localItem)
-			tempResult.addAllUnique((Iterable<Edge>) n.getEdges(direction));
+			tempResult.addAllUnique((Iterable<Edge>) n.edges(direction));
 		satisfied = true;
 		result = new DynamicList<Edge>(tempResult);
 		return this;
