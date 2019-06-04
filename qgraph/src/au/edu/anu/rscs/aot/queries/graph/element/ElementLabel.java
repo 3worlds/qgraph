@@ -29,7 +29,7 @@
  **************************************************************************/
 package au.edu.anu.rscs.aot.queries.graph.element;
 
-import au.edu.anu.rscs.aot.collections.tables.ObjectTable;
+import au.edu.anu.rscs.aot.collections.tables.StringTable;
 import au.edu.anu.rscs.aot.queries.Query;
 import fr.cnrs.iees.graph.Specialized;
 
@@ -58,10 +58,10 @@ public class ElementLabel extends Query {
 	
 	// constructor added by JG 7/9/2016 - for some reason, list properties are read as ObjectTable<?>
 	// so we need a constructor to read these when using Archetypes.check() or .complies()
-	public ElementLabel(ObjectTable<?> labels) {
+	public ElementLabel(StringTable labels) {
 		this.labels = new String[labels.size()];
 		for (int i=0; i<labels.size(); i++)
-			this.labels[i] = ((String)labels.getWithFlatIndex(i));
+			this.labels[i] = (labels.getWithFlatIndex(i));
 	}
 
 	public static ElementLabel hasTheLabel(String... labels) {
