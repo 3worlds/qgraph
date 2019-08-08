@@ -36,7 +36,7 @@ import au.edu.anu.rscs.aot.queries.base.SequenceQuery;
 import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
 
 
-public class IsUMLAssociation extends AndQuery {
+public class IsUMLAssociation extends AndQuery  {
 
 	public IsUMLAssociation() {
 		
