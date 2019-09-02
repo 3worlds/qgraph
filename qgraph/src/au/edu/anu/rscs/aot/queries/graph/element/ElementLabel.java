@@ -70,7 +70,14 @@ public class ElementLabel extends Query {
 
 	@Override
 	public String toString() {
-		return "[" + stateString() + "label must be '" + labels.toString() + "']";
+		StringBuilder sb = new StringBuilder();
+		sb.append('[')
+			.append(stateString())
+			.append("label must be '");
+		for (int i=0; i<labels.length; i++)
+			sb.append(labels[i]).append(',');
+		sb.append("']");
+		return sb.toString();
 	}
 	
 	@Override
