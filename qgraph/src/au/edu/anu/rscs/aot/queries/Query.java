@@ -32,6 +32,7 @@ package au.edu.anu.rscs.aot.queries;
 import java.util.logging.Logger;
 
 import au.edu.anu.rscs.aot.QGraphException;
+import fr.ens.biologie.generic.utils.Logging;
 
 /**
  * <p>The ancestor class for the Query system.</p>
@@ -58,7 +59,7 @@ import au.edu.anu.rscs.aot.QGraphException;
  */
 public abstract class Query {
 
-	private static Logger log = Logger.getLogger(Query.class.getSimpleName());
+	private static Logger log = Logging.getLogger(Query.class);
 	protected Object  result    = null;
 	protected boolean satisfied = false;
 

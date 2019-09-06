@@ -31,6 +31,7 @@ package au.edu.anu.rscs.aot.queries.graph;
 
 import java.util.logging.Logger;
 import fr.cnrs.iees.graph.Node;
+import fr.ens.biologie.generic.utils.Logging;
 import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Graph;
 
@@ -44,7 +45,7 @@ import au.edu.anu.rscs.aot.queries.Query;
 // NOT TESTED
 public class GraphLogQuery extends Query {
 
-	private Logger log = Logger.getLogger(GraphLogQuery.class.toString());
+	private static Logger log = Logging.getLogger(GraphLogQuery.class);
 
 	private String prefix;
 	

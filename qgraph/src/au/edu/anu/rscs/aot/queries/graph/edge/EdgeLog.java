@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 
 import au.edu.anu.rscs.aot.queries.Query;
 import fr.cnrs.iees.graph.Edge;
+import fr.ens.biologie.generic.utils.Logging;
 
 /**
  * 
@@ -57,7 +58,7 @@ public class EdgeLog extends Query {
 		return new EdgeLog("");
 	}
 
-	private Logger log = Logger.getLogger(EdgeLog.class.getName());
+	private static Logger log = Logging.getLogger(EdgeLog.class);
 
 	@Override
 	public Query process(Object item) {
