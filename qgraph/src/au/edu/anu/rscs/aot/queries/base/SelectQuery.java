@@ -260,7 +260,7 @@ public class SelectQuery extends Query {
 		// list = ((DynamicList) item);
 		// }
 		else
-			failed("expected Collection (got " + item.getClass() + ")");
+			failed("||Expected Collection but found " + item.getClass().getSimpleName() + ".||");
 
 //		if (searchSubArchetypes && isAotNodeList(list))
 //			searchSubArchetypes(list);
@@ -276,12 +276,14 @@ public class SelectQuery extends Query {
 
 		if (theQuery != null && exclusive)
 			if (count != originalSize)
-				failed("SelectQuery did not expect items which do not match " + theQuery + " (found "
-						+ (originalSize - count) + " unexpected items)");
+				failed("||Expected only items that match " + theQuery.getClass().getSimpleName() + " but found "
+						+ (originalSize - count) + " unexpected items.||");
+//				failed("SelectQuery did not expect items which do not match " + theQuery + " (found "
+//						+ (originalSize - count) + " unexpected items)");
 
 		if (!multiplicity.inRange(count))
-			failed("SelectQuery expected exactly " + multiplicity + " item(s) matching " + theQuery + " (found " + count
-					+ ")");
+			failed("||Expected " + multiplicity + " item(s) matching " + theQuery.getClass().getSimpleName() + " but found " + count
+					+ ".||");
 
 		if (returnMany) {
 			result = localItem;
