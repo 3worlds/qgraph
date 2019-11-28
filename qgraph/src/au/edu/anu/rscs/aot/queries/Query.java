@@ -147,11 +147,12 @@ public abstract class Query {
 	// Representation
 	//
 
+	public static String queryFailedStr = "X!";
 	public String stateString() {
 		if (satisfied)
 			return ""; //"[Passed on " + input + "]";
 		else
-			return "X"; //"[Failed on " + input + "]";
+			return queryFailedStr; //"[Failed on " + input + "]";
 	}
 
 	public String toString() {
