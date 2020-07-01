@@ -31,7 +31,6 @@ package au.edu.anu.rscs.aot.queries.graph.element;
 
 import org.junit.Test;
 
-import au.edu.anu.rscs.aot.queries.graph.element.ElementProperty;
 import fr.cnrs.iees.graph.Node;
 import fr.cnrs.iees.graph.impl.ALGraphFactory;
 import fr.cnrs.iees.properties.SimplePropertyList;
