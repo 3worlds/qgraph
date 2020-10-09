@@ -87,7 +87,7 @@ class SelectQueryTest {
 		} 
 		catch (Exception e) 
 		{
-			fail("shold not throw an exception ");
+			fail("should not throw an exception ");
 		}
 	}
 	

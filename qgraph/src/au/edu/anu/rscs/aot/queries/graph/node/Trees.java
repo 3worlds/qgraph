@@ -37,6 +37,8 @@ import fr.cnrs.iees.graph.TreeNode;
 
 import static au.edu.anu.rscs.aot.queries.base.SequenceQuery.get;
 
+import java.util.Collection;
+
 /**
  * 
  * @author Shayne Flint - 2/4/2012
@@ -112,12 +114,6 @@ public class Trees extends Query {
 
 
 	private TreeNode root(TreeNode node) {
-//		Edge parentEdge = (Edge) get(node.getEdges(Direction.IN),
-//			selectZeroOrOne(hasTheLabel(CHILD_LABEL)));
-//		if (parentEdge == null)
-//			return node;
-//		else
-//			return root(parentEdge.startNode());
 		TreeNode parent = node.getParent();
 		if (parent==null)
 			parent = node; // is this really the wanted behaviour ? looks unsafe to me. JG 2019
@@ -128,14 +124,6 @@ public class Trees extends Query {
 		if (query.satisfied(node))
 			return node;
 		else {
-//			Node parent = (Node)get(node, 
-//				inEdges(hasTheLabel(CHILD_LABEL)), 
-//				selectZeroOrOne(), 
-//				startNode());
-//			if (parent == null)
-//				return null;
-//			else
-//				return parent(parent, query);
 			TreeNode parent = node.getParent();
 			if (parent==null)
 				return null;
@@ -148,26 +136,14 @@ public class Trees extends Query {
 	// for aggregating lists
 	@SuppressWarnings("unchecked")
 	public QuickListOfLists<TreeNode> childTree(TreeNode node) {
-//		DynamicList<Node> nodeList = new DynamicList<Node>();
-//		nodeList.addAll((DynamicList<Node>)get(node, 
-//			outEdges(hasTheLabel(CHILD_LABEL)), 
-//			selectZeroOrMany(), 
-//			edgeListEndNodes()));
-//		for (Node n : nodeList) 
-//			nodeList.addAll(childTree(n));
 		QuickListOfLists<TreeNode> nodeList = new QuickListOfLists<TreeNode>();
-		nodeList.addList((Iterable<TreeNode>) node.getChildren());
+		nodeList.addList((Collection<TreeNode>)node.getChildren());
 		for (TreeNode n : nodeList) 
-			nodeList.addList((Iterable<TreeNode>) childTree(n));
+			nodeList.addList((Collection<TreeNode>)childTree(n));
 		return nodeList;
 	}
 	
 	public DynamicList<TreeNode> childTree(TreeNode node, Query query) {
-//		DynamicList<Node> childTree = childTree(node);
-//		DynamicList<Node> nodeList = new DynamicList<Node>();
-//		for (Node n : childTree) 
-//			if (query.satisfied(n))
-//				nodeList.add(n);
 		QuickListOfLists<TreeNode> childTree = childTree(node);
 		DynamicList<TreeNode> nodeList = new DynamicList<TreeNode>();
 		for (TreeNode n : childTree) 
@@ -182,8 +158,6 @@ public class Trees extends Query {
 	public Query process(Object item) {
 		defaultProcess(item);
 		TreeNode localItem = (TreeNode)item;
-		//		NodeList nodeList = new NodeList();
-		//		nodeList.addNode(localItem);		
 		if (traverse) {
 			if (getParent) {
 				if (query == null) {
@@ -204,22 +178,11 @@ public class Trees extends Query {
 			}
 		} else {
 			if (getParent) {
-//				result = (Node)get(localItem, 
-//					inEdges(hasTheLabel(CHILD_LABEL)), 
-//					selectZeroOrOne(), 
-//					startNode());
 				result = localItem.getParent();
 			} else {
 				if (query == null)
-//					result = (DynamicList<Node>)get(localItem, 
-//						outEdges(hasTheLabel(CHILD_LABEL)), 
-//						edgeListEndNodes());
 					result = localItem.getChildren();
 				else
-//					result = (DynamicList<Node>)get(localItem, 
-//						outEdges(hasTheLabel(CHILD_LABEL)), 
-//						edgeListEndNodes(), 
-//						selectZeroOrMany(query));
 					result = (DynamicList<TreeNode>)get(localItem.getChildren(),
 						selectZeroOrMany(query));	
 			}
