@@ -497,7 +497,7 @@ public class CoreQueries {
 		return EdgeListNodes.otherNodes(refNode);
 	}
 
-	public static Query edgeListBotheNodes() {
+	public static Query edgeListBothNodes() {
 		return EdgeListNodes.bothNodes();
 	}
 
