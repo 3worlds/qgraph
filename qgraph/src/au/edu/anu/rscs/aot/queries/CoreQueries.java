@@ -2,15 +2,15 @@
  *  QGRAPH - A Query system for graphs                                    *
  *                                                                        *
  *  Copyright 2018: Shayne Flint, Jacques Gignoux & Ian D. Davies         *
- *       shayne.flint@anu.edu.au                                          * 
+ *       shayne.flint@anu.edu.au                                          *
  *       jacques.gignoux@upmc.fr                                          *
- *       ian.davies@anu.edu.au                                            * 
+ *       ian.davies@anu.edu.au                                            *
  *                                                                        *
  *  QGRAPH implements a Query system enabling one to search a set of      *
  *  objects and return results if these objects match the queries. It has *
  *  been designed for graphs but some queries are more general and can    *
- *  apply to any kind of object.                                          * 
- **************************************************************************                                       
+ *  apply to any kind of object.                                          *
+ **************************************************************************
  *  This file is part of QGRAPH (A Query system for graphs).              *
  *                                                                        *
  *  QGRAPH is free software: you can redistribute it and/or modify        *
@@ -21,7 +21,7 @@
  *  QGRAPH is distributed in the hope that it will be useful,             *
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of        *
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *  GNU General Public License for more details.                          *                         
+ *  GNU General Public License for more details.                          *
  *                                                                        *
  *  You should have received a copy of the GNU General Public License     *
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
@@ -46,9 +46,9 @@ import fr.cnrs.iees.graph.Node;
 
 
 /**
- * 
+ *
  * This class is a convenience class of static methods that brings together queries of all types
- * 
+ *
  * @author Shayne Flint - 26/3/2012
  */
 public class CoreQueries {
