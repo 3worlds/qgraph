@@ -2,15 +2,15 @@
  *  QGRAPH - A Query system for graphs                                    *
  *                                                                        *
  *  Copyright 2018: Shayne Flint, Jacques Gignoux & Ian D. Davies         *
- *       shayne.flint@anu.edu.au                                          * 
+ *       shayne.flint@anu.edu.au                                          *
  *       jacques.gignoux@upmc.fr                                          *
- *       ian.davies@anu.edu.au                                            * 
+ *       ian.davies@anu.edu.au                                            *
  *                                                                        *
  *  QGRAPH implements a Query system enabling one to search a set of      *
  *  objects and return results if these objects match the queries. It has *
  *  been designed for graphs but some queries are more general and can    *
- *  apply to any kind of object.                                          * 
- **************************************************************************                                       
+ *  apply to any kind of object.                                          *
+ **************************************************************************
  *  This file is part of QGRAPH (A Query system for graphs).              *
  *                                                                        *
  *  QGRAPH is free software: you can redistribute it and/or modify        *
@@ -21,7 +21,7 @@
  *  QGRAPH is distributed in the hope that it will be useful,             *
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of        *
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *  GNU General Public License for more details.                          *                         
+ *  GNU General Public License for more details.                          *
  *                                                                        *
  *  You should have received a copy of the GNU General Public License     *
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
@@ -31,16 +31,16 @@ package au.edu.anu.rscs.aot.queries.graph.node;
 
 import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
 import au.edu.anu.rscs.aot.collections.DynamicList;
-import au.edu.anu.rscs.aot.collections.QuickListOfLists;
 import au.edu.anu.rscs.aot.queries.Query;
 import fr.cnrs.iees.graph.TreeNode;
 
 import static au.edu.anu.rscs.aot.queries.base.SequenceQuery.get;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * 
+ *
  * @author Shayne Flint - 2/4/2012
  * refactored by J. Gignoux - 12/4/2019 to handle new tree structure
  *
@@ -132,27 +132,24 @@ public class Trees extends Query {
 		}
 	}
 
-	// using QuickListOfLists rather than DynamicList because more efficient 
-	// for aggregating lists
-	@SuppressWarnings("unchecked")
-	public QuickListOfLists<TreeNode> childTree(TreeNode node) {
-		QuickListOfLists<TreeNode> nodeList = new QuickListOfLists<TreeNode>();
-		nodeList.addList((Collection<TreeNode>)node.getChildren());
-		for (TreeNode n : nodeList) 
-			nodeList.addList((Collection<TreeNode>)childTree(n));
+	public List<TreeNode> childTree(TreeNode node) {
+		List<TreeNode> nodeList = new ArrayList<TreeNode>();
+		nodeList.addAll(node.getChildren());
+		for (TreeNode c:node.getChildren())
+			nodeList.addAll(childTree(c));
 		return nodeList;
 	}
-	
+
 	public DynamicList<TreeNode> childTree(TreeNode node, Query query) {
-		QuickListOfLists<TreeNode> childTree = childTree(node);
+		List<TreeNode> childTree = childTree(node);
 		DynamicList<TreeNode> nodeList = new DynamicList<TreeNode>();
-		for (TreeNode n : childTree) 
+		for (TreeNode n : childTree)
 			if (query.satisfied(n))
 				nodeList.add(n);
-		return nodeList;		
+		return nodeList;
 	}
-	
-	
+
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public Query process(Object item) {
@@ -184,7 +181,7 @@ public class Trees extends Query {
 					result = localItem.getChildren();
 				else
 					result = (DynamicList<TreeNode>)get(localItem.getChildren(),
-						selectZeroOrMany(query));	
+						selectZeroOrMany(query));
 			}
 		}
 		satisfied = true;
