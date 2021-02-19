@@ -2,6 +2,10 @@ package au.edu.anu.rscs.aot.queries.prototype;
 
 import java.util.Stack;
 
+import au.edu.anu.rscs.aot.collections.DynamicList;
+import au.edu.anu.rscs.aot.queries.base.SequenceQuery;
+import au.edu.anu.rscs.aot.queries.base.SizeQuery;
+
 /**
  * @author ian
  *
@@ -22,9 +26,9 @@ public class XSequenceQuery extends XQueryList {
 		// NB loop stops processing at first failed query
 		for (XQuery q:queryList()) {
 			if (!processAQuery(stack,input,q)) {
-				satisfied = false;
+//				satisfied = false;
 				result = stack.peek();
-				failMsg = q.failMsg;
+				errorMsg = q.errorMsg;
 				return this;
 			};
 		}
@@ -36,10 +40,29 @@ public class XSequenceQuery extends XQueryList {
 		try{
 			q.process(stack.peek());
 			stack.push(q.getResult());
-			satisfied = q.satisfied();
+//			satisfied = q.satisfied();
+			errorMsg = q.errorMsg;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return satisfied;
+		return errorMsg==null;
 	}
+	
+	public static Object get(Object input, XQuery... queries) {
+		XSequenceQuery q = new XSequenceQuery(queries);
+		q.process(input);
+		return q.getResult();
+	}
+	
+	public static void main(String[] args) {
+		DynamicList<Integer> sizeable = new DynamicList<>();
+		sizeable.add(1);
+		System.out.println(SequenceQuery.get(sizeable, new SizeQuery(2,3),new SizeQuery(2,9)).getClass());
+		Object result = XSequenceQuery.get(sizeable, new XIntRangeQuery(2, 3), new XIntRangeQuery(2, 9));
+		System.out.println(result.getClass());
+//		XSequenceQuery sq = new XSequenceQuery(new XIntRangeQuery(1, 3), new XIntRangeQuery(1, 9));
+//		sq.process(sizeable);
+//		System.out.println(sq.failMsg);
+	}
+
 }
