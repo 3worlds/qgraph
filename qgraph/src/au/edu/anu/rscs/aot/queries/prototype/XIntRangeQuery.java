@@ -15,7 +15,7 @@ public class XIntRangeQuery extends XQuery {
 
 	@Override
 	public XQuery process(Object input) {
-		initProcess(input);
+		initProcess(input,Sizeable.class);
 		/**
 		 * If the query is incorrectly formulated it should crash rather than try and
 		 * subsume the error within the query message system - I believe?
@@ -32,6 +32,5 @@ public class XIntRangeQuery extends XQuery {
 					+ " but must be the range " + min + " to " + max;
 		return this;
 	}
-
 
 }

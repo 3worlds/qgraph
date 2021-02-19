@@ -20,7 +20,10 @@ public class XSequenceQuery extends XQueryList {
 
 	@Override
 	public XQuery process(Object input) {
-		initProcess(input);
+//		initProcess(input);
+		errorMsg = null;
+		result = input;
+		
 		Stack<Object> stack = new Stack<Object>();
 		stack.push(input);
 		// NB loop stops processing at first failed query
