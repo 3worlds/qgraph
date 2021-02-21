@@ -1,4 +1,4 @@
-package au.edu.anu.rscs.aot.queries.prototype;
+package au.edu.anu.rscs.aot.queries.prototype.queries;
 
 import au.edu.anu.rscs.aot.collections.DynamicList;
 

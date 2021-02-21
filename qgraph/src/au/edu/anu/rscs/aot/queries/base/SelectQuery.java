@@ -129,10 +129,6 @@ public class SelectQuery extends Query {
 		return this;
 	}
 
-//	public SelectQuery searchSubArchetypes() {
-//		searchSubArchetypes = true;
-//		return this;
-//	}
 
 	// ensures that there are no other items in the input list which don't satisfy
 	// the query
@@ -150,13 +146,6 @@ public class SelectQuery extends Query {
 	// Helpers
 	//
 
-//	public static SelectQuery selectZeroOrManySA() {
-//		return selectZeroOrMany().searchSubArchetypes();
-//	}
-
-//	public static SelectQuery selectZeroOrManySA(Query q) {
-//		return selectZeroOrMany(q).searchSubArchetypes();
-//	}
 
 	/*
 	 * A suggestion: But I guess these can't work with the specification archetype
@@ -388,7 +377,7 @@ public class SelectQuery extends Query {
 			SelectQuery c2 = selectZeroOrOne(startsWith("t"));
 			System.out.println("query: " + c2);
 			c2.check(twi);
-			System.out.println("  (bad) result: " + c1);
+			System.out.println("  (bad) result: " + c2);
 		} catch (Exception e) {
 			System.out.println("  error : " + e);
 		}
