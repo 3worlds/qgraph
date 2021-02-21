@@ -4,9 +4,7 @@ import static au.edu.anu.rscs.aot.queries.CoreQueries.startsWith;
 
 import au.edu.anu.rscs.aot.collections.DynamicList;
 import au.edu.anu.rscs.aot.queries.base.SelectQuery;
-import au.edu.anu.rscs.aot.queries.graph.uml.Multiplicity;
 import au.edu.anu.rscs.aot.queries.prototype.base.XSelectQuery;
-import au.edu.anu.rscs.aot.queries.prototype.base.string.XStartsWith;
 import au.edu.anu.rscs.aot.queries.prototype.queries.XCoreQueries;
 
 public class Test {

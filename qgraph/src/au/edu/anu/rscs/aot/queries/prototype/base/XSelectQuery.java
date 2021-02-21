@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import au.edu.anu.rscs.aot.queries.Query;
-import au.edu.anu.rscs.aot.queries.base.SelectQuery;
 import au.edu.anu.rscs.aot.queries.graph.uml.Multiplicity;
 import au.edu.anu.rscs.aot.queries.prototype.queries.XQuery;
 import au.edu.anu.rscs.aot.util.IntegerRange;
@@ -147,9 +145,5 @@ public class XSelectQuery extends XQuery {
 		exclusive = false;
 		return this;
 	}
-
-	// ------------------ helpers -------------
-
-
 
 }

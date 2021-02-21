@@ -7,10 +7,11 @@ public class XSizeQuery extends XQuery {
 	private int min;
 	private int max;
 
-	public XSizeQuery(int min, int max) {
-		this.min = min;
-		this.max = max;
+	public XSizeQuery() {
+		this.min = 0;
+		this.max = Integer.MAX_VALUE;
 	}
+	
 
 	@Override
 	public XQuery process(Object input) {
@@ -29,5 +30,14 @@ public class XSizeQuery extends XQuery {
 		return "[Size must be within " + min + ".." + max + " inclusive.]";
 	}
 
+	// --- fluid interface
+	public XSizeQuery min(int m) {
+		min = m;
+		return this;
+	}
+	public XSizeQuery max(int m) {
+		max = m;
+		return this;
+	}
 	
 }
