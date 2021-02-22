@@ -48,6 +48,15 @@ public class XSequenceQuery extends XQueryList {
 		return errorMsg == null;
 	}
 
-	public static void main(String[] args) {
+	/**
+	 * Instead of get(...) return the sq and then interograte: if errorMsg()!=null
+	 * use the result.
+	 */
+	public static XSequenceQuery apply(Object input, XQuery... queries) {
+		XSequenceQuery q = new XSequenceQuery(queries);
+		q.process(input);
+		return q;
 	}
+
+	
 }
