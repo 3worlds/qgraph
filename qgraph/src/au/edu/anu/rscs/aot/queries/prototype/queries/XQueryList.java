@@ -2,21 +2,26 @@ package au.edu.anu.rscs.aot.queries.prototype.queries;
 
 import au.edu.anu.rscs.aot.collections.DynamicList;
 
-public abstract class XQueryList extends XQuery {
+/**
+ * @author Ian Davies
+ *
+ * @date 23 Feb. 2021
+ */
+public abstract class XQueryList extends QueryAdaptor {
 
-	private DynamicList<XQuery> queryList = new DynamicList<XQuery>();
+	private DynamicList<Queryable> queryList = new DynamicList<Queryable>();
 
-	public XQueryList(XQuery...queries ) {
-		for (XQuery q:queries)
+	public XQueryList(Queryable...queries ) {
+		for (Queryable q:queries)
 			addQuery(q);
 	}
-	public XQueryList addQuery(XQuery...queries ) {
-		for (XQuery q:queries)
+	public XQueryList addQuery(Queryable...queries ) {
+		for (Queryable q:queries)
 			queryList.add(q);
 		return this;
 	}
 	
-	public DynamicList<XQuery> queryList() {
+	public DynamicList<Queryable> queryList() {
 		return queryList;
 	}
 }

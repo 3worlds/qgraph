@@ -15,7 +15,7 @@ public class XCoreQueries {
 		return new XSelectQuery().returnOne().multiplicity(Multiplicity.ONE);
 	}
 
-	public static XSelectQuery selectOne(XQuery q) {
+	public static XSelectQuery selectOne(QueryAdaptor q) {
 		return selectOne().query(q);
 	}
 
@@ -23,7 +23,7 @@ public class XCoreQueries {
 		return new XSelectQuery().returnOne().multiplicity(Multiplicity.ZERO_ONE);
 	}
 
-	public static XSelectQuery selectZeroOrOne(XQuery q) {
+	public static XSelectQuery selectZeroOrOne(QueryAdaptor q) {
 		return selectZeroOrOne().query(q);
 	}
 
@@ -31,29 +31,29 @@ public class XCoreQueries {
 		return new XSelectQuery().returnMany().multiplicity(Multiplicity.ZERO_MANY);
 	}
 
-	public static XSelectQuery selectZeroOrMany(XQuery q) {
+	public static XSelectQuery selectZeroOrMany(QueryAdaptor q) {
 		return selectZeroOrMany().query(q);
 	}
 
 	// Strings TODO
-	public static XQuery startsWith(String s) {
+	public static QueryAdaptor startsWith(String s) {
 		return new XStartsWith(s);
 	}
 
 	// Size 
-	public static XQuery inRange(int min, int max) {
+	public static QueryAdaptor inRange(int min, int max) {
 		return new XSizeQuery().min(min).max(max);
 	}
 
-	public static XQuery hasMin(int min) {
+	public static QueryAdaptor hasMin(int min) {
 		return new XSizeQuery().min(min);
 	}
 
-	public static XQuery hasMax(int max) {
+	public static QueryAdaptor hasMax(int max) {
 		return new XSizeQuery().max(max);
 	}
 
-	public static XQuery inRange(IntegerRange range) {
+	public static QueryAdaptor inRange(IntegerRange range) {
 		return new XSizeQuery().min(range.getFirst()).max(range.getLast());
 	}
 

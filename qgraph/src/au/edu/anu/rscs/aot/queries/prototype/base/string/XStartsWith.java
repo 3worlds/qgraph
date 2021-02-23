@@ -1,8 +1,8 @@
 package au.edu.anu.rscs.aot.queries.prototype.base.string;
 
-import au.edu.anu.rscs.aot.queries.prototype.queries.XQuery;
+import au.edu.anu.rscs.aot.queries.prototype.queries.QueryAdaptor;
 
-public class XStartsWith extends XQuery {
+public class XStartsWith extends QueryAdaptor {
 
 	private String str;
 
@@ -11,7 +11,7 @@ public class XStartsWith extends XQuery {
 	}
 
 	@Override
-	public XQuery process(Object input) {
+	public QueryAdaptor query(Object input) {
 		initProcess(input, String.class);
 		String localItem = (String) input;
 		boolean ok = localItem.startsWith(str);

@@ -17,7 +17,7 @@ public class Test {
 			SelectQuery c1 = SelectQuery.selectZeroOrOne(startsWith("b"));
 			XSelectQuery sq = XCoreQueries.selectZeroOrOne(XCoreQueries.startsWith("b"));
 			c1.check(twi);
-			sq.process(twi);
+			sq.query(twi);
 			System.out.println("new query: " + sq);
 			System.out.println("old query: " + c1);
 			System.out.println("old result: " + c1.getResult());
@@ -34,7 +34,7 @@ public class Test {
 		}
 		{
 			XSelectQuery sq = XCoreQueries.selectZeroOrOne(XCoreQueries.startsWith("t"));
-			sq.process(twi);
+			sq.query(twi);
 			System.out.println("new query: " + sq);
 			System.out.println("new error: " + sq.errorMsg());
 		}
@@ -44,7 +44,7 @@ public class Test {
 			c1.check(twi);
 			System.out.println("old query: " + c1);
 			XSelectQuery sq = XCoreQueries.selectZeroOrMany(XCoreQueries.startsWith("b"));
-			sq.process(twi);
+			sq.query(twi);
 			System.out.println("new query: " + sq);
 			System.out.println("old result: " + c1.getResult());
 			System.out.println("new result: " + sq.result());

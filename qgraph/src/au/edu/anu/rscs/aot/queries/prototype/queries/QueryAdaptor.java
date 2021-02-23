@@ -2,13 +2,16 @@ package au.edu.anu.rscs.aot.queries.prototype.queries;
 
 import au.edu.anu.rscs.aot.QGraphException;
 
-public abstract class XQuery {
+/**
+ * @author Ian Davies
+ *
+ * @date 23 Feb. 2021
+ */
+public abstract class QueryAdaptor implements Queryable{
 	protected Object result;
 	protected String errorMsg;
 
-	public abstract XQuery process(Object input);
-
-	protected XQuery initProcess(Object input, Class<?> expected) {
+	protected Queryable initProcess(Object input, Class<?> expected) {
 		if (!expected.isInstance(input)) {
 			throw new QGraphException("'" + this.getClass().getSimpleName() + "' expected '" + expected.getSimpleName()
 					+ "' as input but '" + input.getClass().getSimpleName() + "' was found.");
@@ -18,10 +21,12 @@ public abstract class XQuery {
 		return this;
 	}
 
+	@Override
 	public String errorMsg() {
 		return errorMsg;
 	}
 
+	@Override
 	public Object result() {
 		return result;
 	}

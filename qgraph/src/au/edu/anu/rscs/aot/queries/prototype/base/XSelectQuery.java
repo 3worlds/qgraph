@@ -5,11 +5,12 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import au.edu.anu.rscs.aot.queries.graph.uml.Multiplicity;
-import au.edu.anu.rscs.aot.queries.prototype.queries.XQuery;
+import au.edu.anu.rscs.aot.queries.prototype.queries.Queryable;
+import au.edu.anu.rscs.aot.queries.prototype.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.util.IntegerRange;
 
-public class XSelectQuery extends XQuery {
-	private XQuery theQuery;
+public class XSelectQuery extends QueryAdaptor {
+	private Queryable theQuery;
 	private boolean exclusive;
 	private IntegerRange multiplicity;
 	private boolean returnMany;
@@ -21,7 +22,7 @@ public class XSelectQuery extends XQuery {
 	}
 
 	@Override
-	public XQuery process(Object input) {
+	public Queryable query(Object input) {
 		initProcess(input, Collection.class);
 		Collection<Object> list = (Collection<Object>) input;
 		int originalSize = list.size();
@@ -31,7 +32,7 @@ public class XSelectQuery extends XQuery {
 		else {
 			localItem = new ArrayList<Object>();
 			for (Object item : list) {
-				theQuery.process(item);
+				theQuery.query(item);
 				if (theQuery.errorMsg() == null)
 					localItem.add(item);
 			}
@@ -87,7 +88,7 @@ public class XSelectQuery extends XQuery {
 	}
 
 	// ------------- Fluid interface ------
-	public XSelectQuery query(XQuery q) {
+	public XSelectQuery query(Queryable q) {
 		theQuery = q;
 		return this;
 	}

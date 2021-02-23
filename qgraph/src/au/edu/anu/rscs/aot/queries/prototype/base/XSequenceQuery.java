@@ -2,44 +2,45 @@ package au.edu.anu.rscs.aot.queries.prototype.base;
 
 import java.util.Stack;
 
-import au.edu.anu.rscs.aot.queries.prototype.queries.XQuery;
+import au.edu.anu.rscs.aot.queries.prototype.queries.Queryable;
 import au.edu.anu.rscs.aot.queries.prototype.queries.XQueryList;
 
 /**
- * @author ian
+ * @author Ian Davies
  *
- *         AIM: To avoid co-opting the exception system and co-opting
- *         toString();
+ * @date 23 Feb. 2021 * 
+ * 
+ * AIM: To avoid co-opting exceptions and toString();
+ * 
+ * Based on work by Shayne Flint and Jacques Gignoux
+ * 
  */
 public class XSequenceQuery extends XQueryList {
 
-	public XSequenceQuery(XQuery... queries) {
+	public XSequenceQuery(Queryable... queries) {
 		super(queries);
 	}
 
 	@Override
-	public XQuery process(Object input) {
+	public Queryable query(Object input) {
 		initProcess(input, Object.class);
-
 		Stack<Object> stack = new Stack<Object>();
 		stack.push(input);
 		// NB loop stops processing at first failed query
-		for (XQuery q : queryList()) {
+		for (Queryable q : queryList()) {
 			if (!processAQuery(stack, input, q)) {
-//				satisfied = false;
 				result = stack.peek();
 				errorMsg = q.errorMsg();
 				return this;
 			}
-			;
 		}
 		result = stack.peek();
 		return this;
 	}
 
-	private boolean processAQuery(Stack<Object> stack, Object input, XQuery q) {
+	private boolean processAQuery(Stack<Object> stack, Object input, Queryable q) {
 		try {
-			q.process(stack.peek());
+			q.query(stack.peek());
 			stack.push(q.result());
 			errorMsg = q.errorMsg();
 		} catch (Exception e) {
@@ -49,14 +50,13 @@ public class XSequenceQuery extends XQueryList {
 	}
 
 	/**
-	 * Instead of get(...) return the sq and then interograte: if errorMsg()!=null
-	 * use the result.
+	 * Instead of get(...) return the sq and then interrogate: if errorMsg()!=null
+	 * use the result. So I've change get(...) to apply(...)?
 	 */
-	public static XSequenceQuery apply(Object input, XQuery... queries) {
-		XSequenceQuery q = new XSequenceQuery(queries);
-		q.process(input);
-		return q;
+	public static XSequenceQuery apply(Object input, Queryable... queries) {
+		XSequenceQuery sq = new XSequenceQuery(queries);
+		sq.query(input);
+		return sq;
 	}
 
-	
 }

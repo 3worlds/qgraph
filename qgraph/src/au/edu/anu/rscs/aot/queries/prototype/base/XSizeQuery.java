@@ -1,9 +1,9 @@
 package au.edu.anu.rscs.aot.queries.prototype.base;
 
-import au.edu.anu.rscs.aot.queries.prototype.queries.XQuery;
+import au.edu.anu.rscs.aot.queries.prototype.queries.QueryAdaptor;
 import fr.ens.biologie.generic.Sizeable;
 
-public class XSizeQuery extends XQuery {
+public class XSizeQuery extends QueryAdaptor {
 	private int min;
 	private int max;
 
@@ -14,7 +14,7 @@ public class XSizeQuery extends XQuery {
 	
 
 	@Override
-	public XQuery process(Object input) {
+	public QueryAdaptor query(Object input) {
 		initProcess(input, Sizeable.class);
 		Sizeable localItem = (Sizeable) result;
 		long size = localItem.size();
