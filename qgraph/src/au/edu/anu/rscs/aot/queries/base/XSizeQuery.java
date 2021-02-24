@@ -1,6 +1,6 @@
-package au.edu.anu.rscs.aot.queries.prototype.base;
+package au.edu.anu.rscs.aot.queries.base;
 
-import au.edu.anu.rscs.aot.queries.prototype.queries.QueryAdaptor;
+import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import fr.ens.biologie.generic.Sizeable;
 
 public class XSizeQuery extends QueryAdaptor {
@@ -15,7 +15,7 @@ public class XSizeQuery extends QueryAdaptor {
 
 	@Override
 	public QueryAdaptor query(Object input) {
-		initProcess(input, Sizeable.class);
+		initQuery(input, Sizeable.class);
 		Sizeable localItem = (Sizeable) result;
 		long size = localItem.size();
 		boolean ok = size >= min && size <= max;

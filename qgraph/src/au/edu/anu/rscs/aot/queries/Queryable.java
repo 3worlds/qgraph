@@ -1,4 +1,4 @@
-package au.edu.anu.rscs.aot.queries.prototype.queries;
+package au.edu.anu.rscs.aot.queries;
 
 
 /**
@@ -8,6 +8,7 @@ package au.edu.anu.rscs.aot.queries.prototype.queries;
  */
 public interface Queryable {
 	public Queryable query(Object input);
+	public boolean satisfied();
 	public String errorMsg();
 	public Object result();
 

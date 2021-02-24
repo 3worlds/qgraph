@@ -1,9 +1,9 @@
-package au.edu.anu.rscs.aot.queries.prototype.base;
+package au.edu.anu.rscs.aot.queries.base;
 
 import java.util.Stack;
 
-import au.edu.anu.rscs.aot.queries.prototype.queries.Queryable;
-import au.edu.anu.rscs.aot.queries.prototype.queries.XQueryList;
+import au.edu.anu.rscs.aot.queries.Queryable;
+import au.edu.anu.rscs.aot.queries.XQueryList;
 
 /**
  * @author Ian Davies
@@ -23,7 +23,7 @@ public class XSequenceQuery extends XQueryList {
 
 	@Override
 	public Queryable query(Object input) {
-		initProcess(input, Object.class);
+		initQuery(input, Object.class);
 		Stack<Object> stack = new Stack<Object>();
 		stack.push(input);
 		// NB loop stops processing at first failed query
@@ -57,6 +57,12 @@ public class XSequenceQuery extends XQueryList {
 		XSequenceQuery sq = new XSequenceQuery(queries);
 		sq.query(input);
 		return sq;
+	}
+	
+	
+	public static Object get(Object input, Queryable...queries) {
+		XSequenceQuery sq = apply(input,queries);
+		return sq.result();
 	}
 
 }

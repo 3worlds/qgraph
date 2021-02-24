@@ -1,6 +1,6 @@
-package au.edu.anu.rscs.aot.queries.prototype.base.string;
+package au.edu.anu.rscs.aot.queries.base.string;
 
-import au.edu.anu.rscs.aot.queries.prototype.queries.QueryAdaptor;
+import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 
 public class XStartsWith extends QueryAdaptor {
 
@@ -12,7 +12,7 @@ public class XStartsWith extends QueryAdaptor {
 
 	@Override
 	public QueryAdaptor query(Object input) {
-		initProcess(input, String.class);
+		initQuery(input, String.class);
 		String localItem = (String) input;
 		boolean ok = localItem.startsWith(str);
 		if (!ok)

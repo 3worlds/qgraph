@@ -1,17 +1,17 @@
-package au.edu.anu.rscs.aot.queries.prototype.base;
+package au.edu.anu.rscs.aot.queries.base;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import au.edu.anu.rscs.aot.queries.QueryAdaptor;
+import au.edu.anu.rscs.aot.queries.Queryable;
 import au.edu.anu.rscs.aot.queries.graph.uml.Multiplicity;
-import au.edu.anu.rscs.aot.queries.prototype.queries.Queryable;
-import au.edu.anu.rscs.aot.queries.prototype.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.util.IntegerRange;
 
 public class XSelectQuery extends QueryAdaptor {
 	private Queryable theQuery;
-	private boolean exclusive;
+	private boolean exclusive;// all items must match query
 	private IntegerRange multiplicity;
 	private boolean returnMany;
 
@@ -23,7 +23,7 @@ public class XSelectQuery extends QueryAdaptor {
 
 	@Override
 	public Queryable query(Object input) {
-		initProcess(input, Collection.class);
+		initQuery(input, Collection.class);
 		Collection<Object> list = (Collection<Object>) input;
 		int originalSize = list.size();
 		Collection<Object> localItem;
@@ -33,13 +33,13 @@ public class XSelectQuery extends QueryAdaptor {
 			localItem = new ArrayList<Object>();
 			for (Object item : list) {
 				theQuery.query(item);
-				if (theQuery.errorMsg() == null)
+				if (theQuery.satisfied())
 					localItem.add(item);
 			}
 		}
 		int count = localItem.size();
 
-		if (theQuery != null && exclusive)
+		if (!theQuery.satisfied() && exclusive)
 			if (count != originalSize) {
 				errorMsg = "Expected only items that match '" + theQuery.getClass().getSimpleName() + "' but found "
 						+ (originalSize - count) + " unexpected items.";
@@ -64,8 +64,8 @@ public class XSelectQuery extends QueryAdaptor {
 				result = null;
 		}
 
-		// not satisfied by what is the message??
-		errorMsg = "not satisfied but what is the message??";
+		// original returns not satisfied but what is the message??
+		errorMsg = " debugging: not satisfied but what is the message? Should this be satisfied == true?";
 		return this;
 	}
 

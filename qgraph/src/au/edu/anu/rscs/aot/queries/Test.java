@@ -1,11 +1,9 @@
-package au.edu.anu.rscs.aot.queries.prototype.testing;
+package au.edu.anu.rscs.aot.queries;
 
 import static au.edu.anu.rscs.aot.queries.CoreQueries.startsWith;
 
 import au.edu.anu.rscs.aot.collections.DynamicList;
 import au.edu.anu.rscs.aot.queries.base.SelectQuery;
-import au.edu.anu.rscs.aot.queries.prototype.base.XSelectQuery;
-import au.edu.anu.rscs.aot.queries.prototype.queries.XCoreQueries;
 
 public class Test {
 
@@ -15,7 +13,7 @@ public class Test {
 		{// ok: return 'bill'
 			System.out.println("----- " + trial++ + "-----------");
 			SelectQuery c1 = SelectQuery.selectZeroOrOne(startsWith("b"));
-			XSelectQuery sq = XCoreQueries.selectZeroOrOne(XCoreQueries.startsWith("b"));
+			Queryable sq = XCoreQueries.selectZeroOrOne(XCoreQueries.startsWith("b"));
 			c1.check(twi);
 			sq.query(twi);
 			System.out.println("new query: " + sq);
@@ -33,7 +31,7 @@ public class Test {
 			System.out.println("old error: " + e);
 		}
 		{
-			XSelectQuery sq = XCoreQueries.selectZeroOrOne(XCoreQueries.startsWith("t"));
+			Queryable sq = XCoreQueries.selectZeroOrOne(XCoreQueries.startsWith("t"));
 			sq.query(twi);
 			System.out.println("new query: " + sq);
 			System.out.println("new error: " + sq.errorMsg());
@@ -43,7 +41,7 @@ public class Test {
 			SelectQuery c1 = SelectQuery.selectZeroOrMany(startsWith("b"));
 			c1.check(twi);
 			System.out.println("old query: " + c1);
-			XSelectQuery sq = XCoreQueries.selectZeroOrMany(XCoreQueries.startsWith("b"));
+			Queryable sq = XCoreQueries.selectZeroOrMany(XCoreQueries.startsWith("b"));
 			sq.query(twi);
 			System.out.println("new query: " + sq);
 			System.out.println("old result: " + c1.getResult());
