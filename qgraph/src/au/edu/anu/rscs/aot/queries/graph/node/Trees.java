@@ -50,7 +50,7 @@ public class Trees extends Query {
 	// deals with navigating trees formed by edges labeled "_child" (as created by the DSL and XML importers)
 	//
 
-	public final static String CHILD_LABEL = "_child";
+//	public final static String CHILD_LABEL = "_child";
 
 	private boolean getParent;
 	private boolean traverse;
