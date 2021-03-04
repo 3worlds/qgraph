@@ -39,6 +39,7 @@ import au.edu.anu.rscs.aot.old.queries.Query;
  * @author Shayne Flint - 23/4/2012
  *
  */
+@Deprecated
 public class FilteredList<T> extends DynamicList<T>  {
 
 	public FilteredList(Collection<T> list, Query query) {

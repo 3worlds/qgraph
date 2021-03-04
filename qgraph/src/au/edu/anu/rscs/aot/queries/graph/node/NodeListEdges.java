@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import au.edu.anu.rscs.aot.collections.DynamicList;
-import au.edu.anu.rscs.aot.old.queries.Query;
 import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 import fr.cnrs.iees.graph.Direction;
