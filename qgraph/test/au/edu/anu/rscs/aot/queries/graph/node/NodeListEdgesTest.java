@@ -37,6 +37,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import au.edu.anu.rscs.aot.old.queries.graph.node.NodeListEdges;
 import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Node;
 import fr.cnrs.iees.graph.impl.ALGraphFactory;

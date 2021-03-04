@@ -1,638 +1,223 @@
-/**************************************************************************
- *  QGRAPH - A Query system for graphs                                    *
- *                                                                        *
- *  Copyright 2018: Shayne Flint, Jacques Gignoux & Ian D. Davies         *
- *       shayne.flint@anu.edu.au                                          *
- *       jacques.gignoux@upmc.fr                                          *
- *       ian.davies@anu.edu.au                                            *
- *                                                                        *
- *  QGRAPH implements a Query system enabling one to search a set of      *
- *  objects and return results if these objects match the queries. It has *
- *  been designed for graphs but some queries are more general and can    *
- *  apply to any kind of object.                                          *
- **************************************************************************
- *  This file is part of QGRAPH (A Query system for graphs).              *
- *                                                                        *
- *  QGRAPH is free software: you can redistribute it and/or modify        *
- *  it under the terms of the GNU General Public License as published by  *
- *  the Free Software Foundation, either version 3 of the License, or     *
- *  (at your option) any later version.                                   *
- *                                                                        *
- *  QGRAPH is distributed in the hope that it will be useful,             *
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *  GNU General Public License for more details.                          *
- *                                                                        *
- *  You should have received a copy of the GNU General Public License     *
- *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
- *                                                                        *
- **************************************************************************/
 package au.edu.anu.rscs.aot.queries;
 
-import java.util.Date;
-
-import au.edu.anu.rscs.aot.queries.base.*;
-import au.edu.anu.rscs.aot.queries.base.primitive.*;
-import au.edu.anu.rscs.aot.queries.base.string.*;
-import au.edu.anu.rscs.aot.queries.graph.*;
-import au.edu.anu.rscs.aot.queries.graph.edge.*;
-import au.edu.anu.rscs.aot.queries.graph.element.*;
-import au.edu.anu.rscs.aot.queries.graph.node.*;
-import au.edu.anu.rscs.aot.queries.graph.uml.*;
+import au.edu.anu.rscs.aot.queries.base.AndQuery;
+import au.edu.anu.rscs.aot.queries.base.NotQuery;
+import au.edu.anu.rscs.aot.queries.base.OrQuery;
+import au.edu.anu.rscs.aot.queries.base.SelectQuery;
+import au.edu.anu.rscs.aot.queries.base.SizeQuery;
+import au.edu.anu.rscs.aot.queries.base.XorQuery;
+import au.edu.anu.rscs.aot.queries.base.primitive.IsClass;
+import au.edu.anu.rscs.aot.queries.base.string.StartsWith;
+import au.edu.anu.rscs.aot.queries.graph.EdgeNodeSelection;
+import au.edu.anu.rscs.aot.queries.graph.edge.EdgeListNodes;
+import au.edu.anu.rscs.aot.queries.graph.edge.EdgeNodes;
+import au.edu.anu.rscs.aot.queries.graph.element.ElementLabel;
+import au.edu.anu.rscs.aot.queries.graph.element.ElementName;
+import au.edu.anu.rscs.aot.queries.graph.element.ElementProperty;
+import au.edu.anu.rscs.aot.queries.graph.node.NodeEdges;
+import au.edu.anu.rscs.aot.queries.graph.node.NodeListEdges;
+import au.edu.anu.rscs.aot.queries.graph.node.TreeQuery;
+import au.edu.anu.rscs.aot.queries.graph.uml.Multiplicity;
 import au.edu.anu.rscs.aot.util.IntegerRange;
 import fr.cnrs.iees.graph.Direction;
-import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Node;
 
-
-/**
- *
- * This class is a convenience class of static methods that brings together queries of all types
- *
- * @author Shayne Flint - 26/3/2012
- */
 public class CoreQueries {
+	private CoreQueries() {
+	}
 
 	// General
 	//
-
-	public static AndQuery andQuery(Query... queries) {
-		return AndQuery.andQuery(queries);
+	public static Queryable andQuery(Queryable... queries) {
+		return new AndQuery(queries);
 	}
 
-	public static IfThenQuery ifThenQuery(Query testQuery, Query trueQuery, Query falseQuery) {
-		return IfThenQuery.ifThenQuery(testQuery, trueQuery, falseQuery);
+	public static Queryable notQuery(Queryable... queries) {
+		return new NotQuery(queries);
 	}
 
-	public static IfThenQuery ifThenQuery(Query testQuery, Query trueQuery) {
-		return IfThenQuery.ifThenQuery(testQuery, trueQuery);
+	public static Queryable orQuery(Queryable... queries) {
+		return new OrQuery(queries);
 	}
 
-	public static NotQuery notQuery(Query... queries) {
-		return NotQuery.notQuery(queries);
+	public static Queryable xorQuery(Queryable... queries) {
+		return new XorQuery(queries);
 	}
 
-	public static OrQuery orQuery(Query... queries) {
-		return OrQuery.orQuery(queries);
+	// SelectQuery
+	public static SelectQuery selectOne() {
+		return new SelectQuery().returnOne().multiplicity(Multiplicity.ONE);
 	}
 
-	public static XorQuery xorQuery(Query... queries) {
-		return XorQuery.xorQuery(queries);
-	}
-
-	public static Query pop(int count) {
-		return PopQuery.pop(count);
-	}
-
-	public static Query reset() {
-		return ResetQuery.reset();
-	}
-
-	public static Query value(Object item) {
-		return Value.value(item);
-	}
-
-	public static Query isInstanceOf(Class<?> theClass) {
-		return IsInstanceOf.isInstanceOf(theClass);
-	}
-
-	public static Query forAll(Query query) {
-		return ForAllQuery.forAll(query);
-	}
-
-	public static Query isQuery() {
-		return IsQuery.isQuery();
-	}
-
-	// List sizes
-	//
-
-	public static Query hasCount(int min, int max) {
-		return SizeQuery.inRange(min, max);
-	}
-
-	public static Query hasMin(int min) {
-		return SizeQuery.hasMin(min);
-	}
-
-	public static Query hasMax(int max) {
-		return SizeQuery.hasMax(max);
-	}
-
-	public static Query inRange(int min, int max) {
-		return SizeQuery.inRange(min, max);
-	}
-
-	public static Query inRange(IntegerRange range) {
-		return SizeQuery.inRange(range);
-	}
-
-	public static Query hasSize(int size) {
-		return SizeQuery.hasSize(size);
-	}
-
-	public static Query hasZero() {
-		return SizeQuery.hasZero();
-	}
-
-	public static Query hasOne() {
-		return SizeQuery.hasOne();
-	}
-
-	public static Query hasTwo() {
-		return SizeQuery.hasTwo();
-	}
-
-	public static Query hasZeroOrOne() {
-		return SizeQuery.hasZeroOrOne();
-	}
-
-	public static Query hasOneOrMany() {
-		return SizeQuery.hasOneOrMany();
-	}
-
-	public static Query hasZeroOrMany() {
-		return SizeQuery.hasZeroOrMany();
-	}
-
-	// Integer counting
-	//
-
-	public static Query hasMinCount(int min) {
-		return CountQuery.hasMinCount(min);
-	}
-
-	public static Query hasMaxCount(int max) {
-		return CountQuery.hasMaxCount(max);
-	}
-
-	public static Query countInRange(int min, int max) {
-		return CountQuery.countInRange(min, max);
-	}
-
-	public static Query countInRange(IntegerRange range) {
-		return CountQuery.countInRange(range);
-	}
-
-	public static Query hasCount(int size) {
-		return CountQuery.hasCount(size);
-	}
-
-	// Selecting
-	//
-
-	public static SelectQuery select(Multiplicity multiplicity, Query query) {
-		return SelectQuery.select(multiplicity, query);
-	}
-
-	public static SelectQuery select(Multiplicity multiplicity) {
-		return SelectQuery.select(multiplicity);
-	}
-
-	public static SelectQuery select(IntegerRange multiplicity, Query query) {
-		return SelectQuery.select(multiplicity, query);
-	}
-
-	public static SelectQuery select(IntegerRange multiplicity) {
-		return SelectQuery.select(multiplicity);
-	}
-
-	public static SelectQuery selectZeroOrOne(Query query) {
-		return SelectQuery.selectZeroOrOne(query);
+	public static SelectQuery selectOne(Queryable q) {
+		return selectOne().query(q);
 	}
 
 	public static SelectQuery selectZeroOrOne() {
-		return SelectQuery.selectZeroOrOne();
+		return new SelectQuery().returnOne().multiplicity(Multiplicity.ZERO_ONE);
 	}
 
-	public static SelectQuery selectZeroOrMany(Query query) {
-		return SelectQuery.selectZeroOrMany(query);
+	public static SelectQuery selectZeroOrOne(Queryable q) {
+		return selectZeroOrOne().query(q);
 	}
 
 	public static SelectQuery selectZeroOrMany() {
-		return SelectQuery.selectZeroOrMany();
+		return new SelectQuery().returnMany().multiplicity(Multiplicity.ZERO_MANY);
 	}
 
-	public static SelectQuery selectAny(Query query) {
-		return SelectQuery.selectAny(query);
-	}
-
-	public static SelectQuery selectAny() {
-		return SelectQuery.selectAny();
-	}
-
-	public static SelectQuery selectOne(Query query) {
-		return SelectQuery.selectOne(query);
-	}
-
-	public static SelectQuery selectOne() {
-		return SelectQuery.selectOne();
-	}
-
-	public static SelectQuery selectOneOrMany(Query query) {
-		return SelectQuery.selectOneOrMany(query);
+	public static SelectQuery selectZeroOrMany(Queryable q) {
+		return selectZeroOrMany().query(q);
 	}
 
 	public static SelectQuery selectOneOrMany() {
-		return SelectQuery.selectOneOrMany();
+		return new SelectQuery().returnMany().multiplicity(Multiplicity.ONE_MANY);
 	}
 
-	// Graphs
+	public static SelectQuery selectOneOrMany(Queryable q) {
+		return selectOneOrMany().query(q);
+	}
+
+	// Strings TODO
+	public static Queryable startsWith(String s) {
+		return new StartsWith(s);
+	}
+
+	// Size
+	public static Queryable inRange(int min, int max) {
+		return new SizeQuery().min(min).max(max);
+	}
+
+	public static Queryable hasMin(int min) {
+		return new SizeQuery().min(min);
+	}
+
+	public static Queryable hasMax(int max) {
+		return new SizeQuery().max(max);
+	}
+
+	public static Queryable inRange(IntegerRange range) {
+		return new SizeQuery().min(range.getFirst()).max(range.getLast());
+	}
+
+	// ------------------   Elements
+	//
+	public static Queryable hasTheName(String... names) {
+		return new ElementName(names);
+	}
+
+	public static Queryable hasTheLabel(String... labels) {
+		return new ElementLabel(labels);
+	}
+
+	public static Queryable hasProperty(String k) {
+		return new ElementProperty().key(k);
+	}
+
+	public static Queryable hasProperty(String k, Object v) {
+		return new ElementProperty().key(k).value(v);
+	}
+
+	public static Queryable hasProperty(String k, Queryable q) {
+		return new ElementProperty().key(k).query(q);
+	}
+
+	public static Queryable hasOptionalProperty(String k, Queryable q) {
+		return new ElementProperty().key(k).query(q).optional();
+	}
+
+	public static ElementProperty getProperty(String k, Object dv) {
+		return new ElementProperty().key(k).defaultValue(dv).getValue();
+	}
+	
+	public static ElementProperty getProperty(String k) {
+		return new ElementProperty().key(k).getValue();
+	}
+
+	// ---------------------- Nodes
 	//
 
-	public static GraphLogQuery logGraph(String prefix) {
-		return GraphLogQuery.logGraph(prefix);
+	public static Queryable children() {
+//		return new Trees(null, false, false);
+		return new TreeQuery();
 	}
 
-	public static GraphLogQuery logGraph() {
-		return GraphLogQuery.logGraph();
+	public static Queryable parent() {
+		// Trees(null, true, false);
+		return new TreeQuery().parent();
 	}
 
-//	public static GraphVisualiseQuery visualiseGraph(String prefix) {
-//		return GraphVisualiseQuery.visualiseGraph(prefix);
-//	}
-
-//	public static GraphVisualiseQuery visualiseGraph() {
-//		return GraphVisualiseQuery.visualiseGraph();
-//	}
-
-	// // Models
-	// //
-	//
-	// public static Query compilesWithElementModel(ElementModel elementModel) {
-	// return ElementModelQuery.compliesWithElementModel(elementModel);
-	// }
-	//
-	// public static Query compilesWithNodeModel(NodeModel nodeModel) {
-	// return NodeModelQuery.compliesWithNodeModel(nodeModel);
-	// }
-
-	// Elements
-	//
-
-	public static ElementLabel hasTheLabel(String... labels) {
-		return ElementLabel.hasTheLabel(labels);
+	public static Queryable parent(Queryable q) {
+		return new TreeQuery().parent().root().query(q);
 	}
 
-	public static ElementName hasTheName(String... labels) {
-		return ElementName.hasTheName(labels);
+	public static Queryable childTree() {
+		// Trees(null, false, true);
+		return new TreeQuery().root();
+	}
+	public static Queryable childTree(Queryable q) {
+		return new TreeQuery().root().query(q);
 	}
 
-	public static Query hasProperty(String key) {
-		return ElementProperty.hasProperty(key);
+	public static Queryable inEdges() {
+		return new NodeEdges().direction(Direction.IN);
 	}
 
-	public static Query hasProperty(String key, Query query) {
-		return ElementProperty.hasProperty(key, query);
+	public static Queryable inEdges(Queryable q) {
+		return new NodeEdges().direction(Direction.IN).query(q);
 	}
 
-	public static Query hasOptionalProperty(String key, Query query) {
-		return ElementProperty.hasOptionalProperty(key, query);
+	public static Queryable outEdges() {
+		return new NodeEdges().direction(Direction.OUT);
 	}
 
-	public static Query hasProperty(String key, Object value) {
-		return ElementProperty.hasProperty(key, value);
+	public static Queryable outEdges(Queryable q) {
+		return new NodeEdges().direction(Direction.OUT).query(q);
+	}
+	
+	// ------------------- Node lists
+	public static Queryable nodeListInEdges() {
+		return new NodeListEdges().direction(Direction.IN);
+	}
+	
+	public static Queryable nodeListOutEdges() {
+		return new NodeListEdges().direction(Direction.OUT);
+	}
+	
+	public static Queryable nodeListEdges() {
+		return new NodeListEdges();
 	}
 
-	public static Query getProperty(String key, Object defaultValue) {
-		return ElementProperty.getProperty(key, defaultValue);
-	}
-
-	public static Query getProperty(String key) {
-		return ElementProperty.getProperty(key);
-	}
-
-	// Nodes
+	// ------------------- Edge lists
 	//
 
-	public static Query inEdges() {
-		return NodeEdges.inEdges();
+	public static Queryable edgeListStartNodes() {
+		return new EdgeListNodes().edgeNodeSelection(EdgeNodeSelection.START);
 	}
 
-	public static Query inEdges(Query query) {
-		return NodeEdges.inEdges(query);
+	public static Queryable edgeListEndNodes() {
+		return new EdgeListNodes().edgeNodeSelection(EdgeNodeSelection.END);
 	}
 
-	public static Query outEdges() {
-		return NodeEdges.outEdges();
+	public static Queryable edgeListBothNodes() {
+		return new EdgeListNodes().edgeNodeSelection(EdgeNodeSelection.BOTH);
 	}
 
-	public static Query outEdges(Query query) {
-		return NodeEdges.outEdges(query);
+	public static Queryable edgeListOtherNodes(Node n) {
+		return new EdgeListNodes().edgeNodeSelection(EdgeNodeSelection.OTHER).refNode(n);
 	}
 
-	// public static Query edges() {
-	// return NodeEdges.edges();
-	// }
-
-	// public static Query edges(Query query) {
-	// return NodeEdges.edges(query);
-	// }
-
-	public static Query edges(Direction direction) {
-		return NodeEdges.edges(direction);
-	}
-
-	public static Query edges(Direction direction, Query query) {
-		return NodeEdges.edges(direction, query);
-	}
-
-//	public static Query logNode(String prefix) {
-//		return NodeLog.logNode(prefix);
-//	}
-//
-//	public static Query logNode() {
-//		return NodeLog.logNode("");
-//	}
-
-	public static Query isRoot() {
-		return NodeCharacteristics.isRoot();
-	}
-
-//	public static Query matchesRef(String reference) {
-//		return NodeReferenceQuery.matchesRef(reference);
-//	}
-
-	public static Query isNode(Node node) {
-		return IsNode.isNode(node);
-	}
-
-	public static HasEdges hasEdges(Direction direction, Query endNodeQuery, Multiplicity endNodeMultiplicity) {
-		return HasEdges.hasEdges(direction, endNodeQuery, endNodeMultiplicity);
-	}
-
-	public static HasEdges hasInEdges(Query endNodeQuery, Multiplicity endNodeMultiplicity) {
-		return HasEdges.hasInEdges(endNodeQuery, endNodeMultiplicity);
-	}
-
-	public static HasEdges hasOutEdges(Query endNodeQuery, Multiplicity endNodeMultiplicity) {
-		return HasEdges.hasOutEdges(endNodeQuery, endNodeMultiplicity);
-	}
-
-	public static Trees parent() {
-		return Trees.parent();
-	}
-
-	public static Trees root() {
-		return Trees.root();
-	}
-
-	public static Trees parent(Query query) {
-		return Trees.parent(query);
-	}
-
-	public static Trees children() {
-		return Trees.children();
-	}
-
-	public static Trees childTree() {
-		return Trees.childTree();
-	}
-
-	public static Trees children(Query query) {
-		return Trees.children(query);
-	}
-
-	public static Trees childTree(Query query) {
-		return Trees.childTree(query);
-	}
-
-	public static HasParent hasParent(Query query) {
-		return HasParent.hasParent(query);
-	}
-
-	public static HasParent hasParent() {
-		return HasParent.hasParent();
-	}
-
-//	public static IsClass isGridNode() {
-//		return IsClass.isClass(GridNode);
-//	}
-
-	public static IsClass isNodeOfType(Class<?> theClass) {
-		return IsClass.isClass(theClass);
-	}
-
-	// Node Lists
+	// - ------------------------- Edge
 	//
-
-	public static Query hasOnlyNodes(Query nodeQuery) {
-		return HasOnlyNodes.hasOnlyNodes(nodeQuery);
+	public static Queryable endNode() {
+		return new EdgeNodes().edgeNodeSelection(EdgeNodeSelection.END);
 	}
 
-	public static Query nodeListInEdges() {
-		return NodeListEdges.inEdges();
+	public static Queryable startNode() {
+		return new EdgeNodes().edgeNodeSelection(EdgeNodeSelection.START);
 	}
 
-	public static Query nodeListOutEdges() {
-		return NodeListEdges.outEdges();
+	// ------------------------- primitives
+	public static Queryable isClass(Class<?>... classList) {
+		return new IsClass(classList);
 	}
-
-	// public static Query nodeListEdges() {
-	// return NodeListEdges.edges();
-	// }
-
-	public static Query nodeListEdges(Direction direction) {
-		return NodeListEdges.edges(direction);
-	}
-
-	// Edges
-	//
-	public static Query logEdge(String prefix) {
-		return EdgeLog.logEdge(prefix);
-	}
-
-	public static Query logEdge() {
-		return EdgeLog.logEdge();
-	}
-
-	public static Query startNode() {
-		return EdgeNodes.startNode();
-	}
-
-	public static Query endNode() {
-		return EdgeNodes.endNode();
-	}
-
-	public static Query otherNode(Node refNode) {
-		return EdgeNodes.otherNode(refNode);
-	}
-
-	public static Query bothNode() {
-		return EdgeNodes.bothNodes();
-	}
-
-	public static Query hasStartNode(Query toNodeQuery) {
-		return EdgeHasNode.hasStartNode(toNodeQuery);
-	}
-
-	public static Query hasEndNode(Query toNodeQuery) {
-		return EdgeHasNode.hasEndNode(toNodeQuery);
-	}
-
-	public static Query hasOtherNode(Query toNodeQuery, Node refNode) {
-		return EdgeHasNode.hasOtherNode(toNodeQuery, refNode);
-	}
-
-	public static Query hasBothNodes(Query toNodeQuery) {
-		return EdgeHasNode.hasBothNodes(toNodeQuery);
-	}
-
-	public static Query isEdge(Edge edge) {
-		return IsEdge.isEdge(edge);
-	}
-
-	// Edge Lists
-	//
-
-	public static Query edgeListStartNodes() {
-		return EdgeListNodes.startNodes();
-	}
-
-	public static Query edgeListEndNodes() {
-		return EdgeListNodes.endNodes();
-	}
-
-	public static Query edgeListOtherNodes(Node refNode) {
-		return EdgeListNodes.otherNodes(refNode);
-	}
-
-	public static Query edgeListBothNodes() {
-		return EdgeListNodes.bothNodes();
-	}
-
-	// Primitives
-	//
-
-	public static Query isClass(Class<?>... classList) {
-		return IsClass.isClass(classList);
-	}
-
-	public static Query dateInRange(Date min, Date max) {
-		return IsDate.dateInRange(min, max);
-	}
-
-	public static Query doubleInRange(double min, double max) {
-		return IsDouble.doubleInRange(min, max);
-	}
-
-	public static Query isBoolean() {
-		return IsBoolean.isBoolean();
-	}
-
-	public static Query isDouble() {
-		return IsDouble.doubleInRange(-Double.MAX_VALUE, Double.MAX_VALUE);
-	}
-
-	public static Query floatInRange(float min, float max) {
-		return IsFloat.floatInRange(min, max);
-	}
-
-	public static Query isFloat() {
-		return IsFloat.floatInRange(-Float.MAX_VALUE, Float.MAX_VALUE);
-	}
-
-	public static Query integerInRange(int min, int max) {
-		return IsInteger.integerInRange(min, max);
-	}
-
-	public static Query isInteger() {
-		return IsInteger.integerInRange(Integer.MIN_VALUE, Integer.MAX_VALUE);
-	}
-
-	public static Query longInRange(long min, long max) {
-		return IsLong.longInRange(min, max);
-	}
-
-	public static Query isLong() {
-		return IsLong.longInRange(Integer.MIN_VALUE, Integer.MAX_VALUE);
-	}
-
-	public static Query isString() {
-		return IsString.isString();
-	}
-
-	// Strings
-	//
-
-	public static StringLength length() {
-		return StringLength.length();
-	}
-
-	public static ClassQuery stringIsClass(Class<?> parentClass) {
-		return ClassQuery.stringIsClass(parentClass);
-	}
-
-	public static ClassQuery stringIsClass(String parentClassName) {
-		return ClassQuery.stringIsClass(parentClassName);
-	}
-
-	public static Query containsSubstring(String str) {
-		return ContainsSubstring.containsSubstring(str);
-	}
-
-	public static DateString isDateString() {
-		return DateString.isDate();
-	}
-
-	public static DoubleString isDoubleString() {
-		return DoubleString.isDouble();
-	}
-
-	public static Query endsWith(String str) {
-		return EndsWith.endsWith(str);
-	}
-
-	public static EnumerationString isEnum(String... valueList) {
-		return EnumerationString.isEnum(valueList);
-	}
-
-	public static EnumerationString isEnum(Enum<?>... enumList) {
-		return EnumerationString.isEnum(enumList);
-	}
-
-	public static FileQuery isFileName() {
-		return FileQuery.isFileName();
-	}
-
-	public static FloatString isFloatString() {
-		return FloatString.isFloat();
-	}
-
-	public static InetAddressString isInetAddress() {
-		return InetAddressString.isInetAddress();
-	}
-
-	public static IntegerString isIntegerString() {
-		return IntegerString.isInteger();
-	}
-
-	public static LongString isLongString() {
-		return LongString.isLong();
-	}
-
-	public static PatternString matchesPattern(String pattern) {
-		return PatternString.matchesPattern(pattern);
-	}
-
-	public static Query startsWith(String str) {
-		return StartsWith.startsWith(str);
-	}
-
-	public static UserNameQuery isUserName() {
-		return UserNameQuery.isUserName();
-	}
-
-//	public static VersionString asVersion() {
-//		return VersionString.asVersion();
-//	}
-//
-//	public static VersionString isVersionString() {
-//		return VersionString.isVersion();
-//	}
-
-	public static IsStringList isStringList() {
-		return IsStringList.isStringList();
-	}
-
 }

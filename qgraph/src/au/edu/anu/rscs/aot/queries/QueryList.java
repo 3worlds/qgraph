@@ -1,71 +1,41 @@
-/**
- * @author shayne.flint@anu.edu.au
- *
- * 
- * 
- */
 package au.edu.anu.rscs.aot.queries;
-
-import java.util.Iterator;
 
 import au.edu.anu.rscs.aot.collections.DynamicList;
 
 /**
- * 
- * @author Shayne Flint - 26/3/2012
+ * @author Ian Davies
  *
+ * @date 23 Feb. 2021
  */
-public abstract class QueryList extends Query {
+public abstract class QueryList extends QueryAdaptor {
 
-	public QueryList(Query... query) {
-		for (Query c : query)
-			addQuery(c);
+	private DynamicList<Queryable> queryList = new DynamicList<Queryable>();
+
+	public QueryList(Queryable... queries) {
+		for (Queryable q : queries)
+			addQuery(q);
 	}
 
-	
-	private DynamicList<Query> queryList = new DynamicList<Query>();
-
-	public DynamicList<Query> queryList() {
-		return queryList;
-	}
-
-	public QueryList addQuery(Query... queries) {
-		for (Query q : queries)
+	private QueryList addQuery(Queryable... queries) {
+		for (Queryable q : queries)
 			queryList.add(q);
 		return this;
 	}
 
-	public QueryList removeQuery(Query... queries) {
-		for (Query q : queries)
-			queryList.remove(q);
-		return this;
+	protected DynamicList<Queryable> queryList() {
+		return queryList;
 	}
 
-	public QueryList clear() {
-		queryList.clear();
-		return this;
-	}
-
-	public int size() {
-		return queryList.size();
-	}
-
-	public void log(String label) {
-		// TODO Auto-generated method stub	
-	}
-
-
+	@Override
 	public String toString() {
-		String description;
-		if (queryList.size() == 0)
-			description = "[]";
-		else {
-			Iterator<Query> iter = queryList().iterator();
-			description = "[" + iter.next().toString();
-			while (iter.hasNext())
-				description = description + ", " + iter.next().toString();
-		}
-		return description + "]";
+		StringBuilder description = new StringBuilder().append("[");
+		if (queryList.isEmpty())
+			description.append("]");
+		else
+			for (Queryable q : queryList()) {
+				description.append(q.toString());
+			}
+		return description.append("]").toString();
 	}
 
 }

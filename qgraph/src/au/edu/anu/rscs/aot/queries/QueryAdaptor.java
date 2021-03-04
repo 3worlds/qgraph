@@ -1,7 +1,5 @@
 package au.edu.anu.rscs.aot.queries;
 
-import au.edu.anu.rscs.aot.QGraphException;
-
 /**
  * @author Ian Davies
  *
@@ -11,13 +9,9 @@ public abstract class QueryAdaptor implements Queryable {
 	protected Object result;
 	protected String errorMsg;
 
-	protected Queryable initQuery(Object input, Class<?> expected) {
-		if (!expected.isInstance(input))
-			throw new QGraphException("'" + this.getClass().getSimpleName() + "' expected '" + expected.getSimpleName()
-					+ "' as input but '" + input.getClass().getSimpleName() + "' was found.");
-
+	protected Queryable initInput(Object input/* , Class<?> expected */) {
 		result = input;
-		// NB: default is satisfied is true;
+		// NB: default is satisfied() == true;
 		errorMsg = null;
 		return this;
 	}
@@ -35,6 +29,14 @@ public abstract class QueryAdaptor implements Queryable {
 	@Override
 	public Object result() {
 		return result;
+	}
+
+	@Override
+	public String toString() {
+		if (satisfied())
+			return "[" + this.getClass().getSimpleName() + " is TRUE]";
+		else
+			return "[" + this.getClass().getSimpleName() + " is FALSE [" + errorMsg + "]]";
 	}
 
 }

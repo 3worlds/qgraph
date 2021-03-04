@@ -1,42 +1,21 @@
-/**
- * @author shayne.flint@anu.edu.au
- *
- * 
- * 
- */
 package au.edu.anu.rscs.aot.queries.base.primitive;
 
 import java.lang.reflect.Type;
 import java.util.List;
 
-import au.edu.anu.rscs.aot.queries.Query;
+import au.edu.anu.rscs.aot.queries.QueryAdaptor;
+import au.edu.anu.rscs.aot.queries.Queryable;
 
-/**
- * 
- * @author Shayne Flint - 26/3/2012
- *
- */
-// TODO: check this as it was modified by replacing StringList by List<String>
-public class IsStringList extends Query {
-
-	public IsStringList() {
-	}
-
-	public static IsStringList isStringList() {
-		return new IsStringList();
-	}
-
-	public String toString() {
-		return "[isStringList]";
-	}
+public class IsStringList extends QueryAdaptor{
 
 	@Override
-	public Query process(Object item) {
-		defaultProcess(item);
-//		satisfied = (item instanceof StringList);
-		Type[] par = item.getClass().getTypeParameters();
-		satisfied = (List.class.isAssignableFrom(item.getClass())) 
-				&& (par[0].getClass().equals(String.class));
+	public Queryable submit(Object input) {
+		initInput(input);
+		Type[] par = input.getClass().getTypeParameters();
+		if (!(List.class.isAssignableFrom(input.getClass())) 
+				&& (par[0].getClass().equals(String.class))) {
+			errorMsg = "'"+input.getClass().getSimpleName()+"' is not a StringList";
+		};
 		return this;
 	}
 

@@ -30,7 +30,8 @@
 package au.edu.anu.rscs.aot.collections;
 
 import java.util.Collection;
-import au.edu.anu.rscs.aot.queries.Query;
+
+import au.edu.anu.rscs.aot.old.queries.Query;
 
 /**
  * A list filtered by a Query.

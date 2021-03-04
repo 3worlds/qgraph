@@ -30,9 +30,9 @@
 package au.edu.anu.rscs.aot.queries.graph.edge;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static au.edu.anu.rscs.aot.queries.CoreQueries.isNode;
-import static au.edu.anu.rscs.aot.queries.CoreQueries.selectZeroOrMany;
-import static au.edu.anu.rscs.aot.queries.base.SequenceQuery.get;
+import static au.edu.anu.rscs.aot.old.queries.CoreQueries.isNode;
+import static au.edu.anu.rscs.aot.old.queries.CoreQueries.selectZeroOrMany;
+import static au.edu.anu.rscs.aot.old.queries.base.SequenceQuery.get;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -41,6 +41,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import au.edu.anu.rscs.aot.old.queries.graph.edge.EdgeHasNode;
 import fr.cnrs.iees.graph.Direction;
 import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Node;
