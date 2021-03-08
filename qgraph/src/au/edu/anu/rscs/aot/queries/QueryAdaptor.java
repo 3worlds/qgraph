@@ -8,11 +8,13 @@ package au.edu.anu.rscs.aot.queries;
 public abstract class QueryAdaptor implements Queryable {
 	protected Object result;
 	protected String errorMsg;
+	protected String actionMsg;
 
 	protected Queryable initInput(Object input/* , Class<?> expected */) {
 		result = input;
 		// NB: default is satisfied() == true;
 		errorMsg = null;
+		actionMsg = null;
 		return this;
 	}
 
@@ -24,6 +26,11 @@ public abstract class QueryAdaptor implements Queryable {
 	@Override
 	public String errorMsg() {
 		return errorMsg;
+	}
+	
+	@Override
+	public String actionMsg() {
+		return actionMsg;
 	}
 
 	@Override
