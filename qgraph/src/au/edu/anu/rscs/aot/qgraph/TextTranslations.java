@@ -1,4 +1,4 @@
-package au.edu.anu.rscs.aot;
+package au.edu.anu.rscs.aot.qgraph;
 
 /**
  * @author Ian Davies
