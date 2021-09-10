@@ -6,6 +6,14 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 import fr.cnrs.iees.identity.Identity;
 
+/**
+ * A Query for objects which have a name (interface <em>Named</em> in library <em>omhtk</em>).
+ * -- whatever 'name' means.
+ *  Checks that the object name matches one of the names built in the Query.
+ * 
+ * @author Shayne Flint - 26/3/2012
+ *
+ */
 public class ElementName extends QueryAdaptor {
 	private String[] names;
 

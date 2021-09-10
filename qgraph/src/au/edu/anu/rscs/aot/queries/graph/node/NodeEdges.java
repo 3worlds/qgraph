@@ -7,6 +7,11 @@ import fr.cnrs.iees.graph.Node;
 import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
 import static au.edu.anu.rscs.aot.queries.base.SequenceQuery.*;
 
+/**
+ * 
+ * @author Shayne Flint - 2/4/2012
+ *
+ */
 public class NodeEdges extends QueryAdaptor{
 	private Direction direction;
 	private Queryable query;

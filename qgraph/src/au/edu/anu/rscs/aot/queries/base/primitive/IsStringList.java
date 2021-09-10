@@ -6,6 +6,12 @@ import java.util.List;
 import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
+/**
+ * 
+ * @author Shayne Flint - 26/3/2012
+ *
+ */
+// TODO: check this as it was modified by replacing StringList by List<String>
 public class IsStringList extends QueryAdaptor{
 
 	@Override

@@ -11,6 +11,20 @@ import au.edu.anu.rscs.aot.queries.graph.EdgeNodeSelection;
 import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Node;
 
+/**
+ * <p>A {@link Query} to select start, end, other-end or both-ends Nodes of a list of Edges</p> 
+ * <dl>
+ * <dt>Type of input to {@code process()}</dt>
+ * <dd>Iterable&lt;Edge&gt;</dd>
+ * <dt>Type of result</dt>
+ * <dd>DynamicList&lt;Node&gt;</dd>
+ * </dl>
+ * 
+ * @author Shayne Flint - 26/3/2012
+ *
+ */
+//Tested OK with version 0.0.1 on 5/12/2018 (using Shayne's test suite)
+// tested OK with version 0.1.1 on 21/5/2019
 public class EdgeListNodes extends QueryAdaptor {
 	private EdgeNodeSelection edgeNodeSelection;
 	private Node refNode;

@@ -1,9 +1,18 @@
 package au.edu.anu.rscs.aot.queries;
 
 /**
- * @author Ian Davies
- *
- * @date 23 Feb. 2021
+ * <p>An ancestor implementation for queries with default behaviour for all methods of 
+ * {@link Queryable} but {@code submit(...)}.</p>
+ * 
+ * <p>Rules for writing descendants:</p>
+ * <ul>
+ * <li>call {@code initInput(input)} in {@code submit(...)} to reset field values to default (
+ * {@code satisfied=true, errorMsg=null, actionMsg=null}).</li>
+ * <li>only test what this query is meant to check. e.g., if {@code input==null} the query
+ * should return satisfied unless it is an {@code isNull} query. </li>
+ * </ul>
+ * 
+ * @author Ian Davies - 23 Feb. 2021
  */
 public abstract class QueryAdaptor implements Queryable {
 	protected Object result;

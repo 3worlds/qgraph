@@ -11,6 +11,12 @@ import static au.edu.anu.rscs.aot.queries.base.SequenceQuery.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+*
+* @author Shayne Flint - 2/4/2012
+* refactored by J. Gignoux - 12/4/2019 to handle new tree structure
+*
+*/
 public class TreeQuery extends QueryAdaptor {
 	private boolean getParent;
 	private boolean traverse;

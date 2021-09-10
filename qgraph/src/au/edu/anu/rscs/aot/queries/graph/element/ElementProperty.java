@@ -5,6 +5,22 @@ import au.edu.anu.rscs.aot.queries.Queryable;
 import fr.cnrs.iees.graph.ReadOnlyDataHolder;
 import fr.cnrs.iees.properties.ReadOnlyPropertyList;
 
+/**
+ * <p>A {@link Query} to check that an object has a property and/or a value.</p>
+ * <dl>
+ * <dt>Type of input to {@code process()}</dt>
+ * <dd>{@link ReadOnlyPropertyList} or {@link ReadOnlyDataHolder} (remember that
+ * {@link SimplePropertyList} and {@link DataHolder} are descendants of these, and as such
+ * also constitute valid input)</dd>
+ * <dt>Type of result</dt>
+ * <dd>the property value, if applicable - otherwise no result</dd>
+ * </dl>
+ * 
+ * @author Shayne Flint - 26/3/2012
+ *
+ */
+// Tested OK with version 0.0.1 on 5/12/2018 (using Shayne's test suite)
+// Tested OK with version 0.1.1 on 21/5/2019 (NB the test suite is not complete, only checks hasProperty)
 public class ElementProperty extends QueryAdaptor {
 	private String key;
 	private Object defaultValue;

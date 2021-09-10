@@ -5,6 +5,13 @@ import java.util.Arrays;
 import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
+/**
+ * Checks if an object is of a given class
+ * 
+ * @author Shayne Flint - 26/3/2012
+ *
+ */
+// NOT TESTED
 public class IsClass extends QueryAdaptor {
 	private Class<?>[] classList;
 

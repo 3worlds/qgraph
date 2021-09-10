@@ -22,6 +22,13 @@ import au.edu.anu.rscs.aot.util.IntegerRange;
 import fr.cnrs.iees.graph.Direction;
 import fr.cnrs.iees.graph.Node;
 
+/**
+*
+* This class is a convenience class of static methods that brings together queries of all types
+*
+* @author Shayne Flint - 26/3/2012<br/>
+* 			refactored by Ian Davies - feb. 2021
+*/
 public class CoreQueries {
 	private CoreQueries() {
 	}
@@ -45,6 +52,8 @@ public class CoreQueries {
 	}
 
 	// SelectQuery
+	//
+	
 	public static SelectQuery selectOne() {
 		return new SelectQuery().returnOne().multiplicity(Multiplicity.ONE);
 	}
@@ -109,26 +118,61 @@ public class CoreQueries {
 		return new ElementLabel(labels);
 	}
 
+	/**
+	 * Checks that a property exists in the input
+	 * @param k the name of the property
+	 * @return the resulting ElementProperty query
+	 */
 	public static Queryable hasProperty(String k) {
 		return new ElementProperty().key(k);
 	}
 
+	/**
+	 * Checks that a property exists and has the specified value in the input
+	 * @param k the name of the property
+	 * @param v the expected value
+	 * @return the resulting ElementProperty query
+	 */
 	public static Queryable hasProperty(String k, Object v) {
 		return new ElementProperty().key(k).value(v);
 	}
 
+	/**
+	 * Checks that a property exists and satisfied the specified query
+	 * @param k the name of the property
+	 * @param q the query to check for this property
+	 * @return the resulting ElementProperty query
+	 */
 	public static Queryable hasProperty(String k, Queryable q) {
 		return new ElementProperty().key(k).query(q);
 	}
 
+	/**
+	 * Checks that an <em>optional</em> property exists and satisfied the specified query
+	 * @param k the name of the property
+	 * @param q the query to check for this property
+	 * @return the resulting ElementProperty query
+	 */
 	public static Queryable hasOptionalProperty(String k, Queryable q) {
 		return new ElementProperty().key(k).query(q).optional();
 	}
 
+	/**
+	 * Get the value of the specified property, and use the specified default value if
+	 * property not set
+	 * @param k the name of the property
+	 * @param dv the value to set if the property was empty
+	 * @return the resulting ElementProperty query
+	 */
 	public static ElementProperty getProperty(String k, Object dv) {
 		return new ElementProperty().key(k).defaultValue(dv).getValue();
 	}
 	
+	/**
+	 * Get the value of the specified property
+	 * @param k the name of the property
+	 * @return the resulting ElementProperty query
+	 */
 	public static ElementProperty getProperty(String k) {
 		return new ElementProperty().key(k).getValue();
 	}

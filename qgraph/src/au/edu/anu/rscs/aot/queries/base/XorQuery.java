@@ -3,12 +3,21 @@ package au.edu.anu.rscs.aot.queries.base;
 import au.edu.anu.rscs.aot.queries.Queryable;
 import au.edu.anu.rscs.aot.queries.QueryList;
 
+/**
+ * Query testing if exactly one its sub-queries is satisfied.
+ * 
+ * @author Shayne Flint - 26/3/2012
+ *
+ */
 public class XorQuery extends QueryList {
 
 	public XorQuery(Queryable... queries) {
 		super(queries);
 	}
 
+	/**
+	 * Argument can be of any class.
+	 */
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);

@@ -37,7 +37,6 @@ import fr.ens.biologie.generic.Textable;
  * 
  * 
  */
-// NB: this was AotException before - but Exception have to stay local to their Library
 public class QGraphException extends RuntimeException {
 
 	/**

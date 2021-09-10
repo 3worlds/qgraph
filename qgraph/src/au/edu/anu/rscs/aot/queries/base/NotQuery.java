@@ -32,12 +32,22 @@ package au.edu.anu.rscs.aot.queries.base;
 import au.edu.anu.rscs.aot.queries.Queryable;
 import au.edu.anu.rscs.aot.queries.QueryList;
 
+/**
+ * Query testing if all its sub-queries are not satisfied. Will stop checking at the first 
+ * sub-query success.
+ * 
+ * @author Shayne Flint - 26/3/2012
+ *
+ */
 public class NotQuery extends QueryList {
 	
 	public NotQuery(Queryable... queries) {
 		super(queries);
 	}
 
+	/**
+	 * Argument can be of any class.
+	 */
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);

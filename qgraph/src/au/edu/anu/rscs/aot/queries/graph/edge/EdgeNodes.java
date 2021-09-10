@@ -7,6 +7,12 @@ import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Node;
 import au.edu.anu.rscs.aot.queries.graph.EdgeNodeSelection;
 
+/**
+ * 
+ * @author Shayne Flint - 26/3/2012
+ *
+ */
+// NOT TESTED
 public class EdgeNodes extends QueryAdaptor {
 	private EdgeNodeSelection edgeNodeSelection;
 	private Node refNode;

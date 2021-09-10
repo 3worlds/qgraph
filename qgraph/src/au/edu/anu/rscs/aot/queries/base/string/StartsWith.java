@@ -2,6 +2,11 @@ package au.edu.anu.rscs.aot.queries.base.string;
 
 import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 
+/**
+ * 
+ * @author Shayne Flint - 26/3/2012
+ *
+ */
 public class StartsWith extends QueryAdaptor {
 
 	private String str;
