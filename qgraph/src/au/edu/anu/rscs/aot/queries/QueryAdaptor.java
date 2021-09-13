@@ -35,22 +35,22 @@ public abstract class QueryAdaptor implements Queryable {
 	}
 
 	@Override
-	public boolean satisfied() {
+	public final boolean satisfied() {
 		return errorMsg == null;
 	}
 
 	@Override
-	public String errorMsg() {
+	public final String errorMsg() {
 		return errorMsg;
 	}
 	
 	@Override
-	public String actionMsg() {
+	public final String actionMsg() {
 		return actionMsg;
 	}
 
 	@Override
-	public Object result() {
+	public final Object result() {
 		return result;
 	}
 
