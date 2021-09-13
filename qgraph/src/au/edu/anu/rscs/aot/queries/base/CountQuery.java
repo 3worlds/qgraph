@@ -27,33 +27,58 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.old.queries.base;
+package au.edu.anu.rscs.aot.queries.base;
 
-import au.edu.anu.rscs.aot.old.queries.Query;
+import au.edu.anu.rscs.aot.queries.QueryAdaptor;
+import au.edu.anu.rscs.aot.queries.Queryable;
+import au.edu.anu.rscs.aot.util.IntegerRange;
 
 /**
- * <p>Checks that an object is a Query.</p>
  * 
- * @author Shayne Flint - 26/3/2012
+ * @author Shayne Flint - 27/8/2012
  *
  */
-@Deprecated
-public class IsQuery extends Query {
 
-	public static Query isQuery() {
-		return new IsQuery();
+public class CountQuery extends QueryAdaptor {
+
+	private int min;
+	private int max;
+
+	public CountQuery(int min, int max) {
+		this.min = min;
+		this.max = max;
+	}
+
+
+	public static CountQuery hasMinCount(int min) {
+		return new CountQuery(min, Integer.MAX_VALUE);		
+	}
+
+	public static CountQuery hasMaxCount(int max) {
+		return new CountQuery(Integer.MIN_VALUE, max);		
+	}
+
+	public static CountQuery countInRange(int min, int max) {
+		return new CountQuery(min, max);		
+	}
+
+	public static CountQuery countInRange(IntegerRange range) {
+		return new CountQuery(range.getFirst(), range.getLast());		
+	}
+
+	public static CountQuery hasCount(int size) {
+		return new CountQuery(size, size);		
 	}
 
 	@Override
-	public Query process(Object item) {
-		defaultProcess(item);
-		satisfied = item instanceof Query;
+	public Queryable submit(Object input) {
+		initInput(input);
+		Integer localItem = (Integer)input;
+		if (!(localItem >= min && localItem <= max))
+			errorMsg ="[Expected Integer to be in the range " + min + ".." + max + " but found '"+localItem+"']";
 		return this;
 	}
 
-	public String toString() {
-		return "[must be a query]";
 
-	}
 
 }

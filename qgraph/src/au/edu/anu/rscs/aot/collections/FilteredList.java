@@ -31,7 +31,7 @@ package au.edu.anu.rscs.aot.collections;
 
 import java.util.Collection;
 
-import au.edu.anu.rscs.aot.old.queries.Query;
+import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
  * A list filtered by a Query.
@@ -39,12 +39,11 @@ import au.edu.anu.rscs.aot.old.queries.Query;
  * @author Shayne Flint - 23/4/2012
  *
  */
-@Deprecated
 public class FilteredList<T> extends DynamicList<T>  {
 
-	public FilteredList(Collection<T> list, Query query) {
+	public FilteredList(Collection<T> list, Queryable query) {
 		for (T item : list)
-			if (query.satisfied(item))
+			if (query.submit(item).satisfied())
 				add(item);
 	}
 
