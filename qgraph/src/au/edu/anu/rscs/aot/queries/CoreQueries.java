@@ -1,6 +1,7 @@
 package au.edu.anu.rscs.aot.queries;
 
 import au.edu.anu.rscs.aot.queries.base.AndQuery;
+import au.edu.anu.rscs.aot.queries.base.CountQuery;
 import au.edu.anu.rscs.aot.queries.base.NotQuery;
 import au.edu.anu.rscs.aot.queries.base.OrQuery;
 import au.edu.anu.rscs.aot.queries.base.SelectQuery;
@@ -23,12 +24,28 @@ import fr.cnrs.iees.graph.Direction;
 import fr.cnrs.iees.graph.Node;
 
 /**
-*
-* This class is a convenience class of static methods that brings together queries of all types
-*
-* @author Shayne Flint - 26/3/2012<br/>
-* 			refactored by Ian Davies - feb. 2021
-*/
+ *
+ * <p>This class is a convenience class of static methods that brings together queries of all types.</p>
+ * <p>It is specially designed to work in interaction with the  
+ * {@link au.edu.anu.rscs.aot.queries.base.SequenceQuery#get(Object, Queryable...) SequenceQuery.get(...)} 
+ * method to query particular elements of a {@link Graph}. Examples:</p>
+ * <p>return all the OUT edges of a node labelled 'blue':</p>
+ * <pre>
+ * get(node,
+ * 	edges(Direction.OUT), 
+ * 	edgeListEndNodes(),
+ * 	selectZeroOrMany(hasTheLabel("blue")));
+ * </pre>
+ * <p>return all the children of a (tree)node that have property color='red'</p>
+ * <pre>
+ * get(node,
+ * 	children(), 
+ * 	selectZeroOrMany(hasProperty("color","blue")));
+ * </pre>
+ * 
+ * @author Shayne Flint - 26/3/2012<br/>
+ * 			refactored by Ian Davies - feb. 2021
+ */
 public class CoreQueries {
 	private CoreQueries() {
 	}
@@ -92,28 +109,109 @@ public class CoreQueries {
 	}
 
 	// Size
+	/**
+	 * Check that the size of the input (of class {@link Sizeable}) is within range
+	 * @param min the lower end of the range
+	 * @param max the upper end of the range
+	 * @return the resulting SizeQuery query
+	 */
 	public static Queryable inRange(int min, int max) {
 		return new SizeQuery().min(min).max(max);
 	}
 
+	/**
+	 * Check that the size of the input (of class {@link Sizeable}) is above minimum
+	 * @param min the minimum
+	 * @return  the resulting SizeQuery query
+	 */
 	public static Queryable hasMin(int min) {
 		return new SizeQuery().min(min);
 	}
 
+	/**
+	 * Check that the size of the input (of class {@link Sizeable}) is below maximum
+	 * @param min the maximum
+	 * @return  the resulting SizeQuery query
+	 */
 	public static Queryable hasMax(int max) {
 		return new SizeQuery().max(max);
 	}
 
+	/**
+	 * Check that the size of the input (of class {@link Sizeable}) is within range
+	 * @param range the range
+	 * @return the resulting SizeQuery query
+	 */
 	public static Queryable inRange(IntegerRange range) {
 		return new SizeQuery().min(range.getFirst()).max(range.getLast());
 	}
 
+	// Count
+	
+	/**
+	 * Check that the input (integer) is greater than minimum
+	 * @param min the minimum
+	 * @return the resulting CountQuery query
+	 */
+	public static CountQuery hasMinCount(int min) {
+		return new CountQuery(min, Integer.MAX_VALUE);		
+	}
+
+	/**
+	 * Check that the input (integer) is smaller than maximum
+	 * @param max the maximum
+	 * @return the resulting CountQuery query
+	 */
+	public static CountQuery hasMaxCount(int max) {
+		return new CountQuery(Integer.MIN_VALUE, max);		
+	}
+
+	/**
+	 * Check that the input (integer) is within range
+	 * @param min the lower end of the range
+	 * @param max the upper end of the range
+	 * @return the resulting CountQuery query
+	 */
+	public static CountQuery countInRange(int min, int max) {
+		return new CountQuery(min, max);		
+	}
+
+	/**
+	 * Check that the input (integer) is within range
+	 * @param range the range
+	 * @return the resulting CountQuery query
+	 */
+	public static CountQuery countInRange(IntegerRange range) {
+		return new CountQuery(range.getFirst(), range.getLast());		
+	}
+
+	/**
+	 * Check that the input (integer) is equal to size
+	 * @param size the value to check
+	 * @return the resulting CountQuery query
+	 */
+	public static CountQuery hasCount(int size) {
+		return new CountQuery(size, size);		
+	}
+	
 	// ------------------   Elements
 	//
+	/**
+	 * Checks that an element (=graph node or edge) has one of the unique identifiers ({@code id})
+	 * passed as arguments. Will work for any {@link Identity} implementation, actually.
+	 * @param names the names/ids to compare to
+	 * @return the resulting ElementName query
+	 */
 	public static Queryable hasTheName(String... names) {
 		return new ElementName(names);
 	}
 
+	/**
+	 * Checks that an element (=graph node or edge) has one of the class identifiers ({@code classId})
+	 * passed as arguments. Will work for any {@link Specialized} implementation, actually.
+	 * @param labels the labels/classIds to compare to
+	 * @return the resulting ElementLabel query
+	 */
 	public static Queryable hasTheLabel(String... labels) {
 		return new ElementLabel(labels);
 	}
@@ -179,7 +277,6 @@ public class CoreQueries {
 
 	// ---------------------- Nodes
 	//
-
 	public static Queryable children() {
 //		return new Trees(null, false, false);
 		return new TreeQuery();
@@ -233,19 +330,35 @@ public class CoreQueries {
 
 	// ------------------- Edge lists
 	//
-
+	/**
+	 * Get the list of start nodes of an edge list
+	 * @return the resulting EdgeListNodes query
+	 */
 	public static Queryable edgeListStartNodes() {
 		return new EdgeListNodes().edgeNodeSelection(EdgeNodeSelection.START);
 	}
 
+	/**
+	 * Get the list of end nodes of an edge list
+	 * @return the resulting EdgeListNodes query
+	 */
 	public static Queryable edgeListEndNodes() {
 		return new EdgeListNodes().edgeNodeSelection(EdgeNodeSelection.END);
 	}
 
+	/**
+	 * Get the list of all start and end nodes of an edge list
+	 * @return the resulting EdgeListNodes query
+	 */
 	public static Queryable edgeListBothNodes() {
 		return new EdgeListNodes().edgeNodeSelection(EdgeNodeSelection.BOTH);
 	}
 
+	/**
+	 * Get the list of nodes at the opposite end of the argument of an edge list
+	 * @param n the node which opposite end has to be found
+	 * @return the resulting EdgeListNodes query
+	 */
 	public static Queryable edgeListOtherNodes(Node n) {
 		return new EdgeListNodes().edgeNodeSelection(EdgeNodeSelection.OTHER).refNode(n);
 	}

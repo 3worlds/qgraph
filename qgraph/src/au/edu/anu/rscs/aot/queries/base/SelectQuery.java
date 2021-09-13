@@ -12,6 +12,15 @@ import au.edu.anu.rscs.aot.util.IntegerRange;
 /**
  * A query to select items based on multiplicities.
  * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@link Collection}{@code <Object>}</dd>
+ * <dt>Type of result</dt>
+ * <dd>{@link Collection}{@code <Object>}, possibly empty (depending on the filter Query attached
+ * with method {@link au.edu.anu.rscs.aot.queries.base.SelectQuery#query(Queryable) query(...)}). <br/>
+ * {@link Object} or {@code null}</dd>
+ * </dl>
+ * 
  * @author Shayne Flint - 28/3/2012
  *
  */

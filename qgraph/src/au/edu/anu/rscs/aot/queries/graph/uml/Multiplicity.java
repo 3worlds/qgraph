@@ -33,6 +33,7 @@ import au.edu.anu.rscs.aot.QGraphException;
 import au.edu.anu.rscs.aot.util.IntegerRange;
 
 /**
+ * The four main multiplicities used in UML.
  * 
  * @author Shayne Flint - 29/3/2012
  *
@@ -41,6 +42,12 @@ public enum Multiplicity {
 
 	ZERO, ONE, ONE_MANY, ZERO_ONE, ZERO_MANY;
 
+	/**
+	 * Read a String argument into a multiplicity enum value. Throws an Exception if the String does
+	 * not represent a multiplicity.
+	 * @param str the String to parse
+	 * @return the multiplicity
+	 */
 	public static Multiplicity valueFrom(String str) {
 		// Multiplicity result;
 		if (str.equals("0..0"))
@@ -57,6 +64,12 @@ public enum Multiplicity {
 			throw new QGraphException("Cannot convert '" + str + "' to a multiplicity.");
 	}
 
+	/**
+	 * Build a multiplicity enum value from two integers matching the two ends of the multiplicity.
+	 * @param first the lower end of the multiplicity (0 or 1)
+	 * @param last the upper end of the multiplicity (1 or {@code Integer.MAX_VALUE})
+	 * @return the multiplicity
+	 */
 	public static Multiplicity valueFrom(int first, int last) {
 		if (first == 0 && last == 0)
 			return ZERO;
@@ -71,6 +84,11 @@ public enum Multiplicity {
 		throw new QGraphException("Multiplicity: " + first + ".." + last + " is not a valid multiplicity");
 	}
 
+	/**
+	 * Convert a mutiplicity String into an {@link IntegerRange} instance.
+	 * @param str
+	 * @return the multiplicity
+	 */
 	public static IntegerRange stringToIntegerRange(String str) {
 		try {
 			String[] items = str.split("..");
@@ -85,10 +103,19 @@ public enum Multiplicity {
 		}
 	}
 
+	/**
+	 * Build a multiplicity enum value from an {@link IntegerRange}.
+	 * @param range the range
+	 * @return the multiplicity
+	 */
 	public static Multiplicity valueFrom(IntegerRange range) {
 		return valueFrom(range.getFirst(), range.getLast());
 	}
 
+	/**
+	 * Convert a mutiplicity into an {@link IntegerRange} instance.
+	 * @return  the range matching this multiplicity
+	 */
 	public IntegerRange asIntegerRange() {
 		switch (this) {
 		case ZERO:

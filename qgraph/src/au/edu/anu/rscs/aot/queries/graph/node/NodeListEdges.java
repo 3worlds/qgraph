@@ -27,6 +27,9 @@ import fr.cnrs.iees.graph.Node;
 public class NodeListEdges extends QueryAdaptor {
 	private Direction direction;
 
+	/**
+	 * Only collections (actually {@link Iterable}s) of {@link Node}s arguments will be checked.
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public Queryable submit(Object input) {
@@ -46,6 +49,11 @@ public class NodeListEdges extends QueryAdaptor {
 	}
 
 	// Fluid interface
+	/**
+	 * Set the direction in which to search for edges
+	 * @param d the direction in which to search
+	 * @return this instance for agile programming
+	 */
 	public NodeListEdges direction(Direction d) {
 		direction = d;
 		return this;

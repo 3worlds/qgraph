@@ -32,6 +32,8 @@ package au.edu.anu.rscs.aot;
 import fr.ens.biologie.generic.Textable;
 
 /**
+ * A class for {@link Exception}s arising in the <strong>qgraph</strong> library. 
+ * 
  * @author shayne.flint@anu.edu.au
  *
  * 

@@ -4,8 +4,15 @@ import au.edu.anu.rscs.aot.queries.Queryable;
 import au.edu.anu.rscs.aot.queries.QueryList;
 
 /**
- * Query testing if all its sub-queries are satisfied. Will stop checking at the first 
- * sub-query failure.
+ * <p>Query testing if all its sub-queries are satisfied. Will stop checking at the first 
+ * sub-query failure.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>any class;</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * </dl>
  * 
  * @author Shayne Flint - 28/3/2012<br/>
  * refactored by Ian Davies - Feb. 2021

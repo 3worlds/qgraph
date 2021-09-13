@@ -12,6 +12,13 @@ package au.edu.anu.rscs.aot.queries;
  * should return satisfied unless it is an {@code isNull} query. </li>
  * </ul>
  * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>any class;</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input (by default {@code result=input})</dd>
+ * </dl>
+ * 
  * @author Ian Davies - 23 Feb. 2021
  */
 public abstract class QueryAdaptor implements Queryable {

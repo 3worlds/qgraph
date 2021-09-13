@@ -6,7 +6,7 @@ import fr.cnrs.iees.graph.ReadOnlyDataHolder;
 import fr.cnrs.iees.properties.ReadOnlyPropertyList;
 
 /**
- * <p>A {@link Query} to check that an object has a property and/or a value.</p>
+ * <p>A {@link Query} to check that an object has a property and (optionally) a value.</p>
  * <dl>
  * <dt>Type of input to {@code process()}</dt>
  * <dd>{@link ReadOnlyPropertyList} or {@link ReadOnlyDataHolder} (remember that
@@ -16,7 +16,10 @@ import fr.cnrs.iees.properties.ReadOnlyPropertyList;
  * <dd>the property value, if applicable - otherwise no result</dd>
  * </dl>
  * 
- * @author Shayne Flint - 26/3/2012
+ * @author Shayne Flint - 26/3/2012<br/>
+ * 	refactored by Jacques Gignoux - 15/4/2019 <br/>
+ * an Iand Davies - Feb. 2021
+ * 
  *
  */
 // Tested OK with version 0.0.1 on 5/12/2018 (using Shayne's test suite)
@@ -29,6 +32,9 @@ public class ElementProperty extends QueryAdaptor {
 	private boolean getValue;
 	private boolean optional;
 
+	/**
+	 * Only {@link ReadOnlyDataHolder} and {@link ReadOnlyPropertyList} arguments will be checked.
+	 */
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);
@@ -92,31 +98,60 @@ public class ElementProperty extends QueryAdaptor {
 
 	// Fluid interface
 
+	/**
+	 * Set the property name to compare to.
+	 * @param k the property name
+	 * @return this instance for agile programming
+	 */
 	public ElementProperty key(String k) {
 		key = k;
 		return this;
 	}
 
+	/**
+	 * Set the default value: if the property is absent in the property list, it will be set to
+	 * this value
+	 * @param v the property value
+	 * @return this instance for agile programming
+	 */
 	public ElementProperty defaultValue(Object v) {
 		defaultValue = v;
 		return this;
 	}
 
+	/**
+	 * Set the query to apply to the property value.
+	 * @param q the query
+	 * @return this instance for agile programming
+	 */
 	public ElementProperty query(Queryable q) {
 		query = q;
 		return this;
 	}
 
+	/**
+	 * Set the property value
+	 * @param v the property value
+	 * @return  this instance for agile programming
+	 */
 	public ElementProperty value(Object v) {
 		value = v;
 		return this;
 	}
 
+	/**
+	 * If the property value should be returned as a result
+	 * @return this instance for agile programming
+	 */
 	public ElementProperty getValue() {
 		getValue = true;
 		return this;
 	}
 
+	/**
+	 * If the property is optional
+	 * @return this instance for agile programming
+	 */
 	public ElementProperty optional() {
 		optional = true;
 		return this;

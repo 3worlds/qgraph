@@ -6,6 +6,13 @@ import fr.ens.biologie.generic.Sizeable;
 /**
  * Query testing if the size of a {@link Sizeable} object is within a specified range.
  * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@link Sizeable}</dd>
+ * <dt>Type of result</dt>
+ * <dd>Sizeable ({@code result=input})</dd>
+ * </dl>
+ * 
  * @author Shayne Flint - 26/3/2012
  *
  */
@@ -29,7 +36,7 @@ public class SizeQuery extends QueryAdaptor {
 		initInput(input);
 		Sizeable localItem = (Sizeable) result;
 		long size = localItem.size();
-		boolean ok = size >= min && size <= max;
+		boolean ok = (size >= min) && (size <= max);
 		if (!ok)
 			errorMsg = "Size of '" + localItem.getClass().getSimpleName() + "' is '" + localItem.size() + "' but "
 					+ this;

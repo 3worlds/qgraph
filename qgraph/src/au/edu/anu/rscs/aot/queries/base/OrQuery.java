@@ -7,6 +7,13 @@ import au.edu.anu.rscs.aot.queries.QueryList;
  * Query testing if at least one its sub-queries is satisfied. Will stop checking at the first 
  * sub-query success.
  * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>any class;</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * </dl>
+ * 
  * @author Shayne Flint - 26/3/2012
  *
  */

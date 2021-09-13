@@ -9,6 +9,13 @@ import au.edu.anu.rscs.aot.queries.QueryList;
  * <p>Chains a sequence of queries, i.e. the {@code result()} of each query serves as an
  * input into {@code submit(...)} of the next query.</p>
  *
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>any class;</dd>
+ * <dt>Type of result</dt>
+ * <dd>type of the result of the last query in the sequence (if everything went ok - {@code null} otherwise)</dd>
+ * </dl>
+ *
  * @author Shayne Flint - 28/3/2012
  * @author Ian Davies - 23 Feb. 2021
  * 
@@ -77,6 +84,12 @@ public class SequenceQuery extends QueryList {
 	 * 	edges(Direction.OUT), 
 	 * 	edgeListEndNodes(),
 	 * 	selectZeroOrMany(hasTheLabel("blue")));
+	 * </pre>
+	 * <p>return all the children of a (tree)node that have property color='red'</p>
+	 * <pre>
+	 * get(node,
+	 * 	children(), 
+	 * 	selectZeroOrMany(hasProperty("color","blue")));
 	 * </pre>
 	 * 
 	 * @param input the object on which to apply queries

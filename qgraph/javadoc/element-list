@@ -1,0 +1,12 @@
+au.edu.anu.rscs.aot
+au.edu.anu.rscs.aot.collections
+au.edu.anu.rscs.aot.qgraph
+au.edu.anu.rscs.aot.queries
+au.edu.anu.rscs.aot.queries.base
+au.edu.anu.rscs.aot.queries.base.primitive
+au.edu.anu.rscs.aot.queries.base.string
+au.edu.anu.rscs.aot.queries.graph
+au.edu.anu.rscs.aot.queries.graph.edge
+au.edu.anu.rscs.aot.queries.graph.element
+au.edu.anu.rscs.aot.queries.graph.node
+au.edu.anu.rscs.aot.queries.graph.uml

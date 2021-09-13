@@ -7,25 +7,35 @@ import au.edu.anu.rscs.aot.queries.Queryable;
 import fr.cnrs.iees.identity.Identity;
 
 /**
- * A Query for objects which have a name (interface <em>Named</em> in library <em>omhtk</em>).
- * -- whatever 'name' means.
- *  Checks that the object name matches one of the names built in the Query.
+ * <p>A Query for {@link Identity} objects, which have a unique identifier {@code id}, also called 
+ * <em>a name</em>.
+ * Checks that the object name/id matches one of the names built in the Query.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code Identity}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
 public class ElementName extends QueryAdaptor {
+
 	private String[] names;
 
+	/**
+	 * 
+	 * @param names a list of ids to compare to
+	 */
 	public ElementName(String... names) {
 		this.names = names;
 	}
 
-//	public XElementName(String name) {
-//		names = new String[1];
-//		names[0] = name;
-//	}
-
+	/**
+	 * Only {@link Identity} arguments will be checked.
+	 */
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);

@@ -41,6 +41,13 @@ import au.edu.anu.rscs.aot.queries.Queryable;
  */
 public class FilteredList<T> extends DynamicList<T>  {
 
+	/**
+	 * This constructor applies the query to every item in the collection argument. Items get in this
+	 * instance only if they satisfy the query.
+	 * 
+	 * @param list the list of items to check
+	 * @param query the query to apply to list
+	 */
 	public FilteredList(Collection<T> list, Queryable query) {
 		for (T item : list)
 			if (query.submit(item).satisfied())

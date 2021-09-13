@@ -30,11 +30,20 @@
 package au.edu.anu.rscs.aot.queries.graph;
 
 /**
+ * An enum to describe the tips of an {@link Edge}.
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
 public enum EdgeNodeSelection {
 
-	START, END, OTHER, BOTH
+	/** The start tip (for directed edges) */
+	START, 
+	/** The end tip (for directed edges) */
+	END, 
+	/** The opposite end of the edge */
+	OTHER, 
+	/** Both ends of an edge*/
+	BOTH
+	
 }

@@ -8,6 +8,13 @@ import fr.cnrs.iees.graph.Node;
 import au.edu.anu.rscs.aot.queries.graph.EdgeNodeSelection;
 
 /**
+ * <p>A {@link Query} to select start, end, other-end or both-ends Nodes of an Edge</p>
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@link Edge}</dd>
+ * <dt>Type of result</dt>
+ * <dd>{@link Node}</dd>
+ * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
  *
@@ -17,6 +24,9 @@ public class EdgeNodes extends QueryAdaptor {
 	private EdgeNodeSelection edgeNodeSelection;
 	private Node refNode;
 
+	/**
+	 * Only {@link Edge} arguments will be checked.
+	 */
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);
@@ -49,11 +59,21 @@ public class EdgeNodes extends QueryAdaptor {
 	}
 	// Fluid interface
 
+	/**
+	 * Set the {@link Node} at one of the tips of the edge (to look for the other)
+	 * @param n the start or end node of the edge
+	 * @return this instance for agile programming
+	 */
 	public EdgeNodes refNode(Node n) {
 		refNode = n;
 		return this;
 	}
 
+	/**
+	 * Set which end of the Edge should be searched for
+	 * @param s a type of edge tip
+	 * @return this instance for agile programming
+	 */
 	public EdgeNodes edgeNodeSelection(EdgeNodeSelection s) {
 		edgeNodeSelection = s;
 		return this;

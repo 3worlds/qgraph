@@ -12,16 +12,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-*
-* @author Shayne Flint - 2/4/2012
-* refactored by J. Gignoux - 12/4/2019 to handle new tree structure
-*
-*/
+ * Get parts of a {@link Tree} starting from a {@link TreeNode}.
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code TreeNode}</dd>
+ * <dt>Type of result</dt>
+ * <dd>a {@code TreeNode} or a {@code Collection<TreeNode>}</dd>
+ * </dl>
+ *
+ * @author Shayne Flint - 2/4/2012<br/>
+ * refactored by J. Gignoux - 12/4/2019 to handle new tree structure
+ *
+ */
 public class TreeQuery extends QueryAdaptor {
 	private boolean getParent;
 	private boolean traverse;
 	private Queryable query;
 
+	/**
+	 *  Only {@link TreeNode} arguments will be checked.
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public Queryable submit(Object input) {
@@ -75,26 +86,47 @@ public class TreeQuery extends QueryAdaptor {
 	}
 
 	// Fluid interface
+	/**
+	 * Set the query to check on tree nodes
+	 * @param q the query
+	 * @return this instance for agile programming
+	 */
 	public TreeQuery query(Queryable q) {
 		query = q;
 		return this;
 	}
 
+	/**
+	 * If the tree should be searched up 
+	 * @return this instance for agile programming
+	 */
 	public TreeQuery parent() {
 		getParent = true;
 		return this;
 	}
 
+	/**
+	 * If the tree should be searched from its root
+	 * @return this instance for agile programming
+	 */
 	public TreeQuery root() {
 		traverse = true;
 		return this;
 	}
 
+	/**
+	 * If the tree should be searched from the input argument
+	 * @return this instance for agile programming
+	 */
 	public TreeQuery notRoot() {
 		traverse = false;
 		return this;
 	}
 
+	/**
+	 * If the tree should be searched down (children)
+	 * @return this instance for agile programming
+	 */
 	public TreeQuery notParent() {
 		getParent = false;
 		return this;
@@ -122,11 +154,22 @@ public class TreeQuery extends QueryAdaptor {
 		}
 	}
 
+	/**
+	 * Get the childtree starting at the argument
+	 * @param root the root of the child tree
+	 * @return the child tree as a list of tree nodes
+	 */
 	public List<TreeNode> childTree(TreeNode root) {
 		List<TreeNode> result = new ArrayList<TreeNode>(root.subTree());
 		return result;
 	}
 
+	/**
+	 * Get the childtree starting at the argument, filtering nodes by the query argument
+	 * @param node the root of the child tree
+	 * @param query the query to check on all tree nodes
+	 * @return the child tree as a list of tree nodes (CAUTION: possibly disconnected)
+	 */
 	public DynamicList<TreeNode> childTree(TreeNode node, Queryable query) {
 // WARNING: DONT EXPOSE Tree methods requiring queries until the behaviour is clearly defined.
 		List<TreeNode> subTree = childTree(node);

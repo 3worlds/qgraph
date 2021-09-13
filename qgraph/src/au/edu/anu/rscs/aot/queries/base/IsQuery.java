@@ -30,7 +30,6 @@
 package au.edu.anu.rscs.aot.queries.base;
 
 import au.edu.anu.rscs.aot.queries.QueryAdaptor;
-import au.edu.anu.rscs.aot.queries.QueryList;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
@@ -38,12 +37,23 @@ import au.edu.anu.rscs.aot.queries.Queryable;
  * Checks that an object is a Query.
  * </p>
  * 
- * @author Shayne Flint - 26/3/2012
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>Queryable</dd>
+ * <dt>Type of result</dt>
+ * <dd>Queryable ({@code result=input})</dd>
+ * </dl>
+ * 
+ * @author Shayne Flint - 26/3/2012<br/>
+ * 		   refactored Ian Davies - Sept. 2021
  *
  */
 
 public class IsQuery extends QueryAdaptor {
 
+	/**
+	 * Only {@link Queryable} arguments will be checked.
+	 */
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);

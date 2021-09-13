@@ -31,9 +31,16 @@ package au.edu.anu.rscs.aot.queries.base;
 
 import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
-import au.edu.anu.rscs.aot.util.IntegerRange;
 
 /**
+ * Checks that an integer ('count') is within a range.
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>Integer</dd>
+ * <dt>Type of result</dt>
+ * <dd>Integer ({@code result=input})</dd>
+ * </dl>
  * 
  * @author Shayne Flint - 27/8/2012
  *
@@ -44,37 +51,24 @@ public class CountQuery extends QueryAdaptor {
 	private int min;
 	private int max;
 
+	/**
+	 * Constructor with min and max (caution: no check that min<max). 
+	 * @param min
+	 * @param max
+	 */
 	public CountQuery(int min, int max) {
 		this.min = min;
 		this.max = max;
 	}
 
-
-	public static CountQuery hasMinCount(int min) {
-		return new CountQuery(min, Integer.MAX_VALUE);		
-	}
-
-	public static CountQuery hasMaxCount(int max) {
-		return new CountQuery(Integer.MIN_VALUE, max);		
-	}
-
-	public static CountQuery countInRange(int min, int max) {
-		return new CountQuery(min, max);		
-	}
-
-	public static CountQuery countInRange(IntegerRange range) {
-		return new CountQuery(range.getFirst(), range.getLast());		
-	}
-
-	public static CountQuery hasCount(int size) {
-		return new CountQuery(size, size);		
-	}
-
+	/**
+	 * Only Integer argument will be checked.
+	 */
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);
 		Integer localItem = (Integer)input;
-		if (!(localItem >= min && localItem <= max))
+		if (!((localItem >= min) && (localItem <= max)))
 			errorMsg ="[Expected Integer to be in the range " + min + ".." + max + " but found '"+localItem+"']";
 		return this;
 	}
