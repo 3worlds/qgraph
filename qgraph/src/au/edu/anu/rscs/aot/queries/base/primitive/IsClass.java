@@ -29,16 +29,16 @@ public class IsClass extends QueryAdaptor {
 	public IsClass(Class<?>... classList) {
 		this.classList = classList;
 	}
-	
+
 	/**
 	 * 
 	 * @param classNames the names of the classes to check
 	 */
 	public IsClass(String... classNames) {
 		Class<?>[] classList = new Class<?>[classNames.length];
-		for (int i=0;i<classNames.length;i++) {
+		for (int i = 0; i < classNames.length; i++) {
 			try {
-				classList[i] = Class.forName(classNames[i]);	
+				classList[i] = Class.forName(classNames[i]);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -55,7 +55,8 @@ public class IsClass extends QueryAdaptor {
 			if (input.getClass().equals(c))
 				return this;
 		}
-		errorMsg = "Item must be one of the types in " + Arrays.deepToString(classList) + ".";
+		errorMsg = "Expected Item to be one of the types in " + Arrays.deepToString(classList) + " but found '"
+				+ input.getClass().getName() + "'.";
 		return this;
 	}
 
