@@ -1,11 +1,7 @@
 package au.edu.anu.rscs.aot.queries;
 
 import java.util.Date;
-
-<<<<<<< HEAD
-=======
 import au.edu.anu.rscs.aot.QGraphException;
->>>>>>> branch 'master' of git@gitlab.anu.edu.au:ThreeWorlds/qgraph.git
 import au.edu.anu.rscs.aot.queries.base.AndQuery;
 import au.edu.anu.rscs.aot.queries.base.CountQuery;
 import au.edu.anu.rscs.aot.queries.base.ForAllQuery;
@@ -26,7 +22,6 @@ import au.edu.anu.rscs.aot.queries.base.primitive.IsInteger;
 import au.edu.anu.rscs.aot.queries.base.primitive.IsIntegerRange;
 import au.edu.anu.rscs.aot.queries.base.primitive.IsLong;
 import au.edu.anu.rscs.aot.queries.base.primitive.IsString;
-<<<<<<< HEAD
 import au.edu.anu.rscs.aot.queries.base.primitive.IsStringList;
 import au.edu.anu.rscs.aot.queries.base.string.ClassQuery;
 import au.edu.anu.rscs.aot.queries.base.string.ContainsSubstring;
@@ -41,14 +36,9 @@ import au.edu.anu.rscs.aot.queries.base.string.IntegerString;
 import au.edu.anu.rscs.aot.queries.base.string.IsValidName;
 import au.edu.anu.rscs.aot.queries.base.string.LongString;
 import au.edu.anu.rscs.aot.queries.base.string.PatternString;
-=======
->>>>>>> branch 'master' of git@gitlab.anu.edu.au:ThreeWorlds/qgraph.git
 import au.edu.anu.rscs.aot.queries.base.string.StartsWith;
-<<<<<<< HEAD
 import au.edu.anu.rscs.aot.queries.base.string.UserNameQuery;
-=======
 import au.edu.anu.rscs.aot.queries.base.string.StringLength;
->>>>>>> branch 'master' of git@gitlab.anu.edu.au:ThreeWorlds/qgraph.git
 import au.edu.anu.rscs.aot.queries.graph.EdgeNodeSelection;
 import au.edu.anu.rscs.aot.queries.graph.edge.EdgeHasNode;
 import au.edu.anu.rscs.aot.queries.graph.edge.EdgeListNodes;
@@ -323,6 +313,18 @@ public class CoreQueries {
 	 */
 	public static Queryable isIntegerRange() {
 		return new IsIntegerRange();
+	}
+
+	public static Queryable isClass(Class<?>... classList) {
+		return new IsClass(classList);
+	}
+
+	public static Queryable isClass(String... classNames) {
+		return new IsClass(classNames);
+	}
+	
+	public static Queryable isStringList() {
+		return new IsStringList();
 	}
 
 	// SelectQuery
@@ -772,76 +774,6 @@ public class CoreQueries {
 	
 	public static Queryable isEdge(Edge edge) {
 		return new IsEdge(edge);
-	}
-
-	// ------------------------- primitives
-	//
-	public static Queryable isClass(Class<?>... classList) {
-		return new IsClass(classList);
-	}
-
-	public static Queryable isClass(String... classNames) {
-		return new IsClass(classNames);
-	}
-
-	public static Queryable isBoolean() {
-		return new IsBoolean();
-	}
-
-	public static Queryable dateInRange(Date min, Date max) {
-		return new IsDate(min, max);
-	}
-
-	public static Queryable isDate() {
-		return new IsDate(null, null);
-	}
-
-	public static Queryable isDouble() {
-		return new IsDouble(-Double.MAX_VALUE, Double.MAX_VALUE);
-	}
-
-	public static Queryable doubleInRange(double min, double max) {
-		return new IsDouble(min, max);
-	}
-
-	public static Queryable isFloat() {
-		return new IsFloat(-Float.MAX_VALUE, Float.MAX_VALUE);
-	}
-
-	public static Queryable floatInRange(float min, float max) {
-		return new IsFloat(min, max);
-	}
-
-	public static Queryable isInteger() {
-		return new IsInteger(Integer.MIN_VALUE, Integer.MAX_VALUE);
-	}
-
-	public static Queryable longInRange(long min, long max) {
-		return new IsLong(min, max);
-	}
-
-	public static Queryable isLong() {
-		return new IsLong(Long.MIN_VALUE, Long.MAX_VALUE);
-	}
-
-	public static Queryable integerInRange(int min, int max) {
-		return new IsInteger(min, max);
-	}
-
-	public static Queryable stringOfLength(int minLength, int maxLength) {
-		return new IsString(minLength, maxLength);
-	}
-
-	public static Queryable isString() {
-		return new IsString(0, Integer.MAX_VALUE);
-	}
-
-	public static Queryable isIntegerRange() {
-		return new IsIntegerRange();
-	}
-	
-	public static Queryable isStringList() {
-		return new IsStringList();
 	}
 
 }
