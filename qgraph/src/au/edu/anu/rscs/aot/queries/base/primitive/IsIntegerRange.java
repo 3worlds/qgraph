@@ -52,13 +52,6 @@ public class IsIntegerRange extends QueryAdaptor {
 	public IsIntegerRange() {
 	}
 
-<<<<<<< HEAD
-//	public static Queryable isIntegerRange() {
-//		return new IsIntegerRange();
-//	}
-
-=======
->>>>>>> branch 'master' of git@gitlab.anu.edu.au:ThreeWorlds/qgraph.git
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);

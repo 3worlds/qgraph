@@ -61,17 +61,6 @@ public class IsFloat extends QueryAdaptor {
 		this.max = max;
 	}
 
-<<<<<<< HEAD
-//	public static Queryable floatInRange(float min, float max) {
-//		return new IsFloat(min, max);
-//	}
-//
-//	public static Queryable isFloat() {
-//		return new IsFloat(-Float.MAX_VALUE, Float.MAX_VALUE);
-//	}
-
-=======
->>>>>>> branch 'master' of git@gitlab.anu.edu.au:ThreeWorlds/qgraph.git
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);

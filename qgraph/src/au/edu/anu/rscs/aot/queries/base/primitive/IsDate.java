@@ -40,17 +40,6 @@ public class IsDate extends QueryAdaptor {
 		this.max = max;
 	}
 
-<<<<<<< HEAD
-//	public static Queryable dateInRange(Date min, Date max) {
-//		return new IsDate(min, max);
-//	}
-
-	public static Queryable isDate() {
-		return new IsDate(null, null);
-	}
-
-=======
->>>>>>> branch 'master' of git@gitlab.anu.edu.au:ThreeWorlds/qgraph.git
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);

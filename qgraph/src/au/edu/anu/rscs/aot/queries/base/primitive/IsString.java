@@ -62,31 +62,6 @@ public class IsString extends QueryAdaptor {
 		this.maxLength = maxLength;
 	}
 
-<<<<<<< HEAD
-//	public static Queryable stringOfLength(int minLength, int maxLength) {
-//		return new IsString(minLength, maxLength);
-//	}
-//
-//	public static Queryable isString() {
-//		return new IsString(0, Integer.MAX_VALUE);
-//	}
-
-//	public String toString() {
-//		if (minLength == 0 && maxLength == Integer.MAX_VALUE)
-//			return "[isString]";
-//		else
-//			return "[isString with length in " + range(minLength, maxLength) + "]";
-//	}
-=======
-	@Override
-	public String toString() {
-		if (minLength == 0 && maxLength == Integer.MAX_VALUE)
-			return "[isString]";
-		else
-			return "[isString with length in " + range(minLength, maxLength) + "]";
-	}
->>>>>>> branch 'master' of git@gitlab.anu.edu.au:ThreeWorlds/qgraph.git
-
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);

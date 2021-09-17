@@ -61,25 +61,6 @@ public class IsInteger extends QueryAdaptor {
 		this.max = max;
 	}
 
-<<<<<<< HEAD
-	public static Queryable integerInRange(int min, int max) {
-		return new IsInteger(min, max);
-	}
-
-	public static Queryable isInteger() {
-		return new IsInteger(Integer.MIN_VALUE, Integer.MAX_VALUE);
-	}
-
-//	public String toString() {
-//		return "[Must be Integer in " + min + ".." + max + "]";
-//	}
-=======
-	@Override
-	public String toString() {
-		return "[Must be Integer in " + min + ".." + max + "]";
-	}
->>>>>>> branch 'master' of git@gitlab.anu.edu.au:ThreeWorlds/qgraph.git
-
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);

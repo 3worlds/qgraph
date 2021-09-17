@@ -61,18 +61,6 @@ public class IsLong extends QueryAdaptor {
 		this.max = max;
 	}
 
-<<<<<<< HEAD
-//	public static Queryable longInRange(long min, long max) {
-//		return new IsLong(min, max);
-//	}
-//
-//	public static Queryable isLong() {
-//		return new IsLong(Long.MIN_VALUE, Long.MAX_VALUE);
-//	}
-
-
-=======
->>>>>>> branch 'master' of git@gitlab.anu.edu.au:ThreeWorlds/qgraph.git
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);

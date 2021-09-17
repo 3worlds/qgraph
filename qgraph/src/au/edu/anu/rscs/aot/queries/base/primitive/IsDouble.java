@@ -37,17 +37,6 @@ public class IsDouble extends QueryAdaptor {
 		this.max = max;
 	}
 
-<<<<<<< HEAD
-//	public static Queryable doubleInRange(double min, double max) {
-//		return new IsDouble(min, max);
-//	}
-//
-//	public static Queryable isDouble() {
-//		return new IsDouble(-Double.MAX_VALUE, Double.MAX_VALUE);
-//	}
-
-=======
->>>>>>> branch 'master' of git@gitlab.anu.edu.au:ThreeWorlds/qgraph.git
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);

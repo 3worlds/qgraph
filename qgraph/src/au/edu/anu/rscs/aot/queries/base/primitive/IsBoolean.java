@@ -52,13 +52,6 @@ public class IsBoolean extends QueryAdaptor {
 	public IsBoolean() {
 	}
 
-<<<<<<< HEAD
-//	public static Queryable isBoolean() {
-//		return new IsBoolean();
-//	}
-
-=======
->>>>>>> branch 'master' of git@gitlab.anu.edu.au:ThreeWorlds/qgraph.git
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);
