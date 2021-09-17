@@ -29,7 +29,6 @@
  **************************************************************************/
 package au.edu.anu.rscs.aot.queries.graph;
 
-import au.edu.anu.rscs.aot.QGraphException;
 import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 import fr.cnrs.iees.graph.Graph;
@@ -57,6 +56,7 @@ public class GraphIsTree extends QueryAdaptor {
 //		throw new QGraphException("GraphIsTree is not implemented");
 //	}
 
+	@SuppressWarnings({ "unused", "unchecked" })
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);

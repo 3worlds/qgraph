@@ -72,6 +72,7 @@ public class GraphLogQuery extends QueryAdaptor {
 //		satisfied = true;
 //		return this;
 //	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);
