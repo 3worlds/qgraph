@@ -27,77 +27,76 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.old.queries.base;
+package au.edu.anu.rscs.aot.queries.graph;
 
-import au.edu.anu.rscs.aot.old.queries.Query;
+import fr.cnrs.iees.graph.Node;
+import au.edu.anu.rscs.aot.queries.QueryAdaptor;
+import au.edu.anu.rscs.aot.queries.Queryable;
+import fr.cnrs.iees.graph.Edge;
+import fr.cnrs.iees.graph.Graph;
 
 /**
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
-@Deprecated
-public class IfThenQuery extends Query {
+// NOT TESTED
 
-	private Query testQuery;
-	private Query trueQuery;
-	private Query falseQuery;
-	
-	public IfThenQuery(Query testQuery, Query trueQuery, Query falseQuery) {
-		this.testQuery  = testQuery;
-		this.trueQuery  = trueQuery;
-		this.falseQuery = falseQuery;
+public class HasOnlyNodes extends QueryAdaptor {
+
+	private Queryable nodeQuery;
+
+	public HasOnlyNodes(Queryable nodeQuery) {
+		this.nodeQuery = nodeQuery;
 	}
 
-	public IfThenQuery(Query testQuery, Query trueQuery) {
-		this.testQuery  = testQuery;
-		this.trueQuery  = trueQuery;
-		this.falseQuery = null;
+	public static HasOnlyNodes hasOnlyNodes(Queryable nodeQuery) {
+		return new HasOnlyNodes(nodeQuery);
 	}
 
-	public Query getTestQuery() {
-		return testQuery;
-	}
-	
-	public Query getTrueQuery() {
-		return trueQuery;
-	}
-	
-	public Query getFalseQuery() {
-		return falseQuery;
-	}
-	
-	public static IfThenQuery ifThenQuery(Query testQuery, Query trueQuery, Query falseQuery) {
-		return new IfThenQuery(testQuery, trueQuery, falseQuery);
-	}
-	
-	public static IfThenQuery ifThenQuery(Query testQuery, Query trueQuery) {
-		return new IfThenQuery(testQuery, trueQuery);
-	}
-	
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public Query process(Object item) {
+//		defaultProcess(item);
+//		Graph<Node, Edge> localItem = (Graph<Node, Edge>) item;
+//		for (Node n : localItem.nodes()) {
+//			nodeQuery.process(n);
+//			if (!nodeQuery.satisfied()) {
+//				satisfied = false;
+//				return this;
+//			}
+//		}
+//		satisfied = true;
+//		return this;
+//	}
 
-	public String toString() {
-		String result = "[if " + testQuery + " then " + trueQuery;
-		if (falseQuery != null)
-			result = result + " else " + falseQuery;
-		result = result + "]";
-		return result;
-	}
-	
 	@Override
-	public Query process(Object item) {
-		defaultProcess(item);
-		testQuery.process(item);
-		if (testQuery.satisfied()) {
-			trueQuery.process(item);
-			result = trueQuery.getResult();
-			satisfied = trueQuery.satisfied();
-		} else {
-			falseQuery.process(item);
-			result = falseQuery.getResult();
-			satisfied = falseQuery.satisfied();
+	public Queryable submit(Object input) {
+		initInput(input);
+		Graph<Node, Edge> localItem = (Graph<Node, Edge>) input;
+		for (Node n : localItem.nodes()) {
+			if (!nodeQuery.submit(n).satisfied()) {
+				errorMsg = nodeQuery.errorMsg();
+				return this;
+			}
 		}
 		return this;
 	}
-	
+
+//	@Override
+//	public String toString() {
+//		return "[All nodes must satisfy " + nodeQuery + "]";
+//	}
+
+	// TESTING
+	//
+
+//	public static void main(String[] args) {
+//		TestGraph tg = new TestGraph();
+//		NodeList  nl = tg.getNodeList();
+//		HasOnlyNodes q = hasOnlyNodes(IsClass.isClass(TestNode.class, TestNode2.class));
+//		//		HasNodes q = hasNodes(IsClass.isClass(TestNode.class));
+//		q.check(nl);
+//	}
+
 }

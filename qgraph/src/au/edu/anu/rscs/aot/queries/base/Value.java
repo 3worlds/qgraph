@@ -27,35 +27,47 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.old.queries.graph.uml;
+package au.edu.anu.rscs.aot.queries.base;
 
-import static au.edu.anu.rscs.aot.old.queries.CoreQueries.*;
-
-import au.edu.anu.rscs.aot.old.queries.base.AndQuery;
-import au.edu.anu.rscs.aot.old.queries.base.OrQuery;
-import au.edu.anu.rscs.aot.queries.graph.uml.Multiplicity;
+import au.edu.anu.rscs.aot.queries.QueryAdaptor;
+import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
  * 
- * @author Shayne Flint - 30/4/02012
+ * @author Shayne Flint - 26/3/2012
  *
  */
-// NOT TESTED
-@Deprecated
-public class IsUMLAttribute extends AndQuery {
+//NOT TESTED
 
-	public IsUMLAttribute() {
-		addQuery(hasTheLabel("attribute"), hasProperty("name"));
-		addQuery(new OrQuery(hasProperty("type"), hasOutEdges(IsEnumeration.isEnumeration(), Multiplicity.ONE).withLabel("enumeration")));
+public class Value extends QueryAdaptor {
+
+	private Object obj;
+	
+	public Value(Object obj) {
+		this.obj = obj;
+	}
+	
+	public static Queryable value(Object item) {
+		return new Value(item);
 	}
 
-	public static IsUMLAttribute isAttribute() {
-		return new IsUMLAttribute();
-	}
+//	@Override
+//	public Value process(Object item) {
+//		defaultProcess(item);
+//		result = obj;
+//		satisfied = true;
+//		return this;
+//	}
+//
+//	public String toString() {
+//		return "[Value " + obj + "]";
+//	}
 
-    @Override
-    public String userString() {
-    	return "[" + stateString() + "IsAttribute]";
-    }
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		result = obj;
+		return this;
+	}
 
 }

@@ -27,45 +27,29 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.old.queries.base;
+package au.edu.anu.rscs.aot.queries.graph.uml;
 
-import au.edu.anu.rscs.aot.QGraphException;
-import au.edu.anu.rscs.aot.old.queries.Query;
 
-/**
- * 
- * @author Shayne Flint - 26/3/2012
- *
- */
-@Deprecated
-public class PopQuery extends Query {
-	
-	private int count;
-	
-	public PopQuery(int count) {
-	  this.count = count;
+import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
+import static au.edu.anu.rscs.aot.queries.base.primitive.IsStringList.*;
+
+import au.edu.anu.rscs.aot.queries.base.AndQuery;
+
+
+
+public class IsEnumeration extends AndQuery {
+
+	public IsEnumeration() {
+		addQuery(hasTheLabel("enumeration"), hasProperty("literals", isStringList()));
 	}
 
-	public static Query pop(int count) {
-		return new PopQuery(count);
+	public static IsEnumeration isEnumeration() {
+		return new IsEnumeration();
 	}
 
-	public static Query pop() {
-		return new PopQuery(1);
-	}
-	
-	public int getCount() {
-		return count;
-	}
-
-	@Override
-	public Query process(Object item) {
-		defaultProcess(item);
-		throw new QGraphException("Shouldn't be called");
-	}
-	
-	public String toString() {
-		return "[Pop " + count + "]";
-	}
+//    @Override
+//    public String userString() {
+//    	return "[" + stateString() + "IsEnumeration]";
+//    }
 
 }

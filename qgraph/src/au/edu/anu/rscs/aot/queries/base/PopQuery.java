@@ -27,53 +27,51 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.old.queries.graph.edge;
+package au.edu.anu.rscs.aot.queries.base;
 
-import java.util.logging.Logger;
-
-import au.edu.anu.rscs.aot.old.queries.Query;
-import fr.cnrs.iees.graph.Edge;
-import fr.ens.biologie.generic.utils.Logging;
-
+import au.edu.anu.rscs.aot.QGraphException;
+import au.edu.anu.rscs.aot.queries.QueryAdaptor;
+import au.edu.anu.rscs.aot.queries.Queryable;
 /**
  * 
  * @author Shayne Flint - 26/3/2012
  *
- * NOTE (JG 2018): refactored to use java logging instead of aot logging.
  */
-// NOT TESTED
-@Deprecated
-public class EdgeLog extends Query {
 
-	private String prefix;
+public class PopQuery extends QueryAdaptor {
 	
-	public EdgeLog(String prefix) {
-		this.prefix= prefix;
-	}
+	private int count;
 	
-	public static EdgeLog logEdge(String prefix) {
-		return new EdgeLog(prefix);
-	}
-	
-	public static EdgeLog logEdge() {
-		return new EdgeLog("");
+	public PopQuery(int count) {
+	  this.count = count;
 	}
 
-	private static Logger log = Logging.getLogger(EdgeLog.class);
+	public static Queryable pop(int count) {
+		return new PopQuery(count);
+	}
+
+	public static Queryable pop() {
+		return new PopQuery(1);
+	}
+	
+	public int getCount() {
+		return count;
+	}
+
+//	@Override
+//	public Query process(Object item) {
+//		defaultProcess(item);
+//		throw new QGraphException("Shouldn't be called");
+//	}
+//	
+//	public String toString() {
+//		return "[Pop " + count + "]";
+//	}
 
 	@Override
-	public Query process(Object item) {
-		defaultProcess(item);
-		Edge localItem = (Edge)item;
-		log.fine(prefix + localItem.toString());
-		satisfied = true;
-		return this;
+	public Queryable submit(Object input) {
+		initInput(input);
+		throw new QGraphException("Shouldn't be called");
 	}
-
-	@Override
-	public String toString() {
-		return "[EdgeLog]";
-	}
-	
 
 }

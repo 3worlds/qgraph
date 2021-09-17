@@ -27,28 +27,40 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.old.queries.graph.uml;
+package au.edu.anu.rscs.aot.queries.graph.uml;
+
+import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
+
+import au.edu.anu.rscs.aot.queries.Queryable;
+import au.edu.anu.rscs.aot.queries.base.AndQuery;
+import au.edu.anu.rscs.aot.queries.base.SequenceQuery;
+import static au.edu.anu.rscs.aot.queries.base.string.EnumerationString.*;
+import static au.edu.anu.rscs.aot.queries.graph.node.HasEdges.*;
+import static au.edu.anu.rscs.aot.queries.graph.edge.EdgeHasNode.*;
 
 
-import static au.edu.anu.rscs.aot.old.queries.CoreQueries.*;
 
-import au.edu.anu.rscs.aot.old.queries.base.AndQuery;
+public class IsUMLAssociation extends AndQuery  {
 
-
-@Deprecated
-public class IsEnumeration extends AndQuery {
-
-	public IsEnumeration() {
-		addQuery(hasTheLabel("enumeration"), hasProperty("literals", isStringList()));
+	public IsUMLAssociation() {
+		
+		Queryable edgeQuery = new SequenceQuery(hasProperty("phrase"), hasProperty("multiplicity",
+				isEnum(Multiplicity.values()) ));
+				
+		addQuery(
+			hasTheLabel("association"),
+			hasOutEdges(IsUMLClass.isClass(), Multiplicity.ONE).withLabel("passive").withEdgeQuery(edgeQuery),
+			hasOutEdges(IsUMLClass.isClass(), Multiplicity.ONE).withLabel("active").withEdgeQuery(edgeQuery),
+			hasOutEdges(IsUMLClass.isClass(), Multiplicity.ZERO_ONE).withLabel("associativeClass"));
 	}
 
-	public static IsEnumeration isEnumeration() {
-		return new IsEnumeration();
+	public static IsUMLAssociation isAssociation() {
+		return new IsUMLAssociation();
 	}
 
-    @Override
-    public String userString() {
-    	return "[" + stateString() + "IsEnumeration]";
-    }
+//    @Override
+//    public String userString() {
+//    	return "[" + stateString() + "IsAssociation]";
+//    }
 
 }

@@ -27,52 +27,48 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.old.queries.base;
+package au.edu.anu.rscs.aot.queries.graph.edge;
 
-import au.edu.anu.rscs.aot.QGraphException;
-import au.edu.anu.rscs.aot.old.queries.Query;
+import au.edu.anu.rscs.aot.queries.QueryAdaptor;
+import au.edu.anu.rscs.aot.queries.Queryable;
+import fr.cnrs.iees.graph.Edge;
 
 /**
- * <o>Checks that an Object is an instance of the Class passed as argument of this Query's constructor.</p>
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
-@Deprecated
-public class IsInstanceOf extends Query {
+// NOT TESTED
 
-	private Class<?> theClass;
+public class IsEdge extends QueryAdaptor {
 
-	public IsInstanceOf(Class<?> theClass) {
-		this.theClass = theClass;
+	private Edge edge;
+	
+	public IsEdge(Edge edge) {
+		this.edge = edge;
 	}
 
-	/**
-	 * Convenience static method
-	 * @param theClass the class to check.
-	 * @return an instance of this Query
-	 */
-	public static Query isInstanceOf(Class<?> theClass) {
-		return new IsInstanceOf(theClass);
+	public static IsEdge isEdge(Edge edge) {
+		return new IsEdge(edge);
 	}
-
-	public static Query isInstanceOf(String className) {
-		try {
-			return new IsInstanceOf(Class.forName(className));
-		} catch (Exception e) {
-			throw new QGraphException("Can't create IsInstanceOf constraint", e);
-		}
-	}
+	
+//	@Override
+//	public Query process(Object item) {
+//		defaultProcess(item);
+//		Edge localItem  = (Edge) item;
+//		satisfied = localItem.equals(edge);
+//		return this;
+//	}
+	
 
 	@Override
-	public Query process(Object item) {
-		defaultProcess(item);
-		satisfied = theClass.isInstance(item);
+	public Queryable submit(Object input) {
+		initInput(input);
+		Edge localItem  = (Edge) input;
+		if (!input.equals(edge))
+			errorMsg ="Expected '"+input+"' to equal '"+edge+"'.";
 		return this;
 	}
+	
 
-	public String toString() {
-		return "[is instance of " + theClass.getSimpleName() + "]";
-
-	}
 }

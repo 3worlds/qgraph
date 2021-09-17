@@ -27,38 +27,30 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.old.queries.graph.uml;
+package au.edu.anu.rscs.aot.queries.graph.uml;
 
-import static au.edu.anu.rscs.aot.old.queries.CoreQueries.*;
+import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
+import static au.edu.anu.rscs.aot.queries.graph.node.HasEdges.*;
 
-import au.edu.anu.rscs.aot.old.queries.Query;
-import au.edu.anu.rscs.aot.old.queries.base.AndQuery;
-import au.edu.anu.rscs.aot.old.queries.base.SequenceQuery;
-import au.edu.anu.rscs.aot.queries.graph.uml.Multiplicity;
+import au.edu.anu.rscs.aot.queries.base.AndQuery;
 
 
-@Deprecated
-public class IsUMLAssociation extends AndQuery  {
+public class IsUMLClass extends AndQuery {
 
-	public IsUMLAssociation() {
-		
-		Query edgeQuery = new SequenceQuery(hasProperty("phrase"), hasProperty("multiplicity",
-				isEnum(Multiplicity.values()) ));
-				
+	public IsUMLClass() {
 		addQuery(
-			hasTheLabel("association"),
-			hasOutEdges(IsUMLClass.isClass(), Multiplicity.ONE).withLabel("passive").withEdgeQuery(edgeQuery),
-			hasOutEdges(IsUMLClass.isClass(), Multiplicity.ONE).withLabel("active").withEdgeQuery(edgeQuery),
-			hasOutEdges(IsUMLClass.isClass(), Multiplicity.ZERO_ONE).withLabel("associativeClass"));
+			hasTheLabel("class"),
+			hasProperty("name"),
+			hasOutEdges(IsUMLAttribute.isAttribute(), Multiplicity.ZERO_MANY));
 	}
 
-	public static IsUMLAssociation isAssociation() {
-		return new IsUMLAssociation();
+	public static IsUMLClass isClass() {
+		return new IsUMLClass();
 	}
 
-    @Override
-    public String userString() {
-    	return "[" + stateString() + "IsAssociation]";
-    }
-
+//    @Override
+//    public String userString() {
+//    	return "[" + stateString() + "IsClass]";
+//    }
+    
 }

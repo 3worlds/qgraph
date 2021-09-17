@@ -22,7 +22,7 @@ public abstract class QueryList extends QueryAdaptor {
 			addQuery(q);
 	}
 
-	private QueryList addQuery(Queryable... queries) {
+	protected QueryList addQuery(Queryable... queries) {
 		for (Queryable q : queries)
 			queryList.add(q);
 		return this;

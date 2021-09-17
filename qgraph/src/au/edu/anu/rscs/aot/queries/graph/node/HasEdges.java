@@ -40,6 +40,7 @@ import fr.cnrs.iees.graph.Node;
 
 import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
 import static au.edu.anu.rscs.aot.queries.base.SequenceQuery.get;
+import static au.edu.anu.rscs.aot.queries.graph.edge.EdgeHasNode.*;
 
 /**
  * 
@@ -55,7 +56,8 @@ public class HasEdges extends QueryAdaptor {
 	private Multiplicity multiplicity;
 	private String label;
 
-	public HasEdges(Direction edgeDirection, Queryable nodeQuery, Queryable edgeQuery, Multiplicity multiplicity, String label) {
+	public HasEdges(Direction edgeDirection, Queryable nodeQuery, Queryable edgeQuery, Multiplicity multiplicity,
+			String label) {
 		this.edgeDirection = edgeDirection;
 		this.nodeQuery = nodeQuery;
 		this.edgeQuery = edgeQuery;
@@ -63,26 +65,24 @@ public class HasEdges extends QueryAdaptor {
 		this.label = label;
 	}
 
-	public static Queryable hasEdges(Direction edgeDirection, Queryable nodeQuery, Multiplicity multiplicity) {
+	public static HasEdges hasEdges(Direction edgeDirection, Queryable nodeQuery, Multiplicity multiplicity) {
 		return new HasEdges(edgeDirection, nodeQuery, null, multiplicity, null);
 	}
 
-	public static Queryable hasInEdges(Queryable nodeQuery, Multiplicity multiplicity) {
+	public static HasEdges hasInEdges(Queryable nodeQuery, Multiplicity multiplicity) {
 		return new HasEdges(Direction.IN, nodeQuery, null, multiplicity, null);
 	}
 
-	public static Queryable hasOutEdges(Queryable nodeQuery, Multiplicity multiplicity) {
+	public static HasEdges hasOutEdges(Queryable nodeQuery, Multiplicity multiplicity) {
 		return new HasEdges(Direction.OUT, nodeQuery, null, multiplicity, null);
 	}
 
-
-
-	public Queryable withEdgeQuery(Queryable edgeQuery) {
+	public HasEdges withEdgeQuery(Queryable edgeQuery) {
 		this.edgeQuery = edgeQuery;
 		return this;
 	}
 
-	public Queryable withLabel(String label) {
+	public HasEdges withLabel(String label) {
 		this.label = label;
 		return this;
 	}
@@ -162,24 +162,20 @@ public class HasEdges extends QueryAdaptor {
 //		return this;
 //	}
 
-
+	@SuppressWarnings("unchecked")
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);
-		Node localItem = (Node)input;
+		Node localItem = (Node) input;
 
 		DynamicList<Edge> edges = null;
 		switch (edgeDirection) {
 		case IN:
 			// caution: not tested yet
-			edges = (DynamicList<Edge>) get(localItem.edges(Direction.IN),
-				selectZeroOrMany(EdgeHasNode.hasStartNode(nodeQuery)));
-//			edges = localItem.getInEdges(hasStartNode(nodeQuery));
+			edges = (DynamicList<Edge>) get(localItem.edges(Direction.IN), selectZeroOrMany(hasStartNode(nodeQuery)));
 			break;
 		case OUT:
-			edges = (DynamicList<Edge>) get(localItem.edges(Direction.OUT),
-				selectZeroOrMany(hasEndNode(nodeQuery)));
-//			edges = localItem.getOutEdges(hasEndNode(nodeQuery));
+			edges = (DynamicList<Edge>) get(localItem.edges(Direction.OUT), selectZeroOrMany(hasEndNode(nodeQuery)));
 			break;
 //		case IN_OUT:
 //			edges = localItem.getEdges(hasOtherNode(nodeQuery));
@@ -193,28 +189,37 @@ public class HasEdges extends QueryAdaptor {
 			edges = new FilteredList<Edge>(edges, hasTheLabel(label));
 
 		int edgesSize = edges.size();
-		
+
 		switch (multiplicity) {
 		case ZERO:
-			satisfied = (edgesSize == 0);
+			if (edgesSize != 0)
+				errorMsg = "Expected " + multiplicity + " but found " + edgesSize + ".";
+//			satisfied = (edgesSize == 0);
 			break;
 		case ONE:
-			satisfied = (edgesSize == 1);
+			if (edgesSize != 1)
+				errorMsg = "Expected " + multiplicity + " but found " + edgesSize + ".";
+
+//			satisfied = (edgesSize == 1);
 			break;
 		case ONE_MANY:
-			satisfied = (edgesSize >= 1);
+			if (edgesSize < 1)
+				errorMsg = "Expected " + multiplicity + " but found " + edgesSize + ".";
+//			satisfied = (edgesSize >= 1);
 			break;
 		case ZERO_ONE:
-			satisfied = (edgesSize == 0 || edgesSize == 1);
+			if (edgesSize > 1)
+				errorMsg = "Expected " + multiplicity + " but found " + edgesSize + ".";
+//			satisfied = (edgesSize == 0 || edgesSize == 1);
 			break;
 		case ZERO_MANY:
-			satisfied = (edgesSize >= 0);
+			if (edgesSize <0 )//?
+				errorMsg = "Expected " + multiplicity + " but found " + edgesSize + ".";
+//			satisfied = (edgesSize >= 0);
 			break;
 		}
 
 		return null;
 	}
-
-
 
 }

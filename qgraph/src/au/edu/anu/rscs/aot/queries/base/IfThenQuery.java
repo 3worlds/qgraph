@@ -27,57 +27,91 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.old.queries.base;
+package au.edu.anu.rscs.aot.queries.base;
 
-import au.edu.anu.rscs.aot.old.queries.Query;
+import au.edu.anu.rscs.aot.queries.QueryAdaptor;
+import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
-@Deprecated
-public class ForAllQuery extends Query {
-		
-	private Query query;
-	
-	public ForAllQuery(Query query) {
-		this.query = query;
+
+public class IfThenQuery extends QueryAdaptor {
+
+	private Queryable testQuery;
+	private Queryable trueQuery;
+	private Queryable falseQuery;
+
+	public IfThenQuery(Queryable testQuery, Queryable trueQuery, Queryable falseQuery) {
+		this.testQuery = testQuery;
+		this.trueQuery = trueQuery;
+		this.falseQuery = falseQuery;
 	}
 
-	public static Query forAll(Query query) {
-		return new ForAllQuery(query);
+	public IfThenQuery(Queryable testQuery, Queryable trueQuery) {
+		this.testQuery = testQuery;
+		this.trueQuery = trueQuery;
+		this.falseQuery = null;
 	}
 
-	public Query getQuery() {
-		return query;
+	public Queryable getTestQuery() {
+		return testQuery;
 	}
-	
 
-	@SuppressWarnings("unchecked")
+	public Queryable getTrueQuery() {
+		return trueQuery;
+	}
+
+	public Queryable getFalseQuery() {
+		return falseQuery;
+	}
+
+	public static IfThenQuery ifThenQuery(Queryable testQuery, Queryable trueQuery, Queryable falseQuery) {
+		return new IfThenQuery(testQuery, trueQuery, falseQuery);
+	}
+
+	public static IfThenQuery ifThenQuery(Queryable testQuery, Queryable trueQuery) {
+		return new IfThenQuery(testQuery, trueQuery);
+	}
+
+	public String toString() {
+		String result = "[if " + testQuery + " then " + trueQuery;
+		if (falseQuery != null)
+			result = result + " else " + falseQuery;
+		result = result + "]";
+		return result;
+	}
+
+//	@Override
+//	public Query process(Object item) {
+//		defaultProcess(item);
+//		testQuery.process(item);
+//		if (testQuery.satisfied()) {
+//			trueQuery.process(item);
+//			result = trueQuery.getResult();
+//			satisfied = trueQuery.satisfied();
+//		} else {
+//			falseQuery.process(item);
+//			result = falseQuery.getResult();
+//			satisfied = falseQuery.satisfied();
+//		}
+//		return this;
+//	}
+
+	// TODO Untested 
 	@Override
-	public boolean satisfied(Object item) {
-		Iterable<Object> localItem = (Iterable<Object>)item;
-		for (Object obj : localItem)
-			if (!query.satisfied(obj))
-				return false;
-		return true;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public ForAllQuery process(Object item) {
-		defaultProcess(item);
-		Iterable<Object> localItem = (Iterable<Object>)item;
-		for (Object obj : localItem) {
-			query.process(obj);
-			satisfied = query.satisfied();
-			if (!satisfied()) {
-				return this;
-			}
+	public Queryable submit(Object input) {
+		initInput(input);	
+		if (testQuery.submit(input).satisfied()) {
+			if (trueQuery.submit(input).satisfied()) 
+				result = trueQuery.result();			
+		} else {
+			if (falseQuery.submit(input).satisfied()) 
+				result = falseQuery.result();		
 		}
-		satisfied = true;
 		return this;
 	}
-	
+
 }

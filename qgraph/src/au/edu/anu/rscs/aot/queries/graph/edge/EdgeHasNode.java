@@ -75,7 +75,7 @@ public class EdgeHasNode extends QueryAdaptor {
 	 * @param nodeQuery the query to satisfy
 	 * @return the resulting EdgeHasNode query
 	 */
-	public static Queryable hasEndNode(Queryable nodeQuery) {
+	public static EdgeHasNode hasEndNode(Queryable nodeQuery) {
 		return new EdgeHasNode(EdgeNodeSelection.END, nodeQuery);
 	}
 
@@ -85,7 +85,7 @@ public class EdgeHasNode extends QueryAdaptor {
 	 * @param nodeQuery the query to satisfy
 	 * @return the resulting EdgeHasNode query
 	 */
-	public static Queryable hasStartNode(Queryable nodeQuery) {
+	public static EdgeHasNode hasStartNode(Queryable nodeQuery) {
 		return new EdgeHasNode(EdgeNodeSelection.START, nodeQuery);
 	}
 
@@ -96,7 +96,7 @@ public class EdgeHasNode extends QueryAdaptor {
 	 * @param refNode   the node to use as the start (the other node is checked)
 	 * @return the resulting EdgeHasNode query
 	 */
-	public static Queryable hasOtherNode(Queryable nodeQuery, Node refNode) {
+	public static EdgeHasNode hasOtherNode(Queryable nodeQuery, Node refNode) {
 		return new EdgeHasNode(EdgeNodeSelection.OTHER, nodeQuery, refNode);
 	}
 
@@ -106,7 +106,7 @@ public class EdgeHasNode extends QueryAdaptor {
 	 * @param nodeQuery the query to satisfy
 	 * @return the resulting EdgeHasNode query
 	 */
-	public static Queryable hasBothNodes(Queryable nodeQuery) {
+	public static EdgeHasNode hasBothNodes(Queryable nodeQuery) {
 		return new EdgeHasNode(EdgeNodeSelection.BOTH, nodeQuery);
 	}
 

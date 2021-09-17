@@ -13,6 +13,9 @@ import au.edu.anu.rscs.aot.queries.Queryable;
  */
 // TODO: check this as it was modified by replacing StringList by List<String>
 public class IsStringList extends QueryAdaptor{
+	public static Queryable isStringList() {
+		return new IsStringList();
+	}
 
 	@Override
 	public Queryable submit(Object input) {

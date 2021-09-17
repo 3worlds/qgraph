@@ -4,7 +4,7 @@
  * 
  * 
  */
-package au.edu.anu.rscs.aot.old.queries.base;
+package au.edu.anu.rscs.aot.queries.base;
 
 import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
@@ -24,17 +24,25 @@ public class StringLength extends QueryAdaptor {
 		return new StringLength();
 	}
 
-	@Override
-	public StringLength process(Object item) {
-		defaultProcess(item);
-		String localItem = (String)item;
-		result = localItem.length();
-		satisfied = true;
-		return this;
-	}
+//	@Override
+//	public StringLength process(Object item) {
+//		defaultProcess(item);
+//		String localItem = (String)item;
+//		result = localItem.length();
+//		satisfied = true;
+//		return this;
+//	}
+//
+//	public String toString() {
+//		return "[String length]";
+//	}
 
-	public String toString() {
-		return "[String length]";
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		String localItem = (String)input;
+		result = localItem.length();
+		return this;
 	}
 
 }

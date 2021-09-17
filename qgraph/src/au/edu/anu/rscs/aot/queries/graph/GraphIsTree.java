@@ -27,15 +27,14 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.old.queries.graph;
+package au.edu.anu.rscs.aot.queries.graph;
 
-import java.util.logging.Logger;
-
-import au.edu.anu.rscs.aot.old.queries.Query;
-import fr.cnrs.iees.graph.Node;
-import fr.ens.biologie.generic.utils.Logging;
-import fr.cnrs.iees.graph.Edge;
+import au.edu.anu.rscs.aot.QGraphException;
+import au.edu.anu.rscs.aot.queries.QueryAdaptor;
+import au.edu.anu.rscs.aot.queries.Queryable;
 import fr.cnrs.iees.graph.Graph;
+import fr.cnrs.iees.graph.Node;
+import fr.cnrs.iees.graph.Edge;
 
 /**
  * 
@@ -43,39 +42,30 @@ import fr.cnrs.iees.graph.Graph;
  *
  */
 // NOT TESTED
-@Deprecated
-public class GraphLogQuery extends Query {
 
-	private static Logger log = Logging.getLogger(GraphLogQuery.class);
+public class GraphIsTree extends QueryAdaptor {
 
-	private String prefix;
-	
-	public GraphLogQuery(String prefix) {
-		this.prefix= prefix;
+	public static GraphIsTree isTree() {
+		return new GraphIsTree();
 	}
-	
-	public static GraphLogQuery logGraph(String prefix) {
-		return new GraphLogQuery(prefix);
-	}
-	
-	public static GraphLogQuery logGraph() {
-		return new GraphLogQuery("");
-	}
-	
-	@SuppressWarnings("unchecked")
+
+//	@SuppressWarnings({ "unused", "unchecked" })
+//	@Override
+//	public Query process(Object item) {
+//		defaultProcess(item);
+//		Graph<Node, Edge> localItem = (Graph<Node, Edge>) item;
+//		throw new QGraphException("GraphIsTree is not implemented");
+//	}
+
 	@Override
-	public Query process(Object item) {
-		defaultProcess(item);
-		Graph<Node,Edge> localItem = (Graph<Node,Edge>)item;
-		log.fine(prefix + localItem.toString());
-		satisfied = true;
+	public Queryable submit(Object input) {
+		initInput(input);
+		try {
+			Graph<Node, Edge> localItem = (Graph<Node, Edge>) input;
+		} catch (Exception e) {
+			errorMsg = "Expected '" + input + "' to be of type Graph<Node,Edge>";
+			return this;
+		}
 		return this;
 	}
-
-	@Override
-	public String toString() {
-		return "[GraphLogQuery]";
-	}
-	
-
 }

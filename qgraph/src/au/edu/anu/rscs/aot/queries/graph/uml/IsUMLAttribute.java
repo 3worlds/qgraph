@@ -27,65 +27,35 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.old.queries.graph;
+package au.edu.anu.rscs.aot.queries.graph.uml;
 
-import fr.cnrs.iees.graph.Node;
-import au.edu.anu.rscs.aot.old.queries.Query;
-import fr.cnrs.iees.graph.Edge;
-import fr.cnrs.iees.graph.Graph;
+import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
+import static au.edu.anu.rscs.aot.queries.graph.node.HasEdges.*;
+
+import au.edu.anu.rscs.aot.queries.base.AndQuery;
+import au.edu.anu.rscs.aot.queries.base.OrQuery;
 
 /**
  * 
- * @author Shayne Flint - 26/3/2012
+ * @author Shayne Flint - 30/4/02012
  *
  */
 // NOT TESTED
-@Deprecated
-public class HasOnlyNodes extends Query {
 
-	private Query nodeQuery;
+public class IsUMLAttribute extends AndQuery {
 
-	public HasOnlyNodes(Query nodeQuery) {
-		this.nodeQuery = nodeQuery;
+	public IsUMLAttribute() {
+		addQuery(hasTheLabel("attribute"), hasProperty("name"));
+		addQuery(new OrQuery(hasProperty("type"), hasOutEdges(IsEnumeration.isEnumeration(), Multiplicity.ONE).withLabel("enumeration")));
 	}
 
-
-	public static HasOnlyNodes hasOnlyNodes(Query nodeQuery) {
-		return new HasOnlyNodes(nodeQuery);
+	public static IsUMLAttribute isAttribute() {
+		return new IsUMLAttribute();
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Query process(Object item) {
-		defaultProcess(item);
-		Graph<Node,Edge> localItem = (Graph<Node,Edge>)item;
-		for (Node n : localItem.nodes()) {
-			nodeQuery.process(n);
-			if (!nodeQuery.satisfied()) {
-				satisfied = false;
-				return this;
-			}
-		}
-		satisfied = true;
-		return this;
-	}
-
-	
-	@Override
-	public String toString() {
-		return "[All nodes must satisfy " + nodeQuery + "]";
-	}
-	
-
-	// TESTING
-	//
-
-//	public static void main(String[] args) {
-//		TestGraph tg = new TestGraph();
-//		NodeList  nl = tg.getNodeList();
-//		HasOnlyNodes q = hasOnlyNodes(IsClass.isClass(TestNode.class, TestNode2.class));
-//		//		HasNodes q = hasNodes(IsClass.isClass(TestNode.class));
-//		q.check(nl);
-//	}
+//    @Override
+//    public String userString() {
+//    	return "[" + stateString() + "IsAttribute]";
+//    }
 
 }

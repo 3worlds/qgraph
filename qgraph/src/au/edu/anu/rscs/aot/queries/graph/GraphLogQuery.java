@@ -27,10 +27,16 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.old.queries.graph.edge;
+package au.edu.anu.rscs.aot.queries.graph;
 
-import au.edu.anu.rscs.aot.old.queries.Query;
+import java.util.logging.Logger;
+
+import au.edu.anu.rscs.aot.queries.QueryAdaptor;
+import au.edu.anu.rscs.aot.queries.Queryable;
+import fr.cnrs.iees.graph.Node;
+import fr.ens.biologie.generic.utils.Logging;
 import fr.cnrs.iees.graph.Edge;
+import fr.cnrs.iees.graph.Graph;
 
 /**
  * 
@@ -38,31 +44,45 @@ import fr.cnrs.iees.graph.Edge;
  *
  */
 // NOT TESTED
-@Deprecated
-public class IsEdge extends Query {
 
-	private Edge edge;
-	
-	public IsEdge(Edge edge) {
-		this.edge = edge;
+public class GraphLogQuery extends QueryAdaptor {
+
+	private static Logger log = Logging.getLogger(GraphLogQuery.class);
+
+	private String prefix;
+
+	public GraphLogQuery(String prefix) {
+		this.prefix = prefix;
 	}
 
-	public static IsEdge isEdge(Edge edge) {
-		return new IsEdge(edge);
+	public static GraphLogQuery logGraph(String prefix) {
+		return new GraphLogQuery(prefix);
 	}
-	
+
+	public static GraphLogQuery logGraph() {
+		return new GraphLogQuery("");
+	}
+
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public Query process(Object item) {
+//		defaultProcess(item);
+//		Graph<Node,Edge> localItem = (Graph<Node,Edge>)item;
+//		log.fine(prefix + localItem.toString());
+//		satisfied = true;
+//		return this;
+//	}
 	@Override
-	public Query process(Object item) {
-		defaultProcess(item);
-		Edge localItem  = (Edge) item;
-		satisfied = localItem.equals(edge);
+	public Queryable submit(Object input) {
+		initInput(input);
+		Graph<Node, Edge> localItem = (Graph<Node, Edge>) input;
+		log.fine(prefix + localItem.toString());
 		return this;
 	}
-	
-	@Override
-	public String toString() {
-		return "[IsEdge]";
-	}
-	
+
+//	@Override
+//	public String toString() {
+//		return "[GraphLogQuery]";
+//	}
 
 }

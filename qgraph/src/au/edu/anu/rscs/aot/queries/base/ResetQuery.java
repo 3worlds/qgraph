@@ -27,35 +27,38 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.old.queries.base;
+package au.edu.anu.rscs.aot.queries.base;
 
 import au.edu.anu.rscs.aot.QGraphException;
-import au.edu.anu.rscs.aot.old.queries.Query;
+import au.edu.anu.rscs.aot.queries.QueryAdaptor;
+import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
-@Deprecated
-public class ResetQuery extends Query {
+
+public class ResetQuery extends QueryAdaptor{
 		
 	public ResetQuery() {
 	}
 
-	public static Query reset() {
+	public static Queryable reset() {
 		return new ResetQuery();
 	}
 
 
-	@Override
-	public Query process(Object item) {
-		defaultProcess(item);
-		throw new QGraphException("Shouldn't be called");
-	}
+//	@Override
+//	public Query process(Object item) {
+//		defaultProcess(item);
+//		throw new QGraphException("Shouldn't be called");
+//	}
 	
-	public String toString() {
-		return "[reset]";
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		throw new QGraphException("Shouldn't be called");
 	}
 
 }

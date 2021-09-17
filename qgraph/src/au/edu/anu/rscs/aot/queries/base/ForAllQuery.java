@@ -27,33 +27,71 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.old.queries.graph;
+package au.edu.anu.rscs.aot.queries.base;
 
-import au.edu.anu.rscs.aot.QGraphException;
-import au.edu.anu.rscs.aot.old.queries.Query;
-import fr.cnrs.iees.graph.Graph;
-import fr.cnrs.iees.graph.Node;
-import fr.cnrs.iees.graph.Edge;
+import au.edu.anu.rscs.aot.queries.QueryAdaptor;
+import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
-// NOT TESTED
-@Deprecated
-public class GraphIsTree extends Query {
+
+public class ForAllQuery extends QueryAdaptor {
+		
+	private Queryable query;
 	
-	public static GraphIsTree isTree() {
-		return new GraphIsTree();
-	}
-	
-	@SuppressWarnings({ "unused", "unchecked" })
-	@Override
-	public Query process(Object item) {
-		defaultProcess(item);
-		Graph<Node,Edge> localItem = (Graph<Node,Edge>)item;
-		throw new QGraphException("GraphIsTree is not implemented");
+	public ForAllQuery(Queryable query) {
+		this.query = query;
 	}
 
+	public static Queryable forAll(Queryable query) {
+		return new ForAllQuery(query);
+	}
+
+	public Queryable getQuery() {
+		return query;
+	}
+	
+
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public boolean satisfied(Object item) {
+//		Iterable<Object> localItem = (Iterable<Object>)item;
+//		for (Object obj : localItem)
+//			if (!query.satisfied(obj))
+//				return false;
+//		return true;
+//	}
+
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public ForAllQuery process(Object item) {
+//		defaultProcess(item);
+//		Iterable<Object> localItem = (Iterable<Object>)item;
+//		for (Object obj : localItem) {
+//			query.process(obj);
+//			satisfied = query.satisfied();
+//			if (!satisfied()) {
+//				return this;
+//			}
+//		}
+//		satisfied = true;
+//		return this;
+//	}
+
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		Iterable<Object> localItem = (Iterable<Object>)input;
+		for (Object obj : localItem) {
+			if (!query.submit(obj).satisfied()) {
+				errorMsg = "Expected '"+obj+"' to be satisfied but found '"+query.errorMsg()+"'.";
+				return this;			
+			};	
+		}
+		return this;
+	}
+	
 }

@@ -27,30 +27,62 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.old.queries.graph.uml;
+package au.edu.anu.rscs.aot.queries.graph.edge;
 
-import static au.edu.anu.rscs.aot.old.queries.CoreQueries.*;
+import java.util.logging.Logger;
 
-import au.edu.anu.rscs.aot.old.queries.base.AndQuery;
-import au.edu.anu.rscs.aot.queries.graph.uml.Multiplicity;
+import au.edu.anu.rscs.aot.queries.QueryAdaptor;
+import au.edu.anu.rscs.aot.queries.Queryable;
+import fr.cnrs.iees.graph.Edge;
+import fr.ens.biologie.generic.utils.Logging;
 
-@Deprecated
-public class IsUMLClass extends AndQuery {
+/**
+ * 
+ * @author Shayne Flint - 26/3/2012
+ *
+ * NOTE (JG 2018): refactored to use java logging instead of aot logging.
+ */
+// NOT TESTED
 
-	public IsUMLClass() {
-		addQuery(
-			hasTheLabel("class"),
-			hasProperty("name"),
-			hasOutEdges(IsUMLAttribute.isAttribute(), Multiplicity.ZERO_MANY));
+public class EdgeLog extends QueryAdaptor {
+
+	private String prefix;
+	
+	public EdgeLog(String prefix) {
+		this.prefix= prefix;
+	}
+	
+	public static EdgeLog logEdge(String prefix) {
+		return new EdgeLog(prefix);
+	}
+	
+	public static EdgeLog logEdge() {
+		return new EdgeLog("");
 	}
 
-	public static IsUMLClass isClass() {
-		return new IsUMLClass();
+	private static Logger log = Logging.getLogger(EdgeLog.class);
+
+//	@Override
+//	public Query process(Object item) {
+//		defaultProcess(item);
+//		Edge localItem = (Edge)item;
+//		log.fine(prefix + localItem.toString());
+//		satisfied = true;
+//		return this;
+//	}
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		Edge localItem = (Edge)input;
+		log.fine(prefix + localItem.toString());
+		return this;
 	}
 
-    @Override
-    public String userString() {
-    	return "[" + stateString() + "IsClass]";
-    }
-    
+//	@Override
+//	public String toString() {
+//		return "[EdgeLog]";
+//	}
+
+	
+
 }

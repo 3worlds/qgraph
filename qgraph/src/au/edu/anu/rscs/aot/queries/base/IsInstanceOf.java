@@ -27,39 +27,51 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.old.queries.base;
+package au.edu.anu.rscs.aot.queries.base;
 
-import au.edu.anu.rscs.aot.old.queries.Query;
+import au.edu.anu.rscs.aot.QGraphException;
+import au.edu.anu.rscs.aot.queries.QueryAdaptor;
+import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
+ * <o>Checks that an Object is an instance of the Class passed as argument of this Query's constructor.</p>
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
-//NOT TESTED
-@Deprecated
-public class Value extends Query {
 
-	private Object obj;
-	
-	public Value(Object obj) {
-		this.obj = obj;
-	}
-	
-	public static Query value(Object item) {
-		return new Value(item);
+public class IsInstanceOf extends QueryAdaptor {
+
+	private Class<?> theClass;
+
+	public IsInstanceOf(Class<?> theClass) {
+		this.theClass = theClass;
 	}
 
+	/**
+	 * Convenience static method
+	 * @param theClass the class to check.
+	 * @return an instance of this Query
+	 */
+	public static Queryable isInstanceOf(Class<?> theClass) {
+		return new IsInstanceOf(theClass);
+	}
+
+	public static Queryable isInstanceOf(String className) {
+		try {
+			return new IsInstanceOf(Class.forName(className));
+		} catch (Exception e) {
+			throw new QGraphException("Can't create IsInstanceOf constraint", e);
+		}
+	}
 	@Override
-	public Value process(Object item) {
-		defaultProcess(item);
-		result = obj;
-		satisfied = true;
+	public Queryable submit(Object input) {
+		initInput(input);
+		if (!theClass.isInstance(input))
+			errorMsg = "Expected '"+input+"' to be an instance of '"+theClass+"'.";			
+		
 		return this;
 	}
 
-	public String toString() {
-		return "[Value " + obj + "]";
-	}
 
 }

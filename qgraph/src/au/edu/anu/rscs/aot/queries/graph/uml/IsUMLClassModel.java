@@ -6,15 +6,14 @@
 //arrange an appropriate license.
 
 
-package au.edu.anu.rscs.aot.old.queries.graph.uml;
+package au.edu.anu.rscs.aot.queries.graph.uml;
 
 
-import static au.edu.anu.rscs.aot.old.queries.CoreQueries.*;
+import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
+import static au.edu.anu.rscs.aot.queries.graph.node.HasEdges.*;
 
-import au.edu.anu.rscs.aot.old.queries.base.AndQuery;
-import au.edu.anu.rscs.aot.queries.graph.uml.Multiplicity;
+import au.edu.anu.rscs.aot.queries.base.AndQuery;
 
-@Deprecated
 public class IsUMLClassModel extends AndQuery {
 
 
@@ -26,13 +25,11 @@ public class IsUMLClassModel extends AndQuery {
 			hasOutEdges(IsUMLAssociation.isAssociation(), Multiplicity.ZERO_MANY));
 	}
 
-	public static IsUMLClassModel isClassModel() {
-		return new IsUMLClassModel();
-	}
 
-    @Override
-    public String userString() {
-    	return "[" + stateString() + "IsClassModel]";
-    }
+
+//    @Override
+//    public String userString() {
+//    	return "[" + stateString() + "IsClassModel]";
+//    }
 
 }
