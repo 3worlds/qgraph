@@ -42,9 +42,9 @@ import au.edu.anu.rscs.aot.queries.Queryable;
 
 public class FileQuery extends QueryAdaptor {
 
-	public static FileQuery isFileName() {
-		return new FileQuery();
-	}
+//	public static FileQuery isFileName() {
+//		return new FileQuery();
+//	}
 
 	@Override
 	public Queryable submit(Object input) {

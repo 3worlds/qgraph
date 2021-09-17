@@ -40,9 +40,9 @@ import au.edu.anu.rscs.aot.queries.Queryable;
 
 public class IntegerString extends QueryAdaptor {
 
-	public static Queryable isInteger() {
-		return new IntegerString();
-	}
+//	public static Queryable isInteger() {
+//		return new IntegerString();
+//	}
 
 	@Override
 	public Queryable submit(Object input) {

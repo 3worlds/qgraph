@@ -47,9 +47,9 @@ public class IsNode extends QueryAdaptor {
 		this.node = node;
 	}
 
-	public static Queryable isNode(Node node) {
-		return new IsNode(node);
-	}	
+//	public static Queryable isNode(Node node) {
+//		return new IsNode(node);
+//	}	
 
 	@Override
 	public Queryable submit(Object input) {

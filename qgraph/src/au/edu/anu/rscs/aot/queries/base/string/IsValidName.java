@@ -43,9 +43,9 @@ public class IsValidName extends QueryAdaptor{
 	private String pattern = "[a-zA-Z]+[a-zA-Z0-9_]"; 
 	private PatternString query = new PatternString(pattern);
 
-	public static IsValidName isValidName() {
-		return new IsValidName();
-	}
+//	public static IsValidName isValidName() {
+//		return new IsValidName();
+//	}
 
 	@Override
 	public Queryable submit(Object input) {

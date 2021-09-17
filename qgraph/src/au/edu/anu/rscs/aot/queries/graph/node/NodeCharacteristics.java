@@ -18,7 +18,7 @@ import fr.cnrs.iees.graph.Node;
 
 public class NodeCharacteristics extends QueryAdaptor {
 
-	private enum RootLeaf {
+	public enum RootLeaf {
 		ROOT, LEAF;
 	}
 
@@ -28,13 +28,13 @@ public class NodeCharacteristics extends QueryAdaptor {
 		this.mode = mode;
 	}
 
-	public static Queryable isRoot() {
-		return new NodeCharacteristics(RootLeaf.ROOT);
-	}
-
-	public static Queryable isLeaf() {
-		return new NodeCharacteristics(RootLeaf.LEAF);
-	}
+//	public static Queryable isRoot() {
+//		return new NodeCharacteristics(RootLeaf.ROOT);
+//	}
+//
+//	public static Queryable isLeaf() {
+//		return new NodeCharacteristics(RootLeaf.LEAF);
+//	}
 
 	@Override
 	public Queryable submit(Object input) {

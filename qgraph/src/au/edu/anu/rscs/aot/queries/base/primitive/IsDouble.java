@@ -24,13 +24,13 @@ public class IsDouble extends QueryAdaptor {
 		this.max = max;
 	}
 
-	public static Queryable doubleInRange(double min, double max) {
-		return new IsDouble(min, max);
-	}
-
-	public static Queryable isDouble() {
-		return new IsDouble(-Double.MAX_VALUE, Double.MAX_VALUE);
-	}
+//	public static Queryable doubleInRange(double min, double max) {
+//		return new IsDouble(min, max);
+//	}
+//
+//	public static Queryable isDouble() {
+//		return new IsDouble(-Double.MAX_VALUE, Double.MAX_VALUE);
+//	}
 
 	@Override
 	public Queryable submit(Object input) {

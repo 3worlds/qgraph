@@ -48,10 +48,10 @@ public class IsEdge extends QueryAdaptor {
 		this.edge = edge;
 	}
 
-	public static IsEdge isEdge(Edge edge) {
-		return new IsEdge(edge);
-	}
-	
+//	public static IsEdge isEdge(Edge edge) {
+//		return new IsEdge(edge);
+//	}
+//	
 //	@Override
 //	public Query process(Object item) {
 //		defaultProcess(item);

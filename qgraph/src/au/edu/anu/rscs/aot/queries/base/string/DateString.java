@@ -43,9 +43,9 @@ import au.edu.anu.rscs.aot.queries.Queryable;
 
 public class DateString extends QueryAdaptor {
 
-	public static Queryable isDate() {
-		return new DateString();
-	}
+//	public static Queryable isDate() {
+//		return new DateString();
+//	}
 
 	@Override
 	public Queryable submit(Object input) {

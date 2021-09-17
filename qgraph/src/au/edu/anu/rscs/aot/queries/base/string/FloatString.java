@@ -40,9 +40,9 @@ import au.edu.anu.rscs.aot.queries.Queryable;
 
 public class FloatString extends QueryAdaptor {
 
-	public static FloatString isFloat() {
-		return new FloatString();
-	}
+//	public static FloatString isFloat() {
+//		return new FloatString();
+//	}
 	
 	@Override
 	public Queryable submit(Object input) {

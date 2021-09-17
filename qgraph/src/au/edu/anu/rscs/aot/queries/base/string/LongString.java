@@ -40,9 +40,9 @@ import au.edu.anu.rscs.aot.queries.Queryable;
 
 public class LongString extends QueryAdaptor {
 
-	public static Queryable isLong() {
-		return new LongString();
-	}
+//	public static Queryable isLong() {
+//		return new LongString();
+//	}
 
 	@Override
 	public Queryable submit(Object input) {

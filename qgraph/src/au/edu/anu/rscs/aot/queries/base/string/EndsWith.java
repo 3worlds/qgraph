@@ -23,9 +23,9 @@ public class EndsWith extends QueryAdaptor {
 		this.str = str;
 	}
 
-	public static Queryable endsWith(String str) {
-		return new EndsWith(str);
-	}
+//	public static Queryable endsWith(String str) {
+//		return new EndsWith(str);
+//	}
 
 
 	@Override

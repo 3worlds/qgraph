@@ -44,9 +44,9 @@ public class IsIntegerRange extends QueryAdaptor {
 	public IsIntegerRange() {
 	}
 
-	public static Queryable isIntegerRange() {
-		return new IsIntegerRange();
-	}
+//	public static Queryable isIntegerRange() {
+//		return new IsIntegerRange();
+//	}
 
 	@Override
 	public Queryable submit(Object input) {

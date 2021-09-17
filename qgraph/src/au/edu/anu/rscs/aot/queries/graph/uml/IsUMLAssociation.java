@@ -34,6 +34,9 @@ import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
 import au.edu.anu.rscs.aot.queries.Queryable;
 import au.edu.anu.rscs.aot.queries.base.AndQuery;
 import au.edu.anu.rscs.aot.queries.base.SequenceQuery;
+import au.edu.anu.rscs.aot.queries.graph.node.HasEdges;
+import fr.cnrs.iees.graph.Direction;
+
 import static au.edu.anu.rscs.aot.queries.base.string.EnumerationString.*;
 import static au.edu.anu.rscs.aot.queries.graph.node.HasEdges.*;
 import static au.edu.anu.rscs.aot.queries.graph.edge.EdgeHasNode.*;
@@ -49,9 +52,9 @@ public class IsUMLAssociation extends AndQuery  {
 				
 		addQuery(
 			hasTheLabel("association"),
-			hasOutEdges(IsUMLClass.isClass(), Multiplicity.ONE).withLabel("passive").withEdgeQuery(edgeQuery),
-			hasOutEdges(IsUMLClass.isClass(), Multiplicity.ONE).withLabel("active").withEdgeQuery(edgeQuery),
-			hasOutEdges(IsUMLClass.isClass(), Multiplicity.ZERO_ONE).withLabel("associativeClass"));
+			new HasEdges(IsUMLClass.isClass(),Direction.OUT,Multiplicity.ONE).withLabel("passive").withEdgeQuery(edgeQuery),			
+			new HasEdges(IsUMLClass.isClass(),Direction.OUT, Multiplicity.ONE).withLabel("active").withEdgeQuery(edgeQuery),
+			new HasEdges(IsUMLClass.isClass(),Direction.OUT, Multiplicity.ZERO_ONE).withLabel("associativeClass"));
 	}
 
 	public static IsUMLAssociation isAssociation() {

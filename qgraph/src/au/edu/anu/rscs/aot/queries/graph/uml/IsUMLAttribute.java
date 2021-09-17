@@ -34,6 +34,8 @@ import static au.edu.anu.rscs.aot.queries.graph.node.HasEdges.*;
 
 import au.edu.anu.rscs.aot.queries.base.AndQuery;
 import au.edu.anu.rscs.aot.queries.base.OrQuery;
+import au.edu.anu.rscs.aot.queries.graph.node.HasEdges;
+import fr.cnrs.iees.graph.Direction;
 
 /**
  * 
@@ -46,7 +48,7 @@ public class IsUMLAttribute extends AndQuery {
 
 	public IsUMLAttribute() {
 		addQuery(hasTheLabel("attribute"), hasProperty("name"));
-		addQuery(new OrQuery(hasProperty("type"), hasOutEdges(IsEnumeration.isEnumeration(), Multiplicity.ONE).withLabel("enumeration")));
+		addQuery(new OrQuery(hasProperty("type"), new HasEdges(IsEnumeration.isEnumeration(),Direction.OUT,Multiplicity.ONE).withLabel("enumeration")));
 	}
 
 	public static IsUMLAttribute isAttribute() {

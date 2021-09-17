@@ -65,17 +65,22 @@ public class HasEdges extends QueryAdaptor {
 		this.label = label;
 	}
 
-	public static HasEdges hasEdges(Direction edgeDirection, Queryable nodeQuery, Multiplicity multiplicity) {
-		return new HasEdges(edgeDirection, nodeQuery, null, multiplicity, null);
-	}
+	public HasEdges(Queryable nodeQuery,Direction edgeDirection,Multiplicity multiplicity) {
+		this.edgeDirection = edgeDirection;
+		this.multiplicity = multiplicity;	
+		this.nodeQuery = nodeQuery;
+		}
+//	public static HasEdges hasEdges(Direction edgeDirection, Queryable nodeQuery, Multiplicity multiplicity) {
+//		return new HasEdges(edgeDirection, nodeQuery, null, multiplicity, null);
+//	}
 
-	public static HasEdges hasInEdges(Queryable nodeQuery, Multiplicity multiplicity) {
-		return new HasEdges(Direction.IN, nodeQuery, null, multiplicity, null);
-	}
+//	public static HasEdges hasInEdges(Queryable nodeQuery, Multiplicity multiplicity) {
+//		return new HasEdges(Direction.IN, nodeQuery, null, multiplicity, null);
+//	}
 
-	public static HasEdges hasOutEdges(Queryable nodeQuery, Multiplicity multiplicity) {
-		return new HasEdges(Direction.OUT, nodeQuery, null, multiplicity, null);
-	}
+//	public static HasEdges hasOutEdges(Queryable nodeQuery, Multiplicity multiplicity) {
+//		return new HasEdges(Direction.OUT, nodeQuery, null, multiplicity, null);
+//	}
 
 	public HasEdges withEdgeQuery(Queryable edgeQuery) {
 		this.edgeQuery = edgeQuery;

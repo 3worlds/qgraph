@@ -48,13 +48,13 @@ public class IsLong extends QueryAdaptor {
 		this.max = max;
 	}
 
-	public static Queryable longInRange(long min, long max) {
-		return new IsLong(min, max);
-	}
-
-	public static Queryable isLong() {
-		return new IsLong(Long.MIN_VALUE, Long.MAX_VALUE);
-	}
+//	public static Queryable longInRange(long min, long max) {
+//		return new IsLong(min, max);
+//	}
+//
+//	public static Queryable isLong() {
+//		return new IsLong(Long.MIN_VALUE, Long.MAX_VALUE);
+//	}
 
 
 	@Override

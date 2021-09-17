@@ -40,9 +40,9 @@ import au.edu.anu.rscs.aot.queries.Queryable;
 
 public class UserNameQuery extends QueryAdaptor {
 
-	public static UserNameQuery isUserName() {
-		return new UserNameQuery();
-	}
+//	public static UserNameQuery isUserName() {
+//		return new UserNameQuery();
+//	}
 	
 
 	@Override

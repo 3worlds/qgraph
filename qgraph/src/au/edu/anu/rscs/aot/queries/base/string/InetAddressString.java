@@ -42,9 +42,9 @@ import au.edu.anu.rscs.aot.queries.Queryable;
 
 public class InetAddressString extends QueryAdaptor {
 
-	public static InetAddressString isInetAddress() {
-		return new InetAddressString();
-	}
+//	public static InetAddressString isInetAddress() {
+//		return new InetAddressString();
+//	}
 
 
 	@Override

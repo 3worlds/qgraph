@@ -27,9 +27,9 @@ public class IsDate extends QueryAdaptor {
 		this.max = max;
 	}
 
-	public static Queryable dateInRange(Date min, Date max) {
-		return new IsDate(min, max);
-	}
+//	public static Queryable dateInRange(Date min, Date max) {
+//		return new IsDate(min, max);
+//	}
 
 	public static Queryable isDate() {
 		return new IsDate(null, null);

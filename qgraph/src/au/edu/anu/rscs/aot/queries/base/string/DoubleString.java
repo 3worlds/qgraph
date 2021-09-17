@@ -40,9 +40,9 @@ import au.edu.anu.rscs.aot.queries.Queryable;
 
 public class DoubleString extends QueryAdaptor {
 
-	public static Queryable isDouble() {
-		return new DoubleString();
-	}
+//	public static Queryable isDouble() {
+//		return new DoubleString();
+//	}
 
 	@Override
 	public Queryable submit(Object input) {

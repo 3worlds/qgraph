@@ -57,13 +57,13 @@ public class EnumerationString extends QueryAdaptor {
 			valueList.add(e.name());
 	}
 
-	public static Queryable isEnum(String... valueList) {
-		return new EnumerationString(valueList);
-	}
-
-	public static Queryable isEnum(Enum<?>... enumList) {
-		return new EnumerationString(enumList);
-	}
+//	public static Queryable isEnum(String... valueList) {
+//		return new EnumerationString(valueList);
+//	}
+//
+//	public static Queryable isEnum(Enum<?>... enumList) {
+//		return new EnumerationString(enumList);
+//	}
 
 	@Override
 	public Queryable submit(Object input) {

@@ -48,9 +48,9 @@ public class IsOneOf extends QueryAdaptor {
 		add(nodes);
 	}
 
-	public static Queryable isOneOf(Node... nodes) {
-		return new IsOneOf(nodes);
-	}
+//	public static Queryable isOneOf(Node... nodes) {
+//		return new IsOneOf(nodes);
+//	}
 
 	public void add(Node... nodes) {
 		for (Node n : nodes)

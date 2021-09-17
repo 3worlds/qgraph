@@ -44,9 +44,9 @@ public class IsBoolean extends QueryAdaptor {
 	public IsBoolean() {
 	}
 
-	public static Queryable isBoolean() {
-		return new IsBoolean();
-	}
+//	public static Queryable isBoolean() {
+//		return new IsBoolean();
+//	}
 
 	@Override
 	public Queryable submit(Object input) {

@@ -48,13 +48,13 @@ public class IsFloat extends QueryAdaptor {
 		this.max = max;
 	}
 
-	public static Queryable floatInRange(float min, float max) {
-		return new IsFloat(min, max);
-	}
-
-	public static Queryable isDouble() {
-		return new IsFloat(-Float.MAX_VALUE, Float.MAX_VALUE);
-	}
+//	public static Queryable floatInRange(float min, float max) {
+//		return new IsFloat(min, max);
+//	}
+//
+//	public static Queryable isFloat() {
+//		return new IsFloat(-Float.MAX_VALUE, Float.MAX_VALUE);
+//	}
 
 	@Override
 	public Queryable submit(Object input) {

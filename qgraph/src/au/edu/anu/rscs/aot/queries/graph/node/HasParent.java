@@ -52,13 +52,13 @@ public class HasParent extends QueryAdaptor {
 		this.query = query;
 	}
 
-	public static HasParent hasParent(Queryable query) {
-		return new HasParent(query);
-	}
-
-	public static HasParent hasParent() {
-		return new HasParent(null);
-	}
+//	public static HasParent hasParent(Queryable query) {
+//		return new HasParent(query);
+//	}
+//
+//	public static HasParent hasParent() {
+//		return new HasParent(null);
+//	}
 
 	@Override
 	public Queryable submit(Object input) {

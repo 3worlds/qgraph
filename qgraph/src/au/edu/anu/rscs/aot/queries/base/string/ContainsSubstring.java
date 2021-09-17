@@ -40,9 +40,9 @@ public class ContainsSubstring extends QueryAdaptor {
 		this.str = str;
 	}
 
-	public static Queryable containsSubstring(String str) {
-		return new ContainsSubstring(str);
-	}	
+//	public static Queryable containsSubstring(String str) {
+//		return new ContainsSubstring(str);
+//	}	
 
 	@Override
 	public Queryable submit(Object input) {

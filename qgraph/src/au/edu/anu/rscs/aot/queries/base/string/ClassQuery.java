@@ -57,14 +57,14 @@ public class ClassQuery extends QueryAdaptor {
 		this.parentClass = parentClass;
 	}
 
-	public static Queryable stringIsClass(Class<?> parentClass) {
-		return new ClassQuery(parentClass);
-	}
-
-	public static Queryable stringIsClass(String parentClassName) {
-		return new ClassQuery(parentClassName);
-	}
-
+//	public static Queryable stringIsClass(Class<?> parentClass) {
+//		return new ClassQuery(parentClass);
+//	}
+//
+//	public static Queryable stringIsClass(String parentClassName) {
+//		return new ClassQuery(parentClassName);
+//	}
+//
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);

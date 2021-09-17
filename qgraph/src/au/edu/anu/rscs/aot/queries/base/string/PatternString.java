@@ -26,9 +26,9 @@ public class PatternString extends QueryAdaptor {
 		this.pattern = pattern;
 	}
 	
-	public static Queryable matchesPattern(String pattern) {
-		return new PatternString(pattern);
-	}
+//	public static Queryable matchesPattern(String pattern) {
+//		return new PatternString(pattern);
+//	}
 	
 	@Override
 	public Queryable submit(Object input) {
