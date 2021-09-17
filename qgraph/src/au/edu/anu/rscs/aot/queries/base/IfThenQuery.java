@@ -33,11 +33,20 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
+ * <p>Test query. If this Query is satisfied, applies a query (called <em>trueQuery</em>), 
+ * and if not, applies another one (called <em>falseQuery</em>)
+ * to the {@code submit()} argument.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>any class compatible with the constructor query arguments;</dd>
+ * <dt>Type of result</dt>
+ * <dd>the result of <em>trueQuery</em> or <em>falseQuery</em>, depending on the outcome of the test query</dd>
+ * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
-
 public class IfThenQuery extends QueryAdaptor {
 
 	private Queryable testQuery;
@@ -56,24 +65,28 @@ public class IfThenQuery extends QueryAdaptor {
 		this.falseQuery = null;
 	}
 
+	/**
+	 * Getter for the test query determining the outcome
+	 * @return the test query
+	 */
 	public Queryable getTestQuery() {
 		return testQuery;
 	}
 
+	/**
+	 * Getter for the query applied when the test query is satisfied
+	 * @return the <em>trueQuery</em>
+	 */
 	public Queryable getTrueQuery() {
 		return trueQuery;
 	}
 
+	/**
+	 * Getter for the query applied when the test query is not satisfied
+	 * @return the <em>falseQuery</em>
+	 */
 	public Queryable getFalseQuery() {
 		return falseQuery;
-	}
-
-	public static IfThenQuery ifThenQuery(Queryable testQuery, Queryable trueQuery, Queryable falseQuery) {
-		return new IfThenQuery(testQuery, trueQuery, falseQuery);
-	}
-
-	public static IfThenQuery ifThenQuery(Queryable testQuery, Queryable trueQuery) {
-		return new IfThenQuery(testQuery, trueQuery);
 	}
 
 	public String toString() {

@@ -47,6 +47,7 @@ public class DateString extends QueryAdaptor {
 //		return new DateString();
 //	}
 
+	@SuppressWarnings("unused")
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);

@@ -33,6 +33,14 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
+ * <p>Check if an object is a {@link float}, or if it is within a given range.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@link Object}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
  *
@@ -43,11 +51,17 @@ public class IsFloat extends QueryAdaptor {
 	private float min;
 	private float max;
 
+	/**
+	 * Constructor with a range
+	 * @param min the lower end of the range
+	 * @param max  the upper end of the range
+	 */
 	public IsFloat(float min, float max) {
 		this.min = min;
 		this.max = max;
 	}
 
+<<<<<<< HEAD
 //	public static Queryable floatInRange(float min, float max) {
 //		return new IsFloat(min, max);
 //	}
@@ -56,6 +70,8 @@ public class IsFloat extends QueryAdaptor {
 //		return new IsFloat(-Float.MAX_VALUE, Float.MAX_VALUE);
 //	}
 
+=======
+>>>>>>> branch 'master' of git@gitlab.anu.edu.au:ThreeWorlds/qgraph.git
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);

@@ -35,21 +35,34 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
+ * <p>Check if an object is a {@link String}, or if its length is within a given range.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@link Object}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
-
 public class IsString extends QueryAdaptor {
 
 	private int minLength;
 	private int maxLength;
 
+	/**
+	 * Constructor with length range
+	 * @param min the lower end of the range
+	 * @param max  the upper end of the range
+	 */
 	public IsString(int minLength, int maxLength) {
 		this.minLength = minLength;
 		this.maxLength = maxLength;
 	}
 
+<<<<<<< HEAD
 //	public static Queryable stringOfLength(int minLength, int maxLength) {
 //		return new IsString(minLength, maxLength);
 //	}
@@ -64,7 +77,15 @@ public class IsString extends QueryAdaptor {
 //		else
 //			return "[isString with length in " + range(minLength, maxLength) + "]";
 //	}
-
+=======
+	@Override
+	public String toString() {
+		if (minLength == 0 && maxLength == Integer.MAX_VALUE)
+			return "[isString]";
+		else
+			return "[isString with length in " + range(minLength, maxLength) + "]";
+	}
+>>>>>>> branch 'master' of git@gitlab.anu.edu.au:ThreeWorlds/qgraph.git
 
 	@Override
 	public Queryable submit(Object input) {

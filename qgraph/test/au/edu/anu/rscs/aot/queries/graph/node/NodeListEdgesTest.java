@@ -29,15 +29,12 @@
  **************************************************************************/
 package au.edu.anu.rscs.aot.queries.graph.node;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import au.edu.anu.rscs.aot.queries.graph.node.NodeListEdges;
 import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Node;
 import fr.cnrs.iees.graph.impl.ALGraphFactory;
@@ -50,6 +47,7 @@ import fr.cnrs.iees.graph.impl.ALGraphFactory;
 class NodeListEdgesTest {
 
 	private Node n1,n2,n3,n4;
+	@SuppressWarnings("unused")
 	private Edge e1,e2,e3,e4;
 	private List<Node> nl = new LinkedList<>();
 	
@@ -68,7 +66,6 @@ class NodeListEdgesTest {
 	}
 
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	void testInEdges() {
 //		List<Edge> edgeList = (List<Edge>)NodeListEdges.inEdges().process(nl).getResult();
@@ -79,7 +76,6 @@ class NodeListEdgesTest {
 //		assertTrue(edgeList.contains(e4));
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	void testOutEdges() {
 //		List<Edge> edgeList = (List<Edge>)NodeListEdges.outEdges().process(nl).getResult();

@@ -29,19 +29,12 @@
  **************************************************************************/
 package au.edu.anu.rscs.aot.queries.graph.edge;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
-import static au.edu.anu.rscs.aot.queries.base.SequenceQuery.*;
-
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import fr.cnrs.iees.graph.Direction;
-import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Node;
 import fr.cnrs.iees.graph.impl.ALGraphFactory;
 
@@ -68,7 +61,6 @@ class EdgeHasNodeTest {
 		nl.add(n1); nl.add(n2); nl.add(n3);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	void testHasEndNode() {
 //		Iterable<Edge> edges = (Iterable<Edge>)get(n1.edges(Direction.OUT), 
@@ -85,7 +77,6 @@ class EdgeHasNodeTest {
 //		assertTrue(temp.size()==2);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	void testHasStartNode() {
 //		Iterable<Edge> edges = (Iterable<Edge>)get(n2.edges(Direction.IN), 
@@ -102,7 +93,6 @@ class EdgeHasNodeTest {
 //		assertTrue(temp.size()==2);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	void testHasOtherNode() {
 //		Iterable<Edge> edges = (Iterable<Edge>)get(n2.edges(), 
@@ -119,7 +109,6 @@ class EdgeHasNodeTest {
 //			assertTrue(temp.size()==2);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	void testHasBothNodes() {
 //		gf.makeEdge(n1,n1);

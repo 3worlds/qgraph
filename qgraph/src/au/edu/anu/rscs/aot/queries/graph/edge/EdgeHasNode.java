@@ -140,7 +140,7 @@ public class EdgeHasNode extends QueryAdaptor {
 	public Queryable submit(Object input) {
 		initInput(input);
 		Edge localItem = (Edge) input;
-		boolean ok = true;
+//		boolean ok = true;
 		switch (edgeNodeSelection) {
 		case START:
 			if (!nodeQuery.submit(localItem.startNode()).satisfied())

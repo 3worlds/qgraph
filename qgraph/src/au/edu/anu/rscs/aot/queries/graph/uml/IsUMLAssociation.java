@@ -39,7 +39,6 @@ import fr.cnrs.iees.graph.Direction;
 
 import static au.edu.anu.rscs.aot.queries.base.string.EnumerationString.*;
 import static au.edu.anu.rscs.aot.queries.graph.node.HasEdges.*;
-import static au.edu.anu.rscs.aot.queries.graph.edge.EdgeHasNode.*;
 
 
 

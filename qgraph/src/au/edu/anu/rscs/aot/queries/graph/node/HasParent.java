@@ -60,6 +60,7 @@ public class HasParent extends QueryAdaptor {
 //		return new HasParent(null);
 //	}
 
+	@SuppressWarnings("unused")
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);

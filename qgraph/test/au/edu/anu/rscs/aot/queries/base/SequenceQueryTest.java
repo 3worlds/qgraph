@@ -29,12 +29,9 @@
  **************************************************************************/
 package au.edu.anu.rscs.aot.queries.base;
 
-import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-
-import static au.edu.anu.rscs.aot.queries.base.SequenceQuery.*;
 
 /**
  * 

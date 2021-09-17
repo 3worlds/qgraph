@@ -34,20 +34,31 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
+ * <p>Check if an object is a {@code boolean}.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@link Object}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * </dl>
+ * 
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
-
 public class IsBoolean extends QueryAdaptor {
 
 	public IsBoolean() {
 	}
 
+<<<<<<< HEAD
 //	public static Queryable isBoolean() {
 //		return new IsBoolean();
 //	}
 
+=======
+>>>>>>> branch 'master' of git@gitlab.anu.edu.au:ThreeWorlds/qgraph.git
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);

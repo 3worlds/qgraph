@@ -2,12 +2,20 @@ package au.edu.anu.rscs.aot.queries;
 
 import java.util.Date;
 
+<<<<<<< HEAD
+=======
+import au.edu.anu.rscs.aot.QGraphException;
+>>>>>>> branch 'master' of git@gitlab.anu.edu.au:ThreeWorlds/qgraph.git
 import au.edu.anu.rscs.aot.queries.base.AndQuery;
 import au.edu.anu.rscs.aot.queries.base.CountQuery;
+import au.edu.anu.rscs.aot.queries.base.ForAllQuery;
+import au.edu.anu.rscs.aot.queries.base.IfThenQuery;
+import au.edu.anu.rscs.aot.queries.base.IsInstanceOf;
 import au.edu.anu.rscs.aot.queries.base.NotQuery;
 import au.edu.anu.rscs.aot.queries.base.OrQuery;
 import au.edu.anu.rscs.aot.queries.base.SelectQuery;
 import au.edu.anu.rscs.aot.queries.base.SizeQuery;
+import au.edu.anu.rscs.aot.queries.base.Value;
 import au.edu.anu.rscs.aot.queries.base.XorQuery;
 import au.edu.anu.rscs.aot.queries.base.primitive.IsBoolean;
 import au.edu.anu.rscs.aot.queries.base.primitive.IsClass;
@@ -18,6 +26,7 @@ import au.edu.anu.rscs.aot.queries.base.primitive.IsInteger;
 import au.edu.anu.rscs.aot.queries.base.primitive.IsIntegerRange;
 import au.edu.anu.rscs.aot.queries.base.primitive.IsLong;
 import au.edu.anu.rscs.aot.queries.base.primitive.IsString;
+<<<<<<< HEAD
 import au.edu.anu.rscs.aot.queries.base.primitive.IsStringList;
 import au.edu.anu.rscs.aot.queries.base.string.ClassQuery;
 import au.edu.anu.rscs.aot.queries.base.string.ContainsSubstring;
@@ -32,8 +41,14 @@ import au.edu.anu.rscs.aot.queries.base.string.IntegerString;
 import au.edu.anu.rscs.aot.queries.base.string.IsValidName;
 import au.edu.anu.rscs.aot.queries.base.string.LongString;
 import au.edu.anu.rscs.aot.queries.base.string.PatternString;
+=======
+>>>>>>> branch 'master' of git@gitlab.anu.edu.au:ThreeWorlds/qgraph.git
 import au.edu.anu.rscs.aot.queries.base.string.StartsWith;
+<<<<<<< HEAD
 import au.edu.anu.rscs.aot.queries.base.string.UserNameQuery;
+=======
+import au.edu.anu.rscs.aot.queries.base.string.StringLength;
+>>>>>>> branch 'master' of git@gitlab.anu.edu.au:ThreeWorlds/qgraph.git
 import au.edu.anu.rscs.aot.queries.graph.EdgeNodeSelection;
 import au.edu.anu.rscs.aot.queries.graph.edge.EdgeHasNode;
 import au.edu.anu.rscs.aot.queries.graph.edge.EdgeListNodes;
@@ -107,6 +122,207 @@ public class CoreQueries {
 
 	public static Queryable xorQuery(Queryable... queries) {
 		return new XorQuery(queries);
+	}
+
+	/**
+	 * <p>Apply a query on a collection of objects</p>
+	 * @param query the query to apply
+	 * @return the resulting ForAllQuery query
+	 */
+	public static Queryable forAll(Queryable query) {
+		return new ForAllQuery(query);
+	}
+	
+	/**
+	 * <p>Test query. If this Query is satisfied, applies a query (called <em>trueQuery</em>), 
+	 * and if not, applies another one (called <em>falseQuery</em>)
+	 * to the {@code submit()} argument.</p>	 * 
+	 * @param testQuery  the test query
+	 * @param trueQuery the <em>trueQuery</em>
+	 * @param falseQuery <em>falseQuery</em>
+	 * @return the resulting IfThenQuery query
+	 */
+	public static IfThenQuery ifThenQuery(Queryable testQuery, Queryable trueQuery, Queryable falseQuery) {
+		return new IfThenQuery(testQuery, trueQuery, falseQuery);
+	}
+	
+	/**
+	 * <p>Test query. If this Query is satisfied, applies a query (called <em>trueQuery</em>)
+	 * to the {@code submit()} argument.</p>	 * 
+	 * @param testQuery  the test query
+	 * @param trueQuery the <em>trueQuery</em>
+	 * @return the resulting IfThenQuery query
+	 */
+	public static IfThenQuery ifThenQuery(Queryable testQuery, Queryable trueQuery) {
+		return new IfThenQuery(testQuery, trueQuery);
+	}
+	
+	/**
+	 * <p>Checks that an Object is an instance of the Class passed as argument of 
+	 * this Query's constructor.</p>
+	 * @param theClass the class to check.
+	 * @return the resulting IsInstanceOf query
+	 */
+	public static Queryable isInstanceOf(Class<?> theClass) {
+		return new IsInstanceOf(theClass);
+	}
+
+	/**
+	 * <p>Checks that an Object is an instance of the Class passed as argument of 
+	 * this Query's constructor.</p>
+	 * @param className the name of the class to check (must be a valid java name)
+	 * @return the resulting IsInstanceOf query
+	 */
+	public static Queryable isInstanceOf(String className) {
+		try {
+			return new IsInstanceOf(Class.forName(className));
+		} catch (Exception e) {
+			throw new QGraphException("Can't create IsInstanceOf constraint", e);
+		}
+	}
+
+	/**
+	 * <p>get the length of a {@link String}.</p>
+	 * @return the resulting StringLength query
+	 */
+	public static StringLength length() {
+		return new StringLength();
+	}
+	
+	/**
+	 * <p>return the argument as a result.</p>
+	 * @param item the object to return
+	 * @return the resulting Value query
+	 */
+	public static Queryable value(Object item) {
+		return new Value(item);
+	}
+	
+	// primitive
+	//
+
+	/**
+	 * <p>Check that an object is a boolean</p>
+	 * @return the resulting IsBoolean query
+	 */
+	public static Queryable isBoolean() {
+		return new IsBoolean();
+	}
+	
+	/**
+	 * <p>check that a date is within a range</p>
+	 * @param min the lower end of the date range
+	 * @param max the upper end of the date range
+	 * @return the resulting IsDate query
+	 */
+	public static Queryable dateInRange(Date min, Date max) {
+		return new IsDate(min, max);
+	}
+
+	/**
+	 * <p>check that an object is a date</p>
+	 * @return the resulting IsDate query
+	 */
+	public static Queryable isDate() {
+		return new IsDate(null, null);
+	}
+
+	/**
+	 * <p>check that a double is within a range</p>
+	 * @param min the lower end of the range
+	 * @param max the upper end of the range
+	 * @return the resulting IsDouble query
+	 */
+	public static Queryable doubleInRange(double min, double max) {
+		return new IsDouble(min, max);
+	}
+
+	/**
+	 * <p>check that an object is a double</p>
+	 * @return the resulting IsDouble query
+	 */
+	public static Queryable isDouble() {
+		return new IsDouble(-Double.MAX_VALUE, Double.MAX_VALUE);
+	}
+
+	/**
+	 * <p>check that a float is within a range</p>
+	 * @param min the lower end of the range
+	 * @param max the upper end of the range
+	 * @return the resulting IsFloat query
+	 */
+	public static Queryable floatInRange(float min, float max) {
+		return new IsFloat(min, max);
+	}
+
+	/**
+	 * <p>check that an object is a float</p>
+	 * @return the resulting IsFloat query
+	 */
+	public static Queryable isFloat() {
+		return new IsFloat(-Float.MAX_VALUE, Float.MAX_VALUE);
+	}
+	
+	/**
+	 * <p>check that an integer is within a range</p>
+	 * @param min the lower end of the range
+	 * @param max the upper end of the range
+	 * @return the resulting IsInteger query
+	 */
+	public static Queryable integerInRange(int min, int max) {
+		return new IsInteger(min, max);
+	}
+
+	/**
+	 * <p>check that an object is an Integer</p>
+	 * @return the resulting IsInteger query
+	 */
+	public static Queryable isInteger() {
+		return new IsInteger(Integer.MIN_VALUE, Integer.MAX_VALUE);
+	}
+
+	/**
+	 * <p>check that a long is within a range</p>
+	 * @param min the lower end of the range
+	 * @param max the upper end of the range
+	 * @return the resulting IsLong query
+	 */
+	public static Queryable longInRange(long min, long max) {
+		return new IsLong(min, max);
+	}
+
+	/**
+	 * <p>check that an object is a long</p>
+	 * @return the resulting IsLong query
+	 */
+	public static Queryable isLong() {
+		return new IsLong(Long.MIN_VALUE, Long.MAX_VALUE);
+	}
+
+	/**
+	 * <p>check that a String length is within a range</p>
+	 * @param minLength the lower end of the range
+	 * @param maxLength the upper end of the range
+	 * @return the resulting IsString query
+	 */
+	public static Queryable stringOfLength(int minLength, int maxLength) {
+		return new IsString(minLength, maxLength);
+	}
+
+	/**
+	 * <p>check that an object is a String</p>
+	 * @return the resulting IsString query
+	 */
+	public static Queryable isString() {
+		return new IsString(0, Integer.MAX_VALUE);
+	}
+
+	/**
+	 * <p>check that an object is an IntegerRange</p>
+	 * @return the resulting IsIntegerRange query
+	 */
+	public static Queryable isIntegerRange() {
+		return new IsIntegerRange();
 	}
 
 	// SelectQuery

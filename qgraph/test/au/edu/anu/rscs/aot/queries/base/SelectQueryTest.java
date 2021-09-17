@@ -35,8 +35,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import au.edu.anu.rscs.aot.collections.DynamicList;
-import au.edu.anu.rscs.aot.queries.base.SelectQuery;
-import au.edu.anu.rscs.aot.queries.base.SequenceQuery;
 
 /**
  * 
@@ -149,6 +147,7 @@ class SelectQueryTest {
 			System.out.println("  error : " + e);
 		}
 	}
+	@SuppressWarnings("unused")
 	@Test
 	public void testExclusive()
 	{

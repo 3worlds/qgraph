@@ -61,6 +61,7 @@ public class IsEdge extends QueryAdaptor {
 //	}
 	
 
+	@SuppressWarnings("unused")
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);

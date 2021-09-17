@@ -56,9 +56,67 @@
  * 	   <td>check  that  an object is a query</td>
  *     <td>{@link au.edu.anu.rscs.aot.queries.Queryable Queryable}</td> <tr/>
  *     
+ * <tr><td>{@link au.edu.anu.rscs.aot.queries.base.ForAllQuery ForAllQuery}</td> 
+ * 	   <td>apply a query on a collection of objects</td>
+ *     <td>{@link java.lang.Iterable Iterable}&lt;
+ *      {@link java.lang.Object Object}&gt;</td> <tr/>
+ *      
+ * <tr><td>{@link au.edu.anu.rscs.aot.queries.base.IfThenQuery IfThenQuery}</td> 
+ * 	   <td>test query. If satisfied, apply a query to the argument, if not, apply another one</td>
+ *     <td>{@link  java.lang.Object Object}</td> <tr/>
+ *     
  * <tr><td>{@link au.edu.anu.rscs.aot.queries.base.primitive.IsClass IsClass}</td> 
  * 	   <td>check  that a class object is of a given class</td>
  *     <td>{@link java.lang.Class Class}</td> <tr/>
+ *     
+ * <tr><td>{@link au.edu.anu.rscs.aot.queries.base.IsInstanceOf IsInstanceOf}</td> 
+ * 	   <td>check  that an object is of a given class</td>
+ *     <td>{@link java.lang.Object Object}</td> <tr/>
+ *     
+ * <tr><td>{@link au.edu.anu.rscs.aot.queries.base.Value Value}</td> 
+ * 	   <td>return its argument as a result</td>
+ *     <td>{@link java.lang.Object Object}</td> <tr/>
+ *     
+ * <tr><td>{@link au.edu.anu.rscs.aot.queries.base.primitive.IsBoolean IsBoolean}</td> 
+ * 	   <td>check if an object is a {@code boolean}</td>
+ *     <td>{@link java.lang.Object Object}</td> <tr/>
+ *     
+ * <tr><td>{@link au.edu.anu.rscs.aot.queries.base.primitive.IsDate IsDate}</td> 
+ * 	   <td>check if an object is a {@code Date} or if it is within a given date range</td>
+ *     <td>{@link java.lang.Object Object}</td> <tr/>
+ *     
+ * <tr><td>{@link au.edu.anu.rscs.aot.queries.base.primitive.IsDouble IsDouble}</td> 
+ * 	   <td>check if an object is a {@code double} or if it is within a given range</td>
+ *     <td>{@link java.lang.Object Object}</td> <tr/>
+ *     
+ * <tr><td>{@link au.edu.anu.rscs.aot.queries.base.primitive.IsFloat IsFloat}</td> 
+ * 	   <td>check if an object is a {@code float} or if it is within a given range</td>
+ *     <td>{@link java.lang.Object Object}</td> <tr/>
+ *     
+ * <tr><td>{@link au.edu.anu.rscs.aot.queries.base.primitive.IsInteger IsInteger}</td> 
+ * 	   <td>check if an object is an {@code int} or if it is within a given range</td>
+ *     <td>{@link java.lang.Object Object}</td> <tr/>
+ *     
+ * <tr><td>{@link au.edu.anu.rscs.aot.queries.base.primitive.IsLong IsLong}</td> 
+ * 	   <td>check if an object is a {@code long} or if it is within a given range</td>
+ *     <td>{@link java.lang.Object Object}</td> <tr/>
+ *     
+ * <tr><td>{@link au.edu.anu.rscs.aot.queries.base.primitive.IsString IsString}</td> 
+ * 	   <td>check if an object is a {@code String} or if its length is within a given range</td>
+ *     <td>{@link java.lang.Object Object}</td> <tr/>
+ *     
+ * <tr><td>{@link au.edu.anu.rscs.aot.queries.base.primitive.IsIntegerRange IsIntegerRange}</td> 
+ * 	   <td>check if an object is an {@link IntegerRange}</td>
+ *     <td>{@link java.lang.Object Object}</td> <tr/>
+ *     
+ * <tr><td>{@link au.edu.anu.rscs.aot.queries.base.string.StringLength StringLength}</td> 
+ * 	   <td>get the length of a String</td>
+ *     <td>{@link java.lang.String String}</td> <tr/>
+ *     
+ *     
+ *     
+ *     
+ *     
  *     
  * <tr><td>{@link au.edu.anu.rscs.aot.queries.base.string.StartsWith StartsWith}</td> 
  * 	   <td>check  that a String starts with a given String</td>
@@ -108,3 +166,5 @@
  *
  */
 package au.edu.anu.rscs.aot;
+
+import au.edu.anu.rscs.aot.util.IntegerRange;
