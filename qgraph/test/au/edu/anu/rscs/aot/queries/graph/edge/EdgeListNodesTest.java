@@ -29,14 +29,9 @@
  **************************************************************************/
 package au.edu.anu.rscs.aot.queries.graph.edge;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import au.edu.anu.rscs.aot.queries.graph.edge.EdgeListNodes;
 import fr.cnrs.iees.graph.Graph;
 import fr.cnrs.iees.graph.Node;
 import fr.cnrs.iees.graph.impl.ALEdge;
@@ -52,6 +47,7 @@ import fr.cnrs.iees.graph.impl.ALNode;
 class EdgeListNodesTest {
 
 	private Node n1,n2,n3,n4;
+	@SuppressWarnings("unused")
 	private Graph<ALNode,ALEdge> g;
 	
 	@BeforeEach
@@ -68,7 +64,6 @@ class EdgeListNodesTest {
 		gf.makeEdge(n2,n3);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	void testStartNodes() {
 //		List<Node> nodeList = (List<Node>)EdgeListNodes
@@ -78,7 +73,6 @@ class EdgeListNodesTest {
 //		assertTrue(nodeList.contains(n2));
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	void testEndNodes() {
 //		List<Node> nodeList = (List<Node>)EdgeListNodes
@@ -89,7 +83,6 @@ class EdgeListNodesTest {
 //		assertTrue(nodeList.contains(n4));
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	void testOtherNodes() {
 //		List<Node> nodeList = (List<Node>)EdgeListNodes
@@ -99,7 +92,6 @@ class EdgeListNodesTest {
 //		assertTrue(nodeList.contains(n2));
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	void testBothNodes() {
 //		List<Node> nodeList = (List<Node>)EdgeListNodes
