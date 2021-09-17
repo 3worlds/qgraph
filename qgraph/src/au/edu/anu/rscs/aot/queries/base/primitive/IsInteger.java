@@ -33,6 +33,14 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
+ * <p>Check if an object is an {@link int}, or if it is within a given range.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@link Object}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
  *
@@ -43,19 +51,17 @@ public class IsInteger extends QueryAdaptor {
 	private int min;
 	private int max;
 
+	/**
+	 * Constructor with a range
+	 * @param min the lower end of the range
+	 * @param max  the upper end of the range
+	 */
 	public IsInteger(int min, int max) {
 		this.min = min;
 		this.max = max;
 	}
 
-	public static Queryable integerInRange(int min, int max) {
-		return new IsInteger(min, max);
-	}
-
-	public static Queryable isDouble() {
-		return new IsInteger(Integer.MIN_VALUE, Integer.MAX_VALUE);
-	}
-
+	@Override
 	public String toString() {
 		return "[Must be Integer in " + min + ".." + max + "]";
 	}

@@ -34,18 +34,22 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
+ * <p>Check if an object is a {@code boolean}.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@link Object}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * </dl>
+ * 
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
-
 public class IsBoolean extends QueryAdaptor {
 
 	public IsBoolean() {
-	}
-
-	public static Queryable isBoolean() {
-		return new IsBoolean();
 	}
 
 	@Override

@@ -29,13 +29,19 @@
  **************************************************************************/
 package au.edu.anu.rscs.aot.queries.base;
 
-import au.edu.anu.rscs.aot.QGraphException;
 import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
- * <o>Checks that an Object is an instance of the Class passed as argument of this Query's constructor.</p>
+ * <p>Checks that an Object is an instance of the Class passed as argument of 
+ * this Query's constructor.</p>
  * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>any class</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * </dl>
  * @author Shayne Flint - 26/3/2012
  *
  */
@@ -44,32 +50,19 @@ public class IsInstanceOf extends QueryAdaptor {
 
 	private Class<?> theClass;
 
+	/**
+	 * 
+	 * @param theClass the class to compare objects to
+	 */
 	public IsInstanceOf(Class<?> theClass) {
 		this.theClass = theClass;
 	}
 
-	/**
-	 * Convenience static method
-	 * @param theClass the class to check.
-	 * @return an instance of this Query
-	 */
-	public static Queryable isInstanceOf(Class<?> theClass) {
-		return new IsInstanceOf(theClass);
-	}
-
-	public static Queryable isInstanceOf(String className) {
-		try {
-			return new IsInstanceOf(Class.forName(className));
-		} catch (Exception e) {
-			throw new QGraphException("Can't create IsInstanceOf constraint", e);
-		}
-	}
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);
 		if (!theClass.isInstance(input))
-			errorMsg = "Expected '"+input+"' to be an instance of '"+theClass+"'.";			
-		
+			errorMsg = "Expected '"+input+"' to be an instance of '"+theClass+"'.";					
 		return this;
 	}
 

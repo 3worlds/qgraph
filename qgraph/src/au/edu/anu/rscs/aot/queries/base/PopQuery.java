@@ -32,12 +32,13 @@ package au.edu.anu.rscs.aot.queries.base;
 import au.edu.anu.rscs.aot.QGraphException;
 import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
+
 /**
+ * WTF is this class for ???
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
-
 public class PopQuery extends QueryAdaptor {
 	
 	private int count;

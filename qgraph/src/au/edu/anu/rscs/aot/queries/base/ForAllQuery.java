@@ -33,6 +33,15 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
+ * <p>Apply a query on a collection of objects. Will fail at the first object not satisfying
+ * the query.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code Iterable<Object>};</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
  *
@@ -42,14 +51,18 @@ public class ForAllQuery extends QueryAdaptor {
 		
 	private Queryable query;
 	
+	/**
+	 * 
+	 * @param query the query to apply to objects
+	 */
 	public ForAllQuery(Queryable query) {
 		this.query = query;
 	}
 
-	public static Queryable forAll(Queryable query) {
-		return new ForAllQuery(query);
-	}
-
+	/**
+	 * Getter
+	 * @return the query
+	 */
 	public Queryable getQuery() {
 		return query;
 	}

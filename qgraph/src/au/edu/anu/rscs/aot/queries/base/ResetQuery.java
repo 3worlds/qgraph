@@ -34,6 +34,7 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
+ * WTF is this class for ???
  * 
  * @author Shayne Flint - 26/3/2012
  *

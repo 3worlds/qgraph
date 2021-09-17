@@ -34,6 +34,14 @@ import au.edu.anu.rscs.aot.queries.Queryable;
 import au.edu.anu.rscs.aot.util.IntegerRange;
 
 /**
+ * Checks if an object is an {@link IntegerRange}.
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@link Object}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
  *
@@ -42,10 +50,6 @@ import au.edu.anu.rscs.aot.util.IntegerRange;
 public class IsIntegerRange extends QueryAdaptor {
 
 	public IsIntegerRange() {
-	}
-
-	public static Queryable isIntegerRange() {
-		return new IsIntegerRange();
 	}
 
 	@Override

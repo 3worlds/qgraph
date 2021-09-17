@@ -4,12 +4,20 @@
  * 
  * 
  */
-package au.edu.anu.rscs.aot.queries.base;
+package au.edu.anu.rscs.aot.queries.base.string;
 
 import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
+ * <p>A query to get the length of a {@link String}.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code String}</dd>
+ * <dt>Type of result</dt>
+ * <dd>{@link Integer}</dd>
+ * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
  *
@@ -18,10 +26,6 @@ import au.edu.anu.rscs.aot.queries.Queryable;
 public class StringLength extends QueryAdaptor {
 	
 	public StringLength() {
-	}
-
-	public static StringLength length() {
-		return new StringLength();
 	}
 
 //	@Override

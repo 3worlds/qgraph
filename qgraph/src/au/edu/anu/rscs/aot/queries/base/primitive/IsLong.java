@@ -33,6 +33,14 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
+ * <p>Check if an object is a {@link long}, or if it is within a given range.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@link Object}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
  *
@@ -43,19 +51,15 @@ public class IsLong extends QueryAdaptor {
 	private long min;
 	private long max;
 
+	/**
+	 * Constructor with a range
+	 * @param min the lower end of the range
+	 * @param max  the upper end of the range
+	 */
 	public IsLong(long min, long max) {
 		this.min = min;
 		this.max = max;
 	}
-
-	public static Queryable longInRange(long min, long max) {
-		return new IsLong(min, max);
-	}
-
-	public static Queryable isLong() {
-		return new IsLong(Long.MIN_VALUE, Long.MAX_VALUE);
-	}
-
 
 	@Override
 	public Queryable submit(Object input) {

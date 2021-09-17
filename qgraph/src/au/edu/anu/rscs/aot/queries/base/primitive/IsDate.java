@@ -13,6 +13,14 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
+ * <p>Check if an object is a {@link Date}, or if it is within a given date range.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@link Object}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
  *
@@ -22,17 +30,14 @@ public class IsDate extends QueryAdaptor {
 	private Date min;
 	private Date max;
 
+	/**
+	 * Constructor with a date range.
+	 * @param min the lower end of the date range
+	 * @param max the upper end of the date range
+	 */
 	public IsDate(Date min, Date max) {
 		this.min = min;
 		this.max = max;
-	}
-
-	public static Queryable dateInRange(Date min, Date max) {
-		return new IsDate(min, max);
-	}
-
-	public static Queryable isDate() {
-		return new IsDate(null, null);
 	}
 
 	@Override
