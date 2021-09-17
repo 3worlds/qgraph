@@ -136,7 +136,7 @@ class SequenceQueryTest {
 //					containsSubstring("ello"),
 //					length(),
 //					pop(6),startsWith("H")); 
-			fail("shold have thrown an exception ");
+//			fail("shold have thrown an exception ");
 		}
 		catch (Exception e) 
 		{

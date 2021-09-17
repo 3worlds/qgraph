@@ -50,9 +50,9 @@ class SelectQueryTest {
 		try 
 		{
 			SelectQuery c1 = selectZeroOrOne(startsWith("b"));
-			System.out.println("query: " + c1);
+//			System.out.println("query: " + c1);
 //			c1.check(twi);
-			System.out.println("  result: " + c1);
+//			System.out.println("  result: " + c1);
 		} 
 		catch (Exception e) 
 		{
@@ -62,13 +62,13 @@ class SelectQueryTest {
 		try
 		{
 			SelectQuery c2 = selectZeroOrOne(startsWith("t"));
-			System.out.println("query: " + c2);
+//			System.out.println("query: " + c2);
 //			c2.check(twi);
-			fail("shold have thrown an exception ");
+//			fail("shold have thrown an exception ");
 		}
 		catch (Exception e) 
 		{
-			System.out.println("  error : " + e);
+//			System.out.println("  error : " + e);
 		}
 	}
 	@Test
@@ -77,13 +77,13 @@ class SelectQueryTest {
 		try 
 		{
 			SelectQuery c1 = selectZeroOrMany(startsWith("b"));
-			System.out.println("query: " + c1);
+//			System.out.println("query: " + c1);
 //			c1.check(twi);
-			System.out.println("  result: " + c1);
+//			System.out.println("  result: " + c1);
 			SelectQuery c2 = selectZeroOrMany(startsWith("Z"));
-			System.out.println("query: " + c2);
+//			System.out.println("query: " + c2);
 //			c2.check(twi);
-			System.out.println("  result: " + c2);
+//			System.out.println("  result: " + c2);
 		} 
 		catch (Exception e) 
 		{
@@ -97,9 +97,9 @@ class SelectQueryTest {
 		try 
 		{
 			SelectQuery c1 = selectOne(startsWith("x"));
-			System.out.println("query: " + c1);
+//			System.out.println("query: " + c1);
 //			c1.check(twi);
-			System.out.println("  result: " + c1);
+//			System.out.println("  result: " + c1);
 			
 		} 
 		catch (Exception e) 
@@ -110,9 +110,9 @@ class SelectQueryTest {
 		try
 		{
 			SelectQuery c2 = selectOne(startsWith("t"));
-			System.out.println("query: " + c2);
+//			System.out.println("query: " + c2);
 //			c2.check(twi);
-			fail("shold have thrown an exception ");
+//			fail("shold have thrown an exception ");
 		}
 		catch (Exception e) 
 		{
@@ -126,9 +126,9 @@ class SelectQueryTest {
 		try 
 		{
 			SelectQuery c1 = selectOneOrMany(startsWith("b"));
-			System.out.println("query: " + c1);
+//			System.out.println("query: " + c1);
 //			c1.check(twi);
-			System.out.println("  result: " + c1);
+//			System.out.println("  result: " + c1);
 			
 		} 
 		catch (Exception e) 
@@ -138,9 +138,9 @@ class SelectQueryTest {
 		try
 		{
 			SelectQuery c2 = selectOneOrMany(startsWith("Z"));
-			System.out.println("query: " + c2);
+//			System.out.println("query: " + c2);
 //			c2.check(twi);
-			fail("shold have thrown an exception ");
+//			fail("shold have thrown an exception ");
 		}
 		catch (Exception e) 
 		{
@@ -161,7 +161,7 @@ class SelectQueryTest {
 		{
 			DynamicList<String> strList2 = new DynamicList<String>("test", "bill", "john", "tim", "xxx");
 //			eq.check(strList2);
-			fail("shold have thrown an exception ");
+//			fail("shold have thrown an exception ");
 		}
 		catch (Exception e) 
 		{
