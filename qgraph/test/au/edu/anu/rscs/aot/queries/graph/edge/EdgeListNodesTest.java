@@ -29,6 +29,8 @@
  **************************************************************************/
 package au.edu.anu.rscs.aot.queries.graph.edge;
 
+import java.util.Collection;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,6 +40,9 @@ import fr.cnrs.iees.graph.impl.ALEdge;
 import fr.cnrs.iees.graph.impl.ALGraph;
 import fr.cnrs.iees.graph.impl.ALGraphFactory;
 import fr.cnrs.iees.graph.impl.ALNode;
+import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
+import static au.edu.anu.rscs.aot.queries.base.SequenceQuery.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * 
@@ -66,41 +71,37 @@ class EdgeListNodesTest {
 	
 	@Test
 	void testStartNodes() {
-//		List<Node> nodeList = (List<Node>)EdgeListNodes
-//			.startNodes().process(g.edges()).getResult();
-//		assertTrue(nodeList.size() == 2);
-//		assertTrue(nodeList.contains(n1));
-//		assertTrue(nodeList.contains(n2));
+		Collection<Node> nodeList = (Collection<Node>) get(g.edges(),edgeListStartNodes());
+		assertTrue(nodeList.size() == 2);
+		assertTrue(nodeList.contains(n1));
+		assertTrue(nodeList.contains(n2));
 	}
 
 	@Test
 	void testEndNodes() {
-//		List<Node> nodeList = (List<Node>)EdgeListNodes
-//			.endNodes().process(g.edges()).getResult();
-//		assertTrue(nodeList.size() == 3);
-//		assertTrue(nodeList.contains(n2));
-//		assertTrue(nodeList.contains(n3));
-//		assertTrue(nodeList.contains(n4));
+		Collection<Node> nodeList = (Collection<Node>) get(g.edges(),edgeListEndNodes());
+		assertTrue(nodeList.size() == 3);
+		assertTrue(nodeList.contains(n2));
+		assertTrue(nodeList.contains(n3));
+		assertTrue(nodeList.contains(n4));
 	}
 
 	@Test
 	void testOtherNodes() {
-//		List<Node> nodeList = (List<Node>)EdgeListNodes
-//			.otherNodes(n3).process(g.edges()).getResult();
-//		assertTrue(nodeList.size() == 2);
-//		assertTrue(nodeList.contains(n1));
-//		assertTrue(nodeList.contains(n2));
+		Collection<Node> nodeList = (Collection<Node>) get(g.edges(),edgeListOtherNodes(n3));
+		assertTrue(nodeList.size() == 2);
+		assertTrue(nodeList.contains(n1));
+		assertTrue(nodeList.contains(n2));
 	}
 
 	@Test
 	void testBothNodes() {
-//		List<Node> nodeList = (List<Node>)EdgeListNodes
-//			.bothNodes().process(g.edges()).getResult();
-//		assertTrue(nodeList.size() == 4);
-//		assertTrue(nodeList.contains(n1));
-//		assertTrue(nodeList.contains(n2));
-//		assertTrue(nodeList.contains(n3));
-//		assertTrue(nodeList.contains(n4));
+		Collection<Node> nodeList = (Collection<Node>) get(g.edges(),edgeListBothNodes());
+		assertTrue(nodeList.size() == 4);
+		assertTrue(nodeList.contains(n1));
+		assertTrue(nodeList.contains(n2));
+		assertTrue(nodeList.contains(n3));
+		assertTrue(nodeList.contains(n4));
 	}
 
 }

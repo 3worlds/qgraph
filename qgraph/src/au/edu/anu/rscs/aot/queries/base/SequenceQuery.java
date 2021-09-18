@@ -6,14 +6,17 @@ import au.edu.anu.rscs.aot.queries.Queryable;
 import au.edu.anu.rscs.aot.queries.QueryList;
 
 /**
- * <p>Chains a sequence of queries, i.e. the {@code result()} of each query serves as an
- * input into {@code submit(...)} of the next query.</p>
+ * <p>
+ * Chains a sequence of queries, i.e. the {@code result()} of each query serves
+ * as an input into {@code submit(...)} of the next query.
+ * </p>
  *
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
  * <dd>any class;</dd>
  * <dt>Type of result</dt>
- * <dd>type of the result of the last query in the sequence (if everything went ok - {@code null} otherwise)</dd>
+ * <dd>type of the result of the last query in the sequence (if everything went
+ * ok - {@code null} otherwise)</dd>
  * </dl>
  *
  * @author Shayne Flint - 28/3/2012
@@ -47,14 +50,21 @@ public class SequenceQuery extends QueryList {
 	}
 
 	private boolean processAQuery(Stack<Object> stack, Object input, Queryable q) {
-		try {
+		if (q instanceof PopQuery) {
+			int popCount = ((PopQuery) q).getCount();
+			for (int i = 0; i < popCount; i++)
+				stack.pop();
+			return q.satisfied();
+		} else if (q instanceof ResetQuery) {
+			stack.clear();
+			stack.push(input);
+			return q.satisfied();
+		} else {
 			q.submit(stack.peek());
 			stack.push(q.result());
 			errorMsg = q.errorMsg();
-		} catch (Exception e) {
-			e.printStackTrace();
+			return q.satisfied();
 		}
-		return errorMsg == null;
 	}
 
 	/**
@@ -62,9 +72,11 @@ public class SequenceQuery extends QueryList {
 	 * use the result. So I've change get(...) to apply(...)?
 	 */
 	/**
-	 * <p>Applies a sequence of queries to an object and return the query list.</p>
+	 * <p>
+	 * Applies a sequence of queries to an object and return the query list.
+	 * </p>
 	 * 
-	 * @param input the object on which to apply queries
+	 * @param input   the object on which to apply queries
 	 * @param queries the sequence a queries to apply to the object
 	 * @return the sequence of queries
 	 */
@@ -73,31 +85,37 @@ public class SequenceQuery extends QueryList {
 		sq.submit(input);
 		return sq;
 	}
-	
+
 	/**
-	 * <p>Get the result of a sequence of queries applied on an object.</p>
-	 * <p>This method is specially designed to work in interaction with {@link CoreQueries} static
-	 * methods to query particular elements of a {@link Graph}. Examples:</p>
-	 * <p>return all the OUT edges of a node labelled 'blue':</p>
+	 * <p>
+	 * Get the result of a sequence of queries applied on an object.
+	 * </p>
+	 * <p>
+	 * This method is specially designed to work in interaction with
+	 * {@link CoreQueries} static methods to query particular elements of a
+	 * {@link Graph}. Examples:
+	 * </p>
+	 * <p>
+	 * return all the OUT edges of a node labelled 'blue':
+	 * </p>
+	 * 
 	 * <pre>
-	 * get(node,
-	 * 	edges(Direction.OUT), 
-	 * 	edgeListEndNodes(),
-	 * 	selectZeroOrMany(hasTheLabel("blue")));
+	 * get(node, edges(Direction.OUT), edgeListEndNodes(), selectZeroOrMany(hasTheLabel("blue")));
 	 * </pre>
-	 * <p>return all the children of a (tree)node that have property color='red'</p>
+	 * <p>
+	 * return all the children of a (tree)node that have property color='red'
+	 * </p>
+	 * 
 	 * <pre>
-	 * get(node,
-	 * 	children(), 
-	 * 	selectZeroOrMany(hasProperty("color","blue")));
+	 * get(node, children(), selectZeroOrMany(hasProperty("color", "blue")));
 	 * </pre>
 	 * 
-	 * @param input the object on which to apply queries
+	 * @param input   the object on which to apply queries
 	 * @param queries the sequence a queries to apply to the object
 	 * @return the result of the last query
 	 */
-	public static Object get(Object input, Queryable...queries) {
-		SequenceQuery sq = apply(input,queries);
+	public static Object get(Object input, Queryable... queries) {
+		SequenceQuery sq = apply(input, queries);
 		return sq.result();
 	}
 

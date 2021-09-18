@@ -33,10 +33,4 @@ public class StartsWith extends QueryAdaptor {
 		return this;
 	}
 
-
-	@Override
-	public String toString() {
-		return "[String must start with '" + str + "']";
-	}
-
 }

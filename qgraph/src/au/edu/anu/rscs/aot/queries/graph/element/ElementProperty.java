@@ -45,7 +45,7 @@ public class ElementProperty extends QueryAdaptor {
 			localItem = (ReadOnlyPropertyList) input;
 		else if (input instanceof ReadOnlyDataHolder)
 			localItem = ((ReadOnlyDataHolder) input).properties();
-		Object propertyValue;
+		Object propertyValue=null;
 		if (defaultValue == null)
 			propertyValue = localItem.getPropertyValue(key);
 		else if (localItem.hasProperty(key))

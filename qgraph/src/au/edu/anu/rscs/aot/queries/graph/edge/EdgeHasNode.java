@@ -145,25 +145,25 @@ public class EdgeHasNode extends QueryAdaptor {
 		case START:
 			if (!nodeQuery.submit(localItem.startNode()).satisfied())
 				errorMsg = "Expected start node '" + localItem.startNode().toShortString() + "' of edge '"
-						+ localItem.toShortString() + "' to satisfy query but found " +nodeQuery.errorMsg()+". ";
+						+ localItem.toShortString() + "' to satisfy query but found [" +nodeQuery.errorMsg()+"]. ";
 			break;
 		case END:
 			if (!nodeQuery.submit(localItem.endNode()).satisfied())
 				errorMsg = "Expected end node '" + localItem.endNode().toShortString() + "' of edge '"
-						+ localItem.toShortString() + "' satisfy query but found " +nodeQuery.errorMsg()+". ";
+						+ localItem.toShortString() + "' satisfy query but found [" +nodeQuery.errorMsg()+"]. ";
 
 			break;
 		case OTHER:
-			if (!nodeQuery.submit(refNode).satisfied())
+			if (!nodeQuery.submit(localItem.otherNode(refNode)).satisfied())
 				errorMsg = "Expected node '" + refNode.toShortString() + "' of edge '"
-						+ localItem.toShortString() + "' satisfy query but found " +nodeQuery.errorMsg()+". ";
+						+ localItem.toShortString() + "' satisfy query but found [" +nodeQuery.errorMsg()+"]. ";
 
 			break;
 		case BOTH:
 			String smsg = nodeQuery.submit(localItem.startNode()).errorMsg();
 			String emsg = nodeQuery.submit(localItem.endNode()).errorMsg();
 			if (smsg!=null || emsg!=null)
-				errorMsg ="Expected '"+localItem.startNode().toShortString()+"' and '"+localItem.endNode() +". to satisfy query but found '"+smsg+"' and '"+emsg+"'.";
+				errorMsg ="Expected '"+localItem.startNode().toShortString()+"' and '"+localItem.endNode() +". to satisfy query but found ["+smsg+"] and ["+emsg+"].";
 				break;
 		}
 		return this;

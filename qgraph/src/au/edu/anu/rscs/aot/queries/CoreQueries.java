@@ -367,7 +367,7 @@ public class CoreQueries {
 		return new StartsWith(s);
 	}
 
-	public static Queryable endsWidth(String s) {
+	public static Queryable endsWith(String s) {
 		return new EndsWith(s);
 	}
 

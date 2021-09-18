@@ -43,129 +43,83 @@ import au.edu.anu.rscs.aot.collections.DynamicList;
  */
 class SelectQueryTest {
 
-	DynamicList<String> twi = new DynamicList<String>("test", "bill", "john", "tim", "xxx");
+	DynamicList<String> twi = new DynamicList<String>("test", "bert", "jenny", "tanya", "xerces");
+
 	@Test
-	public void testSelectZeroOrOne()
-	{
-		try 
+	public void testSelectZeroOrOne() {
 		{
-			SelectQuery c1 = selectZeroOrOne(startsWith("b"));
-//			System.out.println("query: " + c1);
-//			c1.check(twi);
-//			System.out.println("  result: " + c1);
-		} 
-		catch (Exception e) 
-		{
-			fail("shold not throw an exception ");
+			SelectQuery q = selectZeroOrOne(startsWith("b"));
+			q.submit(twi);
+			assertTrue(q.satisfied());
 		}
-		
-		try
+
 		{
-			SelectQuery c2 = selectZeroOrOne(startsWith("t"));
-//			System.out.println("query: " + c2);
-//			c2.check(twi);
-//			fail("shold have thrown an exception ");
-		}
-		catch (Exception e) 
-		{
-//			System.out.println("  error : " + e);
+			SelectQuery q = selectZeroOrOne(startsWith("t"));
+			q.submit(twi);
+			assertTrue(!q.satisfied());
 		}
 	}
+
 	@Test
-	public void testSelectZeroOrMany()
-	{
-		try 
+	public void testSelectZeroOrMany() {
+
 		{
-			SelectQuery c1 = selectZeroOrMany(startsWith("b"));
-//			System.out.println("query: " + c1);
-//			c1.check(twi);
-//			System.out.println("  result: " + c1);
-			SelectQuery c2 = selectZeroOrMany(startsWith("Z"));
-//			System.out.println("query: " + c2);
-//			c2.check(twi);
-//			System.out.println("  result: " + c2);
-		} 
-		catch (Exception e) 
+			SelectQuery q = selectZeroOrMany(startsWith("b"));
+			q.submit(twi);
+			assertTrue(q.satisfied());
+		}
+
 		{
-			fail("should not throw an exception ");
+			SelectQuery q = selectZeroOrMany(startsWith("Z"));
+			q.submit(twi);
+			assertTrue(q.satisfied());
 		}
 	}
-	
+
 	@Test
-	public void testSelectOne()
-	{
-		try 
+	public void testSelectOne() {
 		{
-			SelectQuery c1 = selectOne(startsWith("x"));
-//			System.out.println("query: " + c1);
-//			c1.check(twi);
-//			System.out.println("  result: " + c1);
-			
-		} 
-		catch (Exception e) 
-		{
-			fail("shold not throw an exception ");
+			SelectQuery q = selectOne(startsWith("x"));
+			q.submit(twi);
+			assertTrue(q.satisfied());
 		}
-		
-		try
+
 		{
-			SelectQuery c2 = selectOne(startsWith("t"));
-//			System.out.println("query: " + c2);
-//			c2.check(twi);
-//			fail("shold have thrown an exception ");
-		}
-		catch (Exception e) 
-		{
-			System.out.println("  error : " + e);
+			SelectQuery q = selectOne(startsWith("t"));
+			q.submit(twi);
+			assertTrue(!q.satisfied());
 		}
 	}
-	
+
 	@Test
-	public void testSelectOneOrMany()
-	{
-		try 
+	public void testSelectOneOrMany() {
+
 		{
-			SelectQuery c1 = selectOneOrMany(startsWith("b"));
-//			System.out.println("query: " + c1);
-//			c1.check(twi);
-//			System.out.println("  result: " + c1);
-			
-		} 
-		catch (Exception e) 
-		{
-			fail("shold not throw an exception ");
+			SelectQuery q = selectOneOrMany(startsWith("b"));
+			q.submit(twi);
+			assertTrue(q.satisfied());
 		}
-		try
+
 		{
-			SelectQuery c2 = selectOneOrMany(startsWith("Z"));
-//			System.out.println("query: " + c2);
-//			c2.check(twi);
-//			fail("shold have thrown an exception ");
-		}
-		catch (Exception e) 
-		{
-			System.out.println("  error : " + e);
+			SelectQuery q = selectOneOrMany(startsWith("Z"));
+			q.submit(twi);
+			assertTrue(!q.satisfied());
 		}
 	}
-	@SuppressWarnings("unused")
+
 	@Test
-	public void testExclusive()
-	{
-//		SelectQuery eq = selectZeroOrMany(new SequenceQuery(length(), hasCount(4))).exclusive();
-//		System.out.println("query: " + eq);
-		
-		DynamicList<String> strList1 = new DynamicList<String>("test", "bill", "john");
-//		eq.check(strList1);
-//		System.out.println("  result: " + eq);
-		try
+	public void testExclusive() {
+		SelectQuery q = selectZeroOrMany(new SequenceQuery(length(), hasCount(4))).exclusive();
+
 		{
-			DynamicList<String> strList2 = new DynamicList<String>("test", "bill", "john", "tim", "xxx");
-//			eq.check(strList2);
-//			fail("shold have thrown an exception ");
+			DynamicList<String> lst = new DynamicList<String>("test", "bert", "jenn");
+			q.submit(lst);
+			assertTrue(q.satisfied());
 		}
-		catch (Exception e) 
 		{
-			System.out.println("  error : " + e);
+			DynamicList<String> lst = new DynamicList<String>("test", "bert", "jenny", "tanya", "xerces");
+			q.submit(lst);
+			assertTrue(!q.satisfied());
 		}
 	}
 

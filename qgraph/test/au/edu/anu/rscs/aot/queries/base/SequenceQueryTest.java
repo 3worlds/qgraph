@@ -30,6 +30,7 @@
 package au.edu.anu.rscs.aot.queries.base;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -40,156 +41,84 @@ import org.junit.jupiter.api.Test;
  */
 class SequenceQueryTest {
 	@Test
-	public void testStartWith()
-	{
-		try
+	public void testStartWith() {
+		SequenceQuery q = new SequenceQuery(startsWith("He"), startsWith("Hell"));
+		q.submit("Hello There");
+		assertTrue(q.satisfied());
+	}
+
+	@Test
+	public void testEndWith() {
+		SequenceQuery q = new SequenceQuery(startsWith("He"), startsWith("Hell"));
+		q.submit("Hello There");
+		assertTrue(q.satisfied());
+	}
+
+	@Test
+	public void testContainsSubstring() {
+		SequenceQuery q = new SequenceQuery(startsWith("He"), endsWith("ere"), containsSubstring("ello"));
+		q.submit("Hello There");
+		assertTrue(q.satisfied());
+	}
+
+	@Test
+	public void testLength() {
 		{
-//			SequenceQuery.check("Hello There", 
-//					startsWith("He"),startsWith("Hell")); 
+			SequenceQuery q = new SequenceQuery(startsWith("He"), endsWith("ere"), containsSubstring("ello"), length(),
+					integerInRange(1, 11));
+			q.submit("Hello There");
+			assertTrue(q.satisfied());
 		}
-		catch (Exception e) 
 		{
-			fail("shold not throw an exception " + e);
+			SequenceQuery q = new SequenceQuery(startsWith("He"), endsWith("ere"), containsSubstring("ello"), length(),
+					integerInRange(1, 10));
+			q.submit("Hello There");
+			assertTrue(!q.satisfied());
 		}
 	}
+
 	@Test
-	public void testEndWith()
-	{
-		try
+	public void testPop() {
 		{
-//			SequenceQuery.check("Hello There", 
-//					startsWith("He"),startsWith("Hell"),endsWith("ere")); 
+			SequenceQuery q = new SequenceQuery(startsWith("He"), endsWith("ere"), containsSubstring("ello"), length(),
+					PopQuery.pop(1), integerInRange(1, 10));
+			q.submit("Hello There");
+			assertTrue(!q.satisfied());
 		}
-		catch (Exception e) 
 		{
-			fail("shold not throw an exception " + e);
+			SequenceQuery q = new SequenceQuery(startsWith("He"), endsWith("ere"), containsSubstring("ello"), length(),
+					PopQuery.pop(1));
+			q.submit("Hello There");
+			assertTrue(q.satisfied());
 		}
+
 	}
+
 	@Test
-	public void testContainsSubstring()
-	{
-		try
-		{
-//			SequenceQuery.check("Hello There", 
-//					startsWith("He"),startsWith("Hell"),endsWith("ere"),containsSubstring("ello")); 
-		}
-		catch (Exception e) 
-		{
-			fail("shold not throw an exception " + e);
-		}
+	public void testIntegerInRange() {
+		SequenceQuery q = new SequenceQuery(integerInRange(1, 20));
+		q.submit(1);
+		assertTrue(q.satisfied());
 	}
+
 	@Test
-	public void testLength()
-	{
-		try
-		{
-//			SequenceQuery.check("Hello There", 
-//					startsWith("He"),
-//					startsWith("Hell"),
-//					endsWith("ere"),
-//					containsSubstring("ello"),
-//					length()); 
-		}
-		catch (Exception e) 
-		{
-			fail("shold not throw an exception " + e);
-		}
+	public void testFloatInRange() {
+		SequenceQuery q = new SequenceQuery(floatInRange(1f, 20f));
+		q.submit(1.2f);
+		assertTrue(q.satisfied());
 	}
-	
+
 	@Test
-	public void testPop()
-	{
-		try
-		{
-//			SequenceQuery.check("Hello There", 
-//					startsWith("He"),
-//					startsWith("Hell"),
-//					endsWith("ere"),
-//					containsSubstring("ello"),
-//					length(),
-//					pop(1),startsWith("H")); 
-		}
-		catch (Exception e) 
-		{
-			fail("shold not throw an exception " + e);
-		}
-		try
-		{
-//			SequenceQuery.check("Hello There", 
-//					startsWith("He"),
-//					startsWith("Hell"),
-//					endsWith("ere"),
-//					containsSubstring("ello"),
-//					length(),
-//					pop(5),startsWith("H")); 
-		}
-		catch (Exception e) 
-		{
-			fail("shold not throw an exception " + e);
-		}
-		try
-		{
-//			SequenceQuery.check("Hello There", 
-//					startsWith("He"),
-//					startsWith("Hell"),
-//					endsWith("ere"),
-//					containsSubstring("ello"),
-//					length(),
-//					pop(6),startsWith("H")); 
-//			fail("shold have thrown an exception ");
-		}
-		catch (Exception e) 
-		{
-			System.out.println("  error : " + e);
-		}
-		
+	public void testLongInRange() {
+		SequenceQuery q = new SequenceQuery(longInRange(1l, 20l));
+		q.submit(10l);
+		assertTrue(q.satisfied());
 	}
+
 	@Test
-	public void testIntegerInRange()
-	{
-		try
-		{
-//			SequenceQuery.check(1,integerInRange(1, 20));
-		}
-		catch (Exception e) 
-		{
-			fail("shold not throw an exception " + e);
-		}
-	}
-	@Test
-	public void testFloatInRange()
-	{
-		try
-		{
-//			SequenceQuery.check(1.2f,floatInRange(1f, 20f));
-		}
-		catch (Exception e) 
-		{
-			fail("shold not throw an exception " + e);
-		}
-	}
-	@Test
-	public void testLongInRange()
-	{
-		try
-		{
-//			SequenceQuery.check(10l, longInRange(1l, 20l));
-		}
-		catch (Exception e) 
-		{
-			fail("shold not throw an exception " + e);
-		}
-	}
-	@Test
-	public void testIsDouble()
-	{
-		try
-		{
-//			SequenceQuery.check(1.2,doubleInRange((double)1, (double)20));
-		}
-		catch (Exception e) 
-		{
-			fail("shold not throw an exception " + e);
-		}
+	public void testIsDouble() {
+		SequenceQuery q = new SequenceQuery(doubleInRange(1, 20));
+		q.submit(1.2);
+		assertTrue(q.satisfied());
 	}
 }

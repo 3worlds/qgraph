@@ -31,56 +31,38 @@ package au.edu.anu.rscs.aot.queries.graph.element;
 
 import org.junit.Test;
 
-import fr.cnrs.iees.graph.Node;
-import fr.cnrs.iees.graph.impl.ALGraphFactory;
+import au.edu.anu.rscs.aot.queries.Queryable;
 import fr.cnrs.iees.properties.SimplePropertyList;
 import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
 import junit.framework.TestCase;
+import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
 
 /**
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018)
+ * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
  *
  */
-public class ElementPropertyTest extends TestCase 
-{
+public class ElementPropertyTest extends TestCase {
 	@SuppressWarnings("unused")
 	@Test
-	public void testHasProperty()
-	{
-		ALGraphFactory gf = new ALGraphFactory("grz");
+	public void testHasProperty() {
 		SimplePropertyList props = new SimplePropertyListImpl("p1");
 		props.setProperty("p1", 1234);
-		Node n = (Node) gf.makeNode(props);
-		try
 		{
-//			ElementProperty ep = ElementProperty.hasProperty("p1");
-//			ep.check(n);
+			Queryable q = hasProperty("p1");
+			q.submit(props);
+			assertTrue(q.satisfied());
 		}
-		catch (Exception e) 
 		{
-			fail("should not throw an exception ");
+			Queryable q = hasProperty("p1", 1234);
+			q.submit(props);
+			assertTrue(q.satisfied());
 		}
-		
-		ElementProperty ep2 =null;
-		try
 		{
-//			ep2= ElementProperty.hasProperty("p1", 1234);
-//			ep2.check(n);
+			Queryable q = hasProperty("p1", 12345);
+			q.submit(props);
+			assertTrue(!q.satisfied());
 		}
-		catch (Exception e) 
-		{
-			fail("should not throw an exception ");
-		}
-		try
-		{
-//			ep2 = ElementProperty.hasProperty("p1", 12345);
-//			ep2.check(n);
-//			fail("should have thrown an exception ");
-		}
-		catch (Exception e) 
-		{
-			System.out.println("  error : " + e);
-		}
+		// TODO
 	}
 }

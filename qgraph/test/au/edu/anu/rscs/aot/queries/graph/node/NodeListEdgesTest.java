@@ -29,6 +29,7 @@
  **************************************************************************/
 package au.edu.anu.rscs.aot.queries.graph.node;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,6 +39,9 @@ import org.junit.jupiter.api.Test;
 import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Node;
 import fr.cnrs.iees.graph.impl.ALGraphFactory;
+import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
+import static au.edu.anu.rscs.aot.queries.base.SequenceQuery.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * 
@@ -46,11 +50,11 @@ import fr.cnrs.iees.graph.impl.ALGraphFactory;
  */
 class NodeListEdgesTest {
 
-	private Node n1,n2,n3,n4;
+	private Node n1, n2, n3, n4;
 	@SuppressWarnings("unused")
-	private Edge e1,e2,e3,e4;
+	private Edge e1, e2, e3, e4;
 	private List<Node> nl = new LinkedList<>();
-	
+
 	@BeforeEach
 	private void init() {
 		ALGraphFactory gf = new ALGraphFactory("grünt");
@@ -58,44 +62,47 @@ class NodeListEdgesTest {
 		n2 = gf.makeNode();
 		n3 = gf.makeNode();
 		n4 = gf.makeNode();
-		e1 = gf.makeEdge(n1,n2);
-		e2 = gf.makeEdge(n1,n3);
-		e3 = gf.makeEdge(n1,n4);
-		e4 = gf.makeEdge(n2,n3);
-		nl.add(n1); nl.add(n2); nl.add(n3); nl.add(n4);
+		e1 = gf.makeEdge(n1, n2);
+		e2 = gf.makeEdge(n1, n3);
+		e3 = gf.makeEdge(n1, n4);
+		e4 = gf.makeEdge(n2, n3);
+		nl.add(n1);
+		nl.add(n2);
+		nl.add(n3);
+		nl.add(n4);
 	}
 
-	
+	@SuppressWarnings("unchecked")
 	@Test
 	void testInEdges() {
-//		List<Edge> edgeList = (List<Edge>)NodeListEdges.inEdges().process(nl).getResult();
-//		assertTrue(edgeList.size() == 4);
-//		assertTrue(edgeList.contains(e1));
-//		assertTrue(edgeList.contains(e2));
-//		assertTrue(edgeList.contains(e3));
-//		assertTrue(edgeList.contains(e4));
+		Collection<Edge> edgeList = (Collection<Edge>) get(nl, nodeListInEdges());
+		assertTrue(edgeList.size() == 4);
+		assertTrue(edgeList.contains(e1));
+		assertTrue(edgeList.contains(e2));
+		assertTrue(edgeList.contains(e3));
+		assertTrue(edgeList.contains(e4));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	void testOutEdges() {
-//		List<Edge> edgeList = (List<Edge>)NodeListEdges.outEdges().process(nl).getResult();
-//		assertTrue(edgeList.size() == 4);
-//		assertTrue(edgeList.contains(e1));
-//		assertTrue(edgeList.contains(e2));
-//		assertTrue(edgeList.contains(e3));
-//		assertTrue(edgeList.contains(e4));
+		Collection<Edge> edgeList = (Collection<Edge>) get(nl, nodeListOutEdges());
+		assertTrue(edgeList.size() == 4);
+		assertTrue(edgeList.contains(e1));
+		assertTrue(edgeList.contains(e2));
+		assertTrue(edgeList.contains(e3));
+		assertTrue(edgeList.contains(e4));
 	}
 
-//	@Test
-//	public void testEdges()
-//	{
-//		List<Edge> edgeList = (List<Edge>)NodeListEdges.edges().process(nl).getResult();
-//		assertTrue(edgeList.size() == 4);
-//		assertTrue(edgeList.contains(e1));
-//		assertTrue(edgeList.contains(e2));
-//		assertTrue(edgeList.contains(e3));
-//		assertTrue(edgeList.contains(e4));
-//	}
-	
-	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testEdges() {
+		Collection<Edge> edgeList = (Collection<Edge>) get(nl, nodeListEdges());
+		assertTrue(edgeList.size() == 4);
+		assertTrue(edgeList.contains(e1));
+		assertTrue(edgeList.contains(e2));
+		assertTrue(edgeList.contains(e3));
+		assertTrue(edgeList.contains(e4));
+	}
+
 }
