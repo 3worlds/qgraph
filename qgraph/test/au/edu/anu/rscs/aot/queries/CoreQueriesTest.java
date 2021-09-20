@@ -415,7 +415,32 @@ class CoreQueriesTest {
 			slst.add("abc");
 			q.submit(slst);
 			assertTrue(q.satisfied());
-	}
+		}
+		// classIsClass
+		{
+			Queryable q = classIsClass(Integer.class);
+			q.submit(Integer.class.getName());
+//			show(q);
+			assertTrue(q.satisfied());
+		}
+		{
+			Queryable q = classIsClass(Double.class);
+			q.submit(Integer.class.getName());
+//			show(q);
+			assertTrue(!q.satisfied());
+		}
+		{
+			Queryable q = stringIsClass(Integer.class.getName());
+			q.submit(Integer.class.getName());
+//			show(q);
+			assertTrue(q.satisfied());
+		}
+		{
+			Queryable q = stringIsClass(Double.class.getName());
+			q.submit(Integer.class.getName());
+//			show(q);
+			assertTrue(!q.satisfied());
+		}
 
 	}
 

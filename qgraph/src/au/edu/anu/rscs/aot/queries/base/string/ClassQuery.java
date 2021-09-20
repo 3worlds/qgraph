@@ -72,10 +72,10 @@ public class ClassQuery extends QueryAdaptor {
 		try {
 			Class<?> c = Class.forName(localItem);
 			if (!parentClass.isAssignableFrom(c))
-				errorMsg = "Expected '" + c.getName() + "' to be assignable from '" + c.getClass().getName();
+				errorMsg = "Expected '" + parentClass.getName() + "' to be assignable from '" + input+"'.";
 			return this;
 		} catch (Exception e) {
-			errorMsg = e.getMessage();
+			errorMsg = "Expected a java class but found '"+e.getMessage()+"'.";
 			return this;
 		}
 	}
