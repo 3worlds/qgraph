@@ -30,6 +30,8 @@
 package au.edu.anu.rscs.aot.queries.base.string;
 
 import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import au.edu.anu.rscs.aot.queries.QueryAdaptor;
@@ -53,11 +55,12 @@ public class DateString extends QueryAdaptor {
 		initInput(input);
 		String localItem = (String) input;
 		try {
-			DateFormat df = DateFormat.getDateTimeInstance();
-			Date typedItem = df.parse(localItem);
+//			DateFormat df = DateFormat.getDateTimeInstance();
+//			LocalDate date = LocalDate.parse(localItem, DateTimeFormatter.BASIC_ISO_DATE);
+			LocalDate typedItem = LocalDate.parse(localItem);
 			return this;
 		} catch (Exception e) {
-			errorMsg = "Expected '" + localItem + "' to be a date but found '" + e.getMessage() + "'.";
+			errorMsg = "Expected parsable date but found '" + e.getMessage() + "'.";
 			return this;
 		}
 	}

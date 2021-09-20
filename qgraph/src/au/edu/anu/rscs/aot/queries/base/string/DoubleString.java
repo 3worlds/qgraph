@@ -48,7 +48,8 @@ public class DoubleString extends QueryAdaptor {
 	public Queryable submit(Object input) {
 		initInput(input);
 		try {
-			Double.valueOf((String) input);
+			Double.parseDouble((String) input);
+//			Double.valueOf((String) input);
 			return this;
 		} catch (Exception e) {
 			errorMsg = "Expected String '" + input + "' to convert to a 'Double'.";

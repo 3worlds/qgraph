@@ -2,6 +2,7 @@ package au.edu.anu.rscs.aot.queries;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -439,6 +440,42 @@ class CoreQueriesTest {
 			Queryable q = stringIsClass(Double.class.getName());
 			q.submit(Integer.class.getName());
 //			show(q);
+			assertTrue(!q.satisfied());
+		}
+		// isDateString()
+		//
+		{
+			Queryable q = isDateString();
+			String s = "2018-05-05";
+			q.submit(s);
+//			show(q);
+			assertTrue(q.satisfied());
+			s = "2018/05/05";
+			q.submit(s);
+			assertTrue(!q.satisfied());
+//			show(q);
+
+		}
+		// isDoubleString()
+		// isDoubleString() and isFloatString() can be replaced by isRealString
+		{
+			Queryable q = isDoubleString();
+			q.submit("0.1");
+			assertTrue(q.satisfied());
+		}
+		{
+			Queryable q = isDoubleString();
+			q.submit("0.1f");// parser accepts f,F,d,D
+			assertTrue(q.satisfied());
+		}
+		{
+			Queryable q = isDoubleString();
+			q.submit("2");
+			assertTrue(q.satisfied());
+		}
+		{
+			Queryable q = isDoubleString();
+			q.submit("2L");
 			assertTrue(!q.satisfied());
 		}
 
