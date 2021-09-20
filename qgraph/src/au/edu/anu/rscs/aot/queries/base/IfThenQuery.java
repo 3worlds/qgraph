@@ -119,10 +119,14 @@ public class IfThenQuery extends QueryAdaptor {
 		initInput(input);	
 		if (testQuery.submit(input).satisfied()) {
 			if (trueQuery.submit(input).satisfied()) 
-				result = trueQuery.result();			
-		} else {
+				result = trueQuery.result();
+			else
+				errorMsg = trueQuery.errorMsg();
+		} else if (falseQuery!=null){
 			if (falseQuery.submit(input).satisfied()) 
-				result = falseQuery.result();		
+				result = falseQuery.result();
+			else
+				errorMsg = falseQuery.errorMsg();
 		}
 		return this;
 	}

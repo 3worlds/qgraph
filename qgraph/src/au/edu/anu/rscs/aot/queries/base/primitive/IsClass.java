@@ -35,7 +35,7 @@ public class IsClass extends QueryAdaptor {
 	 * @param classNames the names of the classes to check
 	 */
 	public IsClass(String... classNames) {
-		Class<?>[] classList = new Class<?>[classNames.length];
+		classList = new Class<?>[classNames.length];
 		for (int i = 0; i < classNames.length; i++) {
 			try {
 				classList[i] = Class.forName(classNames[i]);
@@ -55,7 +55,7 @@ public class IsClass extends QueryAdaptor {
 			if (input.getClass().equals(c))
 				return this;
 		}
-		errorMsg = "Expected Item to be one of the types in " + Arrays.deepToString(classList) + " but found '"
+		errorMsg = "Expected '"+input+"' to be one of the classes " + Arrays.deepToString(classList) + " but found '"
 				+ input.getClass().getName() + "'.";
 		return this;
 	}

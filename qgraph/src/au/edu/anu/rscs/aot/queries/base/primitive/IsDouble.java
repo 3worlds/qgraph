@@ -41,7 +41,7 @@ public class IsDouble extends QueryAdaptor {
 	public Queryable submit(Object input) {
 		initInput(input);
 		if (!(input instanceof Double)) {
-			errorMsg = "Expected 'Double' but found '" + input.getClass().getName() + "'.";
+			errorMsg = "Expected '"+Double.class.getName()+"' but found '" + input.getClass().getName() + "'.";
 			return this;
 		}
 		Double localItem = (Double) input;

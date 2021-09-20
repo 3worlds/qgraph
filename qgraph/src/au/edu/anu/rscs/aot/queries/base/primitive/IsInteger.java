@@ -65,7 +65,7 @@ public class IsInteger extends QueryAdaptor {
 	public Queryable submit(Object input) {
 		initInput(input);
 		if (!(input instanceof Integer)) {
-			errorMsg = "Expected 'Integer' but found '" + input.getClass().getName() + "'.";
+			errorMsg = "Expected '"+Integer.class.getName()+"' but found '" + input.getClass().getName() + "'.";
 			return this;
 		}
 		Integer localItem = (Integer) input;

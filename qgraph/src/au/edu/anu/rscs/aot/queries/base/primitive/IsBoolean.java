@@ -56,7 +56,7 @@ public class IsBoolean extends QueryAdaptor {
 	public Queryable submit(Object input) {
 		initInput(input);
 		if (!(input instanceof Boolean))
-			errorMsg = "Expected 'Boolean' but found '"+input.getClass().getName()+"'.";
+			errorMsg = "Expected '"+Boolean.class.getName()+"' but found '"+input.getClass().getName()+"'.";
 		return this;
 	}
 	

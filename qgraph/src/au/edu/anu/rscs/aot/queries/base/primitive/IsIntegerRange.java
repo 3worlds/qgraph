@@ -56,7 +56,7 @@ public class IsIntegerRange extends QueryAdaptor {
 	public Queryable submit(Object input) {
 		initInput(input);
 		if (!(input instanceof IntegerRange))
-			errorMsg = "Expected 'IntegerRange' but found '"+input.getClass().getName()+"'.";
+			errorMsg = "Expected '"+IntegerRange.class.getName()+"' but found '"+input.getClass().getName()+"'.";
 		return this;
 	}
 

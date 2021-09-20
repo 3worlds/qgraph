@@ -65,7 +65,7 @@ public class IsLong extends QueryAdaptor {
 	public Queryable submit(Object input) {
 		initInput(input);
 		if (!(input instanceof Long)) {
-			errorMsg = "Expected 'Long' but found '" + input.getClass().getName() + "'.";
+			errorMsg = "Expected '"+Long.class.getName()+"' but found '" + input.getClass().getName() + "'.";
 			return this;
 		}
 		Long localItem = (Long) input;

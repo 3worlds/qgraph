@@ -1,6 +1,5 @@
 package au.edu.anu.rscs.aot.queries.base.primitive;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 import au.edu.anu.rscs.aot.queries.QueryAdaptor;
@@ -17,12 +16,30 @@ public class IsStringList extends QueryAdaptor{
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);
-		Type[] par = input.getClass().getTypeParameters();
-		if (!(List.class.isAssignableFrom(input.getClass())) 
-				&& (par[0].getClass().equals(String.class))) {
-			errorMsg = "'"+input.getClass().getSimpleName()+"' is not a StringList";
-		};
+		String className = input.getClass().getName();
+		if (!(List.class.isAssignableFrom(input.getClass()))){
+			errorMsg = "Expected 'List<String>' but found '"+input.getClass().getName()+"'.";
+			return this;
+		}
+		List<?> lst = (List<?>)input;
+		if (lst.isEmpty()) {
+			errorMsg = "Expected non-empty 'List<String>' but found '"+input.getClass().getName()+"<?>'.";
+			return this;
+		}
+		Object e = lst.get(0);
+		if (!(e instanceof String)){
+			errorMsg = "Expected 'List<String>' but found 'List<"+e.getClass().getSimpleName()+">'.";
+			return this;
+		}
 		return this;
+		
+//		Type[] par = input.getClass().getTypeParameters();
+//		// its not possible to know the element class in an empty generic - its not in the JVM
+//		if (!(List.class.isAssignableFrom(input.getClass())) 
+//				&& (par[0].getClass().equals(String.class))) {
+//			errorMsg = "'"+input.getClass().getSimpleName()+"' is not a StringList";
+//		};
+//		return this;
 	}
 
 }

@@ -7,6 +7,7 @@
 package au.edu.anu.rscs.aot.queries.base.primitive;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import au.edu.anu.rscs.aot.queries.QueryAdaptor;
@@ -44,13 +45,13 @@ public class IsDate extends QueryAdaptor {
 	public Queryable submit(Object input) {
 		initInput(input);
 		if (!(input instanceof Date)) {
-			errorMsg = "Expected 'Date' but found '" + input.getClass().getName() + "'.";
+			errorMsg = "Expected '"+Date.class.getName()+"' but found '" + input.getClass().getName() + "'.";
 			return this;
 		}
 		Date localItem = (Date) input;
 		if (min != null && max != null) {
-			if (localItem.after(max) && localItem.before(min)) {
-				DateFormat df = DateFormat.getDateInstance();
+			if (localItem.after(max) || localItem.before(min)) {
+				SimpleDateFormat df = new SimpleDateFormat("MMM dd,yyyy HH:mm:ss.SSS");
 				errorMsg = "Expected Date to be in range ']" + df.format(min) + ".." + df.format(max) + "[' but found '"
 						+ df.format(localItem) + "'";
 				return this;

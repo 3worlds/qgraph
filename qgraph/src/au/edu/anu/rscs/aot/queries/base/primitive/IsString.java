@@ -66,13 +66,13 @@ public class IsString extends QueryAdaptor {
 	public Queryable submit(Object input) {
 		initInput(input);
 		if (!(input instanceof String)) {
-			errorMsg = "Expected 'String' but found '" + input.getClass().getName() + "'.";
+			errorMsg = "Expected '"+String.class.getName()+"' but found '" + input.getClass().getName() + "'.";
 			return this;
 		}
 		String localItem = (String) input;
 		if (localItem.length() < minLength || localItem.length() > maxLength)
 			errorMsg = "Expected String length to be in range ']" + minLength + ".." + maxLength + "[' but found '"
-					+ localItem.length() + "'";
+					+ localItem + "' with length "+localItem.length()+".";
 		return this;
 	}
 

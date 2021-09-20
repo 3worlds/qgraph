@@ -65,7 +65,7 @@ public class IsFloat extends QueryAdaptor {
 	public Queryable submit(Object input) {
 		initInput(input);
 		if (!(input instanceof Float)) {
-			errorMsg = "Expected 'Float' but found '" + input.getClass().getName() + "'.";
+			errorMsg = "Expected '"+Float.class.getName()+"' but found '" + input.getClass().getName() + "'.";
 			return this;
 		}
 		Float localItem = (Float) input;

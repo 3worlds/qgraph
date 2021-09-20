@@ -132,7 +132,7 @@ public class CoreQueries {
 	 * @param falseQuery <em>falseQuery</em>
 	 * @return the resulting IfThenQuery query
 	 */
-	public static IfThenQuery ifThenQuery(Queryable testQuery, Queryable trueQuery, Queryable falseQuery) {
+	public static Queryable ifThenQuery(Queryable testQuery, Queryable trueQuery, Queryable falseQuery) {
 		return new IfThenQuery(testQuery, trueQuery, falseQuery);
 	}
 	
@@ -143,7 +143,7 @@ public class CoreQueries {
 	 * @param trueQuery the <em>trueQuery</em>
 	 * @return the resulting IfThenQuery query
 	 */
-	public static IfThenQuery ifThenQuery(Queryable testQuery, Queryable trueQuery) {
+	public static Queryable ifThenQuery(Queryable testQuery, Queryable trueQuery) {
 		return new IfThenQuery(testQuery, trueQuery);
 	}
 	
@@ -362,7 +362,7 @@ public class CoreQueries {
 		return selectOneOrMany().query(q);
 	}
 
-	// Strings
+	// Strings : Testing up to here except for some node element tests
 	public static Queryable startsWith(String s) {
 		return new StartsWith(s);
 	}
