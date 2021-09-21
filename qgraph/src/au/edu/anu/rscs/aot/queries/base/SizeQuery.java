@@ -4,7 +4,8 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import fr.ens.biologie.generic.Sizeable;
 
 /**
- * Query testing if the size of a {@link Sizeable} object is within a specified range.
+ * Query testing if the size of a {@link Sizeable} object is within a specified
+ * range.
  * 
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
@@ -38,18 +39,14 @@ public class SizeQuery extends QueryAdaptor {
 		long size = localItem.size();
 		boolean ok = (size >= min) && (size <= max);
 		if (!ok)
-			errorMsg = "Size of '" + localItem.getClass().getSimpleName() + "' is '" + localItem.size() + "' but "
-					+ this;
+			errorMsg = "Expected size of '" + localItem.getClass().getSimpleName() + "' to be within the range [" + min
+					+ ".." + max + "] but found size of '" + localItem.size() + "'.";
 		return this;
-	}
-
-	@Override
-	public String toString() {
-		return "[Size must be within " + min + ".." + max + " inclusive.]";
 	}
 
 	/**
 	 * Set the range minimum value (default = 0)
+	 * 
 	 * @param m the value
 	 * @return this instance for agile programming
 	 */
@@ -57,9 +54,10 @@ public class SizeQuery extends QueryAdaptor {
 		min = m;
 		return this;
 	}
-	
+
 	/**
 	 * Set the range maximum value (default = {@code Integer.MAX_VALUE})
+	 * 
 	 * @param m the value
 	 * @return this instance for agile programming
 	 */
@@ -67,5 +65,5 @@ public class SizeQuery extends QueryAdaptor {
 		max = m;
 		return this;
 	}
-	
+
 }

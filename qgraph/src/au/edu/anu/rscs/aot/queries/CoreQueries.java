@@ -2,65 +2,17 @@ package au.edu.anu.rscs.aot.queries;
 
 import java.util.Date;
 import au.edu.anu.rscs.aot.QGraphException;
-import au.edu.anu.rscs.aot.queries.base.AndQuery;
-import au.edu.anu.rscs.aot.queries.base.CountQuery;
-import au.edu.anu.rscs.aot.queries.base.ForAllQuery;
-import au.edu.anu.rscs.aot.queries.base.IfThenQuery;
-import au.edu.anu.rscs.aot.queries.base.IsInstanceOf;
-import au.edu.anu.rscs.aot.queries.base.NotQuery;
-import au.edu.anu.rscs.aot.queries.base.OrQuery;
-import au.edu.anu.rscs.aot.queries.base.SelectQuery;
-import au.edu.anu.rscs.aot.queries.base.SizeQuery;
-import au.edu.anu.rscs.aot.queries.base.Value;
-import au.edu.anu.rscs.aot.queries.base.XorQuery;
-import au.edu.anu.rscs.aot.queries.base.primitive.IsBoolean;
-import au.edu.anu.rscs.aot.queries.base.primitive.IsClass;
-import au.edu.anu.rscs.aot.queries.base.primitive.IsDate;
-import au.edu.anu.rscs.aot.queries.base.primitive.IsDouble;
-import au.edu.anu.rscs.aot.queries.base.primitive.IsFloat;
-import au.edu.anu.rscs.aot.queries.base.primitive.IsInteger;
-import au.edu.anu.rscs.aot.queries.base.primitive.IsIntegerRange;
-import au.edu.anu.rscs.aot.queries.base.primitive.IsLong;
-import au.edu.anu.rscs.aot.queries.base.primitive.IsString;
-import au.edu.anu.rscs.aot.queries.base.primitive.IsStringList;
-import au.edu.anu.rscs.aot.queries.base.string.ClassQuery;
-import au.edu.anu.rscs.aot.queries.base.string.ContainsSubstring;
-import au.edu.anu.rscs.aot.queries.base.string.DateString;
-import au.edu.anu.rscs.aot.queries.base.string.DoubleString;
-import au.edu.anu.rscs.aot.queries.base.string.EndsWith;
-import au.edu.anu.rscs.aot.queries.base.string.EnumerationString;
-import au.edu.anu.rscs.aot.queries.base.string.FileQuery;
-import au.edu.anu.rscs.aot.queries.base.string.FloatString;
-import au.edu.anu.rscs.aot.queries.base.string.InetAddressString;
-import au.edu.anu.rscs.aot.queries.base.string.IntegerString;
-import au.edu.anu.rscs.aot.queries.base.string.IsValidName;
-import au.edu.anu.rscs.aot.queries.base.string.LongString;
-import au.edu.anu.rscs.aot.queries.base.string.PatternString;
-import au.edu.anu.rscs.aot.queries.base.string.StartsWith;
-import au.edu.anu.rscs.aot.queries.base.string.UserNameQuery;
-import au.edu.anu.rscs.aot.queries.base.string.StringLength;
+import au.edu.anu.rscs.aot.queries.base.*;
+import au.edu.anu.rscs.aot.queries.base.primitive.*;
+import au.edu.anu.rscs.aot.queries.base.string.*;
 import au.edu.anu.rscs.aot.queries.graph.EdgeNodeSelection;
-import au.edu.anu.rscs.aot.queries.graph.edge.EdgeHasNode;
-import au.edu.anu.rscs.aot.queries.graph.edge.EdgeListNodes;
-import au.edu.anu.rscs.aot.queries.graph.edge.EdgeNodes;
-import au.edu.anu.rscs.aot.queries.graph.edge.IsEdge;
-import au.edu.anu.rscs.aot.queries.graph.element.ElementLabel;
-import au.edu.anu.rscs.aot.queries.graph.element.ElementName;
-import au.edu.anu.rscs.aot.queries.graph.element.ElementProperty;
-import au.edu.anu.rscs.aot.queries.graph.node.HasEdges;
-import au.edu.anu.rscs.aot.queries.graph.node.HasParent;
-import au.edu.anu.rscs.aot.queries.graph.node.IsNode;
-import au.edu.anu.rscs.aot.queries.graph.node.IsOneOf;
-import au.edu.anu.rscs.aot.queries.graph.node.NodeCharacteristics;
-import au.edu.anu.rscs.aot.queries.graph.node.NodeEdges;
-import au.edu.anu.rscs.aot.queries.graph.node.NodeListEdges;
-import au.edu.anu.rscs.aot.queries.graph.node.TreeQuery;
+import au.edu.anu.rscs.aot.queries.graph.edge.*;
+import au.edu.anu.rscs.aot.queries.graph.element.*;
+import au.edu.anu.rscs.aot.queries.graph.node.*;
 import au.edu.anu.rscs.aot.queries.graph.node.NodeCharacteristics.RootLeaf;
 import au.edu.anu.rscs.aot.queries.graph.uml.Multiplicity;
 import au.edu.anu.rscs.aot.util.IntegerRange;
-import fr.cnrs.iees.graph.Direction;
-import fr.cnrs.iees.graph.Edge;
-import fr.cnrs.iees.graph.Node;
+import fr.cnrs.iees.graph.*;
 
 /**
  *
@@ -115,41 +67,55 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Apply a query on a collection of objects</p>
+	 * <p>
+	 * Apply a query on a collection of objects
+	 * </p>
+	 * 
 	 * @param query the query to apply
 	 * @return the resulting ForAllQuery query
 	 */
 	public static Queryable forAll(Queryable query) {
 		return new ForAllQuery(query);
 	}
-	
+
 	/**
-	 * <p>Test query. If this Query is satisfied, applies a query (called <em>trueQuery</em>), 
-	 * and if not, applies another one (called <em>falseQuery</em>)
-	 * to the {@code submit()} argument.</p>	 * 
+	 * <p>
+	 * Test query. If this Query is satisfied, applies a query (called
+	 * <em>trueQuery</em>), and if not, applies another one (called
+	 * <em>falseQuery</em>) to the {@code submit()} argument.
+	 * </p>
+	 * *
+	 * 
 	 * @param testQuery  the test query
-	 * @param trueQuery the <em>trueQuery</em>
+	 * @param trueQuery  the <em>trueQuery</em>
 	 * @param falseQuery <em>falseQuery</em>
 	 * @return the resulting IfThenQuery query
 	 */
 	public static Queryable ifThenQuery(Queryable testQuery, Queryable trueQuery, Queryable falseQuery) {
 		return new IfThenQuery(testQuery, trueQuery, falseQuery);
 	}
-	
+
 	/**
-	 * <p>Test query. If this Query is satisfied, applies a query (called <em>trueQuery</em>)
-	 * to the {@code submit()} argument.</p>	 * 
-	 * @param testQuery  the test query
+	 * <p>
+	 * Test query. If this Query is satisfied, applies a query (called
+	 * <em>trueQuery</em>) to the {@code submit()} argument.
+	 * </p>
+	 * *
+	 * 
+	 * @param testQuery the test query
 	 * @param trueQuery the <em>trueQuery</em>
 	 * @return the resulting IfThenQuery query
 	 */
 	public static Queryable ifThenQuery(Queryable testQuery, Queryable trueQuery) {
 		return new IfThenQuery(testQuery, trueQuery);
 	}
-	
+
 	/**
-	 * <p>Checks that an Object is an instance of the Class passed as argument of 
-	 * this Query's constructor.</p>
+	 * <p>
+	 * Checks that an Object is an instance of the Class passed as argument of this
+	 * Query's constructor.
+	 * </p>
+	 * 
 	 * @param theClass the class to check.
 	 * @return the resulting IsInstanceOf query
 	 */
@@ -158,8 +124,11 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Checks that an Object is an instance of the Class passed as argument of 
-	 * this Query's constructor.</p>
+	 * <p>
+	 * Checks that an Object is an instance of the Class passed as argument of this
+	 * Query's constructor.
+	 * </p>
+	 * 
 	 * @param className the name of the class to check (must be a valid java name)
 	 * @return the resulting IsInstanceOf query
 	 */
@@ -172,35 +141,47 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>get the length of a {@link String}.</p>
+	 * <p>
+	 * get the length of a {@link String}.
+	 * </p>
+	 * 
 	 * @return the resulting StringLength query
 	 */
 	public static StringLength length() {
 		return new StringLength();
 	}
-	
+
 	/**
-	 * <p>return the argument as a result.</p>
+	 * <p>
+	 * return the argument as a result.
+	 * </p>
+	 * 
 	 * @param item the object to return
 	 * @return the resulting Value query
 	 */
 	public static Queryable value(Object item) {
 		return new Value(item);
 	}
-	
+
 	// primitive
 	//
 
 	/**
-	 * <p>Check that an object is a boolean</p>
+	 * <p>
+	 * Check that an object is a boolean
+	 * </p>
+	 * 
 	 * @return the resulting IsBoolean query
 	 */
 	public static Queryable isBoolean() {
 		return new IsBoolean();
 	}
-	
+
 	/**
-	 * <p>check that a date is within a range</p>
+	 * <p>
+	 * check that a date is within a range
+	 * </p>
+	 * 
 	 * @param min the lower end of the date range
 	 * @param max the upper end of the date range
 	 * @return the resulting IsDate query
@@ -210,7 +191,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>check that an object is a date</p>
+	 * <p>
+	 * check that an object is a date
+	 * </p>
+	 * 
 	 * @return the resulting IsDate query
 	 */
 	public static Queryable isDate() {
@@ -218,7 +202,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>check that a double is within a range</p>
+	 * <p>
+	 * check that a double is within a range
+	 * </p>
+	 * 
 	 * @param min the lower end of the range
 	 * @param max the upper end of the range
 	 * @return the resulting IsDouble query
@@ -228,7 +215,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>check that an object is a double</p>
+	 * <p>
+	 * check that an object is a double
+	 * </p>
+	 * 
 	 * @return the resulting IsDouble query
 	 */
 	public static Queryable isDouble() {
@@ -236,7 +226,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>check that a float is within a range</p>
+	 * <p>
+	 * check that a float is within a range
+	 * </p>
+	 * 
 	 * @param min the lower end of the range
 	 * @param max the upper end of the range
 	 * @return the resulting IsFloat query
@@ -246,15 +239,21 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>check that an object is a float</p>
+	 * <p>
+	 * check that an object is a float
+	 * </p>
+	 * 
 	 * @return the resulting IsFloat query
 	 */
 	public static Queryable isFloat() {
 		return new IsFloat(-Float.MAX_VALUE, Float.MAX_VALUE);
 	}
-	
+
 	/**
-	 * <p>check that an integer is within a range</p>
+	 * <p>
+	 * check that an integer is within a range
+	 * </p>
+	 * 
 	 * @param min the lower end of the range
 	 * @param max the upper end of the range
 	 * @return the resulting IsInteger query
@@ -264,7 +263,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>check that an object is an Integer</p>
+	 * <p>
+	 * check that an object is an Integer
+	 * </p>
+	 * 
 	 * @return the resulting IsInteger query
 	 */
 	public static Queryable isInteger() {
@@ -272,7 +274,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>check that a long is within a range</p>
+	 * <p>
+	 * check that a long is within a range
+	 * </p>
+	 * 
 	 * @param min the lower end of the range
 	 * @param max the upper end of the range
 	 * @return the resulting IsLong query
@@ -282,7 +287,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>check that an object is a long</p>
+	 * <p>
+	 * check that an object is a long
+	 * </p>
+	 * 
 	 * @return the resulting IsLong query
 	 */
 	public static Queryable isLong() {
@@ -290,7 +298,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>check that a String length is within a range</p>
+	 * <p>
+	 * check that a String length is within a range
+	 * </p>
+	 * 
 	 * @param minLength the lower end of the range
 	 * @param maxLength the upper end of the range
 	 * @return the resulting IsString query
@@ -300,7 +311,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>check that an object is a String</p>
+	 * <p>
+	 * check that an object is a String
+	 * </p>
+	 * 
 	 * @return the resulting IsString query
 	 */
 	public static Queryable isString() {
@@ -308,7 +322,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>check that an object is an IntegerRange</p>
+	 * <p>
+	 * check that an object is an IntegerRange
+	 * </p>
+	 * 
 	 * @return the resulting IsIntegerRange query
 	 */
 	public static Queryable isIntegerRange() {
@@ -322,7 +339,7 @@ public class CoreQueries {
 	public static Queryable isClass(String... classNames) {
 		return new IsClass(classNames);
 	}
-	
+
 	public static Queryable isStringList() {
 		return new IsStringList();
 	}
@@ -387,12 +404,8 @@ public class CoreQueries {
 		return new DateString();
 	}
 
-	public static Queryable isDoubleString() {
-		return new DoubleString();
-	}
-
-	public static Queryable isFloatString() {
-		return new FloatString();
+	public static Queryable isRealString() {
+		return new RealString();
 	}
 
 	public static Queryable isIntegerString() {
@@ -419,17 +432,10 @@ public class CoreQueries {
 		return new InetAddressString();
 	}
 
-	public static Queryable isValidName() {
-		return new IsValidName();
-	}
-
 	public static Queryable matchesPattern(String pattern) {
 		return new PatternString(pattern);
 	}
 
-	public static Queryable isUserName() {
-		return new UserNameQuery();
-	}
 
 	// Size
 	/**
@@ -658,19 +664,19 @@ public class CoreQueries {
 	public static Queryable outEdges(Queryable q) {
 		return new NodeEdges().direction(Direction.OUT).query(q);
 	}
-	
+
 	public static Queryable hasEdges(Direction edgeDirection, Queryable nodeQuery, Multiplicity multiplicity) {
 		return new HasEdges(edgeDirection, nodeQuery, null, multiplicity, null);
 	}
-	
+
 	public static Queryable hasInEdges(Queryable nodeQuery, Multiplicity multiplicity) {
 		return new HasEdges(Direction.IN, nodeQuery, null, multiplicity, null);
 	}
-	
+
 	public static Queryable hasOutEdges(Queryable nodeQuery, Multiplicity multiplicity) {
 		return new HasEdges(Direction.OUT, nodeQuery, null, multiplicity, null);
 	}
-	
+
 	public static Queryable hasParent(Queryable query) {
 		return new HasParent(query);
 	}
@@ -678,14 +684,15 @@ public class CoreQueries {
 	public static Queryable hasParent() {
 		return new HasParent(null);
 	}
-	
+
 	public static Queryable isNode(Node node) {
 		return new IsNode(node);
-	}	
-	
+	}
+
 	public static Queryable isOneOf(Node... nodes) {
 		return new IsOneOf(nodes);
 	}
+
 	public static Queryable isRoot() {
 		return new NodeCharacteristics(RootLeaf.ROOT);
 	}
@@ -755,11 +762,11 @@ public class CoreQueries {
 	public static Queryable startNode() {
 		return new EdgeNodes().edgeNodeSelection(EdgeNodeSelection.START);
 	}
-	
+
 	public static EdgeHasNode hasEndNode(Queryable nodeQuery) {
 		return new EdgeHasNode(EdgeNodeSelection.END, nodeQuery);
 	}
-	
+
 	public static Queryable hasStartNode(Queryable nodeQuery) {
 		return new EdgeHasNode(EdgeNodeSelection.START, nodeQuery);
 	}
@@ -767,11 +774,11 @@ public class CoreQueries {
 	public static Queryable hasOtherNode(Queryable nodeQuery, Node refNode) {
 		return new EdgeHasNode(EdgeNodeSelection.OTHER, nodeQuery, refNode);
 	}
-	
+
 	public static Queryable hasBothNodes(Queryable nodeQuery) {
 		return new EdgeHasNode(EdgeNodeSelection.BOTH, nodeQuery);
 	}
-	
+
 	public static Queryable isEdge(Edge edge) {
 		return new IsEdge(edge);
 	}

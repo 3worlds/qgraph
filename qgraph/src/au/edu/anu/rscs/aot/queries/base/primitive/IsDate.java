@@ -6,7 +6,6 @@
  */
 package au.edu.anu.rscs.aot.queries.base.primitive;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

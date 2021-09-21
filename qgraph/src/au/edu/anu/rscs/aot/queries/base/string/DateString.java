@@ -55,12 +55,11 @@ public class DateString extends QueryAdaptor {
 		initInput(input);
 		String localItem = (String) input;
 		try {
-//			DateFormat df = DateFormat.getDateTimeInstance();
-//			LocalDate date = LocalDate.parse(localItem, DateTimeFormatter.BASIC_ISO_DATE);
+			// This is pretty useless: it only parses yyyy-MM-dd
 			LocalDate typedItem = LocalDate.parse(localItem);
 			return this;
 		} catch (Exception e) {
-			errorMsg = "Expected parsable date but found '" + e.getMessage() + "'.";
+			errorMsg = "Expected parsable Date string but found '" + e.getMessage() + "'.";
 			return this;
 		}
 	}

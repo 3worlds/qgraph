@@ -38,34 +38,23 @@ import au.edu.anu.rscs.aot.queries.Queryable;
  *
  */
 
-public class UserNameQuery extends QueryAdaptor {
+public class RealString extends QueryAdaptor {
 
-//	public static UserNameQuery isUserName() {
-//		return new UserNameQuery();
+//	public static Queryable isDouble() {
+//		return new DoubleString();
 //	}
-	
 
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);
-		String localItem = (String)input;
-		boolean ok = true;
-		if (localItem.length() < 1)
-			ok = false;
+		try {
+			Double.parseDouble((String) input);
+			return this;
+		} catch (Exception e) {
+			errorMsg = "Expected Real string but found '" + input + "'.";
+			return this;
+		}
 
-		if (localItem.contains(" "))
-			ok = false;
-
-		if (localItem.contains("\t"))
-			ok = false;
-
-		if (!Character.isLetter(localItem.charAt(0)))
-			ok = false;
-		
-		if (!ok)
-			errorMsg = "Expected valid user name but found '"+input+"'.";
-		
-		return this;
 	}
 
 }

@@ -42,9 +42,6 @@ import au.edu.anu.rscs.aot.queries.Queryable;
 
 public class InetAddressString extends QueryAdaptor {
 
-//	public static InetAddressString isInetAddress() {
-//		return new InetAddressString();
-//	}
 
 
 	@SuppressWarnings("unused")
@@ -55,7 +52,7 @@ public class InetAddressString extends QueryAdaptor {
 			InetAddress typedItem = InetAddress.getByName((String) input);
 			return this;
 		} catch (Exception e) {
-			errorMsg = "Expected '" + input + "' to be internet address format.";
+			errorMsg = "Expected internet address but found '" + input + "'.";
 			return this;
 		}
 	}

@@ -2,6 +2,7 @@ package au.edu.anu.rscs.aot.queries;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,6 +14,8 @@ import org.junit.jupiter.api.Test;
 
 import au.edu.anu.rscs.aot.collections.DynamicList;
 import au.edu.anu.rscs.aot.util.IntegerRange;
+import fr.cnrs.iees.graph.Direction;
+import fr.cnrs.iees.io.GraphFileFormats;
 
 class CoreQueriesTest {
 	public static void show(Queryable q) {
@@ -456,26 +459,276 @@ class CoreQueriesTest {
 //			show(q);
 
 		}
-		// isDoubleString()
-		// isDoubleString() and isFloatString() can be replaced by isRealString
+		// iRealString()
+		//
 		{
-			Queryable q = isDoubleString();
+			Queryable q = isRealString();
 			q.submit("0.1");
 			assertTrue(q.satisfied());
 		}
 		{
-			Queryable q = isDoubleString();
+			Queryable q = isRealString();
 			q.submit("0.1f");// parser accepts f,F,d,D
 			assertTrue(q.satisfied());
 		}
 		{
-			Queryable q = isDoubleString();
+			Queryable q = isRealString();
 			q.submit("2");
 			assertTrue(q.satisfied());
 		}
 		{
-			Queryable q = isDoubleString();
+			Queryable q = isRealString();
 			q.submit("2L");
+			assertTrue(!q.satisfied());
+		}
+		// isIntegerString
+		//
+		{
+			Queryable q = isIntegerString();
+			q.submit("2");
+			assertTrue(q.satisfied());
+		}
+		{
+			Queryable q = isIntegerString();
+			q.submit("2.0");
+			assertTrue(!q.satisfied());
+		}
+		{
+			Queryable q = isIntegerString();
+			String s = Integer.toString(Integer.MAX_VALUE);
+			q.submit(s);
+			assertTrue(q.satisfied());
+		}
+		{
+			Queryable q = isIntegerString();
+			String s = Long.toString(Long.MAX_VALUE);
+			q.submit(s);
+			assertTrue(!q.satisfied());
+		}
+		// isLongString()
+		//
+		{
+			Queryable q = isLongString();
+			q.submit("2");
+			assertTrue(q.satisfied());
+		}
+		{
+			Queryable q = isLongString();
+			String s = Long.toString(Long.MAX_VALUE);
+			q.submit(s);
+			assertTrue(q.satisfied());
+		}
+		{
+			Queryable q = isLongString();
+			q.submit("2.0");
+			assertTrue(!q.satisfied());
+		}
+		{
+			Queryable q = isLongString();
+			String s = Long.toString(Long.MAX_VALUE) + "1";
+			q.submit(s);
+//			show(q);
+			assertTrue(!q.satisfied());
+		}
+		// isEnumString
+		//
+		{
+			Queryable q = isEnum(Direction.values());
+			q.submit(Direction.OUT.name());
+			assertTrue(q.satisfied());
+		}
+		{
+			Queryable q = isEnumStrings(Direction.IN.name(), Direction.OUT.name());
+			q.submit(Direction.OUT.name());
+			assertTrue(q.satisfied());
+		}
+		{
+			Queryable q = isEnumStrings(Direction.IN.name(), Direction.OUT.name());
+			q.submit(GraphFileFormats.XML.name());
+			assertTrue(!q.satisfied());
+		}
+		// isFireName
+		//
+		{
+			Queryable q = isFileName();
+			File f = new File("");
+			q.submit(f.getAbsolutePath());
+			assertTrue(q.satisfied());
+		}
+		{
+			Queryable q = isFileName();
+			File f = new File("rgsdfgsdfg");
+			q.submit(f.getAbsolutePath());
+			assertTrue(!q.satisfied());
+		}
+		{
+			Queryable q = isFileName();
+			q.submit("sdiuapdiu");
+			assertTrue(!q.satisfied());
+		}
+		{
+			Queryable q = isFileName();
+			try {
+				// typecast error
+				q.submit(1234);
+			} catch (Exception e) {
+				assertTrue(true);
+			}
+			// no error msg will have been set - its a programmer's error
+			assertTrue(q.satisfied());
+		}
+		// InetAddressString
+		//
+		{
+			Queryable q = isInetAddress();
+			q.submit("172.217.167.67");
+			assertTrue(q.satisfied());
+		}
+		{
+			Queryable q = isInetAddress();
+			q.submit("172.217");
+			assertTrue(q.satisfied());
+		}
+		{
+			Queryable q = isInetAddress();
+			q.submit("172.217.167.677");
+			assertTrue(!q.satisfied());
+		}
+		// matchesPattern
+		//
+		{
+			// alphanumeric
+			Queryable q = matchesPattern("([a-zA-Z0-9]*)?");
+			q.submit("aBc1234");
+			assertTrue(q.satisfied());
+		}
+		{
+			// alphanumeric
+			Queryable q = matchesPattern("([a-zA-Z0-9]*)?");
+			q.submit("aBc )(&% 1234");
+			assertTrue(!q.satisfied());
+		}
+		///// SIZE
+		// inRange
+		//
+		{
+			DynamicList<String> lst = new DynamicList<>();
+			Queryable q = inRange(1,2);
+			q.submit(lst);
+			assertTrue(!q.satisfied());
+			lst.add("a");
+			q.submit(lst);
+			assertTrue(q.satisfied());
+			lst.add("b");
+			q.submit(lst);
+			assertTrue(q.satisfied());
+			lst.add("c");
+			q.submit(lst);
+//			show(q);
+			assertTrue(!q.satisfied());	
+		}
+		// hasMin
+		//
+		{
+			DynamicList<String> lst = new DynamicList<>();
+			Queryable q = hasMin(1);
+			q.submit(lst);
+//			show(q);
+			assertTrue(!q.satisfied());
+			lst.add("a");
+			q.submit(lst);
+			assertTrue(q.satisfied());
+			lst.add("b");
+			q.submit(lst);
+			assertTrue(q.satisfied());
+			lst.add("c");
+			q.submit(lst);
+			assertTrue(q.satisfied());	
+		}
+		// hasMax
+		//
+		{
+			DynamicList<String> lst = new DynamicList<>();
+			Queryable q = hasMax(2);
+			q.submit(lst);
+			assertTrue(q.satisfied());
+			lst.add("a");
+			q.submit(lst);
+			assertTrue(q.satisfied());
+			lst.add("b");
+			q.submit(lst);
+			assertTrue(q.satisfied());
+			lst.add("c");
+			q.submit(lst);
+			assertTrue(!q.satisfied());	
+		}
+		
+		///// IntegerRange 
+		//inRange
+		//
+		{
+			DynamicList<String> lst = new DynamicList<>();
+			IntegerRange r = new IntegerRange(1,2);
+			Queryable q = inRange(r);
+			q.submit(lst);
+			assertTrue(!q.satisfied());
+			lst.add("a");
+			q.submit(lst);
+			assertTrue(q.satisfied());
+			lst.add("b");
+			q.submit(lst);
+			assertTrue(q.satisfied());
+			lst.add("c");
+			q.submit(lst);
+			assertTrue(!q.satisfied());
+		}
+		///// Count queries (integer inputs)
+		// hasMinCount
+		{
+			Queryable q = hasMinCount(1);
+			q.submit(0);
+			assertTrue(!q.satisfied());		
+			q.submit(1);
+			assertTrue(q.satisfied());
+			q.submit(2);
+			assertTrue(q.satisfied());
+			q.submit(3);
+			assertTrue(q.satisfied());
+		}
+		// hasMaxCount
+		{
+			Queryable q = hasMaxCount(2);
+			q.submit(-1);
+			assertTrue(q.satisfied());		
+			q.submit(0);
+			assertTrue(q.satisfied());
+			q.submit(2);
+			assertTrue(q.satisfied());
+			q.submit(3);
+			assertTrue(!q.satisfied());
+		}
+		// countInRange
+		{
+			Queryable q = countInRange(1,2);
+			q.submit(-1);
+			assertTrue(!q.satisfied());		
+			q.submit(0);
+			assertTrue(!q.satisfied());
+			q.submit(2);
+			assertTrue(q.satisfied());
+			q.submit(3);
+			assertTrue(!q.satisfied());
+		}
+		// hasCount
+		{
+			Queryable q = hasCount(2);
+			q.submit(-1);
+			assertTrue(!q.satisfied());		
+			q.submit(0);
+			assertTrue(!q.satisfied());
+			q.submit(2);
+			assertTrue(q.satisfied());
+			q.submit(3);
 			assertTrue(!q.satisfied());
 		}
 

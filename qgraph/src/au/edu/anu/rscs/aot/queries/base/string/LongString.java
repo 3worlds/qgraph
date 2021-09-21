@@ -38,20 +38,21 @@ import au.edu.anu.rscs.aot.queries.Queryable;
  *
  */
 
+/**
+ * @author Ian Davies
+ *
+ * @date 21 Sept 2021
+ */
 public class LongString extends QueryAdaptor {
-
-//	public static Queryable isLong() {
-//		return new LongString();
-//	}
 
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);
 		try {
-			Long.valueOf((String) input);
+			Long.parseLong((String) input);
 			return this;
 		} catch (Exception e) {
-			errorMsg = "Expected String '" + input + "' to convert to a 'Long'.";
+			errorMsg = "Expected Long string but found '" + input + "'.";
 			return this;
 		}
 

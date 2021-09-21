@@ -50,7 +50,7 @@ public class FileQuery extends QueryAdaptor {
 	public Queryable submit(Object input) {
 		initInput(input);
 		if (!new File((String) input).exists())
-			errorMsg = "Expected '" + input + "' to be an existing file.";
+			errorMsg = "Expected existing file but found '" + input + "'.";
 
 		return this;
 	}

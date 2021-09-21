@@ -69,7 +69,7 @@ public class EnumerationString extends QueryAdaptor {
 	public Queryable submit(Object input) {
 		initInput(input);
 		if (!valueList.contains((String) input))
-			errorMsg = "Expected " + valueList.toString() + " to contain '" + input + "'.";
+			errorMsg = "Expected element of " + valueList.toString() + " but found '" + input + "'.";
 		return this;
 	}
 

@@ -21,22 +21,18 @@ import au.edu.anu.rscs.aot.queries.Queryable;
 public class PatternString extends QueryAdaptor {
 
 	private String pattern;
-	
+
 	public PatternString(String pattern) {
 		this.pattern = pattern;
 	}
-	
-//	public static Queryable matchesPattern(String pattern) {
-//		return new PatternString(pattern);
-//	}
-	
+
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);
 		Pattern p = Pattern.compile(pattern);
-		Matcher m = p.matcher((String)input);
+		Matcher m = p.matcher((String) input);
 		if (!m.matches())
-			errorMsg = "Expected '"+input+"' to match pattern "+pattern;
+			errorMsg = "Expected string to match pattern '" + pattern + "' but found '" + input + "'.";
 		return null;
 	}
 

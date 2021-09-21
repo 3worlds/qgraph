@@ -38,20 +38,21 @@ import au.edu.anu.rscs.aot.queries.Queryable;
  *
  */
 
+/**
+ * @author Ian Davies
+ *
+ * @date 21 Sept 2021
+ */
 public class IntegerString extends QueryAdaptor {
-
-//	public static Queryable isInteger() {
-//		return new IntegerString();
-//	}
 
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);
 		try {
-			Integer.valueOf((String) input);
+			Integer.parseInt((String)input);
 			return this;
 		} catch (Exception e) {
-			errorMsg = "Expected String '" + input + "' to convert to a 'Integer'.";
+			errorMsg = "Expected Integer string but found '" + input + "'.";
 			return this;
 		}
 	}
