@@ -40,7 +40,6 @@ import fr.cnrs.iees.graph.Node;
 
 import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
 import static au.edu.anu.rscs.aot.queries.base.SequenceQuery.get;
-import static au.edu.anu.rscs.aot.queries.graph.edge.EdgeHasNode.*;
 
 /**
  * 

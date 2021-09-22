@@ -30,8 +30,6 @@
 package au.edu.anu.rscs.aot.queries.graph.uml;
 
 import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
-import static au.edu.anu.rscs.aot.queries.graph.node.HasEdges.*;
-
 import au.edu.anu.rscs.aot.queries.base.AndQuery;
 
 

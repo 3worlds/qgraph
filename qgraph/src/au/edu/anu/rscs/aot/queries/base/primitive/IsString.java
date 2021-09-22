@@ -29,8 +29,6 @@
  **************************************************************************/
 package au.edu.anu.rscs.aot.queries.base.primitive;
 
-import static au.edu.anu.rscs.aot.util.NumberRange.*;
-
 import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
