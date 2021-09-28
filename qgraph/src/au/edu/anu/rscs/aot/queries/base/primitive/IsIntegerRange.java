@@ -41,9 +41,13 @@ import au.edu.anu.rscs.aot.util.IntegerRange;
  * <dd>{@link Object}</dd>
  * <dt>Type of result</dt>
  * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input is not an {@code IntegerRange}</dd>
  * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isIntegerRange() CoreQueries.isIntegerRange()
  *
  */
 

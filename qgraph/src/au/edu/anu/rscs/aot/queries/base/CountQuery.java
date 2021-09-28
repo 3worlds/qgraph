@@ -40,9 +40,17 @@ import au.edu.anu.rscs.aot.queries.Queryable;
  * <dd>Integer</dd>
  * <dt>Type of result</dt>
  * <dd>Integer ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input integer is not within the range passed to the constructor</dd>
  * </dl>
  * 
  * @author Shayne Flint - 27/8/2012
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#hasCount(int) CoreQueries.hasCount(int)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#countInRange(int, int) CoreQueries.countInRange(int,int)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#countInRange(au.edu.anu.rscs.aot.util.IntegerRange) CoreQueries.countInRange(IntegerRange)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#hasMinCount(int) CoreQueries.hasMinCount(int)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#hasMaxCount(int) CoreQueries.hasMaxCount(int)
  *
  */
 

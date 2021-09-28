@@ -34,8 +34,24 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
+ * <p>Check if a {@link String} represents the class passed to the constructor.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code String}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd><ol>
+ * <li>input does not refer to a class known by the application</li>
+ * <li>input is not the class passed to the constructor or one of its descendants</li>
+ * </ol></dd>
+ * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#classIsClass(Class) CoreQueries.classIsClass(...)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#stringIsClass(String) CoreQueries.stringIsClass(...)
  *
  */
 // NOT TESTED

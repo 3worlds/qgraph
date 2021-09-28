@@ -12,10 +12,14 @@ import au.edu.anu.rscs.aot.queries.QueryList;
  * <dd>any class;</dd>
  * <dt>Type of result</dt>
  * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>any of the queries passed to the constructor is <em>not</em> satisfied when applied to input</dd>
  * </dl>
  * 
  * @author Shayne Flint - 28/3/2012<br/>
  * refactored by Ian Davies - Feb. 2021
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#andQuery(Queryable...) CoreQueries.andQuery(...)
  *
  */
 public class AndQuery extends QueryList {

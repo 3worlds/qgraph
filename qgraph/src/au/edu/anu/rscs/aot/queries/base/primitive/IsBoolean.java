@@ -41,10 +41,13 @@ import au.edu.anu.rscs.aot.queries.Queryable;
  * <dd>{@link Object}</dd>
  * <dt>Type of result</dt>
  * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input cannot be converted to a {@code Boolean}</dd>
  * </dl>
  * 
- * 
  * @author Shayne Flint - 26/3/2012
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isBoolean() CoreQueries.isBoolean()
  *
  */
 public class IsBoolean extends QueryAdaptor {

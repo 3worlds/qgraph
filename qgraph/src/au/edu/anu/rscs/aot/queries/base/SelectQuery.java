@@ -10,7 +10,8 @@ import au.edu.anu.rscs.aot.queries.graph.uml.Multiplicity;
 import au.edu.anu.rscs.aot.util.IntegerRange;
 
 /**
- * A query to select items based on multiplicities.
+ * <p>A query to select items based on multiplicities. It is a powerful way to filter the results of
+ * {@link SequenceQuery#get(Object, Queryable...) SequenceQuery.get(...)}.</p>
  * 
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
@@ -19,9 +20,25 @@ import au.edu.anu.rscs.aot.util.IntegerRange;
  * <dd>{@link Collection}{@code <Object>}, possibly empty (depending on the filter Query attached
  * with method {@link au.edu.anu.rscs.aot.queries.base.SelectQuery#query(Queryable) query(...)}). <br/>
  * {@link Object} or {@code null}</dd>
+ * <dt>Fails if</dt>
+ * <dd><ol>
+ * <li>one of the objects of the input collection does not satisfy the query set with {@link #query(Queryable)}
+ * <em>and</em> {@code exclusive = true} (as set with {@link #exclusive()})</li>
+ * <li>the number of objects that satisfy the query set with {@link #query(Queryable)} is not
+ * within the multiplicity range (as set with {@link #multiplicity(Multiplicity)})</li>
+ * </ol></dd>
  * </dl>
  * 
  * @author Shayne Flint - 28/3/2012
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#selectOne() CoreQueries.selectOne()
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#selectOne(Queryable) CoreQueries.selectOne(Queryable)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#selectZeroOrOne() CoreQueries.selectZeroOrOne()
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#selectZeroOrOne(Queryable) CoreQueries.selectZeroOrOne(Queryable)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#selectZeroOrMany() CoreQueries.selectZeroOrMany()
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#selectZeroOrMany(Queryable) CoreQueries.selectZeroOrMany(Queryable)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#selectOneOrMany() CoreQueries.selectOneOrMany()
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#selectOneOrMany(Queryable) CoreQueries.selectOneOrMany(Queryable)
  *
  */
 // Tested OK with version 0.0.1 on 5/12/2018 (using Shayne's test suite)

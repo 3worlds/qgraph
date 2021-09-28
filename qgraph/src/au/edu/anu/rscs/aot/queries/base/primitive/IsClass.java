@@ -10,13 +10,17 @@ import au.edu.anu.rscs.aot.queries.Queryable;
  * 
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
- * <dd>{@link Class&lt;?&gt;}</dd>
+ * <dd>{@link Class}&lt;?&gt;</dd>
  * <dt>Type of result</dt>
  * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input is not one of the classes passed to the constructor</dd>
  * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
  *
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isClass(Class...) CoreQueries.isClass(Class...)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isClass(String...) CoreQueries.isClass(String...)
  */
 // NOT TESTED
 public class IsClass extends QueryAdaptor {

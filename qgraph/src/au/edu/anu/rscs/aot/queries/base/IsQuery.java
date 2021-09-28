@@ -39,14 +39,17 @@ import au.edu.anu.rscs.aot.queries.Queryable;
  * 
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
- * <dd>Queryable</dd>
+ * <dd>{@link Object}</dd>
  * <dt>Type of result</dt>
- * <dd>Queryable ({@code result=input})</dd>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input cannot be converted to a {@code Queryable}</dd>
  * </dl>
  * 
  * @author Shayne Flint - 26/3/2012<br/>
  * 		   refactored Ian Davies - Sept. 2021
- *
+ * 
+ * 
  */
 
 public class IsQuery extends QueryAdaptor {

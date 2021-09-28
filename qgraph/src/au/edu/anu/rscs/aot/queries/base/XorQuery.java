@@ -4,16 +4,20 @@ import au.edu.anu.rscs.aot.queries.Queryable;
 import au.edu.anu.rscs.aot.queries.QueryList;
 
 /**
- * Query testing if exactly one its sub-queries is satisfied.
+ * Query testing if exactly one of its sub-queries is satisfied.
  * 
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
  * <dd>any class;</dd>
  * <dt>Type of result</dt>
  * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>not <em>exactly one</em> of the queries passed to the constructor is satisfied when applied to input</dd>
  * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#xorQuery(Queryable...) CoreQueries.xorQuery(...)
  *
  */
 public class XorQuery extends QueryList {

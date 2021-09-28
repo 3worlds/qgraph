@@ -40,9 +40,17 @@ import au.edu.anu.rscs.aot.queries.Queryable;
  * <dd>{@link Object}</dd>
  * <dt>Type of result</dt>
  * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd><ol>
+ * <li>input is not a {@code Float}</li>
+ * <li>input value is not the within the range passed in the constructor</li>
+ * </ol></dd> 
  * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isFloat() CoreQueries.isFloat()
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#floatInRange(float, float) CoreQueries.floatInRange(...)
  *
  */
 

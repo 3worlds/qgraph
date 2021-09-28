@@ -17,10 +17,14 @@ import au.edu.anu.rscs.aot.queries.QueryList;
  * <dt>Type of result</dt>
  * <dd>type of the result of the last query in the sequence (if everything went
  * ok - {@code null} otherwise)</dd>
+ * <dt>Fails if</dt>
+ * <dd>any of the queries of the sequence fails</dd>
  * </dl>
  *
  * @author Shayne Flint - 28/3/2012
  * @author Ian Davies - 23 Feb. 2021
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries CoreQueries
  * 
  */
 public class SequenceQuery extends QueryList {
@@ -107,7 +111,7 @@ public class SequenceQuery extends QueryList {
 	 * </p>
 	 * 
 	 * <pre>
-	 * get(node, children(), selectZeroOrMany(hasProperty("color", "blue")));
+	 * get(node, children(), selectZeroOrMany(hasProperty("color", "red")));
 	 * </pre>
 	 * 
 	 * @param input   the object on which to apply queries

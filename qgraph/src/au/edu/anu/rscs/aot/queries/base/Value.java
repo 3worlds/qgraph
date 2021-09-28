@@ -33,16 +33,20 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
- * <p>A dummy query returning the argument to {@code input(...)} as a result.</p>
+ * <p>A dummy query returning the argument to its constructor as a result.</p>
  *
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
  * <dd>any class;</dd>
  * <dt>Type of result</dt>
- * <dd>same as input ({@code result=input})</dd>
+ * <dd>the {@code Object} passed to the constructor, whatever input is</dd>
+ * <dt>Fails if</dt>
+ * <dd>never fails</dd>
  * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#value(Object) CoreQueries.value(...) 
  *
  */
 //NOT TESTED
@@ -55,18 +59,6 @@ public class Value extends QueryAdaptor {
 		this.obj = obj;
 	}
 	
-//	@Override
-//	public Value process(Object item) {
-//		defaultProcess(item);
-//		result = obj;
-//		satisfied = true;
-//		return this;
-//	}
-//
-//	public String toString() {
-//		return "[Value " + obj + "]";
-//	}
-
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);

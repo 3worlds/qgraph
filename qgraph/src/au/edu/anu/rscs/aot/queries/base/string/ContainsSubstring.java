@@ -32,6 +32,23 @@ package au.edu.anu.rscs.aot.queries.base.string;
 import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
+/**
+ * <p>Check if a {@link String} contains the {@code String} that was passed to the constructor.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code String}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input does not contain the {@code String} passed to the  constructor</dd>
+ * </dl>
+ * 
+ * @author Shayne Flint - 26/3/2012
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#containsSubstring(String) CoreQueries.containsSubstring(...)
+ *
+ */
 public class ContainsSubstring extends QueryAdaptor {
 	
 	private String str;
@@ -39,10 +56,6 @@ public class ContainsSubstring extends QueryAdaptor {
 	public ContainsSubstring(String str) {
 		this.str = str;
 	}
-
-//	public static Queryable containsSubstring(String str) {
-//		return new ContainsSubstring(str);
-//	}	
 
 	@Override
 	public Queryable submit(Object input) {

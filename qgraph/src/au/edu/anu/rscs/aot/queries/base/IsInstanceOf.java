@@ -41,9 +41,13 @@ import au.edu.anu.rscs.aot.queries.Queryable;
  * <dd>any class</dd>
  * <dt>Type of result</dt>
  * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input is not an instance of the class passed to the constructor</dd>
  * </dl>
  * @author Shayne Flint - 26/3/2012
  *
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isInstanceOf(Class) CoreQueries.isInstanceOf(Class)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isInstanceOf(String) CoreQueries.isInstanceOf(String
  */
 
 public class IsInstanceOf extends QueryAdaptor {

@@ -34,16 +34,23 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
+ * <p>Check if a {@link String} represents a date.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code String}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input cannot be converted to a date</dd>
+ * </dl>
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isDateString() CoreQueries.isDateString()
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
-
 public class DateString extends QueryAdaptor {
-
-//	public static Queryable isDate() {
-//		return new DateString();
-//	}
 
 	@SuppressWarnings("unused")
 	@Override

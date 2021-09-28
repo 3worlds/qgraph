@@ -50,18 +50,44 @@ public class CoreQueries {
 
 	// General
 	//
+	/**
+	 * <p>Test if all its sub-queries are satisfied. Will stop checking at the first 
+	 * sub-query failure.</p>
+	 * 
+	 * @param queries  the queries to check
+	 * @return the resulting AndQuery query
+	 */
 	public static Queryable andQuery(Queryable... queries) {
 		return new AndQuery(queries);
 	}
 
+	/**
+	 * <p>Test if all its sub-queries are <em>not</em> satisfied. Will stop checking at the first 
+	 * sub-query success.</p>
+	 * 
+	 * @param queries the queries to check
+	 * @return the resulting NotQuery query
+	 */
 	public static Queryable notQuery(Queryable... queries) {
 		return new NotQuery(queries);
 	}
 
+	/**
+	 * <p>Test if at least one its sub-queries is satisfied. Will stop checking at the first 
+	 * sub-query success.</p>
+	 * 
+	 * @param queries the queries to check
+	 * @return the resulting OrQuery query
+	 */
 	public static Queryable orQuery(Queryable... queries) {
 		return new OrQuery(queries);
 	}
 
+	/**
+	 * <p>Test if <em>exactly one</em> of its sub-queries is satisfied.</p>
+	 * @param queries the queries to check
+	 * @return the resulting XorQuery query
+	 */
 	public static Queryable xorQuery(Queryable... queries) {
 		return new XorQuery(queries);
 	}
@@ -153,7 +179,7 @@ public class CoreQueries {
 
 	/**
 	 * <p>
-	 * return the argument as a result.
+	 * return the argument to the constructor as a result.
 	 * </p>
 	 * 
 	 * @param item the object to return
@@ -347,6 +373,10 @@ public class CoreQueries {
 	// SelectQuery
 	//
 
+	/**
+	 * 
+	 * @return
+	 */
 	public static SelectQuery selectOne() {
 		return new SelectQuery().returnOne().multiplicity(Multiplicity.ONE);
 	}

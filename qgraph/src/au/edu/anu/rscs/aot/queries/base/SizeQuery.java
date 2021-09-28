@@ -12,9 +12,17 @@ import fr.ens.biologie.generic.Sizeable;
  * <dd>{@link Sizeable}</dd>
  * <dt>Type of result</dt>
  * <dd>Sizeable ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input size is not within the (integer) range set with the {@link #min(int)} and
+ * {@link #max(int)} methods.</dd>
  * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#inRange(int, int) CoreQueries.inRange(int,int)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#hasMin(int) CoreQueries.hasMin(...)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#hasMax(int) CoreQueries.hasMax(...)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#inRange(au.edu.anu.rscs.aot.util.IntegerRange) CoreQueries.inRange(IntegerRange)
  *
  */
 public class SizeQuery extends QueryAdaptor {

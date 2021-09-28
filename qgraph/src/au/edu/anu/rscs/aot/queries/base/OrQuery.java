@@ -4,17 +4,21 @@ import au.edu.anu.rscs.aot.queries.Queryable;
 import au.edu.anu.rscs.aot.queries.QueryList;
 
 /**
- * Query testing if at least one its sub-queries is satisfied. Will stop checking at the first 
- * sub-query success.
+ * <p>Query testing if at least one its sub-queries is satisfied. Will stop checking at the first 
+ * sub-query success.</p>
  * 
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
  * <dd>any class;</dd>
  * <dt>Type of result</dt>
  * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>none of the queries passed to the constructor is satisfied when applied to input</dd>
  * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#orQuery(Queryable...) CoreQueries.orQuery(...)
  *
  */
 public class OrQuery extends QueryList {
