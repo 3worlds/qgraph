@@ -44,7 +44,7 @@ import fr.cnrs.iees.graph.Graph;
  *
  */
 // NOT TESTED
-
+@Deprecated // I think this class is completely useless - JG 29/9/2021
 public class GraphLogQuery extends QueryAdaptor {
 
 	private static Logger log = Logging.getLogger(GraphLogQuery.class);

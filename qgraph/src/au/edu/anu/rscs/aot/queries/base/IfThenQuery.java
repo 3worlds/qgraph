@@ -33,8 +33,8 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
- * <p>Test query. If this Query is satisfied, applies a query (called <em>trueQuery</em>), 
- * and if not, applies another one (called <em>falseQuery</em>)
+ * <p>Test query. If this Query (called <em>testQuery</em>) is satisfied, applies a 
+ * query (called <em>trueQuery</em>), and if not, applies another one (called <em>falseQuery</em>)
  * to the {@code submit()} argument.</p>
  * 
  * <dl>
@@ -42,10 +42,17 @@ import au.edu.anu.rscs.aot.queries.Queryable;
  * <dd>any class compatible with the constructor query arguments;</dd>
  * <dt>Type of result</dt>
  * <dd>the result of <em>trueQuery</em> or <em>falseQuery</em>, depending on the outcome of the test query</dd>
+ * <dt>Fails if</dt>
+ * <dd><ol>
+ * <li><em>testQuery</em> is satisfied and <em>trueQuery</em> is not</li>
+ * <li><em>testQuery</em> is not satisfied and <em>falseQuery</em> is not</li>
+ * </ol></dd> 
  * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
  *
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#ifThenQuery(Queryable, Queryable) CoreQueries.ifThenQuery(Queryable,Queryable)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#ifThenQuery(Queryable, Queryable, Queryable) CoreQueries.ifThenQuery(Queryable,Queryable,Queryable)
  */
 public class IfThenQuery extends QueryAdaptor {
 

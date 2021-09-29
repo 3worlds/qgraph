@@ -36,11 +36,13 @@ import fr.cnrs.iees.graph.Node;
 import fr.cnrs.iees.graph.Edge;
 
 /**
+ * CAUTION: this implementation is not finished
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
 // NOT TESTED
+// UNFINISEHD
 
 public class GraphIsTree extends QueryAdaptor {
 

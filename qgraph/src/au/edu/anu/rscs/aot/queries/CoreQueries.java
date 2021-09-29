@@ -439,58 +439,122 @@ public class CoreQueries {
 	}
 
 	// Strings : Testing up to here except for some node element tests
+	/**
+	 * <p>Check if a {@link String} starts with a given sequence of characters.</p>
+	 * @param s the initial String inputs must start with
+	 * @return the StartsWith query
+	 */
 	public static Queryable startsWith(String s) {
 		return new StartsWith(s);
 	}
 
+	/**
+	 * <p>Check if a {@link String} ends with the {@code String} passed as argument.</p>
+	 * @param s the string to search for
+	 * @return the resulting EndsWith query
+	 */
 	public static Queryable endsWith(String s) {
 		return new EndsWith(s);
 	}
 
+	/**
+	 * <p>Check if a {@link String} contains the {@code String} that was passed to the constructor.</p>
+	 * @param str the string to search for
+	 * @return the resulting ContainsSubstring query
+	 */
 	public static Queryable containsSubstring(String str) {
 		return new ContainsSubstring(str);
 	}
 
+	/**
+	 * <p>Check if a {@link String} represents the class passed to the constructor.</p>
+	 * @param parentClass the class to compare to
+	 * @return the resulting ClassQuery query
+	 */
 	public static Queryable classIsClass(Class<?> parentClass) {
 		return new ClassQuery(parentClass);
 	}
 
+	/**
+	 * <p>Check if a {@link String} represents the class passed to the constructor.</p>
+	 * @param parentClassName the class to compare to
+	 * @return the resulting ClassQuery query
+	 */
 	public static Queryable stringIsClass(String parentClassName) {
 		return new ClassQuery(parentClassName);
 	}
 
+	/**
+	 *  <p>Check if a {@link String} represents a date.</p>
+	 * @return the resulting DateString query
+	 */
 	public static Queryable isDateString() {
 		return new DateString();
 	}
 
+	/**
+	 * <p>Check if a {@link String} represents a real number ({@code Double}).</p>
+	 * @return the RealString query
+	 */
 	public static Queryable isRealString() {
 		return new RealString();
 	}
 
+	/**
+	 * <p>Check if a {@link String} represents an integer number.</p>
+	 * @return the IntegerString query
+	 */
 	public static Queryable isIntegerString() {
 		return new IntegerString();
 	}
 
+	/**
+	 * <p>Check if a {@link String} represents a long integer number.</p>
+	 * @return the LongString query to do the check
+	 */
 	public static Queryable isLongString() {
 		return new LongString();
 	}
 
+	/**
+	 * <p>Check if a {@link String} represents an enum field.</p>
+	 * @param valueList the list of enum values to compare to
+	 * @return the resulting EnumerationString query
+	 */
 	public static Queryable isEnumStrings(String... valueList) {
 		return new EnumerationString(valueList);
 	}
 
+	/**
+	 * <p>Check if a {@link String} represents an enum field.</p>
+	 * @param enumList the list of enum values to compare to
+	 * @return the resulting EnumerationString query
+	 */
 	public static Queryable isEnum(Enum<?>... enumList) {
 		return new EnumerationString(enumList);
 	}
 
+	/**
+	 * <p>Check if a {@link String} represents the name of an existing file.</p>
+	 * @return the resulting FileQuery query
+	 */
 	public static Queryable isFileName() {
 		return new FileQuery();
 	}
 
+	/**
+	 * <p>Check if a {@link String} represents an IPv4 address.</p>
+	 * @return the resulting InetAddressString query
+	 */
 	public static Queryable isInetAddress() {
 		return new InetAddressString();
 	}
 
+	/**
+	 * <p>Check if a {@link String} matches a regular expression pattern.</p>
+	 * @param pattern a regular expression
+	 * @return the PatternString query initialised with pattern
+	 */
 	public static Queryable matchesPattern(String pattern) {
 		return new PatternString(pattern);
 	}
@@ -814,32 +878,113 @@ public class CoreQueries {
 
 	// - ------------------------- Edge
 	//
+
+	/**
+	 * <p>A {@link Query} to select the end Node of an Edge</p>
+	 * @return the EdgeNodes query
+	 */
 	public static Queryable endNode() {
 		return new EdgeNodes().edgeNodeSelection(EdgeNodeSelection.END);
 	}
 
+	/**
+	 * <p>A {@link Query} to select the start Node of an Edge</p>
+	 * @return the EdgeNodes query
+	 */
 	public static Queryable startNode() {
 		return new EdgeNodes().edgeNodeSelection(EdgeNodeSelection.START);
 	}
 
+	/**
+	 * Checks that the end Node of the Edge satisfies a Query.
+	 * 
+	 * @param nodeQuery the query to satisfy
+	 * @return the resulting EdgeHasNode query
+	 */
 	public static EdgeHasNode hasEndNode(Queryable nodeQuery) {
 		return new EdgeHasNode(EdgeNodeSelection.END, nodeQuery);
 	}
 
+	/**
+	 * Checks that the start Node of the Edge satisfies a Query.
+	 * 
+	 * @param nodeQuery the query to satisfy
+	 * @return the resulting EdgeHasNode query
+	 */
 	public static Queryable hasStartNode(Queryable nodeQuery) {
 		return new EdgeHasNode(EdgeNodeSelection.START, nodeQuery);
 	}
 
+	/**
+	 * Checks that the other Node of the Edge satisfies a Query
+	 * 
+	 * @param nodeQuery the Query to satisfy
+	 * @param refNode   the node opposite to the node is checked
+	 * @return the resulting EdgeHasNode query
+	 */
 	public static Queryable hasOtherNode(Queryable nodeQuery, Node refNode) {
-		return new EdgeHasNode(EdgeNodeSelection.OTHER, nodeQuery, refNode);
+		return new EdgeHasNode(nodeQuery, refNode);
 	}
 
+	/**
+	 * Checks that both Nodes of the Edge satisfies a Query.
+	 * 
+	 * @param nodeQuery the query to satisfy
+	 * @return the resulting EdgeHasNode query
+	 */
 	public static Queryable hasBothNodes(Queryable nodeQuery) {
 		return new EdgeHasNode(EdgeNodeSelection.BOTH, nodeQuery);
 	}
 
+	/**
+	 * <p>Check if an {@link Edge} matches the one passed as argument.</p>
+	 * @param edge the edge to compare to
+	 * @return the IsEdge query
+	 */
 	public static Queryable isEdge(Edge edge) {
 		return new IsEdge(edge);
+	}
+	
+	/**
+	 * <p>Check that the tip {@link Node}s of an {@link Edge} ends satisfy their respective
+	 * queries and that they have a specific {@link Node#classId() classId()}; also checks
+	 * the {@link Edge#classId() classId()}.</p>
+	 * 
+	 * @param startNodeQuery a query to check on the start node
+	 * @param endNodeQuery a query to check on the end node
+	 * @param startLabel a class identifier the start node must match
+	 * @param label a class identifier the edge must match
+	 * @param endLabel a class identifier the end node must match
+	 * @return the EdgeQuery query
+	 */
+	public static EdgeQuery isEdge(Queryable startNodeQuery, Queryable endNodeQuery, String startLabel, String label,
+			String endLabel) {
+		return new EdgeQuery(startNodeQuery, endNodeQuery, startLabel, label, endLabel);
+	}
+
+	/**
+	 * <p>Check that the tip {@link Node}s of an {@link Edge} ends satisfy their respective
+	 * queries and that the {@link Edge#classId() classId()} matches the label.</p>
+	 * 
+	 * @param startNodeQuery a query to check on the start node
+	 * @param endNodeQuery a query to check on the end node
+	 * @param label a class identifier the edge must match
+	 * @return the EdgeQuery query
+	 */
+	public static EdgeQuery isEdge(Queryable startNodeQuery, Queryable endNodeQuery, String label) {
+		return new EdgeQuery(startNodeQuery, endNodeQuery, label);
+	}
+
+	/**
+	 * <p>Check that the tip {@link Node}s of an {@link Edge} ends satisfy their respective
+	 * queries.</p>
+	 * 
+	 * @param startNodeQuery a query to check on the start node
+	 * @param endNodeQuery a query to check on the end node
+	 * @return the EdgeQuery query
+	 */
+	public static EdgeQuery isEdge(Queryable startNodeQuery, Queryable endNodeQuery) {
+		return new EdgeQuery(startNodeQuery, endNodeQuery);
 	}
 
 }

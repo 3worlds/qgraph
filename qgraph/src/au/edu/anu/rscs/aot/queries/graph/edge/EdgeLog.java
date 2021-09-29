@@ -38,12 +38,14 @@ import fr.ens.biologie.generic.utils.Logging;
 
 /**
  * 
- * @author Shayne Flint - 26/3/2012
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#endsWith(String) CoreQueries.endsWith(...)
+ * 
+ * @author Shayne Flint - 26/3/2012<br/>
+ * refactored by J. Gignoux 2018
  *
- * NOTE (JG 2018): refactored to use java logging instead of aot logging.
  */
 // NOT TESTED
-
+@Deprecated // I think this class is completely useless - JG 29/9/2021
 public class EdgeLog extends QueryAdaptor {
 
 	private String prefix;

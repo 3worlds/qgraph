@@ -35,11 +35,22 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
+ * <p>Check if a {@link String} represents the name of an existing file.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code String}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>a file named {@code input} does not exist</dd>
+ * </dl>
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isFileName() CoreQueries.isFileName()
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
-
 public class FileQuery extends QueryAdaptor {
 
 //	public static FileQuery isFileName() {

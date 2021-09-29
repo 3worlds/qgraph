@@ -36,6 +36,19 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
+ * <p>Check if a {@link String} represents an enum field.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code String}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input cannot be found in the enum values passed to the constructor</dd>
+ * </dl>
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isEnum(Enum...) CoreQueries.isEnum(Enum...)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isEnumStrings(String...) CoreQueries.isEnumStrings(String...)
  * 
  * @author Shayne Flint - 26/3/2012
  *
@@ -56,14 +69,6 @@ public class EnumerationString extends QueryAdaptor {
 		for (Enum<?> e : enumList)
 			valueList.add(e.name());
 	}
-
-//	public static Queryable isEnum(String... valueList) {
-//		return new EnumerationString(valueList);
-//	}
-//
-//	public static Queryable isEnum(Enum<?>... enumList) {
-//		return new EnumerationString(enumList);
-//	}
 
 	@Override
 	public Queryable submit(Object input) {

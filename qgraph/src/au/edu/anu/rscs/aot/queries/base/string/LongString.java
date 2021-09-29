@@ -33,15 +33,21 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
+ * <p>Check if a {@link String} represents a long integer number.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code String}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input cannot be converted to a {@code Long}</dd>
+ * </dl>
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isLongString() CoreQueries.isLongString()
  * 
  * @author Shayne Flint - 26/3/2012
- *
- */
-
-/**
- * @author Ian Davies
- *
- * @date 21 Sept 2021
+ * @author Ian Davies - 21 Sept 2021
  */
 public class LongString extends QueryAdaptor {
 

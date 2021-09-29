@@ -47,9 +47,16 @@ import fr.cnrs.iees.graph.Node;
  * <dd>Iterable&lt;Edge&gt;</dd>
  * <dt>Type of result</dt>
  * <dd>DynamicList&lt;Node&gt;</dd>
+ * <dt>Fails if</dt>
+ * <dd>never fails (may return an empty list)</dd>
  * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
+ *
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#edgeListEndNodes() CoreQueries.edgeListEndNodes()
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#edgeListStartNodes() CoreQueries.edgeListStartNodes()
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#edgeListOtherNodes(Node) CoreQueries.edgeListOtherNodes(...)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#edgeListBothNodes() CoreQueries.edgeListBothNodes()
  *
  */
 //Tested OK with version 0.0.1 on 5/12/2018 (using Shayne's test suite)

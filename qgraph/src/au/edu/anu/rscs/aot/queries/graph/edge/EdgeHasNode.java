@@ -41,122 +41,73 @@ import au.edu.anu.rscs.aot.queries.Queryable;
  * satisfy some Query.
  * </p>
  * <dl>
- * <dt>Type of input to {@code process()}</dt>
- * <dd>Edge</dd>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code Edge}</dd>
  * <dt>Type of result</dt>
- * <dd>no result returned</dd>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>the input tip node(s) as requested in the constructor do not match the query</dd>
  * </dl>
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#hasEndNode(Queryable) CoreQuerieshasEndNode(...)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#hasStartNode(Queryable) CoreQueries.hasStartNode(...)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#hasBothNodes(Queryable) CoreQueries.hasBothNodes(...)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#hasOtherNode(Queryable, Node) CoreQueries.hasOtherNode(...)
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
 // Tested OK with version 0.0.1 on 5/12/2018 (using Shayne's test suite)
 // Tested OK with version 0.1.1 on 21/5/2019
-
+// All static methods moved to CoreQueries
 public class EdgeHasNode extends QueryAdaptor {
 
 	private EdgeNodeSelection edgeNodeSelection;
 	private Queryable nodeQuery;
 	private Node refNode = null;
 
+	/**
+	 * Constructor for checking start node, end node or both nodes 
+	 * 
+	 * @param edgeNodeSelection which node to check: {@link EdgeNodeSelection}{@code .START}, {@code END} or {@code BOTH}
+	 * @param nodeQuery the query to check on edge tip nodes
+	 */
 	public EdgeHasNode(EdgeNodeSelection edgeNodeSelection, Queryable nodeQuery) {
 		this.edgeNodeSelection = edgeNodeSelection;
 		this.nodeQuery = nodeQuery;
 	}
 
-	public EdgeHasNode(EdgeNodeSelection edgeNodeSelection, Queryable nodeQuery, Node refNode) {
-		this(edgeNodeSelection, nodeQuery);
+	/**
+	 * Constructor for checking the other edge tip node
+	 * 
+	 * @param nodeQuery the query to check on the edge tip node opposite to refNode
+	 * @param refNode one of the tip nodes of the edge (required for the {@code OTHER} case only)
+	 */
+	public EdgeHasNode(Queryable nodeQuery, Node refNode) {
+		this(EdgeNodeSelection.OTHER, nodeQuery);
 		this.refNode = refNode;
 	}
-
-	/**
-	 * Checks that the end Node of the Edge satisfies a Query.
-	 * 
-	 * @param nodeQuery the query to satisfy
-	 * @return the resulting EdgeHasNode query
-	 */
-//	public static EdgeHasNode hasEndNode(Queryable nodeQuery) {
-//		return new EdgeHasNode(EdgeNodeSelection.END, nodeQuery);
-//	}
-
-	/**
-	 * Checks that the start Node of the Edge satisfies a Query.
-	 * 
-	 * @param nodeQuery the query to satisfy
-	 * @return the resulting EdgeHasNode query
-	 */
-//	public static EdgeHasNode hasStartNode(Queryable nodeQuery) {
-//		return new EdgeHasNode(EdgeNodeSelection.START, nodeQuery);
-//	}
-
-	/**
-	 * Checks that the other Node of the Edge satisfies a Query
-	 * 
-	 * @param nodeQuery the Query to satisfy
-	 * @param refNode   the node to use as the start (the other node is checked)
-	 * @return the resulting EdgeHasNode query
-	 */
-//	public static EdgeHasNode hasOtherNode(Queryable nodeQuery, Node refNode) {
-//		return new EdgeHasNode(EdgeNodeSelection.OTHER, nodeQuery, refNode);
-//	}
-
-	/**
-	 * Checks that both Nodes of the Edge satisfies a Query.
-	 * 
-	 * @param nodeQuery the query to satisfy
-	 * @return the resulting EdgeHasNode query
-	 */
-//	public static EdgeHasNode hasBothNodes(Queryable nodeQuery) {
-//		return new EdgeHasNode(EdgeNodeSelection.BOTH, nodeQuery);
-//	}
-
-//	@Override
-//	public Query process(Object item) {
-//		defaultProcess(item);
-//		Edge localItem = (Edge)item;
-//		switch (edgeNodeSelection) {
-//		case START:
-//			satisfied = nodeQuery.satisfied(localItem.startNode());
-//			break;
-//		case END:
-//			satisfied = nodeQuery.satisfied(localItem.endNode());
-//			break;
-//		case OTHER:
-//			satisfied = nodeQuery.satisfied(localItem.otherNode(refNode));
-//			break;
-//		case BOTH:
-//			satisfied = (nodeQuery.satisfied(localItem.startNode()) && nodeQuery.satisfied(localItem.endNode()));
-//			break;
-//		}
-//		return this;
-//	}
-
-//	@Override
-//	public String toString() {
-//		return "[" + stateString() + "must have " + edgeNodeSelection + " node(s) matching " + nodeQuery + "]";
-//	}
 
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);
 		Edge localItem = (Edge) input;
-//		boolean ok = true;
 		switch (edgeNodeSelection) {
 		case START:
 			if (!nodeQuery.submit(localItem.startNode()).satisfied())
 				errorMsg = "Expected start node '" + localItem.startNode().toShortString() + "' of edge '"
-						+ localItem.toShortString() + "' to satisfy query but found [" +nodeQuery.errorMsg()+"]. ";
+					+ localItem.toShortString() + "' to satisfy query but found [" +nodeQuery.errorMsg()+"]. ";
 			break;
 		case END:
 			if (!nodeQuery.submit(localItem.endNode()).satisfied())
 				errorMsg = "Expected end node '" + localItem.endNode().toShortString() + "' of edge '"
-						+ localItem.toShortString() + "' satisfy query but found [" +nodeQuery.errorMsg()+"]. ";
+					+ localItem.toShortString() + "' satisfy query but found [" +nodeQuery.errorMsg()+"]. ";
 
 			break;
 		case OTHER:
 			if (!nodeQuery.submit(localItem.otherNode(refNode)).satisfied())
 				errorMsg = "Expected node '" + refNode.toShortString() + "' of edge '"
-						+ localItem.toShortString() + "' satisfy query but found [" +nodeQuery.errorMsg()+"]. ";
+					+ localItem.toShortString() + "' satisfy query but found [" +nodeQuery.errorMsg()+"]. ";
 
 			break;
 		case BOTH:
@@ -164,30 +115,9 @@ public class EdgeHasNode extends QueryAdaptor {
 			String emsg = nodeQuery.submit(localItem.endNode()).errorMsg();
 			if (smsg!=null || emsg!=null)
 				errorMsg ="Expected '"+localItem.startNode().toShortString()+"' and '"+localItem.endNode() +". to satisfy query but found ["+smsg+"] and ["+emsg+"].";
-				break;
+			break;
 		}
 		return this;
 	}
-
-	// TESTING
-	//
-
-//	public static void main(String[] args) {
-//		AotNode n1 = new AotNode().setLabel("n1");
-//		AotNode n2 = new AotNode().setLabel("n2");
-//		AotNode n3 = new AotNode().setLabel("n3");
-//		n1.newEdge(n2, "e1");
-//		n1.newEdge(n2, "e2");
-//		n1.newEdge(n3, "e3");
-//		n1.newEdge(n3, "e4");
-//		n1.export(new GraphVisualisation());
-//
-//		Iterable<AotEdge> edges = (Iterable<AotEdge>)SequenceQuery.get(n1.getEdges(Direction.OUT), selectZeroOrMany(hasEndNode(isNode(n2))));
-//		for (AotEdge e : edges)
-//			System.out.println(e);
-//		edges = (Iterable<AotEdge>)SequenceQuery.get(n1.getEdges(Direction.OUT), selectZeroOrMany(hasEndNode(isNode(n3))));
-//		for (AotEdge e : edges)
-//			System.out.println(e);
-//	}
 
 }

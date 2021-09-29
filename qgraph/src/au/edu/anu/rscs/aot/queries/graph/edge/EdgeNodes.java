@@ -43,7 +43,12 @@ import au.edu.anu.rscs.aot.queries.graph.EdgeNodeSelection;
  * <dd>{@link Edge}</dd>
  * <dt>Type of result</dt>
  * <dd>{@link Node}</dd>
+ * <dt>Fails if</dt>
+ * <dd>never fails (may return {@code null})</dd>
  * </dl>
+ *  
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#endNode() CoreQueries.endNode()
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#startNode() CoreQueries.startNode()
  * 
  * @author Shayne Flint - 26/3/2012
  *
@@ -74,6 +79,7 @@ public class EdgeNodes extends QueryAdaptor {
 			result = localItem.otherNode(refNode);
 			break;
 		case BOTH:
+			// CAUTION: this is probably flawed. shouldnt return an array but a list ???
 			Node[] nn = new Node[2];
 			nn[0] = localItem.startNode();
 			nn[1] = localItem.endNode();

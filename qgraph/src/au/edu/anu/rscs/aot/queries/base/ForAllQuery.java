@@ -41,9 +41,13 @@ import au.edu.anu.rscs.aot.queries.Queryable;
  * <dd>{@code Iterable<Object>};</dd>
  * <dt>Type of result</dt>
  * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>one object of the collection passed as input does not satisfy the query passed to the constructor</dd>
  * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#forAll(Queryable) CoreQueries.forAll(...)
  *
  */
 

@@ -32,7 +32,18 @@ package au.edu.anu.rscs.aot.queries.base.string;
 import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 
 /**
- * A query to check that a {@link String} starts with a given sequence of characters.
+ * <p>Check if a {@link String} starts with a given sequence of characters.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code String}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input does not start with the {@code String} passed to the constructor</dd>
+ * </dl>
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#startsWith(String) CoreQueries.startsWith(String)
  * 
  * @author Shayne Flint - 26/3/2012
  *

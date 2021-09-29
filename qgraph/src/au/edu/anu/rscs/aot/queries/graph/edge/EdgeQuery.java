@@ -35,12 +35,34 @@ import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Node;
 
 /**
+ * <p>Check that the tip {@link Node}s of an {@link Edge} ends satisfy their respective
+ * queries and that they have a specific {@link Node#classId() classId()}; also checks
+ * the {@link Edge#classId() classId()}.</p>
+ * <p>A bit old-fashioned (over-specialized legacy code, I mean).</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code Edge}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd><ol>
+ * <li>input start node does not satisfy startQuery</li>
+ * <li>input end node does not satisfy endQuery</li>
+ * <li>input class id does not match the (optional) label passed to the constructor</li>
+ * <li>input start node class id does not match the (optional) startLabel passed to the constructor</li>
+ * <li>input end node class id does not match the (optional) endLabel passed to the constructor</li>
+ * </ol></dd>
+ * </dl>
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isEdge(Queryable, Queryable)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isEdge(Queryable, Queryable, String)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isEdge(Queryable, Queryable, String, String, String)
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
 // NOT TESTED
-
 public class EdgeQuery extends QueryAdaptor {
 
 	private Queryable startNodeQuery;
@@ -50,6 +72,14 @@ public class EdgeQuery extends QueryAdaptor {
 	private String label;
 	private String endLabel;
 
+	/**
+	 * 
+	 * @param startNodeQuery a query to check on the start node
+	 * @param endNodeQuery a query to check on the end node
+	 * @param startLabel a class identifier the start node must match
+	 * @param label a class identifier the edge must match
+	 * @param endLabel a class identifier the end node must match
+	 */
 	public EdgeQuery(Queryable startNodeQuery, Queryable endNodeQuery, String startLabel, String label,
 			String endLabel) {
 		this.startNodeQuery = startNodeQuery;
@@ -59,6 +89,12 @@ public class EdgeQuery extends QueryAdaptor {
 		this.endLabel = endLabel;
 	}
 
+	/**
+	 * 
+	 * @param startNodeQuery a query to check on the start node
+	 * @param endNodeQuery a query to check on the end node
+	 * @param label a class identifier the edge must match
+	 */
 	public EdgeQuery(Queryable startNodeQuery, Queryable endNodeQuery, String label) {
 		this.startNodeQuery = startNodeQuery;
 		this.endNodeQuery = endNodeQuery;
@@ -67,6 +103,11 @@ public class EdgeQuery extends QueryAdaptor {
 		this.endLabel = null;
 	}
 
+	/**
+	 * 
+	 * @param startNodeQuery a query to check on the start node
+	 * @param endNodeQuery a query to check on the end node
+	 */
 	public EdgeQuery(Queryable startNodeQuery, Queryable endNodeQuery) {
 		this.startNodeQuery = startNodeQuery;
 		this.endNodeQuery = endNodeQuery;
@@ -75,44 +116,8 @@ public class EdgeQuery extends QueryAdaptor {
 		this.endLabel = null;
 	}
 
-	public static EdgeQuery isEdge(Queryable startNodeQuery, Queryable endNodeQuery, String startLabel, String label,
-			String endLabel) {
-		return new EdgeQuery(startNodeQuery, endNodeQuery, startLabel, label, endLabel);
-	}
-
-	public static EdgeQuery isEdge(Queryable startNodeQuery, Queryable endNodeQuery, String label) {
-		return new EdgeQuery(startNodeQuery, endNodeQuery, label);
-	}
-
-	public static EdgeQuery isEdge(Queryable startNodeQuery, Queryable endNodeQuery) {
-		return new EdgeQuery(startNodeQuery, endNodeQuery);
-	}
-
-//	@Override
-//	public Query process(Object item) {
-//		defaultProcess(item);
-//		Edge localItem = (Edge) item;
-//		Node startNode = localItem.startNode();
-//		Node endNode = localItem.endNode();
-//
-//		startNodeQuery.process(startNode);
-//		endNodeQuery.process(endNode);
-//
-//		satisfied = true;
-//		satisfied = satisfied && startNodeQuery.satisfied();
-//		satisfied = satisfied && endNodeQuery.satisfied();
-//
-//		if (startLabel != null)
-//			satisfied = satisfied && startNode.classId().equals(startLabel);
-//		if (label != null)
-//			satisfied = satisfied && localItem.classId().equals(label);
-//		if (endLabel != null)
-//			satisfied = satisfied && endNode.classId().equals(endLabel);
-//
-//		return this;
-//	}
-
 	// this code must be brittle - it assumes an Edge is also Labelled...
+	// that's ok, an edge has a classId
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);
@@ -135,7 +140,7 @@ public class EdgeQuery extends QueryAdaptor {
 		return this;
 	}
 
-	public String formatErrorMsg() {
+	private String formatErrorMsg() {
 		String result = startNodeQuery.errorMsg();
 		if (startLabel != null)
 			result = result + "-" + startLabel;

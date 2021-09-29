@@ -33,16 +33,24 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
+ * <p>Check if a {@link String} represents a real number ({@code Double}).</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code String}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input cannot be converted to a {@code Double}</dd>
+ * </dl>
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isRealString() CoreQueries.isRealString()
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
 
 public class RealString extends QueryAdaptor {
-
-//	public static Queryable isDouble() {
-//		return new DoubleString();
-//	}
 
 	@Override
 	public Queryable submit(Object input) {

@@ -34,32 +34,33 @@ import au.edu.anu.rscs.aot.queries.Queryable;
 import fr.cnrs.iees.graph.Edge;
 
 /**
+ * <p>Check if an {@link Edge} matches the one passed to the constructor.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code Edge}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input is not equal to the {@code Edge} passed to the constructor</dd>
+ * </dl>
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isEdge(Edge) CoreQueries.isEdge(Edge)
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
-// NOT TESTED
-
 public class IsEdge extends QueryAdaptor {
 
 	private Edge edge;
 	
+	/**
+	 * 
+	 * @param edge the edge to compare to
+	 */
 	public IsEdge(Edge edge) {
 		this.edge = edge;
 	}
-
-//	public static IsEdge isEdge(Edge edge) {
-//		return new IsEdge(edge);
-//	}
-//	
-//	@Override
-//	public Query process(Object item) {
-//		defaultProcess(item);
-//		Edge localItem  = (Edge) item;
-//		satisfied = localItem.equals(edge);
-//		return this;
-//	}
-	
 
 	@SuppressWarnings("unused")
 	@Override
