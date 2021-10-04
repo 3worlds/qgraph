@@ -37,7 +37,7 @@ import fr.cnrs.iees.graph.Node;
 import au.edu.anu.rscs.aot.queries.graph.EdgeNodeSelection;
 
 /**
- * <p>A {@link Query} to select start, end, other-end or both-ends Nodes of an Edge</p>
+ * <p>A {@link Queryable} to select start, end, other-end or both-ends Nodes of an Edge</p>
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
  * <dd>{@link Edge}</dd>

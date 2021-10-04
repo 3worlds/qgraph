@@ -30,7 +30,7 @@
 package au.edu.anu.rscs.aot.queries.graph;
 
 /**
- * An enum to describe the tips of an {@link Edge}.
+ * An enum to describe the tips of an {@link fr.cnrs.iees.graph.Edge}.
  * 
  * @author Shayne Flint - 26/3/2012
  *

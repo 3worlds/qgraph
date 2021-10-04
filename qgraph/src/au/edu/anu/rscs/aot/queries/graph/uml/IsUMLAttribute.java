@@ -30,12 +30,29 @@
 package au.edu.anu.rscs.aot.queries.graph.uml;
 
 import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
+
+import au.edu.anu.rscs.aot.queries.CoreQueries;
 import au.edu.anu.rscs.aot.queries.base.AndQuery;
 import au.edu.anu.rscs.aot.queries.base.OrQuery;
 import au.edu.anu.rscs.aot.queries.graph.node.HasEdges;
 import fr.cnrs.iees.graph.Direction;
 
 /**
+ * <p>Check if an object is an UML attribute.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code Object}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input is not an {@link fr.cnrs.iees.graph.Element Element} with class id "attribute" and property "name" and
+ * either property "type" or edges with class ide "enumeration"</dd>
+ * </dl>
+ * 
+ * <p>Note: implemented as an AndQuery.</p>
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isAttribute() CoreQueries.isAttribute()
  * 
  * @author Shayne Flint - 30/4/02012
  *
@@ -46,16 +63,8 @@ public class IsUMLAttribute extends AndQuery {
 
 	public IsUMLAttribute() {
 		addQuery(hasTheLabel("attribute"), hasProperty("name"));
-		addQuery(new OrQuery(hasProperty("type"), new HasEdges(IsEnumeration.isEnumeration(),Direction.OUT,Multiplicity.ONE).withLabel("enumeration")));
+		addQuery(new OrQuery(hasProperty("type"), 
+			new HasEdges(CoreQueries.isEnumeration(),Direction.OUT,Multiplicity.ONE).withLabel("enumeration")));
 	}
-
-	public static IsUMLAttribute isAttribute() {
-		return new IsUMLAttribute();
-	}
-
-//    @Override
-//    public String userString() {
-//    	return "[" + stateString() + "IsAttribute]";
-//    }
 
 }

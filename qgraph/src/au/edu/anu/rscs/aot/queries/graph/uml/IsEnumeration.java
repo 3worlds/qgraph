@@ -33,21 +33,28 @@ package au.edu.anu.rscs.aot.queries.graph.uml;
 import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
 import au.edu.anu.rscs.aot.queries.base.AndQuery;
 
-
-
+/**
+ * <p>Check if an object is an UML enumeration.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code Object}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input is not an {@link fr.cnrs.iees.graph.Element Element} with class id "enumeration" and property "literals"</dd>
+ * </dl>
+ * 
+ * <p>Note: implemented as an AndQuery.</p>
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isEnumeration()
+ * 
+ * @author Shayne Flint - 26/3/2012
+ */
 public class IsEnumeration extends AndQuery {
 
 	public IsEnumeration() {
 		addQuery(hasTheLabel("enumeration"), hasProperty("literals", isStringList()));
 	}
-
-	public static IsEnumeration isEnumeration() {
-		return new IsEnumeration();
-	}
-
-//    @Override
-//    public String userString() {
-//    	return "[" + stateString() + "IsEnumeration]";
-//    }
 
 }

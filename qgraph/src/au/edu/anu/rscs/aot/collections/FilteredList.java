@@ -34,7 +34,7 @@ import java.util.Collection;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
- * A list filtered by a Query.
+ * A list filtered by a Query. List items can be any object.
  * 
  * @author Shayne Flint - 23/4/2012
  *

@@ -40,15 +40,19 @@ import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Node;
 
 /**
- * <p>
- * A {@link Query} to select In, OUT or all edges of a list of Nodes.
- * </p>
+ * <p> A {@link Queryable} to select In, OUT or all edges of a list of Nodes.</p>
  * <dl>
  * <dt>Type of input to {@code process()}</dt>
  * <dd>Iterable&lt;Node&gt;</dd>
  * <dt>Type of result</dt>
  * <dd>DynamicList&lt;Edge&gt;</dd>
+ * <dt>Fails if</dt>
+ * <dd>never fails (the returned list may be empty)</dd>
  * </dl>
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#nodeListEdges() CoreQueries.nodeListEdges()
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#nodeListInEdges() CoreQueries.nodeListInEdges()
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#nodeListOutEdges() CoreQueries.nodeListOutEdges()
  * 
  * @author Shayne Flint - 2/4/2012
  *

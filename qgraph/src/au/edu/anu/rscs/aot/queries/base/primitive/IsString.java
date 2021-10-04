@@ -60,8 +60,8 @@ public class IsString extends QueryAdaptor {
 
 	/**
 	 * Constructor with length range
-	 * @param min the lower end of the range
-	 * @param max  the upper end of the range
+	 * @param minLength the lower end of the range
+	 * @param maxLength  the upper end of the range
 	 */
 	public IsString(int minLength, int maxLength) {
 		this.minLength = minLength;

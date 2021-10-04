@@ -33,20 +33,25 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
+ * <p>Check if an object is an UML multiplicity.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code Object}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input is not an instance of {@link Multiplicity}</dd>
+ * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
- *
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isMultiplicity() CoreQueries.isMultiplicity()
  */
-
 public class IsMultiplicity extends QueryAdaptor {
 
 	public IsMultiplicity() {
 	}
-
-	public static Queryable isMultiplicity() {
-		return new IsMultiplicity();
-	}
-
 
 	@Override
 	public Queryable submit(Object input) {

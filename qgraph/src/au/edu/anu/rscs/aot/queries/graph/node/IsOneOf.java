@@ -35,23 +35,40 @@ import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
+ * <p>Check if a {@link Node} is found in the list of nodes passed to the constructor.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@link Node}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input {@code Node} is not found in the list passed to the constructor</dd>
+ * </dl>
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isOneOf(Node...) CoreQueries.isOneOf(...)
  * 
  * @author Shayne Flint - 2/4/2012
  *
  */
-
+// TODO: rename this class, the name is to vague (ie could apply to many other things than Nodes
+// actually could be generalized to look for any list of objects.
 public class IsOneOf extends QueryAdaptor {
 
 	private DynamicList<Node> nodeList;
 
+	/**
+	 * 
+	 * @param nodes nodes to match
+	 */
 	public IsOneOf(Node... nodes) {
 		add(nodes);
 	}
 
-//	public static Queryable isOneOf(Node... nodes) {
-//		return new IsOneOf(nodes);
-//	}
-
+	/**
+	 * Add nodes to search for
+	 * @param nodes nodes to match
+	 */
 	public void add(Node... nodes) {
 		for (Node n : nodes)
 			this.nodeList.add(n);

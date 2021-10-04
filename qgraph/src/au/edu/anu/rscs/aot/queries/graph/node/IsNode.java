@@ -34,22 +34,32 @@ import au.edu.anu.rscs.aot.queries.Queryable;
 import fr.cnrs.iees.graph.Node;
 
 /**
+ * <p>Check if a {@link Node} is the same as the one passed to the constructor.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@link Node}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input {@code Node} is not the same as that passed to the constructor</dd>
+ * </dl>
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isNode(Node) CoreQueries.isNode(...)
  * 
  * @author Shayne Flint - 2/4/2012
- *
  */
-
 public class IsNode extends QueryAdaptor {
 
 	private Node node;
 	
+	/**
+	 * 
+	 * @param node the node instance to compare to
+	 */
 	public IsNode(Node node) {
 		this.node = node;
 	}
-
-//	public static Queryable isNode(Node node) {
-//		return new IsNode(node);
-//	}	
 
 	@Override
 	public Queryable submit(Object input) {

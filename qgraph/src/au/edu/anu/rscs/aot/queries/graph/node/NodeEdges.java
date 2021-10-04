@@ -37,13 +37,20 @@ import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
 import static au.edu.anu.rscs.aot.queries.base.SequenceQuery.*;
 
 /**
- * <p>A Query to select {@link Edge}s linked to a {@link Node}.</p>
+ * <p>A Query to select {@link fr.cnrs.iees.graph.Edge Edge}s linked to a {@link fr.cnrs.iees.graph.Node Node}.</p>
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
  * <dd>{@code Node}</dd>
  * <dt>Type of result</dt>
- * <dd>{@link Collection}{@code <Edge>}</dd>
+ * <dd>{@link java.util.Collection Collection}{@code <Edge>}</dd>
+ * <dt>Fails if</dt>
+ * <dd>never fails (the returned list may be empty)</dd>
  * </dl>
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#inEdges()			CoreQueries.inEdges()
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#outEdges()			CoreQueries.outEdges()
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#inEdges(Queryable)	CoreQueries.inEdges(Queryable)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#outEdges(Queryable)	CoreQueries.outEdges(Queryable)
  * 
  * @author Shayne Flint - 2/4/2012
  *

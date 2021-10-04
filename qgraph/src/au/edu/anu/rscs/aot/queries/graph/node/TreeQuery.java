@@ -41,14 +41,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Get parts of a {@link Tree} starting from a {@link TreeNode}.
+ * <p>Get parts of a {@link fr.cnrs.iees.graph.Tree Tree} starting from a {@link fr.cnrs.iees.graph.TreeNode TreeNode}.</p>
  * 
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
  * <dd>{@code TreeNode}</dd>
  * <dt>Type of result</dt>
  * <dd>a {@code TreeNode} or a {@code Collection<TreeNode>}</dd>
+ * <dt>Fails if</dt>
+ * <dd>the tree must be searched up but no parent above the input node satisfies the query</dd>
  * </dl>
+ *
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#parent()				CoreQueries.parent()
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#children()				CoreQueries.children()
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#childTree()				CoreQueries.childTree()
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#parent(Queryable)		CoreQueries.parent(Queryable)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#childTree(Queryable)	CoreQueries.childTree(Queryable)
  *
  * @author Shayne Flint - 2/4/2012<br/>
  * refactored by J. Gignoux - 12/4/2019 to handle new tree structure
@@ -74,7 +82,8 @@ public class TreeQuery extends QueryAdaptor {
 				} else {
 					result = parent(localItem, query);
 					if (result == null) {
-						errorMsg = "not parent found to satisfy " + query;
+						// maybe a better solution would be to return an empty list rather than fail
+						errorMsg = "no parent found to satisfy " + query;
 						return this;
 					}
 				}
@@ -92,10 +101,10 @@ public class TreeQuery extends QueryAdaptor {
 				if (query == null)
 					result = localItem.getChildren();
 				else
-					result = (DynamicList<TreeNode>) get(localItem.getChildren(), selectZeroOrMany(query));
+					result = (DynamicList<TreeNode>) get(localItem.getChildren(), 
+						selectZeroOrMany(query));
 			}
 		}
-//		satisfied = true;
 		return this;
 
 	}
@@ -169,7 +178,7 @@ public class TreeQuery extends QueryAdaptor {
 	}
 
 	private TreeNode parent(TreeNode node, Queryable query) {
-		// WARNING: DONT EXPOSE Tree methods requiring queries until the behaviour is
+		// WARNING: DONT EXPOSE Tree methods requiring queries unless the behaviour is
 		// clearly defined.
 		query.submit(node);
 		if (query.satisfied())

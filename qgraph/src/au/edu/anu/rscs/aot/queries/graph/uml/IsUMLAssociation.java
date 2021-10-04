@@ -31,6 +31,7 @@ package au.edu.anu.rscs.aot.queries.graph.uml;
 
 import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
 
+import au.edu.anu.rscs.aot.queries.CoreQueries;
 import au.edu.anu.rscs.aot.queries.Queryable;
 import au.edu.anu.rscs.aot.queries.base.AndQuery;
 import au.edu.anu.rscs.aot.queries.base.SequenceQuery;
@@ -38,28 +39,37 @@ import au.edu.anu.rscs.aot.queries.graph.node.HasEdges;
 import fr.cnrs.iees.graph.Direction;
 
 
-
+/**
+ * <p>Check if an object is an UML association.</p>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code Object}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input is not an {@link fr.cnrs.iees.graph.Element Element} with class id "association" ... and other complicated things
+ * (TODO: finish this)</dd>
+ * </dl>
+ * 
+ * <p>Note: implemented as an AndQuery.</p>
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#isAssociation() CoreQueries.isAssociation()
+ * 
+ * @author Shayne Flint - 26/3/2012
+ *
+ */
 public class IsUMLAssociation extends AndQuery  {
 
 	public IsUMLAssociation() {
-		
-		Queryable edgeQuery = new SequenceQuery(hasProperty("phrase"), hasProperty("multiplicity",
-				isEnum(Multiplicity.values()) ));
-				
+		Queryable edgeQuery = new SequenceQuery(hasProperty("phrase"), 
+			hasProperty("multiplicity",
+			isEnum(Multiplicity.values()) ));
 		addQuery(
 			hasTheLabel("association"),
-			new HasEdges(IsUMLClass.isClass(),Direction.OUT,Multiplicity.ONE).withLabel("passive").withEdgeQuery(edgeQuery),			
-			new HasEdges(IsUMLClass.isClass(),Direction.OUT, Multiplicity.ONE).withLabel("active").withEdgeQuery(edgeQuery),
-			new HasEdges(IsUMLClass.isClass(),Direction.OUT, Multiplicity.ZERO_ONE).withLabel("associativeClass"));
+			new HasEdges(CoreQueries.isUMLClass(),Direction.OUT,Multiplicity.ONE).withLabel("passive").withEdgeQuery(edgeQuery),			
+			new HasEdges(CoreQueries.isUMLClass(),Direction.OUT, Multiplicity.ONE).withLabel("active").withEdgeQuery(edgeQuery),
+			new HasEdges(CoreQueries.isUMLClass(),Direction.OUT, Multiplicity.ZERO_ONE).withLabel("associativeClass"));
 	}
-
-	public static IsUMLAssociation isAssociation() {
-		return new IsUMLAssociation();
-	}
-
-//    @Override
-//    public String userString() {
-//    	return "[" + stateString() + "IsAssociation]";
-//    }
 
 }

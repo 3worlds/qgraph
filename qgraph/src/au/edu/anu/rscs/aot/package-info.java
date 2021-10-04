@@ -1,10 +1,10 @@
 /**
  * <p><strong>qgraph</strong> defines a graph querying system to use with <strong>omugi</strong>.</p>
  * 
- * <p>This package defines one ancestor interface, {@link Queryable}, and many implementations of it.
+ * <p>This package defines one ancestor interface, {@link au.edu.anu.rscs.aot.queries.Queryable Queryable}, and many implementations of it.
  * {@code Queryable} descendants (we call them <em>queries</em>) can be used (1) to check that elements of a graph verify some 
  * condition or (2) to collect parts of the graph according to some conditions. Queries can
- * be chained so that elaborate searches can be performed on a {@link Graph}. This library
+ * be chained so that elaborate searches can be performed on a {@link fr.cnrs.iees.graph.Graph Graph}. This library
  * actually defines a language to travel a graph, pick information, get elements based on some
  * conditions, etc.</p>
  * 

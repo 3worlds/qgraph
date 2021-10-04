@@ -29,7 +29,6 @@
  **************************************************************************/
 package au.edu.anu.rscs.aot.queries;
 
-
 /**
  * <p>
  * The ancestor class for the Query system.

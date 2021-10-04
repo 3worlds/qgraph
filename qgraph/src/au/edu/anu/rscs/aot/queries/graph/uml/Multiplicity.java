@@ -34,6 +34,7 @@ import au.edu.anu.rscs.aot.util.IntegerRange;
 
 /**
  * The four main multiplicities used in UML.
+ * Plus 0..0.
  * 
  * @author Shayne Flint - 29/3/2012
  *

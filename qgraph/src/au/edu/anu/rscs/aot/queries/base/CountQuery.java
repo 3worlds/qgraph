@@ -60,7 +60,7 @@ public class CountQuery extends QueryAdaptor {
 	private int max;
 
 	/**
-	 * Constructor with min and max (caution: no check that min<max). 
+	 * Constructor with min and max (caution: no check that min&lt;max). 
 	 * @param min
 	 * @param max
 	 */

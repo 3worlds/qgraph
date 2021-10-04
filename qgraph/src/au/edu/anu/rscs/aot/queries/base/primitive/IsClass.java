@@ -79,7 +79,7 @@ public class IsClass extends QueryAdaptor {
 	}
 
 	/**
-	 * Only {@link Class&lt;?&gt;} arguments will be checked.
+	 * Only {@link Class}&lt;?&gt; arguments will be checked.
 	 */
 	@Override
 	public Queryable submit(Object input) {

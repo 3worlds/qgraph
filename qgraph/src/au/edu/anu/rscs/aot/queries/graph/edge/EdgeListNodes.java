@@ -41,7 +41,7 @@ import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Node;
 
 /**
- * <p>A {@link Query} to select start, end, other-end or both-ends Nodes of a list of Edges</p> 
+ * <p>A {@link Queryable} to select start, end, other-end or both-ends Nodes of a list of Edges</p> 
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
  * <dd>Iterable&lt;Edge&gt;</dd>

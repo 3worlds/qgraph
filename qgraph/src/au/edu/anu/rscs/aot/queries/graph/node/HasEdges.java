@@ -42,11 +42,28 @@ import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
 import static au.edu.anu.rscs.aot.queries.base.SequenceQuery.get;
 
 /**
+ * <p>Check if a {@link Node} has {@link Edge}s that satisfy some constraints like
+ * a Query, a class Id, a multiplicity.</p>
  * 
- * @author Shayne Flint - 2/4/2012
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@link Node}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input edge list filtered by a query on node, a query on edges, an edge class id, an edge direction,
+ * does not match the multiplicity passed to the constructor</dd>
+ * </dl>
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#hasEdges(Queryable, Multiplicity) CoreQueries.hasEdges(...)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#hasInEdges(Queryable, Multiplicity) CoreQueries.hasInEdges(...)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#hasOutEdges(Queryable, Multiplicity) CoreQueries.hasOutEdges(...)
+ * 
+ * @author Shayne Flint - 2/4/2012<br/>
+ * refactored by Jacques Gignoux - 4/10/2021
  *
  */
-
+// TODO: test this in detail - and maybe refactor.
 public class HasEdges extends QueryAdaptor {
 
 	private Direction edgeDirection;
@@ -55,7 +72,18 @@ public class HasEdges extends QueryAdaptor {
 	private Multiplicity multiplicity;
 	private String label;
 
-	public HasEdges(Direction edgeDirection, Queryable nodeQuery, Queryable edgeQuery, Multiplicity multiplicity,
+	/**
+	 * 
+	 * @param edgeDirection the edge direction - {@code null} means all directions 
+	 * @param nodeQuery a query to check on the {@code Node} argument to {@code submit(...)} (input)
+	 * @param edgeQuery a query to check on the returned {@code Edge}s
+	 * @param multiplicity constraint on the number of {@code Edge}s to search
+	 * @param label an {@code Edge} class id to match
+	 */
+	public HasEdges(Direction edgeDirection, 
+			Queryable nodeQuery, 
+			Queryable edgeQuery, 
+			Multiplicity multiplicity,
 			String label) {
 		this.edgeDirection = edgeDirection;
 		this.nodeQuery = nodeQuery;
@@ -64,107 +92,39 @@ public class HasEdges extends QueryAdaptor {
 		this.label = label;
 	}
 
-	public HasEdges(Queryable nodeQuery,Direction edgeDirection,Multiplicity multiplicity) {
+	/**
+	 * 
+	 * @param edgeDirection the edge direction - {@code null} means all directions 
+	 * @param nodeQuery a query to check on the {@code Node} argument to {@code submit(...)} (input)
+	 * @param multiplicity constraint on the number of {@code Edge}s to search
+	 */
+	public HasEdges(Queryable nodeQuery,
+			Direction edgeDirection,
+			Multiplicity multiplicity) {
 		this.edgeDirection = edgeDirection;
 		this.multiplicity = multiplicity;	
 		this.nodeQuery = nodeQuery;
-		}
-//	public static HasEdges hasEdges(Direction edgeDirection, Queryable nodeQuery, Multiplicity multiplicity) {
-//		return new HasEdges(edgeDirection, nodeQuery, null, multiplicity, null);
-//	}
+	}
 
-//	public static HasEdges hasInEdges(Queryable nodeQuery, Multiplicity multiplicity) {
-//		return new HasEdges(Direction.IN, nodeQuery, null, multiplicity, null);
-//	}
-
-//	public static HasEdges hasOutEdges(Queryable nodeQuery, Multiplicity multiplicity) {
-//		return new HasEdges(Direction.OUT, nodeQuery, null, multiplicity, null);
-//	}
-
+	/**
+	 * Set a query {@code Edge}s must satisfy
+	 * @param edgeQuery a query to check on the returned {@code Edge}s
+	 * @return this instance for agile programmming
+	 */
 	public HasEdges withEdgeQuery(Queryable edgeQuery) {
 		this.edgeQuery = edgeQuery;
 		return this;
 	}
 
+	/**
+	 * Set a constraint on edge labels (class ids)
+	 * @param label the label edges must match
+	 * @return this instance for agile programmming
+	 */
 	public HasEdges withLabel(String label) {
 		this.label = label;
 		return this;
 	}
-
-//	@Override
-//	public String toString() {
-//		String result = "[" + stateString() + "node must have " + multiplicity + " edges";
-//		if (edgeQuery != null)
-//			result = result + " matching " + edgeQuery;
-//		if (label != null)
-//			result = result + " with Label '" + label + "'";
-//		result = result + " to nodes matching " + nodeQuery;
-//		return result + "]";
-//	}
-//
-//	@Override
-//	public String userString() {
-//		String result = "[" + stateString() + "must have " + multiplicity + " edges";
-//		if (edgeQuery != null)
-//			result = result + " matching " + edgeQuery.userString();
-//		if (label != null)
-//			result = result + " with Label '" + label + "'";
-//		result = result + " to nodes matching " + nodeQuery.userString();
-//		return result + "]";
-//	}
-
-//	@SuppressWarnings("unchecked")
-//	@Override
-//	public Query process(Object item) {
-//		defaultProcess(item);
-//		Node localItem = (Node)item;
-//
-//		DynamicList<Edge> edges = null;
-//		switch (edgeDirection) {
-//		case IN:
-//			// caution: not tested yet
-//			edges = (DynamicList<Edge>) get(localItem.edges(Direction.IN),
-//				selectZeroOrMany(hasStartNode(nodeQuery)));
-////			edges = localItem.getInEdges(hasStartNode(nodeQuery));
-//			break;
-//		case OUT:
-//			edges = (DynamicList<Edge>) get(localItem.edges(Direction.OUT),
-//				selectZeroOrMany(hasEndNode(nodeQuery)));
-////			edges = localItem.getOutEdges(hasEndNode(nodeQuery));
-//			break;
-////		case IN_OUT:
-////			edges = localItem.getEdges(hasOtherNode(nodeQuery));
-////			break;
-//		}
-//
-//		if (edgeQuery != null)
-//			edges = new FilteredList<Edge>(edges, edgeQuery);
-//
-//		if (label != null)
-//			edges = new FilteredList<Edge>(edges, hasTheLabel(label));
-//
-//		int edgesSize = edges.size();
-//		
-//		switch (multiplicity) {
-//		case ZERO:
-//			satisfied = (edgesSize == 0);
-//			break;
-//		case ONE:
-//			satisfied = (edgesSize == 1);
-//			break;
-//		case ONE_MANY:
-//			satisfied = (edgesSize >= 1);
-//			break;
-//		case ZERO_ONE:
-//			satisfied = (edgesSize == 0 || edgesSize == 1);
-//			break;
-//		case ZERO_MANY:
-//			satisfied = (edgesSize >= 0);
-//			break;
-//		}
-//
-//		return this;
-//	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -176,14 +136,17 @@ public class HasEdges extends QueryAdaptor {
 		switch (edgeDirection) {
 		case IN:
 			// caution: not tested yet
-			edges = (DynamicList<Edge>) get(localItem.edges(Direction.IN), selectZeroOrMany(hasStartNode(nodeQuery)));
+			edges = (DynamicList<Edge>) get(localItem.edges(Direction.IN), 
+				selectZeroOrMany(hasStartNode(nodeQuery)));
 			break;
 		case OUT:
-			edges = (DynamicList<Edge>) get(localItem.edges(Direction.OUT), selectZeroOrMany(hasEndNode(nodeQuery)));
+			edges = (DynamicList<Edge>) get(localItem.edges(Direction.OUT), 
+				selectZeroOrMany(hasEndNode(nodeQuery)));
 			break;
-//		case IN_OUT:
-//			edges = localItem.getEdges(hasOtherNode(nodeQuery));
-//			break;
+		default:
+			edges = (DynamicList<Edge>) get(localItem.edges(), 
+				selectZeroOrMany(hasOtherNode(nodeQuery,localItem))); 
+			break;
 		}
 
 		if (edgeQuery != null)
@@ -198,28 +161,22 @@ public class HasEdges extends QueryAdaptor {
 		case ZERO:
 			if (edgesSize != 0)
 				errorMsg = "Expected " + multiplicity + " but found " + edgesSize + ".";
-//			satisfied = (edgesSize == 0);
 			break;
 		case ONE:
 			if (edgesSize != 1)
 				errorMsg = "Expected " + multiplicity + " but found " + edgesSize + ".";
-
-//			satisfied = (edgesSize == 1);
 			break;
 		case ONE_MANY:
 			if (edgesSize < 1)
 				errorMsg = "Expected " + multiplicity + " but found " + edgesSize + ".";
-//			satisfied = (edgesSize >= 1);
 			break;
 		case ZERO_ONE:
 			if (edgesSize > 1)
 				errorMsg = "Expected " + multiplicity + " but found " + edgesSize + ".";
-//			satisfied = (edgesSize == 0 || edgesSize == 1);
 			break;
 		case ZERO_MANY:
-			if (edgesSize <0 )//?
-				errorMsg = "Expected " + multiplicity + " but found " + edgesSize + ".";
-//			satisfied = (edgesSize >= 0);
+//			if (edgesSize <0 )//?
+//				errorMsg = "Expected " + multiplicity + " but found " + edgesSize + ".";
 			break;
 		}
 

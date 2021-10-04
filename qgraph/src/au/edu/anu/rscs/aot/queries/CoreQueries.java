@@ -39,6 +39,11 @@ import au.edu.anu.rscs.aot.queries.graph.edge.*;
 import au.edu.anu.rscs.aot.queries.graph.element.*;
 import au.edu.anu.rscs.aot.queries.graph.node.*;
 import au.edu.anu.rscs.aot.queries.graph.node.NodeCharacteristics.RootLeaf;
+import au.edu.anu.rscs.aot.queries.graph.uml.IsEnumeration;
+import au.edu.anu.rscs.aot.queries.graph.uml.IsMultiplicity;
+import au.edu.anu.rscs.aot.queries.graph.uml.IsUMLAssociation;
+import au.edu.anu.rscs.aot.queries.graph.uml.IsUMLAttribute;
+import au.edu.anu.rscs.aot.queries.graph.uml.IsUMLClass;
 import au.edu.anu.rscs.aot.queries.graph.uml.Multiplicity;
 import au.edu.anu.rscs.aot.util.IntegerRange;
 import fr.cnrs.iees.graph.*;
@@ -559,10 +564,10 @@ public class CoreQueries {
 		return new PatternString(pattern);
 	}
 
-
 	// Size
+	//
 	/**
-	 * Check that the size of the input (of class {@link Sizeable}) is within range
+	 * Check that the size of the input (of class {@link fr.ens.biologie.generic.Sizeable Sizeable}) is within range
 	 * 
 	 * @param min the lower end of the range
 	 * @param max the upper end of the range
@@ -573,7 +578,7 @@ public class CoreQueries {
 	}
 
 	/**
-	 * Check that the size of the input (of class {@link Sizeable}) is above minimum
+	 * Check that the size of the input (of class {@link fr.ens.biologie.generic.Sizeable Sizeable}) is above minimum
 	 * 
 	 * @param min the minimum
 	 * @return the resulting SizeQuery query
@@ -583,9 +588,9 @@ public class CoreQueries {
 	}
 
 	/**
-	 * Check that the size of the input (of class {@link Sizeable}) is below maximum
+	 * Check that the size of the input (of class {@link fr.ens.biologie.generic.Sizeable Sizeable}) is below maximum
 	 * 
-	 * @param min the maximum
+	 * @param max the maximum
 	 * @return the resulting SizeQuery query
 	 */
 	public static Queryable hasMax(int max) {
@@ -593,7 +598,7 @@ public class CoreQueries {
 	}
 
 	/**
-	 * Check that the size of the input (of class {@link Sizeable}) is within range
+	 * Check that the size of the input (of class {@link fr.ens.biologie.generic.Sizeable Sizeable}) is within range
 	 * 
 	 * @param range the range
 	 * @return the resulting SizeQuery query
@@ -660,7 +665,7 @@ public class CoreQueries {
 	/**
 	 * Checks that an element (=graph node or edge) has one of the unique
 	 * identifiers ({@code id}) passed as arguments. Will work for any
-	 * {@link Identity} implementation, actually.
+	 * {@link fr.cnrs.iees.identity.Identity Identity} implementation, actually.
 	 * 
 	 * @param names the names/ids to compare to
 	 * @return the resulting ElementName query
@@ -749,90 +754,198 @@ public class CoreQueries {
 
 	// ---------------------- Nodes
 	//
+	/**
+	 * Get all the children of the {@code TreeNode} passed to {@code submit(...)}.
+	 * @return an instance of the TreeQuery query
+	 */
 	public static Queryable children() {
 //		return new Trees(null, false, false);
 		return new TreeQuery();
 	}
 
+	/**
+	 * Get all the parents (up to the tree root) of the {@code TreeNode} passed to {@code submit(...)}.
+	 * @return an instance of the TreeQuery query
+	 */
 	public static Queryable parent() {
 		// Trees(null, true, false);
 		return new TreeQuery().parent();
 	}
 
+	/**
+	 * Get all the parents (up to the tree root) of the {@code TreeNode} passed to {@code submit(...)},
+	 * provided that they satisfy the query.
+	 * @param q the query parents must satisfy
+	 * @return an instance of the TreeQuery query
+	 */
 	public static Queryable parent(Queryable q) {
 		return new TreeQuery().parent().root().query(q);
 	}
 
+	/**
+	 * Get all the sub-tree (i.e. all children's children's...'s children) of the {@code TreeNode} 
+	 * passed to {@code submit(...)}.
+	 * @return an instance of the TreeQuery query
+	 */
 	public static Queryable childTree() {
 		// Trees(null, false, true);
 		return new TreeQuery().root();
 	}
 
+	/**
+	 * Get all the sub-tree (i.e. all children's children's...'s children) of the {@code TreeNode} 
+	 * passed to {@code submit(...)} provided that they satisfy the query.
+	 * @param q
+	 * @return an instance of the TreeQuery query
+	 */
 	public static Queryable childTree(Queryable q) {
 		return new TreeQuery().root().query(q);
 	}
 
+	/**
+	 * <p>A Query to select in-{@link Edge}s linked to a {@link Node}.</p>
+	 * @return an instance of the NodeEdges query
+	 */
 	public static Queryable inEdges() {
 		return new NodeEdges().direction(Direction.IN);
 	}
 
+	/**
+	 * <p>A Query to select in-{@link Edge}s of a {@link Node} that satisfy a query.</p>
+	 * @param q a query that edges must satisfy
+	 * @return an instance of the NodeEdges query
+	 */
 	public static Queryable inEdges(Queryable q) {
 		return new NodeEdges().direction(Direction.IN).query(q);
 	}
 
+	/**
+	 * <p>A Query to select out-{@link Edge}s linked to a {@link Node}.</p>
+	 * @return an instance of the NodeEdges query
+	 */
 	public static Queryable outEdges() {
 		return new NodeEdges().direction(Direction.OUT);
 	}
 
+	/**
+	 * <p>A Query to select in-{@link Edge}s of a {@link Node} that satisfy a query.</p>
+	 * @param q a query that edges must satisfy
+	 * @return an instance of the NodeEdges query
+	 */
 	public static Queryable outEdges(Queryable q) {
 		return new NodeEdges().direction(Direction.OUT).query(q);
 	}
 
-	public static Queryable hasEdges(Direction edgeDirection, Queryable nodeQuery, Multiplicity multiplicity) {
-		return new HasEdges(edgeDirection, nodeQuery, null, multiplicity, null);
+	/**
+	 * <p>Check if a {@link Node} that satisfies a query has  number of {@link Edge}s  
+	 * that match a multiplicity.</p>
+	 * 
+	 * @param nodeQuery the query applied to the node
+	 * @param multiplicity the multiplicity of edges
+	 * @return an instance of HasEdges query
+	 */
+	public static Queryable hasEdges(Queryable nodeQuery, Multiplicity multiplicity) {
+		return new HasEdges(null, nodeQuery, null, multiplicity, null);
 	}
 
+	/**
+	 * <p>Check if a {@link Node} that satisfies a query has  number of in-{@link Edge}s  
+	 * that match a multiplicity.</p>
+	 * 
+	 * @param nodeQuery the query applied to the node
+	 * @param multiplicity the multiplicity of edges
+	 * @return an instance of HasEdges query
+	 */
 	public static Queryable hasInEdges(Queryable nodeQuery, Multiplicity multiplicity) {
 		return new HasEdges(Direction.IN, nodeQuery, null, multiplicity, null);
 	}
 
+	/**
+	 * <p>Check if a {@link Node} that satisfies a query has  number of out-{@link Edge}s  
+	 * that match a multiplicity.</p>
+	 * 
+	 * @param nodeQuery the query applied to the node
+	 * @param multiplicity the multiplicity of edges
+	 * @return an instance of HasEdges query
+	 */
 	public static Queryable hasOutEdges(Queryable nodeQuery, Multiplicity multiplicity) {
 		return new HasEdges(Direction.OUT, nodeQuery, null, multiplicity, null);
 	}
 
+	/**
+	 * <p>Check if a {@link TreeNode} has a parent that satisfies a query.</p>
+	 * @param query the query the parent must satisfy
+	 * @return an instance of HasParent query
+	 */
 	public static Queryable hasParent(Queryable query) {
 		return new HasParent(query);
 	}
 
+	/**
+	 * <p>Check if a {@link TreeNode} has a parent.</p>
+	 * @return an instance of HasParent query
+	 */
 	public static Queryable hasParent() {
 		return new HasParent(null);
 	}
 
+	/**
+	 * <p>Check if a {@link Node} is the same as the one passed to the constructor.</p>
+	 * @param node the node instance to compare to
+	 * @return an instance of IsNode query
+	 */
 	public static Queryable isNode(Node node) {
 		return new IsNode(node);
 	}
 
+	/**
+	 * <p>Check if a {@link Node} is found in the list of nodes passed to the constructor.</p>
+	 * 
+	 * @param nodes nodes to match
+	 * @return an instance of IsOneOf query
+	 */
 	public static Queryable isOneOf(Node... nodes) {
 		return new IsOneOf(nodes);
 	}
 
+	/**
+	 * <p>Check if a {@link Node} is a root node.</p>
+	 * @return an instance of NodeCharacteristics query
+	 */
 	public static Queryable isRoot() {
 		return new NodeCharacteristics(RootLeaf.ROOT);
 	}
 
+	/**
+	 * <p>Check if a {@link Node} is a leaf node.</p>
+	 * @return an instance of NodeCharacteristics query
+	 */
 	public static Queryable isLeaf() {
 		return new NodeCharacteristics(RootLeaf.LEAF);
 	}
 
 	// ------------------- Node lists
+	//
+	/**
+	 * <p> A {@link Queryable} to select in-edges of a list of Nodes.</p>
+	 * @return an instance of NodeListEdges query
+	 */
 	public static Queryable nodeListInEdges() {
 		return new NodeListEdges().direction(Direction.IN);
 	}
 
+	/**
+	 * <p> A {@link Queryable} to select out-edges of a list of Nodes.</p>
+	 * @return an instance of NodeListEdges query
+	 */
 	public static Queryable nodeListOutEdges() {
 		return new NodeListEdges().direction(Direction.OUT);
 	}
 
+	/**
+	 * <p> A {@link Queryable} to select all edges of a list of Nodes.</p>
+	 * @return an instance of NodeListEdges query
+	 */
 	public static Queryable nodeListEdges() {
 		return new NodeListEdges();
 	}
@@ -880,7 +993,7 @@ public class CoreQueries {
 	//
 
 	/**
-	 * <p>A {@link Query} to select the end Node of an Edge</p>
+	 * <p>A {@link Queryable} to select the end Node of an Edge</p>
 	 * @return the EdgeNodes query
 	 */
 	public static Queryable endNode() {
@@ -888,7 +1001,7 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>A {@link Query} to select the start Node of an Edge</p>
+	 * <p>A {@link Queryable} to select the start Node of an Edge</p>
 	 * @return the EdgeNodes query
 	 */
 	public static Queryable startNode() {
@@ -985,6 +1098,50 @@ public class CoreQueries {
 	 */
 	public static EdgeQuery isEdge(Queryable startNodeQuery, Queryable endNodeQuery) {
 		return new EdgeQuery(startNodeQuery, endNodeQuery);
+	}
+	
+	// UML
+	//
+	/**
+	 * <p>Check if an object is a UML multiplicity.</p>
+	 * @return an instance of IsMultiplicity query
+	 */
+	public static Queryable isMultiplicity() {
+		return new IsMultiplicity();
+	}
+	
+	/**
+	 * <p>Check if an object is an UML enumeration.</p>
+	 * <p>CAUTION: this is different from a java enumeration. see {@link CoreQueries#isEnum(Enum...)}
+	 * or {@link CoreQueries#isEnumStrings(String...)} if that is what you want to test.
+	 * @return an instance of the IsEnumeration query
+	 */
+	public static IsEnumeration isEnumeration() {
+		return new IsEnumeration();
+	}
+
+	/**
+	 * <p>Check if an object is an UML attribute.</p>
+	 * @return an instance of the IsUMLAttribute query
+	 */
+	public static IsUMLAttribute isAttribute() {
+		return new IsUMLAttribute();
+	}
+
+	/**
+	 * <p>Check if an object is an UML association.</p>
+	 * @return an instance of the IsUMLAssociation query
+	 */
+	public static IsUMLAssociation isAssociation() {
+		return new IsUMLAssociation();
+	}
+
+	/**
+	 * <p>Check if an object is an UML class.</p>
+	 * @return
+	 */
+	public static IsUMLClass isUMLClass() {
+		return new IsUMLClass();
 	}
 
 }

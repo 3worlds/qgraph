@@ -35,15 +35,37 @@ import fr.cnrs.iees.graph.ReadOnlyDataHolder;
 import fr.cnrs.iees.properties.ReadOnlyPropertyList;
 
 /**
- * <p>A {@link Query} to check that an object has a property and (optionally) a value.</p>
+ * <p>A {@link Queryable} to check that an object has a property and (optionally) a value.</p>
  * <dl>
  * <dt>Type of input to {@code process()}</dt>
- * <dd>{@link ReadOnlyPropertyList} or {@link ReadOnlyDataHolder} (remember that
- * {@link SimplePropertyList} and {@link DataHolder} are descendants of these, and as such
+ * <dd>{@link fr.cnrs.iees.properties.ReadOnlyPropertyList ReadOnlyPropertyList} or 
+ * {@link fr.cnrs.iees.graph.ReadOnlyDataHolder ReadOnlyDataHolder} (remember that
+ * {@link fr.cnrs.iees.properties.SimplePropertyList SimplePropertyList} and 
+ * {@link fr.cnrs.iees.graph.DataHolder DataHolder} are descendants of these, and as such
  * also constitute valid input)</dd>
  * <dt>Type of result</dt>
- * <dd>the property value, if applicable - otherwise no result</dd>
+ * <dd>the property value, if {@link ElementProperty#getValue() getValue()} has been called. In this
+ * case, the returned value is equal to the argument passed to {@link ElementProperty#defaultValue(Object) defaultValue(...)}
+ * if the property did not exist in input.
+ *  Otherwise no result</dd>
+ * <dt>Fails if</dt>
+ * <dd><ol>
+ * <li>input does not have a property named as the argument passed to 
+ * {@link ElementProperty#key(String) key(...)} <em>and</em> {@link ElementProperty#optional() optional()}
+ * has not been called (i.e., the property is required but not found)</li>
+ * <li>input property named as the argument passed to {@code key(...)} does not satisfy the query
+ * argument passed to {@link ElementProperty#query(Queryable) query(...)}</li>
+ * <li>input property named as the argument passed to {@code key(...)} value does not match
+ * the valued passed as argument to {@link ElementProperty#value(Object) value(...)}</li>
+ * </ol></dd> 
  * </dl>
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#hasProperty(String) 					CoreQueries.hasProperty(String)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#hasProperty(String, Object) 			CoreQueries.hasProperty(String, Object)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#hasProperty(String, Queryable) 			CoreQueries.hasProperty(String, Queryable)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#hasOptionalProperty(String, Queryable) 	CoreQueries.hasOptionalProperty(String, Queryable)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#getProperty(String, Object) 			CoreQueries.getProperty(String, Object)
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#getProperty(String) 					CoreQueries.getProperty(String)
  * 
  * @author Shayne Flint - 26/3/2012<br/>
  * 	refactored by Jacques Gignoux - 15/4/2019 <br/>

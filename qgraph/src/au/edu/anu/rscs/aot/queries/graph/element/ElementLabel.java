@@ -45,10 +45,14 @@ import fr.cnrs.iees.graph.Specialized;
  * <dd>{@code Specialized}</dd>
  * <dt>Type of result</dt>
  * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input class identifier ({@link Specialized#classId()}is not equal to one of the {@code String}s passed to the constructor</dd>
  * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
  * @author Jacques Gignoux - 7/9/2016
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#hasTheLabel(String...) CoreQueries.hasTheLabel(...)
  *
  */
 public class ElementLabel extends QueryAdaptor {

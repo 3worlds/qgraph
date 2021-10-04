@@ -37,7 +37,7 @@ import au.edu.anu.rscs.aot.queries.Queryable;
 
 /**
  * <p>
- * A {@link Query} to check that one or both {@link Node}s of an {@link Edge}
+ * A {@link Queryable} to check that one or both {@link Node}s of an {@link Edge}
  * satisfy some Query.
  * </p>
  * <dl>

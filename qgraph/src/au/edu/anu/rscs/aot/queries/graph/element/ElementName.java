@@ -45,9 +45,13 @@ import fr.cnrs.iees.identity.Identity;
  * <dd>{@code Identity}</dd>
  * <dt>Type of result</dt>
  * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input identifier ({@link Identity#id()}is not equal to one of the {@code String}s passed to the constructor</dd>
  * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
+ * 
+ * @see au.edu.anu.rscs.aot.queries.CoreQueries#hasTheName(String...) CoreQueries.hasTheName(...)
  *
  */
 public class ElementName extends QueryAdaptor {
