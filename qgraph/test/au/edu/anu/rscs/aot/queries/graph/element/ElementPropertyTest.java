@@ -43,7 +43,6 @@ import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
  *
  */
 public class ElementPropertyTest extends TestCase {
-	@SuppressWarnings("unused")
 	@Test
 	public void testHasProperty() {
 		SimplePropertyList props = new SimplePropertyListImpl("p1");

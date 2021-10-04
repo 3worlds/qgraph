@@ -84,6 +84,7 @@ class EdgeHasNodeTest {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	void testHasStartNode() {
 		{
@@ -98,6 +99,7 @@ class EdgeHasNodeTest {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	void testHasOtherNode() {
 		{
@@ -111,6 +113,7 @@ class EdgeHasNodeTest {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	void testHasBothNodes() {
 		{

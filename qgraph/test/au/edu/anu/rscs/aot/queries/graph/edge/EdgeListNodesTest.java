@@ -52,7 +52,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class EdgeListNodesTest {
 
 	private Node n1,n2,n3,n4;
-	@SuppressWarnings("unused")
 	private Graph<ALNode,ALEdge> g;
 	
 	@BeforeEach
@@ -69,6 +68,7 @@ class EdgeListNodesTest {
 		gf.makeEdge(n2,n3);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	void testStartNodes() {
 		Collection<Node> nodeList = (Collection<Node>) get(g.edges(),edgeListStartNodes());
@@ -77,6 +77,7 @@ class EdgeListNodesTest {
 		assertTrue(nodeList.contains(n2));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	void testEndNodes() {
 		Collection<Node> nodeList = (Collection<Node>) get(g.edges(),edgeListEndNodes());
@@ -86,6 +87,7 @@ class EdgeListNodesTest {
 		assertTrue(nodeList.contains(n4));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	void testOtherNodes() {
 		Collection<Node> nodeList = (Collection<Node>) get(g.edges(),edgeListOtherNodes(n3));
@@ -94,6 +96,7 @@ class EdgeListNodesTest {
 		assertTrue(nodeList.contains(n2));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	void testBothNodes() {
 		Collection<Node> nodeList = (Collection<Node>) get(g.edges(),edgeListBothNodes());

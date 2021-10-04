@@ -51,7 +51,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class NodeListEdgesTest {
 
 	private Node n1, n2, n3, n4;
-	@SuppressWarnings("unused")
 	private Edge e1, e2, e3, e4;
 	private List<Node> nl = new LinkedList<>();
 
