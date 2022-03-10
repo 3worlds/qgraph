@@ -1,0 +1,11 @@
+= The QGRAPH library
+
+*qgraph* defines a *graph* **q**uerying system to use with **omugi**.
+
+This package defines one ancestor interface, `Queryable`, and many implementations of it. `Queryable` descendants (we call them __queries__) can be used (1) to check that elements of a graph verify some condition or (2) to collect parts of the graph according to some conditions. Queries can be chained so that elaborate searches can be performed on a graph. This library actually defines a language to travel a graph, pick information, get elements based on some conditions, etc.
+
+Of course the list of queries can be freely expanded _ad infinitum_ by writing implementations of `Queryable`.
+
+See the https://3worlds.github.io/qgraph/qgraph/javadoc/index.html[javadoc]
+
+Depends on: https://github.com/3worlds/omhtk[omhtk], https://github.com/3worlds/omugi[omugi]
