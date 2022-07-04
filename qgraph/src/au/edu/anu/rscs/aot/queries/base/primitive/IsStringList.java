@@ -41,9 +41,7 @@ import au.edu.anu.rscs.aot.queries.Queryable;
  */
 
 /**
- * @author Ian Davies
- *
- * @date 21 Sept 2021
+ * @author Ian Davies - 21 Sept 2021
  */
 public class IsStringList extends QueryAdaptor {
 
