@@ -50,15 +50,7 @@ public class GraphIsTree extends QueryAdaptor {
 		return new GraphIsTree();
 	}
 
-//	@SuppressWarnings({ "unused", "unchecked" })
-//	@Override
-//	public Query process(Object item) {
-//		defaultProcess(item);
-//		Graph<Node, Edge> localItem = (Graph<Node, Edge>) item;
-//		throw new QGraphException("GraphIsTree is not implemented");
-//	}
 
-	@SuppressWarnings({ "unused", "unchecked" })
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);

@@ -30,7 +30,6 @@
 package au.edu.anu.rscs.aot.queries;
 
 import java.util.Date;
-import au.edu.anu.rscs.aot.QGraphException;
 import au.edu.anu.rscs.aot.queries.base.*;
 import au.edu.anu.rscs.aot.queries.base.primitive.*;
 import au.edu.anu.rscs.aot.queries.base.string.*;
@@ -195,9 +194,10 @@ public class CoreQueries {
 	public static Queryable isInstanceOf(String className) {
 		try {
 			return new IsInstanceOf(Class.forName(className));
-		} catch (Exception e) {
-			throw new QGraphException("Can't create IsInstanceOf constraint", e);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
+		return null;
 	}
 
 	/**

@@ -29,7 +29,6 @@
  **************************************************************************/
 package au.edu.anu.rscs.aot.queries.graph.uml;
 
-import au.edu.anu.rscs.aot.QGraphException;
 import au.edu.anu.rscs.aot.util.IntegerRange;
 
 /**
@@ -62,7 +61,7 @@ public enum Multiplicity {
 		else if (str.equals("0..*"))
 			return ZERO_MANY;
 		else
-			throw new QGraphException("Cannot convert '" + str + "' to a multiplicity.");
+			throw new IllegalArgumentException("Cannot convert '" + str + "' to a multiplicity.");
 	}
 
 	/**
@@ -82,7 +81,7 @@ public enum Multiplicity {
 			return ZERO_ONE;
 		if (first == 0 && last == Integer.MAX_VALUE)
 			return ZERO_MANY;
-		throw new QGraphException("Multiplicity: " + first + ".." + last + " is not a valid multiplicity");
+		throw new IllegalArgumentException("Multiplicity: " + first + ".." + last + " is not a valid multiplicity");
 	}
 
 	/**
@@ -100,7 +99,7 @@ public enum Multiplicity {
 			IntegerRange result = new IntegerRange(from, to);
 			return result;
 		} catch (NumberFormatException e) {
-			throw new QGraphException("Multiplicity string wrongly formatted: " + str);
+			throw new IllegalArgumentException("Multiplicity string wrongly formatted: " + str,e);
 		}
 	}
 
@@ -127,10 +126,11 @@ public enum Multiplicity {
 			return new IntegerRange(1, Integer.MAX_VALUE);
 		case ZERO_ONE:
 			return new IntegerRange(0, 1);
-		case ZERO_MANY:
-			return new IntegerRange(0, Integer.MAX_VALUE);
+//		case ZERO_MANY:
+//			return new IntegerRange(0, Integer.MAX_VALUE);
 		default:
-			throw new QGraphException("Something is very wrong - '" + this + "' cannot be converted to an IntegerRange");
+			//case ZERO_MANY
+			return new IntegerRange(0, Integer.MAX_VALUE);
 		}
 	}
 }

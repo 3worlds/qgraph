@@ -29,7 +29,6 @@
  **************************************************************************/
 package au.edu.anu.rscs.aot.queries.base;
 
-import au.edu.anu.rscs.aot.QGraphException;
 import au.edu.anu.rscs.aot.queries.QueryAdaptor;
 import au.edu.anu.rscs.aot.queries.Queryable;
 
@@ -59,20 +58,11 @@ public class PopQuery extends QueryAdaptor {
 		return count;
 	}
 
-//	@Override
-//	public Query process(Object item) {
-//		defaultProcess(item);
-//		throw new QGraphException("Shouldn't be called");
-//	}
-//	
-//	public String toString() {
-//		return "[Pop " + count + "]";
-//	}
 
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);
-		throw new QGraphException("Shouldn't be called");
+		throw new UnsupportedOperationException("Submitting " + this.getClass().getSimpleName() + " is not supported.");
 	}
 
 }

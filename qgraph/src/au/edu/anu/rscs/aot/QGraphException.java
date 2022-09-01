@@ -39,6 +39,7 @@ import fr.ens.biologie.generic.Textable;
  * 
  * 
  */
+@Deprecated
 public class QGraphException extends RuntimeException {
 
 	/**
