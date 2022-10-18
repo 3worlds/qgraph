@@ -27,42 +27,51 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.queries.base.string;
 
-import static au.edu.anu.qgraph.queries.CoreQueries.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import org.junit.Test;
-
+import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
 
 /**
+ * <p>Check if a {@link String} matches a regular expression pattern.</p>
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code String}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input doesnt match the regular expression passed to the constructor</dd>
+ * </dl>
+ * 
+ * @see au.edu.anu.qgraph.queries.CoreQueries#matchesPattern(String) CoreQueries.matchesPattern(...)
+ * 
+ * @author Shayne Flint - 26/3/2012
  *
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
+public class PatternString extends QueryAdaptor {
+
+	private String pattern;
+
+	/**
+	 * Constructor with a regular expression
+	 * @param pattern a regular expression
+	 */
+	public PatternString(String pattern) {
+		this.pattern = pattern;
 	}
+
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		Pattern p = Pattern.compile(pattern);
+		Matcher m = p.matcher((String) input);
+		if (!m.matches())
+			errorMsg = "Expected string to match pattern '" + pattern + "' but found '" + input + "'.";
+		return null;
+	}
+
 }

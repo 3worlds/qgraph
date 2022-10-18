@@ -27,42 +27,32 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.queries.base;
 
-import static au.edu.anu.qgraph.queries.CoreQueries.*;
-
-import org.junit.Test;
-
+import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
 
 /**
+ * WTF is this class for ???
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
+ * @author Shayne Flint - 26/3/2012
  *
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
+
+public class ResetQuery extends QueryAdaptor{
+		
+	public ResetQuery() {
 	}
+
+	public static Queryable reset() {
+		return new ResetQuery();
+	}
+
+
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		throw new UnsupportedOperationException("Submitting " + this.getClass().getSimpleName() + " is not supported.");
+	}
+
 }

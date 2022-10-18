@@ -27,42 +27,78 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.collections;
 
-import static au.edu.anu.qgraph.queries.CoreQueries.*;
-
-import org.junit.Test;
+import java.util.Collection;
 
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
+import au.edu.anu.rscs.aot.collections.DynamicList;
 
 /**
+ * A list filtered by a Query. List items can be any object.
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
+ * @author Shayne Flint - 23/4/2012
  *
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
+public class FilteredList<T> extends DynamicList<T>  {
+
+	/**
+	 * This constructor applies the query to every item in the collection argument. Items get in this
+	 * instance only if they satisfy the query.
+	 * 
+	 * @param list the list of items to check
+	 * @param query the query to apply to list
+	 */
+	public FilteredList(Collection<T> list, Queryable query) {
+		for (T item : list)
+			if (query.submit(item).satisfied())
+				add(item);
 	}
+
+
+	// TESTING
+	//
+
+//	public static void main(String[] args) {
+//
+//		final Logger log = LoggerFactory.getLogger(FilteredList.class);
+//		
+//		class TestList1 extends DynamicList<String> {
+//			public TestList1() {
+//				super("i1", "i2", "i3", "i4");
+//				log.debug("<<new test list>>");
+//			}
+//		}
+//
+//		// test constraints
+//		//
+//
+//		class TestList2 extends DynamicList<String> {
+//			public TestList2() {
+//				super("i1", "i2", "j3", "j4", "j5", "i6", "j7", "i8");
+//				log.debug("<<new test list 2>>");
+//			}
+//		}
+//
+//		class TestQuery extends Query {
+//
+//			@Override
+//			public TestQuery process(Object item) {
+//				defaultProcess(item);
+//				String localItem = (String)item;
+//				satisfied = localItem.startsWith("i");
+//				return this;
+//			}
+//
+//		}
+//
+//		DynamicList<String> list = new TestList2();
+//		log.debug("list = {}", list);
+//		FilteredList<String> filteredList = new FilteredList<String>(list, new TestQuery());
+//		log.debug("filtered list = {}", filteredList);
+//
+//	}
+
+
+
 }

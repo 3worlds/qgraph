@@ -27,42 +27,89 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.queries.base;
 
-import static au.edu.anu.qgraph.queries.CoreQueries.*;
-
-import org.junit.Test;
-
+import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
 
 /**
+ * <p>Apply a query on a collection of objects. Will fail at the first object not satisfying
+ * the query.</p>
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code Iterable<Object>};</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>one object of the collection passed as input does not satisfy the query passed to the constructor</dd>
+ * </dl>
+ * 
+ * @author Shayne Flint - 26/3/2012
+ * 
+ * @see au.edu.anu.qgraph.queries.CoreQueries#forAll(Queryable) CoreQueries.forAll(...)
  *
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
+
+public class ForAllQuery extends QueryAdaptor {
+		
+	private Queryable query;
+	
+	/**
+	 * 
+	 * @param query the query to apply to objects
+	 */
+	public ForAllQuery(Queryable query) {
+		this.query = query;
 	}
+
+	/**
+	 * Getter
+	 * @return the query
+	 */
+	public Queryable getQuery() {
+		return query;
+	}
+	
+
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public boolean satisfied(Object item) {
+//		Iterable<Object> localItem = (Iterable<Object>)item;
+//		for (Object obj : localItem)
+//			if (!query.satisfied(obj))
+//				return false;
+//		return true;
+//	}
+
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public ForAllQuery process(Object item) {
+//		defaultProcess(item);
+//		Iterable<Object> localItem = (Iterable<Object>)item;
+//		for (Object obj : localItem) {
+//			query.process(obj);
+//			satisfied = query.satisfied();
+//			if (!satisfied()) {
+//				return this;
+//			}
+//		}
+//		satisfied = true;
+//		return this;
+//	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		Iterable<Object> localItem = (Iterable<Object>)input;
+		for (Object obj : localItem) {
+			if (!query.submit(obj).satisfied()) {
+				errorMsg = "Expected '"+obj+"' to be satisfied but found '"+query.errorMsg()+"'.";
+				return this;			
+			};	
+		}
+		return this;
+	}
+	
 }

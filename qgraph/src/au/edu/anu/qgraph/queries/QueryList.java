@@ -27,42 +27,50 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.queries;
 
-import static au.edu.anu.qgraph.queries.CoreQueries.*;
-
-import org.junit.Test;
-
-import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
+import au.edu.anu.rscs.aot.collections.DynamicList;
 
 /**
+ * <p>An ancestor for compound queries grouping multiple queries.</p>
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
- *
+ * @author Shayne Flint - 26/3/2012 <br/>
+ * refactored by Ian Davies - 23 Feb. 2021
+ * 
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
+public abstract class QueryList extends QueryAdaptor {
+
+	private DynamicList<Queryable> queryList = new DynamicList<Queryable>();
+
+	/**
+	 * 
+	 * @param queries the queries grouped in this instance
+	 */
+	public QueryList(Queryable... queries) {
+		for (Queryable q : queries)
+			addQuery(q);
 	}
+
+	protected QueryList addQuery(Queryable... queries) {
+		for (Queryable q : queries)
+			queryList.add(q);
+		return this;
+	}
+
+	protected DynamicList<Queryable> queryList() {
+		return queryList;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder description = new StringBuilder().append("[");
+		if (queryList.isEmpty())
+			description.append("]");
+		else
+			for (Queryable q : queryList()) {
+				description.append(q.toString());
+			}
+		return description.append("]").toString();
+	}
+
 }

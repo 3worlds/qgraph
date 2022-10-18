@@ -27,42 +27,77 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.queries.graph;
 
-import static au.edu.anu.qgraph.queries.CoreQueries.*;
-
-import org.junit.Test;
-
+import fr.cnrs.iees.graph.Node;
+import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
+import fr.cnrs.iees.graph.Edge;
+import fr.cnrs.iees.graph.Graph;
 
 /**
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
+ * @author Shayne Flint - 26/3/2012
  *
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
+// NOT TESTED
+
+public class HasOnlyNodes extends QueryAdaptor {
+
+	private Queryable nodeQuery;
+
+	public HasOnlyNodes(Queryable nodeQuery) {
+		this.nodeQuery = nodeQuery;
 	}
+
+	public static HasOnlyNodes hasOnlyNodes(Queryable nodeQuery) {
+		return new HasOnlyNodes(nodeQuery);
+	}
+
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public Query process(Object item) {
+//		defaultProcess(item);
+//		Graph<Node, Edge> localItem = (Graph<Node, Edge>) item;
+//		for (Node n : localItem.nodes()) {
+//			nodeQuery.process(n);
+//			if (!nodeQuery.satisfied()) {
+//				satisfied = false;
+//				return this;
+//			}
+//		}
+//		satisfied = true;
+//		return this;
+//	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		Graph<Node, Edge> localItem = (Graph<Node, Edge>) input;
+		for (Node n : localItem.nodes()) {
+			if (!nodeQuery.submit(n).satisfied()) {
+				errorMsg = nodeQuery.errorMsg();
+				return this;
+			}
+		}
+		return this;
+	}
+
+//	@Override
+//	public String toString() {
+//		return "[All nodes must satisfy " + nodeQuery + "]";
+//	}
+
+	// TESTING
+	//
+
+//	public static void main(String[] args) {
+//		TestGraph tg = new TestGraph();
+//		NodeList  nl = tg.getNodeList();
+//		HasOnlyNodes q = hasOnlyNodes(IsClass.isClass(TestNode.class, TestNode2.class));
+//		//		HasNodes q = hasNodes(IsClass.isClass(TestNode.class));
+//		q.check(nl);
+//	}
+
 }

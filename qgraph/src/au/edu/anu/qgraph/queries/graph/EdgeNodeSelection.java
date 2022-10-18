@@ -27,42 +27,23 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
-
-import static au.edu.anu.qgraph.queries.CoreQueries.*;
-
-import org.junit.Test;
-
-import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
+package au.edu.anu.qgraph.queries.graph;
 
 /**
+ * An enum to describe the tips of an {@link fr.cnrs.iees.graph.Edge}.
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
+ * @author Shayne Flint - 26/3/2012
  *
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
-	}
+public enum EdgeNodeSelection {
+
+	/** The start tip (for directed edges) */
+	START, 
+	/** The end tip (for directed edges) */
+	END, 
+	/** The opposite end of the edge */
+	OTHER, 
+	/** Both ends of an edge*/
+	BOTH
+	
 }

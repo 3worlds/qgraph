@@ -27,42 +27,80 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.queries.base;
 
-import static au.edu.anu.qgraph.queries.CoreQueries.*;
-
-import org.junit.Test;
-
-import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
+import au.edu.anu.qgraph.queries.QueryAdaptor;
+import fr.ens.biologie.generic.Sizeable;
 
 /**
+ * Query testing if the size of a {@link Sizeable} object is within a specified
+ * range.
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@link Sizeable}</dd>
+ * <dt>Type of result</dt>
+ * <dd>Sizeable ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input size is not within the (integer) range set with the {@link #min(int)} and
+ * {@link #max(int)} methods.</dd>
+ * </dl>
+ * 
+ * @author Shayne Flint - 26/3/2012
+ * 
+ * @see au.edu.anu.qgraph.queries.CoreQueries#inRange(int, int) CoreQueries.inRange(int,int)
+ * @see au.edu.anu.qgraph.queries.CoreQueries#hasMin(int) CoreQueries.hasMin(...)
+ * @see au.edu.anu.qgraph.queries.CoreQueries#hasMax(int) CoreQueries.hasMax(...)
+ * @see au.edu.anu.qgraph.queries.CoreQueries#inRange(au.edu.anu.rscs.aot.util.IntegerRange) CoreQueries.inRange(IntegerRange)
  *
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
+public class SizeQuery extends QueryAdaptor {
+	private int min;
+	private int max;
+
+	/**
+	 * Default constructor with the range [0;+∞[
+	 */
+	public SizeQuery() {
+		this.min = 0;
+		this.max = Integer.MAX_VALUE;
 	}
+
+	/**
+	 * Only {@link Sizeable} arguments will be checked.
+	 */
+	@Override
+	public QueryAdaptor submit(Object input) {
+		initInput(input);
+		Sizeable localItem = (Sizeable) result;
+		long size = localItem.size();
+		boolean ok = (size >= min) && (size <= max);
+		if (!ok)
+			errorMsg = "Expected size of '" + localItem.getClass().getSimpleName() + "' to be within the range [" + min
+					+ ".." + max + "] but found size of '" + localItem.size() + "'.";
+		return this;
+	}
+
+	/**
+	 * Set the range minimum value (default = 0)
+	 * 
+	 * @param m the value
+	 * @return this instance for agile programming
+	 */
+	public SizeQuery min(int m) {
+		min = m;
+		return this;
+	}
+
+	/**
+	 * Set the range maximum value (default = {@code Integer.MAX_VALUE})
+	 * 
+	 * @param m the value
+	 * @return this instance for agile programming
+	 */
+	public SizeQuery max(int m) {
+		max = m;
+		return this;
+	}
+
 }

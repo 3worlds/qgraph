@@ -27,42 +27,59 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.queries.base;
 
-import static au.edu.anu.qgraph.queries.CoreQueries.*;
-
-import org.junit.Test;
-
+import au.edu.anu.qgraph.queries.QueryList;
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
 
 /**
+ * Query testing if exactly one of its sub-queries is satisfied.
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>any class;</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>not <em>exactly one</em> of the queries passed to the constructor is satisfied when applied to input</dd>
+ * </dl>
+ * 
+ * @author Shayne Flint - 26/3/2012
+ * 
+ * @see au.edu.anu.qgraph.queries.CoreQueries#xorQuery(Queryable...) CoreQueries.xorQuery(...)
  *
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
+public class XorQuery extends QueryList {
+
+	public XorQuery(Queryable... queries) {
+		super(queries);
 	}
+
+	/**
+	 * Argument can be of any class.
+	 */
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		int count = 0;
+		for (Queryable q : queryList()) {
+			q.submit(input);
+			if (q.satisfied()) {
+				count++;
+				if (count > 1) {
+					errorMsg = this + "expected only ONE query to be TRUE.";
+					return this;
+				}
+			}
+		}
+		if (count == 0)
+			errorMsg = this + "expected ONE query to be TRUE.";
+		return this;
+	}
+
+	@Override
+	public String toString() {
+		return "[" + this.getClass().getSimpleName() + " " + super.toString() + "]";
+	}
+
 }

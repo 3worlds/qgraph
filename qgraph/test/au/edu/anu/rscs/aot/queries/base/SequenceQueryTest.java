@@ -29,10 +29,13 @@
  **************************************************************************/
 package au.edu.anu.rscs.aot.queries.base;
 
+import static au.edu.anu.qgraph.queries.CoreQueries.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
 
 import org.junit.jupiter.api.Test;
+
+import au.edu.anu.qgraph.queries.base.PopQuery;
+import au.edu.anu.qgraph.queries.base.SequenceQuery;
 
 /**
  * 

@@ -27,42 +27,72 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.queries.graph.node;
+
+import fr.cnrs.iees.graph.Direction;
+import fr.cnrs.iees.graph.Node;
 
 import static au.edu.anu.qgraph.queries.CoreQueries.*;
+import static au.edu.anu.qgraph.queries.base.SequenceQuery.*;
 
-import org.junit.Test;
-
+import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
 
 /**
+ * <p>A Query to select {@link fr.cnrs.iees.graph.Edge Edge}s linked to a {@link fr.cnrs.iees.graph.Node Node}.</p>
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code Node}</dd>
+ * <dt>Type of result</dt>
+ * <dd>{@link java.util.Collection Collection}{@code <Edge>}</dd>
+ * <dt>Fails if</dt>
+ * <dd>never fails (the returned list may be empty)</dd>
+ * </dl>
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
+ * @see au.edu.anu.qgraph.queries.CoreQueries#inEdges()			CoreQueries.inEdges()
+ * @see au.edu.anu.qgraph.queries.CoreQueries#outEdges()			CoreQueries.outEdges()
+ * @see au.edu.anu.qgraph.queries.CoreQueries#inEdges(Queryable)	CoreQueries.inEdges(Queryable)
+ * @see au.edu.anu.qgraph.queries.CoreQueries#outEdges(Queryable)	CoreQueries.outEdges(Queryable)
+ * 
+ * @author Shayne Flint - 2/4/2012
  *
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
+public class NodeEdges extends QueryAdaptor{
+	private Direction direction;
+	private Queryable query;
+
+	/**
+	 *  Only {@link Node} arguments will be checked.
+	 */
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		Node localItem = (Node)input;
+		if (query==null)
+			result = localItem.edges(direction);
+		else
+			result = get(localItem.edges(direction),selectZeroOrMany(query));
+		return this;
+	}
+
+	// Fluid interface
+	/**
+	 * Set the direction in which to search for {@code Edge}s
+	 * @param d the direction
+	 * @return this instance for agile programming
+	 */
+	public NodeEdges direction(Direction d) {
+		direction = d;
+		return this;
+	}
+	
+	/**
+	 * Set the Query edges must satisfy
+	 * @param q the query
+	 * @return this instance for agile programming
+	 */
+	public NodeEdges query(Queryable q) {
+		query = q;
+		return this;
 	}
 }

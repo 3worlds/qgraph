@@ -27,42 +27,38 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.queries.graph.uml;
 
-import static au.edu.anu.qgraph.queries.CoreQueries.*;
-
-import org.junit.Test;
-
+import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
 
 /**
+ * <p>Check if an object is an UML multiplicity.</p>
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
- *
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code Object}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input is not an instance of {@link Multiplicity}</dd>
+ * </dl>
+ * 
+ * @author Shayne Flint - 26/3/2012
+ * 
+ * @see au.edu.anu.qgraph.queries.CoreQueries#isMultiplicity() CoreQueries.isMultiplicity()
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
+public class IsMultiplicity extends QueryAdaptor {
+
+	public IsMultiplicity() {
 	}
+
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		if (!(input instanceof Multiplicity))
+			errorMsg = "Expected "+Multiplicity.class.getName()+ " but found "+input.getClass().getName()+".";			
+		return this;
+	}
+
 }

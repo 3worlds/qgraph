@@ -27,42 +27,58 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.queries.base.primitive;
 
-import static au.edu.anu.qgraph.queries.CoreQueries.*;
-
-import org.junit.Test;
-
+import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
 
 /**
+ * <p>Check if an object is a {@link long}, or if it is within a given range.</p>
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@link Object}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd><ol>
+ * <li>input is not a {@code Long}</li>
+ * <li>input value is not the within the range passed in the constructor</li>
+ * </ol></dd> 
+ * </dl>
+ * 
+ * @author Shayne Flint - 26/3/2012
  *
+ * @see au.edu.anu.qgraph.queries.CoreQueries#isLong() CoreQueries.isLong()
+ * @see au.edu.anu.qgraph.queries.CoreQueries#longInRange(long, long) CoreQueries.longInRange(...)
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
+
+public class IsLong extends QueryAdaptor {
+
+	private long min;
+	private long max;
+
+	/**
+	 * Constructor with a range
+	 * @param min the lower end of the range
+	 * @param max  the upper end of the range
+	 */
+	public IsLong(long min, long max) {
+		this.min = min;
+		this.max = max;
 	}
+
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		if (!(input instanceof Long)) {
+			errorMsg = "Expected '"+Long.class.getName()+"' but found '" + input.getClass().getName() + "'.";
+			return this;
+		}
+		Long localItem = (Long) input;
+		if (localItem > max || localItem < min)
+			errorMsg = "Expected Long to be in range ']" + min + ".." + max + "[' but found '" + localItem + "'";
+		return this;
+	}
+
 }

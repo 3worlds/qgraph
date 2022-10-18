@@ -27,42 +27,60 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.queries.base;
 
-import static au.edu.anu.qgraph.queries.CoreQueries.*;
-
-import org.junit.Test;
-
+import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
 
 /**
+ * Checks that an integer ('count') is within a range.
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>Integer</dd>
+ * <dt>Type of result</dt>
+ * <dd>Integer ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input integer is not within the range passed to the constructor</dd>
+ * </dl>
+ * 
+ * @author Shayne Flint - 27/8/2012
+ * 
+ * @see au.edu.anu.qgraph.queries.CoreQueries#hasCount(int) CoreQueries.hasCount(int)
+ * @see au.edu.anu.qgraph.queries.CoreQueries#countInRange(int, int) CoreQueries.countInRange(int,int)
+ * @see au.edu.anu.qgraph.queries.CoreQueries#countInRange(au.edu.anu.rscs.aot.util.IntegerRange) CoreQueries.countInRange(IntegerRange)
+ * @see au.edu.anu.qgraph.queries.CoreQueries#hasMinCount(int) CoreQueries.hasMinCount(int)
+ * @see au.edu.anu.qgraph.queries.CoreQueries#hasMaxCount(int) CoreQueries.hasMaxCount(int)
  *
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
+
+public class CountQuery extends QueryAdaptor {
+
+	private int min;
+	private int max;
+
+	/**
+	 * Constructor with min and max (caution: no check that min&lt;max). 
+	 * @param min
+	 * @param max
+	 */
+	public CountQuery(int min, int max) {
+		this.min = min;
+		this.max = max;
 	}
+
+	/**
+	 * Only Integer argument will be checked.
+	 */
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		Integer localItem = (Integer)input;
+		if (!((localItem >= min) && (localItem <= max)))
+			errorMsg ="[Expected Integer to be in the range " + min + ".." + max + " but found '"+localItem+"']";
+		return this;
+	}
+
+
+
 }

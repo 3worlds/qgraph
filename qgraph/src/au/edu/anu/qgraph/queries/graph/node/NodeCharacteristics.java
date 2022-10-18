@@ -27,42 +27,66 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.queries.graph.node;
 
-import static au.edu.anu.qgraph.queries.CoreQueries.*;
-
-import org.junit.Test;
-
+import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
+import fr.cnrs.iees.graph.Node;
 
 /**
+ * <p>Check if a {@link Node} is a leaf or root node.</p>
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@link Node}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input {@code Node} is not a leaf/root as requested in the constructor</dd>
+ * </dl>
+ * 
+ * @see au.edu.anu.qgraph.queries.CoreQueries#isLeaf() CoreQueries.isLeaf()
+ * @see au.edu.anu.qgraph.queries.CoreQueries#isRoot() CoreQueries.isRoot()
+ * 
+ * @author Shayne Flint - 2/4/2012
  *
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
+public class NodeCharacteristics extends QueryAdaptor {
+
+	public enum RootLeaf {
+		ROOT, LEAF;
 	}
+
+	private RootLeaf mode;
+
+	/**
+	 * 
+	 * @param mode {@code RootLeaf.ROOT} to check if node is root or {@code RootLeaf.LEAF} to
+	 * check if node is leaf
+	 */
+	public NodeCharacteristics(RootLeaf mode) {
+		this.mode = mode;
+	}
+
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		Node localItem = (Node)input;
+		boolean ok = true;
+		switch (mode) {
+		case ROOT:
+			if (!localItem.isRoot())
+				ok = false;
+			break;
+		case LEAF:
+			if (!localItem.isLeaf())
+				ok = false;
+			break;
+		}
+		if (!ok)
+			errorMsg = "Expected '"+localItem.toShortString()+"' to be "+mode+" node.";
+		return this;
+	}
+	
+
 }

@@ -27,42 +27,72 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.queries.base.string;
 
-import static au.edu.anu.qgraph.queries.CoreQueries.*;
-
-import org.junit.Test;
-
+import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
 
 /**
+ * <p>
+ * Check if a {@link String} represents the class passed to the constructor.
+ * </p>
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code String}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>
+ * <ol>
+ * <li>input does not refer to a class known by the application</li>
+ * <li>input is not the class passed to the constructor or one of its
+ * descendants</li>
+ * </ol>
+ * </dd>
+ * </dl>
+ * 
+ * @author Shayne Flint - 26/3/2012
+ * 
+ * @see au.edu.anu.qgraph.queries.CoreQueries#classIsClass(Class)
+ *      CoreQueries.classIsClass(...)
+ * @see au.edu.anu.qgraph.queries.CoreQueries#stringIsClass(String)
+ *      CoreQueries.stringIsClass(...)
  *
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
+// NOT TESTED
+
+public class ClassQuery extends QueryAdaptor {
+
+	private Class<?> parentClass = null;
+
+	public ClassQuery(String parentClassName) {
+		try {
+			this.parentClass = Class.forName(parentClassName);
+		} catch (ClassNotFoundException e) {
+			// re-throw for context
+			throw new IllegalStateException(
+					"Parent class '" + parentClassName + "' in constraint '" + this + "' does not exist", e);
 		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
 	}
+
+	public ClassQuery(Class<?> parentClass) {
+		this.parentClass = parentClass;
+	}
+
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		String localItem = (String) input;
+		try {
+			Class<?> c = Class.forName(localItem);
+			if (!parentClass.isAssignableFrom(c))
+				errorMsg = "Expected '" + parentClass.getName() + "' to be assignable from '" + input + "'.";
+			return this;
+		} catch (Exception e) {
+			errorMsg = "Expected a java class but found '" + e.getMessage() + "'.";
+			return this;
+		}
+	}
+
 }

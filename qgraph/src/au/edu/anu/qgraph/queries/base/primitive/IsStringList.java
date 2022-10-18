@@ -27,42 +27,53 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.queries.base.primitive;
 
-import static au.edu.anu.qgraph.queries.CoreQueries.*;
+import java.util.List;
 
-import org.junit.Test;
-
+import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
 
 /**
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
+ * @author Shayne Flint - 26/3/2012
  *
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
+
+/**
+ * @author Ian Davies - 21 Sept 2021
+ */
+public class IsStringList extends QueryAdaptor {
+
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		// NB: It's not possible to know the element class in an empty generic by
+		// reflection - its not in the JVM.
+		if (!(List.class.isAssignableFrom(input.getClass()))) {
+			errorMsg = "Expected 'List<String>' but found '" + input.getClass().getName() + "'.";
+			return this;
 		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
+
+		List<?> lst = (List<?>) input;
+		if (lst.isEmpty()) {
+			errorMsg = "Expected non-empty 'List<String>' but found '" + input.getClass().getName() + "<?>'.";
+			return this;
 		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
+		Object e = lst.get(0);
+		if (!(e instanceof String)) {
+			errorMsg = "Expected 'List<String>' but found 'List<" + e.getClass().getSimpleName() + ">'.";
+			return this;
 		}
-		// TODO
+		return this;
+
+//		
+//		Type[] par = input.getClass().getTypeParameters();
+//		if (!(List.class.isAssignableFrom(input.getClass())) 
+//				&& (par[0].getClass().equals(String.class))) {
+//			errorMsg = "'"+input.getClass().getSimpleName()+"' is not a StringList";
+//		};
+//		return this;
 	}
+
 }

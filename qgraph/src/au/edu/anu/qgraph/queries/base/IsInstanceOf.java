@@ -27,42 +27,48 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.queries.base;
 
-import static au.edu.anu.qgraph.queries.CoreQueries.*;
-
-import org.junit.Test;
-
+import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
 
 /**
+ * <p>Checks that an Object is an instance of the Class passed as argument of 
+ * this Query's constructor.</p>
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>any class</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input is not an instance of the class passed to the constructor</dd>
+ * </dl>
+ * @author Shayne Flint - 26/3/2012
  *
+ * @see au.edu.anu.qgraph.queries.CoreQueries#isInstanceOf(Class) CoreQueries.isInstanceOf(Class)
+ * @see au.edu.anu.qgraph.queries.CoreQueries#isInstanceOf(String) CoreQueries.isInstanceOf(String
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
+
+public class IsInstanceOf extends QueryAdaptor {
+
+	private Class<?> theClass;
+
+	/**
+	 * 
+	 * @param theClass the class to compare objects to
+	 */
+	public IsInstanceOf(Class<?> theClass) {
+		this.theClass = theClass;
 	}
+
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		if (!theClass.isInstance(input))
+			errorMsg = "Expected '"+input+"' to be an instance of '"+theClass+"'.";					
+		return this;
+	}
+
+
 }

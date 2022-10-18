@@ -27,42 +27,49 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.queries.graph.uml;
 
 import static au.edu.anu.qgraph.queries.CoreQueries.*;
 
-import org.junit.Test;
-
+import au.edu.anu.qgraph.queries.CoreQueries;
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
+import au.edu.anu.qgraph.queries.base.AndQuery;
+import au.edu.anu.qgraph.queries.base.SequenceQuery;
+import au.edu.anu.qgraph.queries.graph.node.HasEdges;
+import fr.cnrs.iees.graph.Direction;
+
 
 /**
+ * <p>Check if an object is an UML association.</p>
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code Object}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input is not an {@link fr.cnrs.iees.graph.Element Element} with class id "association" ... and other complicated things
+ * (TODO: finish this)</dd>
+ * </dl>
+ * 
+ * <p>Note: implemented as an AndQuery.</p>
+ * 
+ * @see au.edu.anu.qgraph.queries.CoreQueries#isAssociation() CoreQueries.isAssociation()
+ * 
+ * @author Shayne Flint - 26/3/2012
  *
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
+public class IsUMLAssociation extends AndQuery  {
+
+	public IsUMLAssociation() {
+		Queryable edgeQuery = new SequenceQuery(hasProperty("phrase"), 
+			hasProperty("multiplicity",
+			isEnum(Multiplicity.values()) ));
+		addQuery(
+			hasTheLabel("association"),
+			new HasEdges(CoreQueries.isUMLClass(),Direction.OUT,Multiplicity.ONE).withLabel("passive").withEdgeQuery(edgeQuery),			
+			new HasEdges(CoreQueries.isUMLClass(),Direction.OUT, Multiplicity.ONE).withLabel("active").withEdgeQuery(edgeQuery),
+			new HasEdges(CoreQueries.isUMLClass(),Direction.OUT, Multiplicity.ZERO_ONE).withLabel("associativeClass"));
 	}
+
 }

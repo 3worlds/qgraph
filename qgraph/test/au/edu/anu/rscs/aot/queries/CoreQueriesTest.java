@@ -29,6 +29,7 @@
  **************************************************************************/
 package au.edu.anu.rscs.aot.queries;
 
+import static au.edu.anu.qgraph.queries.CoreQueries.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
@@ -36,10 +37,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static au.edu.anu.rscs.aot.queries.CoreQueries.*;
-
 import org.junit.jupiter.api.Test;
 
+import au.edu.anu.qgraph.queries.Queryable;
 import au.edu.anu.rscs.aot.collections.DynamicList;
 import au.edu.anu.rscs.aot.util.IntegerRange;
 import fr.cnrs.iees.graph.Direction;

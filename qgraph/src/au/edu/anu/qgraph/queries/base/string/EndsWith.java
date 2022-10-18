@@ -27,42 +27,49 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.queries.base.string;
 
-import static au.edu.anu.qgraph.queries.CoreQueries.*;
-
-import org.junit.Test;
-
+import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
 
 /**
+ * <p>Check if a {@link String} ends with the {@code String} passed to the constructor.</p>
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code String}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input does not contained the {@code String} passed to the constructor</dd>
+ * </dl>
+ * 
+ * @see au.edu.anu.qgraph.queries.CoreQueries#endsWith(String) CoreQueries.endsWith(...)
+ * 
+ * @author Shayne Flint - 26/3/2012
  *
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
+
+public class EndsWith extends QueryAdaptor {
+	
+	private String str;
+	
+	public EndsWith(String str) {
+		this.str = str;
 	}
+
+//	public static Queryable endsWith(String str) {
+//		return new EndsWith(str);
+//	}
+
+
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		String localItem = (String)input;
+		if (!localItem.endsWith(str))
+			errorMsg = "Expected '"+localItem+"' to end with '"+str+"'.";
+		return this;
+	}
+
 }

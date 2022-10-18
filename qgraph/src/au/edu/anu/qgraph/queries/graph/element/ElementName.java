@@ -27,42 +27,63 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.queries.graph.element;
 
-import static au.edu.anu.qgraph.queries.CoreQueries.*;
+import java.util.Arrays;
 
-import org.junit.Test;
-
+import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
+import fr.cnrs.iees.identity.Identity;
 
 /**
+ * <p>A Query for {@link Identity} objects, which have a unique identifier {@code id}, also called 
+ * <em>a name</em>.
+ * Checks that the object name/id matches one of the names built in the Query.</p>
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@code Identity}</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input ({@code result=input})</dd>
+ * <dt>Fails if</dt>
+ * <dd>input identifier ({@link Identity#id()}is not equal to one of the {@code String}s passed to the constructor</dd>
+ * </dl>
+ * 
+ * @author Shayne Flint - 26/3/2012
+ * 
+ * @see au.edu.anu.qgraph.queries.CoreQueries#hasTheName(String...) CoreQueries.hasTheName(...)
  *
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
+public class ElementName extends QueryAdaptor {
+
+	private String[] names;
+
+	/**
+	 * 
+	 * @param names a list of ids to compare to
+	 */
+	public ElementName(String... names) {
+		this.names = names;
 	}
+
+	/**
+	 * Only {@link Identity} arguments will be checked.
+	 */
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		String name = ((Identity) input).id();
+		for (String n : names) {
+			if (n.equals(name))
+				return this;
+		}
+		errorMsg = "Name '" + name + "' not found in " + Arrays.deepToString(names);
+		return this;
+	}
+
+	@Override
+	public String toString() {
+		return getClass().getSimpleName() + Arrays.deepToString(names);
+	}
+
 }

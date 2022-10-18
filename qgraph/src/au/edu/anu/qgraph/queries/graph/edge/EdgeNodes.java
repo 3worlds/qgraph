@@ -27,42 +27,94 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.queries.graph.edge;
 
-import static au.edu.anu.qgraph.queries.CoreQueries.*;
-
-import org.junit.Test;
-
+import fr.cnrs.iees.graph.Edge;
+import fr.cnrs.iees.graph.Node;
+import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
+import au.edu.anu.qgraph.queries.graph.EdgeNodeSelection;
 
 /**
+ * <p>A {@link Queryable} to select start, end, other-end or both-ends Nodes of an Edge</p>
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>{@link Edge}</dd>
+ * <dt>Type of result</dt>
+ * <dd>{@link Node}</dd>
+ * <dt>Fails if</dt>
+ * <dd>never fails (may return {@code null})</dd>
+ * </dl>
+ *  
+ * @see au.edu.anu.qgraph.queries.CoreQueries#endNode() CoreQueries.endNode()
+ * @see au.edu.anu.qgraph.queries.CoreQueries#startNode() CoreQueries.startNode()
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
+ * @author Shayne Flint - 26/3/2012
  *
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
+// NOT TESTED
+public class EdgeNodes extends QueryAdaptor {
+	private EdgeNodeSelection edgeNodeSelection;
+	private Node refNode;
+
+	/**
+	 * Only {@link Edge} arguments will be checked.
+	 */
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		if (input == null)
+			throw new NullPointerException("Input is NULL for '" + this.getClass().getSimpleName() + "'.");
+
+		Edge localItem = (Edge) input;
+		switch (edgeNodeSelection) {
+		case START:
+			result = localItem.startNode();
+			break;
+		case END:
+			result = localItem.endNode();
+			break;
+		case OTHER:
+			result = localItem.otherNode(refNode);
+			break;
+//		case BOTH:
+//			// CAUTION: this is probably flawed. shouldnt return an array but a list ???
+//			Node[] nn = new Node[2];
+//			nn[0] = localItem.startNode();
+//			nn[1] = localItem.endNode();
+//			result = nn;
+//			break;
+		default:{
+			// BOTH NB CAUTION: this is probably flawed. shouldnt return an array but a list ???
+			Node[] nn = new Node[2];
+			nn[0] = localItem.startNode();
+			nn[1] = localItem.endNode();
+			result = nn;
 		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
 		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
+		return this;
+
 	}
+	// Fluid interface
+
+	/**
+	 * Set the {@link Node} at one of the tips of the edge (to look for the other)
+	 * @param n the start or end node of the edge
+	 * @return this instance for agile programming
+	 */
+	public EdgeNodes refNode(Node n) {
+		refNode = n;
+		return this;
+	}
+
+	/**
+	 * Set which end of the Edge should be searched for
+	 * @param s a type of edge tip
+	 * @return this instance for agile programming
+	 */
+	public EdgeNodes edgeNodeSelection(EdgeNodeSelection s) {
+		edgeNodeSelection = s;
+		return this;
+	}
+
 }

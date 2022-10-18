@@ -27,42 +27,69 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.queries.graph.node;
 
-import static au.edu.anu.qgraph.queries.CoreQueries.*;
+import java.util.HashSet;
+import java.util.Set;
 
-import org.junit.Test;
-
+import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
+import au.edu.anu.rscs.aot.collections.DynamicList;
+import fr.cnrs.iees.graph.Direction;
+import fr.cnrs.iees.graph.Edge;
+import fr.cnrs.iees.graph.Node;
 
 /**
+ * <p> A {@link Queryable} to select In, OUT or all edges of a list of Nodes.</p>
+ * <dl>
+ * <dt>Type of input to {@code process()}</dt>
+ * <dd>Iterable&lt;Node&gt;</dd>
+ * <dt>Type of result</dt>
+ * <dd>DynamicList&lt;Edge&gt;</dd>
+ * <dt>Fails if</dt>
+ * <dd>never fails (the returned list may be empty)</dd>
+ * </dl>
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
+ * @see au.edu.anu.qgraph.queries.CoreQueries#nodeListEdges() CoreQueries.nodeListEdges()
+ * @see au.edu.anu.qgraph.queries.CoreQueries#nodeListInEdges() CoreQueries.nodeListInEdges()
+ * @see au.edu.anu.qgraph.queries.CoreQueries#nodeListOutEdges() CoreQueries.nodeListOutEdges()
+ * 
+ * @author Shayne Flint - 2/4/2012
  *
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
+public class NodeListEdges extends QueryAdaptor {
+	private Direction direction;
+
+	/**
+	 * Only collections (actually {@link Iterable}s) of {@link Node}s arguments will be checked.
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public Queryable submit(Object input) {
+		initInput(input);
+		Iterable<Node> localItem = (Iterable<Node>) input;
+
+		Set<Edge> edgeSet = new HashSet<>();
+		if (direction != null)
+			for (Node n : localItem)
+				edgeSet.addAll(n.edges(direction));
+		else
+			for (Node n : localItem)
+				edgeSet.addAll(n.edges());
+		result = new DynamicList<Edge>(edgeSet);
+		return this;
+
 	}
+
+	// Fluid interface
+	/**
+	 * Set the direction in which to search for edges
+	 * @param d the direction in which to search
+	 * @return this instance for agile programming
+	 */
+	public NodeListEdges direction(Direction d) {
+		direction = d;
+		return this;
+	}
+
 }

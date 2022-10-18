@@ -27,42 +27,68 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
-
-import static au.edu.anu.qgraph.queries.CoreQueries.*;
-
-import org.junit.Test;
-
-import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
-import junit.framework.TestCase;
+package au.edu.anu.qgraph.queries;
 
 /**
+ * <p>An ancestor implementation for queries with default behaviour for all methods of 
+ * {@link Queryable} but {@code submit(...)}.</p>
  * 
- * @author Yao Wang - 11/9/2012 (refactored by JG 2018 refactored ID 2021)
- *
+ * <p>Rules for writing descendants:</p>
+ * <ul>
+ * <li>call {@code initInput(input)} in {@code submit(...)} to reset field values to default (
+ * {@code satisfied=true, errorMsg=null, actionMsg=null}).</li>
+ * <li>only test what this query is meant to check. e.g., if {@code input==null} the query
+ * should return satisfied unless it is an {@code isNull} query. </li>
+ * </ul>
+ * 
+ * <dl>
+ * <dt>Type of input to {@code submit()}</dt>
+ * <dd>any class;</dd>
+ * <dt>Type of result</dt>
+ * <dd>same as input (by default {@code result=input})</dd>
+ * </dl>
+ * 
+ * @author Ian Davies - 23 Feb. 2021
  */
-public class ElementPropertyTest extends TestCase {
-	@Test
-	public void testHasProperty() {
-		SimplePropertyList props = new SimplePropertyListImpl("p1");
-		props.setProperty("p1", 1234);
-		{
-			Queryable q = hasProperty("p1");
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 1234);
-			q.submit(props);
-			assertTrue(q.satisfied());
-		}
-		{
-			Queryable q = hasProperty("p1", 12345);
-			q.submit(props);
-			assertTrue(!q.satisfied());
-		}
-		// TODO
+public abstract class QueryAdaptor implements Queryable {
+	protected Object result;
+	protected String errorMsg;
+	protected String actionMsg;
+
+	protected Queryable initInput(Object input/* , Class<?> expected */) {
+		result = input;
+		// NB: default is satisfied() == true;
+		errorMsg = null;
+		actionMsg = null;
+		return this;
 	}
+
+	@Override
+	public final boolean satisfied() {
+		return errorMsg == null;
+	}
+
+	@Override
+	public final String errorMsg() {
+		return errorMsg;
+	}
+	
+	@Override
+	public final String actionMsg() {
+		return actionMsg;
+	}
+
+	@Override
+	public final Object result() {
+		return result;
+	}
+
+	@Override
+	public String toString() {
+		if (satisfied())
+			return "[" + this.getClass().getSimpleName() + " is TRUE]";
+		else
+			return "[" + this.getClass().getSimpleName() + " is FALSE [" + errorMsg + "]]";
+	}
+
 }
