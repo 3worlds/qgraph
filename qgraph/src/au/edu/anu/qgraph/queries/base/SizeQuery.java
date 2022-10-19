@@ -30,7 +30,7 @@
 package au.edu.anu.qgraph.queries.base;
 
 import au.edu.anu.qgraph.queries.QueryAdaptor;
-import fr.ens.biologie.generic.Sizeable;
+import fr.cnrs.iees.omhtk.Sizeable;
 
 /**
  * Query testing if the size of a {@link Sizeable} object is within a specified
