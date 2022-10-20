@@ -27,7 +27,7 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries;
+package au.edu.anu.qgraph.queries;
 
 import static au.edu.anu.qgraph.queries.CoreQueries.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,8 +40,8 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import au.edu.anu.qgraph.queries.Queryable;
-import au.edu.anu.rscs.aot.collections.DynamicList;
-import au.edu.anu.rscs.aot.util.IntegerRange;
+import au.edu.anu.omhtk.collections.DynamicList;
+import au.edu.anu.omhtk.util.IntegerRange;
 import fr.cnrs.iees.graph.Direction;
 import fr.cnrs.iees.io.GraphFileFormats;
 

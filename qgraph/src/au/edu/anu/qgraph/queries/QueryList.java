@@ -29,7 +29,7 @@
  **************************************************************************/
 package au.edu.anu.qgraph.queries;
 
-import au.edu.anu.rscs.aot.collections.DynamicList;
+import au.edu.anu.omhtk.collections.DynamicList;
 
 /**
  * <p>An ancestor for compound queries grouping multiple queries.</p>

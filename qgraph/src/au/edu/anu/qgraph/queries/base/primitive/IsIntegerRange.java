@@ -31,7 +31,7 @@ package au.edu.anu.qgraph.queries.base.primitive;
 
 import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
-import au.edu.anu.rscs.aot.util.IntegerRange;
+import au.edu.anu.omhtk.util.IntegerRange;
 
 /**
  * Checks if an object is an {@link IntegerRange}.

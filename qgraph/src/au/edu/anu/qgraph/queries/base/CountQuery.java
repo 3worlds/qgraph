@@ -48,7 +48,7 @@ import au.edu.anu.qgraph.queries.Queryable;
  * 
  * @see au.edu.anu.qgraph.queries.CoreQueries#hasCount(int) CoreQueries.hasCount(int)
  * @see au.edu.anu.qgraph.queries.CoreQueries#countInRange(int, int) CoreQueries.countInRange(int,int)
- * @see au.edu.anu.qgraph.queries.CoreQueries#countInRange(au.edu.anu.rscs.aot.util.IntegerRange) CoreQueries.countInRange(IntegerRange)
+ * @see au.edu.anu.qgraph.queries.CoreQueries#countInRange(au.edu.anu.omhtk.util.IntegerRange) CoreQueries.countInRange(IntegerRange)
  * @see au.edu.anu.qgraph.queries.CoreQueries#hasMinCount(int) CoreQueries.hasMinCount(int)
  * @see au.edu.anu.qgraph.queries.CoreQueries#hasMaxCount(int) CoreQueries.hasMaxCount(int)
  *

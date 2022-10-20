@@ -29,7 +29,7 @@
  **************************************************************************/
 package au.edu.anu.qgraph.queries.graph.node;
 
-import au.edu.anu.rscs.aot.collections.DynamicList;
+import au.edu.anu.omhtk.collections.DynamicList;
 import fr.cnrs.iees.graph.Direction;
 import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Node;

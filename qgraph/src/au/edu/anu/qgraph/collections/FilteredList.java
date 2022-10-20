@@ -32,7 +32,7 @@ package au.edu.anu.qgraph.collections;
 import java.util.Collection;
 
 import au.edu.anu.qgraph.queries.Queryable;
-import au.edu.anu.rscs.aot.collections.DynamicList;
+import au.edu.anu.omhtk.collections.DynamicList;
 
 /**
  * A list filtered by a Query. List items can be any object.

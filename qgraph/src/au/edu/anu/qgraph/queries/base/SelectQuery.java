@@ -36,7 +36,7 @@ import java.util.Iterator;
 import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
 import au.edu.anu.qgraph.queries.graph.uml.Multiplicity;
-import au.edu.anu.rscs.aot.util.IntegerRange;
+import au.edu.anu.omhtk.util.IntegerRange;
 
 /**
  * <p>A query to select items based on multiplicities. It is a powerful way to filter the results of

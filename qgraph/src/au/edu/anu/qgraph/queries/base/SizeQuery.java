@@ -51,7 +51,7 @@ import fr.cnrs.iees.omhtk.Sizeable;
  * @see au.edu.anu.qgraph.queries.CoreQueries#inRange(int, int) CoreQueries.inRange(int,int)
  * @see au.edu.anu.qgraph.queries.CoreQueries#hasMin(int) CoreQueries.hasMin(...)
  * @see au.edu.anu.qgraph.queries.CoreQueries#hasMax(int) CoreQueries.hasMax(...)
- * @see au.edu.anu.qgraph.queries.CoreQueries#inRange(au.edu.anu.rscs.aot.util.IntegerRange) CoreQueries.inRange(IntegerRange)
+ * @see au.edu.anu.qgraph.queries.CoreQueries#inRange(au.edu.anu.omhtk.util.IntegerRange) CoreQueries.inRange(IntegerRange)
  *
  */
 public class SizeQuery extends QueryAdaptor {

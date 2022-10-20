@@ -41,7 +41,7 @@
  *     
  * <tr><td>{@link au.edu.anu.qgraph.queries.base.SizeQuery SizeQuery}</td> 
  * 	   <td>check  that  the size of an object is within a specified range</td>
- *     <td>{@link fr.ens.biologie.generic.Sizeable Sizeable}</td> <tr/>
+ *     <td>{@link fr.cnrs.iees.omhtk.Sizeable Sizeable}</td> <tr/>
  *     
  * <tr><td>{@link au.edu.anu.qgraph.queries.base.SelectQuery SelectQuery}</td> 
  * 	   <td>select objects of a collection according to a multiplicity, optionally using a query</td>
@@ -167,4 +167,4 @@
  */
 package au.edu.anu.qgraph;
 
-import au.edu.anu.rscs.aot.util.IntegerRange;
+import au.edu.anu.omhtk.util.IntegerRange;

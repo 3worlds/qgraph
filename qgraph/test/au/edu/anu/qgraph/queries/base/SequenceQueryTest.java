@@ -27,102 +27,101 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.base;
+package au.edu.anu.qgraph.queries.base;
 
 import static au.edu.anu.qgraph.queries.CoreQueries.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import au.edu.anu.qgraph.queries.base.SelectQuery;
+import au.edu.anu.qgraph.queries.base.PopQuery;
 import au.edu.anu.qgraph.queries.base.SequenceQuery;
-import au.edu.anu.rscs.aot.collections.DynamicList;
 
 /**
  * 
  * @author Yao Wang - 11/9/2012
  *
  */
-class SelectQueryTest {
-
-	DynamicList<String> twi = new DynamicList<String>("test", "bert", "jenny", "tanya", "xerces");
+class SequenceQueryTest {
+	@Test
+	public void testStartWith() {
+		SequenceQuery q = new SequenceQuery(startsWith("He"), startsWith("Hell"));
+		q.submit("Hello There");
+		assertTrue(q.satisfied());
+	}
 
 	@Test
-	public void testSelectZeroOrOne() {
+	public void testEndWith() {
+		SequenceQuery q = new SequenceQuery(startsWith("He"), startsWith("Hell"));
+		q.submit("Hello There");
+		assertTrue(q.satisfied());
+	}
+
+	@Test
+	public void testContainsSubstring() {
+		SequenceQuery q = new SequenceQuery(startsWith("He"), endsWith("ere"), containsSubstring("ello"));
+		q.submit("Hello There");
+		assertTrue(q.satisfied());
+	}
+
+	@Test
+	public void testLength() {
 		{
-			SelectQuery q = selectZeroOrOne(startsWith("b"));
-			q.submit(twi);
+			SequenceQuery q = new SequenceQuery(startsWith("He"), endsWith("ere"), containsSubstring("ello"), length(),
+					integerInRange(1, 11));
+			q.submit("Hello There");
 			assertTrue(q.satisfied());
 		}
-
 		{
-			SelectQuery q = selectZeroOrOne(startsWith("t"));
-			q.submit(twi);
+			SequenceQuery q = new SequenceQuery(startsWith("He"), endsWith("ere"), containsSubstring("ello"), length(),
+					integerInRange(1, 10));
+			q.submit("Hello There");
 			assertTrue(!q.satisfied());
 		}
 	}
 
 	@Test
-	public void testSelectZeroOrMany() {
-
+	public void testPop() {
 		{
-			SelectQuery q = selectZeroOrMany(startsWith("b"));
-			q.submit(twi);
+			SequenceQuery q = new SequenceQuery(startsWith("He"), endsWith("ere"), containsSubstring("ello"), length(),
+					PopQuery.pop(1), integerInRange(1, 10));
+			q.submit("Hello There");
+			assertTrue(!q.satisfied());
+		}
+		{
+			SequenceQuery q = new SequenceQuery(startsWith("He"), endsWith("ere"), containsSubstring("ello"), length(),
+					PopQuery.pop(1));
+			q.submit("Hello There");
 			assertTrue(q.satisfied());
 		}
 
-		{
-			SelectQuery q = selectZeroOrMany(startsWith("Z"));
-			q.submit(twi);
-			assertTrue(q.satisfied());
-		}
 	}
 
 	@Test
-	public void testSelectOne() {
-		{
-			SelectQuery q = selectOne(startsWith("x"));
-			q.submit(twi);
-			assertTrue(q.satisfied());
-		}
-
-		{
-			SelectQuery q = selectOne(startsWith("t"));
-			q.submit(twi);
-			assertTrue(!q.satisfied());
-		}
+	public void testIntegerInRange() {
+		SequenceQuery q = new SequenceQuery(integerInRange(1, 20));
+		q.submit(1);
+		assertTrue(q.satisfied());
 	}
 
 	@Test
-	public void testSelectOneOrMany() {
-
-		{
-			SelectQuery q = selectOneOrMany(startsWith("b"));
-			q.submit(twi);
-			assertTrue(q.satisfied());
-		}
-
-		{
-			SelectQuery q = selectOneOrMany(startsWith("Z"));
-			q.submit(twi);
-			assertTrue(!q.satisfied());
-		}
+	public void testFloatInRange() {
+		SequenceQuery q = new SequenceQuery(floatInRange(1f, 20f));
+		q.submit(1.2f);
+		assertTrue(q.satisfied());
 	}
 
 	@Test
-	public void testExclusive() {
-		SelectQuery q = selectZeroOrMany(new SequenceQuery(length(), hasCount(4))).exclusive();
-
-		{
-			DynamicList<String> lst = new DynamicList<String>("test", "bert", "jenn");
-			q.submit(lst);
-			assertTrue(q.satisfied());
-		}
-		{
-			DynamicList<String> lst = new DynamicList<String>("test", "bert", "jenny", "tanya", "xerces");
-			q.submit(lst);
-			assertTrue(!q.satisfied());
-		}
+	public void testLongInRange() {
+		SequenceQuery q = new SequenceQuery(longInRange(1l, 20l));
+		q.submit(10l);
+		assertTrue(q.satisfied());
 	}
 
+	@Test
+	public void testIsDouble() {
+		SequenceQuery q = new SequenceQuery(doubleInRange(1, 20));
+		q.submit(1.2);
+		assertTrue(q.satisfied());
+	}
 }

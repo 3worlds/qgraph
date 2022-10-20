@@ -29,7 +29,7 @@
  **************************************************************************/
 package au.edu.anu.qgraph.queries.graph.uml;
 
-import au.edu.anu.rscs.aot.util.IntegerRange;
+import au.edu.anu.omhtk.util.IntegerRange;
 
 /**
  * The four main multiplicities used in UML.

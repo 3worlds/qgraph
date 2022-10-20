@@ -35,7 +35,7 @@ import java.util.Set;
 import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
 import au.edu.anu.qgraph.queries.graph.EdgeNodeSelection;
-import au.edu.anu.rscs.aot.collections.DynamicList;
+import au.edu.anu.omhtk.collections.DynamicList;
 import fr.cnrs.iees.graph.Edge;
 import fr.cnrs.iees.graph.Node;
 

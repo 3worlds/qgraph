@@ -45,7 +45,7 @@ import au.edu.anu.qgraph.queries.graph.uml.IsUMLAssociation;
 import au.edu.anu.qgraph.queries.graph.uml.IsUMLAttribute;
 import au.edu.anu.qgraph.queries.graph.uml.IsUMLClass;
 import au.edu.anu.qgraph.queries.graph.uml.Multiplicity;
-import au.edu.anu.rscs.aot.util.IntegerRange;
+import au.edu.anu.omhtk.util.IntegerRange;
 import fr.cnrs.iees.graph.*;
 
 /**
@@ -568,7 +568,7 @@ public class CoreQueries {
 	// Size
 	//
 	/**
-	 * Check that the size of the input (of class {@link fr.ens.biologie.generic.Sizeable Sizeable}) is within range
+	 * Check that the size of the input (of class {@link fr.cnrs.iees.omhtk.Sizeable Sizeable}) is within range
 	 * 
 	 * @param min the lower end of the range
 	 * @param max the upper end of the range
@@ -579,7 +579,7 @@ public class CoreQueries {
 	}
 
 	/**
-	 * Check that the size of the input (of class {@link fr.ens.biologie.generic.Sizeable Sizeable}) is above minimum
+	 * Check that the size of the input (of class {@link fr.cnrs.iees.omhtk.Sizeable Sizeable}) is above minimum
 	 * 
 	 * @param min the minimum
 	 * @return the resulting SizeQuery query
@@ -589,7 +589,7 @@ public class CoreQueries {
 	}
 
 	/**
-	 * Check that the size of the input (of class {@link fr.ens.biologie.generic.Sizeable Sizeable}) is below maximum
+	 * Check that the size of the input (of class {@link fr.cnrs.iees.omhtk.Sizeable Sizeable}) is below maximum
 	 * 
 	 * @param max the maximum
 	 * @return the resulting SizeQuery query
@@ -599,7 +599,7 @@ public class CoreQueries {
 	}
 
 	/**
-	 * Check that the size of the input (of class {@link fr.ens.biologie.generic.Sizeable Sizeable}) is within range
+	 * Check that the size of the input (of class {@link fr.cnrs.iees.omhtk.Sizeable Sizeable}) is within range
 	 * 
 	 * @param range the range
 	 * @return the resulting SizeQuery query

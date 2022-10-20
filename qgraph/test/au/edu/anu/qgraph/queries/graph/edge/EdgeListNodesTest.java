@@ -27,19 +27,19 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.edge;
+package au.edu.anu.qgraph.queries.graph.edge;
 
 import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import fr.cnrs.iees.graph.Direction;
-import fr.cnrs.iees.graph.Edge;
+import fr.cnrs.iees.graph.Graph;
 import fr.cnrs.iees.graph.Node;
+import fr.cnrs.iees.graph.impl.ALEdge;
+import fr.cnrs.iees.graph.impl.ALGraph;
 import fr.cnrs.iees.graph.impl.ALGraphFactory;
+import fr.cnrs.iees.graph.impl.ALNode;
 
 import static au.edu.anu.qgraph.queries.CoreQueries.*;
 import static au.edu.anu.qgraph.queries.base.SequenceQuery.*;
@@ -50,84 +50,62 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author Yao Wang - 11/9/2012 (refactored by JG 2018)
  *
  */
-class EdgeHasNodeTest {
+class EdgeListNodesTest {
 
-	private Node n1, n2, n3;
-	private List<Node> nl = new LinkedList<>();
-	private ALGraphFactory gf = new ALGraphFactory("zozo");
-
+	private Node n1,n2,n3,n4;
+	private Graph<ALNode,ALEdge> g;
+	
 	@BeforeEach
 	private void init() {
+		ALGraphFactory gf = new ALGraphFactory("brouf");
+		g = new ALGraph<ALNode,ALEdge>(gf);
 		n1 = gf.makeNode();
 		n2 = gf.makeNode();
 		n3 = gf.makeNode();
-		gf.makeEdge(n1, n2);
-		gf.makeEdge(n1, n2);
-		gf.makeEdge(n1, n3);
-		gf.makeEdge(n1, n3);
-		nl.add(n1);
-		nl.add(n2);
-		nl.add(n3);
+		n4 = gf.makeNode();
+		gf.makeEdge(n1,n2);
+		gf.makeEdge(n1,n3);
+		gf.makeEdge(n1,n4);
+		gf.makeEdge(n2,n3);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	void testStartNodes() {
+		Collection<Node> nodeList = (Collection<Node>) get(g.edges(),edgeListStartNodes());
+		assertTrue(nodeList.size() == 2);
+		assertTrue(nodeList.contains(n1));
+		assertTrue(nodeList.contains(n2));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Test
-	void testHasEndNode() {
-		{
-			Collection<Edge> edges = (Collection<Edge>) get(n1.edges(Direction.OUT),
-					selectZeroOrMany(hasEndNode(isNode(n2))));
-			assertTrue(edges.size() == 2);
-		}
-		{
-			Collection<Edge> edges = (Collection<Edge>) get(n1.edges(Direction.OUT),
-					selectZeroOrMany(hasEndNode(isNode(n3))));
-			assertTrue(edges.size() == 2);
-		}
+	void testEndNodes() {
+		Collection<Node> nodeList = (Collection<Node>) get(g.edges(),edgeListEndNodes());
+		assertTrue(nodeList.size() == 3);
+		assertTrue(nodeList.contains(n2));
+		assertTrue(nodeList.contains(n3));
+		assertTrue(nodeList.contains(n4));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Test
-	void testHasStartNode() {
-		{
-			Collection<Edge> edges = (Collection<Edge>) get(n2.edges(Direction.IN),
-					selectZeroOrMany(hasStartNode(isNode(n1))));
-			assertTrue(edges.size() == 2);
-		}
-		{
-			Collection<Edge> edges = (Collection<Edge>) get(n3.edges(Direction.IN),
-					selectZeroOrMany(hasStartNode(isNode(n1))));
-			assertTrue(edges.size() == 2);
-		}
+	void testOtherNodes() {
+		Collection<Node> nodeList = (Collection<Node>) get(g.edges(),edgeListOtherNodes(n3));
+		assertTrue(nodeList.size() == 2);
+		assertTrue(nodeList.contains(n1));
+		assertTrue(nodeList.contains(n2));
 	}
 
 	@SuppressWarnings("unchecked")
 	@Test
-	void testHasOtherNode() {
-		{
-			Collection<Edge> edges = (Collection<Edge>) get(n2.edges(), selectZeroOrMany(hasOtherNode(isNode(n1), n2)));
-			assertTrue(edges.size() == 2);
-		}
-		{
-			Collection<Edge> edges = (Collection<Edge>) get(n3.edges(Direction.IN),
-					selectZeroOrMany(hasOtherNode(isNode(n1), n3)));
-			assertTrue(edges.size() == 2);
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	@Test
-	void testHasBothNodes() {
-		{
-			gf.makeEdge(n1, n1);
-			Collection<Edge> edges = (Collection<Edge>) get(n1.edges(Direction.IN),
-					selectZeroOrMany(hasBothNodes(isNode(n1))));
-			assertTrue(edges.size() == 1);
-		}
-		{
-			Collection<Edge> edges = (Collection<Edge>) get(n3.edges(Direction.IN),
-					selectZeroOrMany(hasBothNodes(isNode(n1))));
-			assertTrue(edges.size() == 0);
-		}
+	void testBothNodes() {
+		Collection<Node> nodeList = (Collection<Node>) get(g.edges(),edgeListBothNodes());
+		assertTrue(nodeList.size() == 4);
+		assertTrue(nodeList.contains(n1));
+		assertTrue(nodeList.contains(n2));
+		assertTrue(nodeList.contains(n3));
+		assertTrue(nodeList.contains(n4));
 	}
 
 }

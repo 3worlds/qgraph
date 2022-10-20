@@ -27,7 +27,7 @@
  *  along with QGRAPH. If not, see <https://www.gnu.org/licenses/gpl.html>*
  *                                                                        *
  **************************************************************************/
-package au.edu.anu.rscs.aot.queries.graph.element;
+package au.edu.anu.qgraph.queries.graph.element;
 
 import static au.edu.anu.qgraph.queries.CoreQueries.*;
 
