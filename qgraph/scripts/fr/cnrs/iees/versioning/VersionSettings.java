@@ -84,8 +84,8 @@ public class VersionSettings {
 	 *
 	 */
 	protected static String[][] DEPS = {
-		{"fr.cnrs.iees.omhtk", "generics", "[0.4.0,)", null},
-		{"fr.cnrs.iees.omugi", "omugi", "[0.5.0,)", null},
+		{"fr.cnrs.iees.omhtk", "generics", "[0.5.0,)", null},
+		{"fr.cnrs.iees.omugi", "omugi", "[0.6.0,)", null},
 	};
 
 	/** The name of the main class to put in the jar manifest, if any. This enables users to

@@ -53,6 +53,7 @@ public class GraphIsTree extends QueryAdaptor {
 	public Queryable submit(Object input) {
 		initInput(input);
 		try {
+			@SuppressWarnings({ "unused", "unchecked" })
 			Graph<Node, Edge> localItem = (Graph<Node, Edge>) input;
 		} catch (Exception e) {
 			errorMsg = "Expected '" + input + "' to be of type Graph<Node,Edge>";

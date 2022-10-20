@@ -39,7 +39,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import au.edu.anu.qgraph.queries.Queryable;
 import au.edu.anu.omhtk.collections.DynamicList;
 import au.edu.anu.omhtk.util.IntegerRange;
 import fr.cnrs.iees.omugi.graph.Direction;

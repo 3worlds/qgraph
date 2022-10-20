@@ -34,8 +34,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import au.edu.anu.qgraph.queries.base.SelectQuery;
-import au.edu.anu.qgraph.queries.base.SequenceQuery;
 import au.edu.anu.omhtk.collections.DynamicList;
 
 /**

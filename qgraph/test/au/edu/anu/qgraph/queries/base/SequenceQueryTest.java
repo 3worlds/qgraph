@@ -34,9 +34,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import au.edu.anu.qgraph.queries.base.PopQuery;
-import au.edu.anu.qgraph.queries.base.SequenceQuery;
-
 /**
  * 
  * @author Yao Wang - 11/9/2012
