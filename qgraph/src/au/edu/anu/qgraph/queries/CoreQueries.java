@@ -46,7 +46,7 @@ import au.edu.anu.qgraph.queries.graph.uml.IsUMLAttribute;
 import au.edu.anu.qgraph.queries.graph.uml.IsUMLClass;
 import au.edu.anu.qgraph.queries.graph.uml.Multiplicity;
 import au.edu.anu.omhtk.util.IntegerRange;
-import fr.cnrs.iees.graph.*;
+import fr.cnrs.iees.omugi.graph.*;
 
 /**
  *

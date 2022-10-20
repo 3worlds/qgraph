@@ -30,16 +30,13 @@
 package au.edu.anu.qgraph.queries.graph.node;
 
 import au.edu.anu.omhtk.collections.DynamicList;
-import fr.cnrs.iees.graph.Direction;
-import fr.cnrs.iees.graph.Edge;
-import fr.cnrs.iees.graph.Node;
+import fr.cnrs.iees.omugi.graph.*;
 
 import static au.edu.anu.qgraph.queries.CoreQueries.*;
 import static au.edu.anu.qgraph.queries.base.SequenceQuery.get;
 
 import au.edu.anu.qgraph.collections.FilteredList;
-import au.edu.anu.qgraph.queries.QueryAdaptor;
-import au.edu.anu.qgraph.queries.Queryable;
+import au.edu.anu.qgraph.queries.*;
 import au.edu.anu.qgraph.queries.graph.uml.Multiplicity;
 
 /**

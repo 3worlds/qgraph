@@ -31,9 +31,8 @@ package au.edu.anu.qgraph.queries.graph.element;
 
 import java.util.Arrays;
 
-import au.edu.anu.qgraph.queries.QueryAdaptor;
-import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.graph.Specialized;
+import au.edu.anu.qgraph.queries.*;
+import fr.cnrs.iees.omugi.graph.Specialized;
 
 /**
  * <p>A Query for {@link Specialized} objects which have a class identifier, {@code classId}, 

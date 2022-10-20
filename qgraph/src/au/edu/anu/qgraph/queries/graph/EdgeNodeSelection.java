@@ -30,7 +30,7 @@
 package au.edu.anu.qgraph.queries.graph;
 
 /**
- * An enum to describe the tips of an {@link fr.cnrs.iees.graph.Edge}.
+ * An enum to describe the tips of an {@link fr.cnrs.iees.omugi.graph.Edge}.
  * 
  * @author Shayne Flint - 26/3/2012
  *

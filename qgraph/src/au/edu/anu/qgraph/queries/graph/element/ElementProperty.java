@@ -31,17 +31,17 @@ package au.edu.anu.qgraph.queries.graph.element;
 
 import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.graph.ReadOnlyDataHolder;
-import fr.cnrs.iees.properties.ReadOnlyPropertyList;
+import fr.cnrs.iees.omugi.graph.ReadOnlyDataHolder;
+import fr.cnrs.iees.omugi.properties.ReadOnlyPropertyList;
 
 /**
  * <p>A {@link Queryable} to check that an object has a property and (optionally) a value.</p>
  * <dl>
  * <dt>Type of input to {@code process()}</dt>
  * <dd>{@link fr.cnrs.iees.properties.ReadOnlyPropertyList ReadOnlyPropertyList} or 
- * {@link fr.cnrs.iees.graph.ReadOnlyDataHolder ReadOnlyDataHolder} (remember that
+ * {@link fr.cnrs.iees.omugi.graph.ReadOnlyDataHolder ReadOnlyDataHolder} (remember that
  * {@link fr.cnrs.iees.properties.SimplePropertyList SimplePropertyList} and 
- * {@link fr.cnrs.iees.graph.DataHolder DataHolder} are descendants of these, and as such
+ * {@link fr.cnrs.iees.omugi.graph.DataHolder DataHolder} are descendants of these, and as such
  * also constitute valid input)</dd>
  * <dt>Type of result</dt>
  * <dd>the property value, if {@link ElementProperty#getValue() getValue()} has been called. In this

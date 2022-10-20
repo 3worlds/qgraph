@@ -32,7 +32,7 @@ package au.edu.anu.qgraph.queries.graph.node;
 import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
 import au.edu.anu.omhtk.collections.DynamicList;
-import fr.cnrs.iees.graph.TreeNode;
+import fr.cnrs.iees.omugi.graph.TreeNode;
 
 import static au.edu.anu.qgraph.queries.CoreQueries.*;
 import static au.edu.anu.qgraph.queries.base.SequenceQuery.*;
@@ -41,7 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>Get parts of a {@link fr.cnrs.iees.graph.Tree Tree} starting from a {@link fr.cnrs.iees.graph.TreeNode TreeNode}.</p>
+ * <p>Get parts of a {@link fr.cnrs.iees.omugi.graph.Tree Tree} starting from a {@link fr.cnrs.iees.omugi.graph.TreeNode TreeNode}.</p>
  * 
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>

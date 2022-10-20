@@ -29,11 +29,9 @@
  **************************************************************************/
 package au.edu.anu.qgraph.queries.graph.edge;
 
-import au.edu.anu.qgraph.queries.QueryAdaptor;
-import au.edu.anu.qgraph.queries.Queryable;
+import au.edu.anu.qgraph.queries.*;
 import au.edu.anu.qgraph.queries.graph.EdgeNodeSelection;
-import fr.cnrs.iees.graph.Edge;
-import fr.cnrs.iees.graph.Node;
+import fr.cnrs.iees.omugi.graph.*;
 
 /**
  * <p>

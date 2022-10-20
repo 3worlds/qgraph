@@ -29,8 +29,7 @@
  **************************************************************************/
 package au.edu.anu.qgraph.queries.graph.node;
 
-import fr.cnrs.iees.graph.Direction;
-import fr.cnrs.iees.graph.Node;
+import fr.cnrs.iees.omugi.graph.*;
 
 import static au.edu.anu.qgraph.queries.CoreQueries.*;
 import static au.edu.anu.qgraph.queries.base.SequenceQuery.*;

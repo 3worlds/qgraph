@@ -29,7 +29,7 @@
  **************************************************************************/
 package au.edu.anu.qgraph.queries.graph.node;
 
-import fr.cnrs.iees.graph.TreeNode;
+import fr.cnrs.iees.omugi.graph.TreeNode;
 
 import static au.edu.anu.qgraph.queries.CoreQueries.*;
 import static au.edu.anu.qgraph.queries.base.SequenceQuery.get;

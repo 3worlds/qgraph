@@ -43,7 +43,7 @@ import au.edu.anu.qgraph.queries.base.AndQuery;
  * <dt>Type of result</dt>
  * <dd>same as input ({@code result=input})</dd>
  * <dt>Fails if</dt>
- * <dd>input is not an {@link fr.cnrs.iees.graph.Element Element} with class id "enumeration" and property "literals"</dd>
+ * <dd>input is not an {@link fr.cnrs.iees.omugi.graph.Element Element} with class id "enumeration" and property "literals"</dd>
  * </dl>
  * 
  * <p>Note: implemented as an AndQuery.</p>

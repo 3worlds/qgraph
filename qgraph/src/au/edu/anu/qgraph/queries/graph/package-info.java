@@ -1,5 +1,5 @@
 /**
- * <p>Queries applying to {@link fr.cnrs.iees.graph.Graph Graph}s.</p>
+ * <p>Queries applying to {@link fr.cnrs.iees.omugi.graph.Graph Graph}s.</p>
  * 
  * @author Jacques Gignoux - 4 oct. 2021
  *

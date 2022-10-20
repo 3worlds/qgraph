@@ -32,12 +32,10 @@ package au.edu.anu.qgraph.queries.graph.edge;
 import java.util.HashSet;
 import java.util.Set;
 
-import au.edu.anu.qgraph.queries.QueryAdaptor;
-import au.edu.anu.qgraph.queries.Queryable;
+import au.edu.anu.qgraph.queries.*;
 import au.edu.anu.qgraph.queries.graph.EdgeNodeSelection;
 import au.edu.anu.omhtk.collections.DynamicList;
-import fr.cnrs.iees.graph.Edge;
-import fr.cnrs.iees.graph.Node;
+import fr.cnrs.iees.omugi.graph.*;
 
 /**
  * <p>A {@link Queryable} to select start, end, other-end or both-ends Nodes of a list of Edges</p> 

@@ -32,7 +32,7 @@ package au.edu.anu.qgraph.queries.graph.node;
 import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
 import au.edu.anu.omhtk.collections.DynamicList;
-import fr.cnrs.iees.graph.Node;
+import fr.cnrs.iees.omugi.graph.Node;
 
 /**
  * <p>Check if a {@link Node} is found in the list of nodes passed to the constructor.</p>

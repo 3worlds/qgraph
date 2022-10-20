@@ -31,7 +31,7 @@ package au.edu.anu.qgraph.queries.graph.node;
 
 import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.graph.Node;
+import fr.cnrs.iees.omugi.graph.Node;
 
 /**
  * <p>Check if a {@link Node} is the same as the one passed to the constructor.</p>

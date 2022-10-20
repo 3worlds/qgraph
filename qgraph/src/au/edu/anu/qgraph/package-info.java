@@ -4,7 +4,7 @@
  * <p>This package defines one ancestor interface, {@link au.edu.anu.qgraph.queries.Queryable Queryable}, and many implementations of it.
  * {@code Queryable} descendants (we call them <em>queries</em>) can be used (1) to check that elements of a graph verify some 
  * condition or (2) to collect parts of the graph according to some conditions. Queries can
- * be chained so that elaborate searches can be performed on a {@link fr.cnrs.iees.graph.Graph Graph}. This library
+ * be chained so that elaborate searches can be performed on a {@link fr.cnrs.iees.omugi.graph.Graph Graph}. This library
  * actually defines a language to travel a graph, pick information, get elements based on some
  * conditions, etc.</p>
  * 
@@ -124,7 +124,7 @@
  *     
  * <tr><td>{@link au.edu.anu.qgraph.queries.graph.element.ElementLabel ElementLabel}</td> 
  * 	   <td>check  that a graph element matches one of a serie of class identifiers/labels</td>
- *     <td>{@link fr.cnrs.iees.graph.Specialized Specialized}</td> <tr/>
+ *     <td>{@link fr.cnrs.iees.omugi.graph.Specialized Specialized}</td> <tr/>
  *     
  * <tr><td>{@link au.edu.anu.qgraph.queries.graph.element.ElementName ElementName}</td> 
  * 	   <td>check  that a graph element matches one of a serie of identifiers/names</td>
@@ -133,29 +133,29 @@
  * <tr><td>{@link au.edu.anu.qgraph.queries.graph.element.ElementProperty ElementProperty}</td> 
  * 	   <td>check  that a graph element has a given property and optionally a value for this property</td>
  *     <td>{@link fr.cnrs.iees.properties.ReadOnlyPropertyList ReadOnlyPropertyList},
- *     {@link fr.cnrs.iees.graph.ReadOnlyDataHolder ReadOnlyDataHolder},</td> <tr/>
+ *     {@link fr.cnrs.iees.omugi.graph.ReadOnlyDataHolder ReadOnlyDataHolder},</td> <tr/>
  *     
  * <tr><td>{@link au.edu.anu.qgraph.queries.graph.node.NodeEdges NodeEdges}</td> 
  * 	   <td>select graph edges linked to a node</td>
- *     <td>{@link fr.cnrs.iees.graph.Node Node}</td> <tr/>
+ *     <td>{@link fr.cnrs.iees.omugi.graph.Node Node}</td> <tr/>
  *     
  * <tr><td>{@link au.edu.anu.qgraph.queries.graph.node.NodeListEdges NodeListEdges}</td> 
  * 	   <td>select IN, OUT or all edges of a list of Nodes</td>
  *     <td>{@link java.lang.Iterable Iterable}&lt;
- *     {@link fr.cnrs.iees.graph.Node Node}&gt;</td> <tr/>
+ *     {@link fr.cnrs.iees.omugi.graph.Node Node}&gt;</td> <tr/>
  *     
  * <tr><td>{@link au.edu.anu.qgraph.queries.graph.node.TreeQuery TreeQuery}</td> 
  * 	   <td>select parts of a tree starting at some node</td>
- *     <td>{@link fr.cnrs.iees.graph.TreeNode TreeNode}</td> <tr/>
+ *     <td>{@link fr.cnrs.iees.omugi.graph.TreeNode TreeNode}</td> <tr/>
  *     
  * <tr><td>{@link au.edu.anu.qgraph.queries.graph.edge.EdgeNodes EdgeNodes}</td> 
  * 	   <td>select start, end, other-end or both-ends nodes of an edge</td>
- *     <td>{@link fr.cnrs.iees.graph.Edge Edge}</td> <tr/>
+ *     <td>{@link fr.cnrs.iees.omugi.graph.Edge Edge}</td> <tr/>
  *     
  * <tr><td>{@link au.edu.anu.qgraph.queries.graph.edge.EdgeListNodes EdgeListNodes}</td> 
  * 	   <td>select start, end, other-end or both-ends nodes of a list of edges</td>
  *     <td>{@link java.lang.Iterable Iterable}&lt;
- *     {@link fr.cnrs.iees.graph.Edge Edge}&gt;</td> <tr/>
+ *     {@link fr.cnrs.iees.omugi.graph.Edge Edge}&gt;</td> <tr/>
  *     
  * </table>
  * 

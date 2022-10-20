@@ -126,7 +126,7 @@ public class SequenceQuery extends QueryList {
 	 * <p>
 	 * This method is specially designed to work in interaction with
 	 * {@link au.edu.anu.qgraph.queries.CoreQueries CoreQueries} static methods to query particular elements of a
-	 * {@link fr.cnrs.iees.graph.Graph Graph}. Examples:
+	 * {@link fr.cnrs.iees.omugi.graph.Graph Graph}. Examples:
 	 * </p>
 	 * <p>
 	 * return all the OUT edges of a node labelled 'blue':

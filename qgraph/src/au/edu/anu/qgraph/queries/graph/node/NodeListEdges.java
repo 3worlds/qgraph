@@ -29,15 +29,11 @@
  **************************************************************************/
 package au.edu.anu.qgraph.queries.graph.node;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
-import au.edu.anu.qgraph.queries.QueryAdaptor;
-import au.edu.anu.qgraph.queries.Queryable;
+import au.edu.anu.qgraph.queries.*;
 import au.edu.anu.omhtk.collections.DynamicList;
-import fr.cnrs.iees.graph.Direction;
-import fr.cnrs.iees.graph.Edge;
-import fr.cnrs.iees.graph.Node;
+import fr.cnrs.iees.omugi.graph.*;
 
 /**
  * <p> A {@link Queryable} to select In, OUT or all edges of a list of Nodes.</p>

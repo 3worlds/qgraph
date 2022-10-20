@@ -36,7 +36,7 @@ import au.edu.anu.qgraph.queries.Queryable;
 import au.edu.anu.qgraph.queries.base.AndQuery;
 import au.edu.anu.qgraph.queries.base.SequenceQuery;
 import au.edu.anu.qgraph.queries.graph.node.HasEdges;
-import fr.cnrs.iees.graph.Direction;
+import fr.cnrs.iees.omugi.graph.Direction;
 
 
 /**
@@ -48,7 +48,7 @@ import fr.cnrs.iees.graph.Direction;
  * <dt>Type of result</dt>
  * <dd>same as input ({@code result=input})</dd>
  * <dt>Fails if</dt>
- * <dd>input is not an {@link fr.cnrs.iees.graph.Element Element} with class id "association" ... and other complicated things
+ * <dd>input is not an {@link fr.cnrs.iees.omugi.graph.Element Element} with class id "association" ... and other complicated things
  * (TODO: finish this)</dd>
  * </dl>
  * 

@@ -34,8 +34,8 @@ import static au.edu.anu.qgraph.queries.CoreQueries.*;
 import org.junit.Test;
 
 import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.properties.SimplePropertyList;
-import fr.cnrs.iees.properties.impl.SimplePropertyListImpl;
+import fr.cnrs.iees.omugi.properties.SimplePropertyList;
+import fr.cnrs.iees.omugi.properties.impl.SimplePropertyListImpl;
 import junit.framework.TestCase;
 
 /**

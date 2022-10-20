@@ -42,8 +42,8 @@ import org.junit.jupiter.api.Test;
 import au.edu.anu.qgraph.queries.Queryable;
 import au.edu.anu.omhtk.collections.DynamicList;
 import au.edu.anu.omhtk.util.IntegerRange;
-import fr.cnrs.iees.graph.Direction;
-import fr.cnrs.iees.io.GraphFileFormats;
+import fr.cnrs.iees.omugi.graph.Direction;
+import fr.cnrs.iees.omugi.io.GraphFileFormats;
 
 class CoreQueriesTest {
 	public static void show(Queryable q) {

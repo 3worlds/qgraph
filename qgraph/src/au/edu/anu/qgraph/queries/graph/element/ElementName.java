@@ -31,9 +31,8 @@ package au.edu.anu.qgraph.queries.graph.element;
 
 import java.util.Arrays;
 
-import au.edu.anu.qgraph.queries.QueryAdaptor;
-import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.identity.Identity;
+import au.edu.anu.qgraph.queries.*;
+import fr.cnrs.iees.omugi.identity.Identity;
 
 /**
  * <p>A Query for {@link Identity} objects, which have a unique identifier {@code id}, also called 

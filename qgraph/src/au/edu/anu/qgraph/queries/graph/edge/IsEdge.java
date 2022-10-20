@@ -29,9 +29,8 @@
  **************************************************************************/
 package au.edu.anu.qgraph.queries.graph.edge;
 
-import au.edu.anu.qgraph.queries.QueryAdaptor;
-import au.edu.anu.qgraph.queries.Queryable;
-import fr.cnrs.iees.graph.Edge;
+import au.edu.anu.qgraph.queries.*;
+import fr.cnrs.iees.omugi.graph.Edge;
 
 /**
  * <p>Check if an {@link Edge} matches the one passed to the constructor.</p>
