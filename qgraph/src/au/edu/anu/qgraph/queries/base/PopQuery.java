@@ -33,31 +33,47 @@ import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
 
 /**
- * WTF is this class for ???
+ * A query to remove any number of queries from the query stack.
+ * <p>
+ * This query can be used based on some conditional such as {@link IfThenQuery}.
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
+
 public class PopQuery extends QueryAdaptor {
-	
+
 	private int count;
-	
-	public PopQuery(int count) {
-	  this.count = count;
+
+	private PopQuery(int count) {
+		this.count = count;
 	}
 
+	/**
+	 * Static factory for the pop query.
+	 * 
+	 * @param count Number of queries to pop from the stack.
+	 * @return Instance of a popQuery
+	 */
 	public static Queryable pop(int count) {
 		return new PopQuery(count);
 	}
 
+	/**
+	 * Static factory to create a popQuery to pop one query.
+	 * 
+	 * @return PopQuery with count = 1.
+	 */
 	public static Queryable pop() {
 		return new PopQuery(1);
 	}
-	
+
+	/**
+	 * @return the number of queries to pop from the stack.
+	 */
 	public int getCount() {
 		return count;
 	}
-
 
 	@Override
 	public Queryable submit(Object input) {

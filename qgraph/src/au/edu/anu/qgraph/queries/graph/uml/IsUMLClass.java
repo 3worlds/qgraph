@@ -35,7 +35,9 @@ import au.edu.anu.qgraph.queries.CoreQueries;
 import au.edu.anu.qgraph.queries.base.AndQuery;
 
 /**
- * <p>Check if an object is an UML class.</p>
+ * <p>
+ * Check if an object is an UML class.
+ * </p>
  * 
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
@@ -43,24 +45,28 @@ import au.edu.anu.qgraph.queries.base.AndQuery;
  * <dt>Type of result</dt>
  * <dd>same as input ({@code result=input})</dd>
  * <dt>Fails if</dt>
- * <dd>input is not an {@link fr.cnrs.iees.omugi.graph.Element Element} with class id "class" and property "name" and
- * 0..* edges to UML attributes.</dd>
+ * <dd>input is not an {@link fr.cnrs.iees.omugi.graph.Element Element} with
+ * class id "class" and property "name" and 0..* edges to UML attributes.</dd>
  * </dl>
  * 
- * <p>Note: implemented as an AndQuery.</p>
+ * <p>
+ * Note: implemented as an AndQuery.
+ * </p>
  * 
  * @author Shayne Flint - 30/4/02012
  * 
- * @see au.edu.anu.qgraph.queries.CoreQueries#isUMLClass() CoreQueries.isUMLClass()
+ * @see au.edu.anu.qgraph.queries.CoreQueries#isUMLClass()
+ *      CoreQueries.isUMLClass()
  *
  */
 public class IsUMLClass extends AndQuery {
 
+	/**
+	 * Parameterless constructor.
+	 */
 	public IsUMLClass() {
-		addQuery(
-			hasTheLabel("class"),
-			hasProperty("name"),
-			hasOutEdges(CoreQueries.isAttribute(), Multiplicity.ZERO_MANY));
+		addQuery(hasTheLabel("class"), hasProperty("name"),
+				hasOutEdges(CoreQueries.isAttribute(), Multiplicity.ZERO_MANY));
 	}
-    
+
 }

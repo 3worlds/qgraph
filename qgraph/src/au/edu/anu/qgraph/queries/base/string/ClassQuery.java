@@ -34,7 +34,8 @@ import au.edu.anu.qgraph.queries.Queryable;
 
 /**
  * <p>
- * Check if a {@link String} represents the class passed to the constructor.
+ * Check if a class name represents a class that is assignable from from a given
+ * parent class.
  * </p>
  * 
  * <dl>
@@ -60,12 +61,21 @@ import au.edu.anu.qgraph.queries.Queryable;
  *      CoreQueries.stringIsClass(...)
  *
  */
-// NOT TESTED
-
 public class ClassQuery extends QueryAdaptor {
 
 	private Class<?> parentClass = null;
 
+	/**
+	 * Constructor with String representation of the parent class.
+	 * <p>
+	 * 
+	 * Throws {@code IllegalStateException} if the parent class name cannot be
+	 * found.
+	 * 
+	 * @param parentClassName Name of the parent class that in submitted input is
+	 *                        tested against.
+	 * 
+	 */
 	public ClassQuery(String parentClassName) {
 		try {
 			this.parentClass = Class.forName(parentClassName);
@@ -76,6 +86,9 @@ public class ClassQuery extends QueryAdaptor {
 		}
 	}
 
+	/**
+	 * @param parentClass Parent class that in submitted input is tested against.
+	 */
 	public ClassQuery(Class<?> parentClass) {
 		this.parentClass = parentClass;
 	}

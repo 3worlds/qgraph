@@ -38,9 +38,10 @@ import au.edu.anu.qgraph.queries.base.SequenceQuery;
 import au.edu.anu.qgraph.queries.graph.node.HasEdges;
 import fr.cnrs.iees.omugi.graph.Direction;
 
-
 /**
- * <p>Check if an object is an UML association.</p>
+ * <p>
+ * Check if an object is an UML association.
+ * </p>
  * 
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
@@ -48,28 +49,36 @@ import fr.cnrs.iees.omugi.graph.Direction;
  * <dt>Type of result</dt>
  * <dd>same as input ({@code result=input})</dd>
  * <dt>Fails if</dt>
- * <dd>input is not an {@link fr.cnrs.iees.omugi.graph.Element Element} with class id "association" ... and other complicated things
- * (TODO: finish this)</dd>
+ * <dd>input is not an {@link fr.cnrs.iees.omugi.graph.Element Element} with
+ * class id "association" ... and other complicated things (TODO: finish
+ * this)</dd>
  * </dl>
  * 
- * <p>Note: implemented as an AndQuery.</p>
+ * <p>
+ * Note: implemented as an AndQuery.
+ * </p>
  * 
- * @see au.edu.anu.qgraph.queries.CoreQueries#isAssociation() CoreQueries.isAssociation()
+ * @see au.edu.anu.qgraph.queries.CoreQueries#isAssociation()
+ *      CoreQueries.isAssociation()
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
-public class IsUMLAssociation extends AndQuery  {
+public class IsUMLAssociation extends AndQuery {
 
+	/**
+	 * Parameterless constructor.
+	 */
 	public IsUMLAssociation() {
-		Queryable edgeQuery = new SequenceQuery(hasProperty("phrase"), 
-			hasProperty("multiplicity",
-			isEnum(Multiplicity.values()) ));
-		addQuery(
-			hasTheLabel("association"),
-			new HasEdges(CoreQueries.isUMLClass(),Direction.OUT,Multiplicity.ONE).withLabel("passive").withEdgeQuery(edgeQuery),			
-			new HasEdges(CoreQueries.isUMLClass(),Direction.OUT, Multiplicity.ONE).withLabel("active").withEdgeQuery(edgeQuery),
-			new HasEdges(CoreQueries.isUMLClass(),Direction.OUT, Multiplicity.ZERO_ONE).withLabel("associativeClass"));
+		Queryable edgeQuery = new SequenceQuery(hasProperty("phrase"),
+				hasProperty("multiplicity", isEnum(Multiplicity.values())));
+		addQuery(hasTheLabel("association"),
+				new HasEdges(CoreQueries.isUMLClass(), Direction.OUT, Multiplicity.ONE).withLabel("passive")
+						.withEdgeQuery(edgeQuery),
+				new HasEdges(CoreQueries.isUMLClass(), Direction.OUT, Multiplicity.ONE).withLabel("active")
+						.withEdgeQuery(edgeQuery),
+				new HasEdges(CoreQueries.isUMLClass(), Direction.OUT, Multiplicity.ZERO_ONE)
+						.withLabel("associativeClass"));
 	}
 
 }

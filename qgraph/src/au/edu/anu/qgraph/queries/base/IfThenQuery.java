@@ -60,12 +60,21 @@ public class IfThenQuery extends QueryAdaptor {
 	private Queryable trueQuery;
 	private Queryable falseQuery;
 
+	/**
+	 * @param testQuery Test query: if satisfied, test the <em>trueQuery</em> else test the <em>falseQuery</em>.
+	 * @param trueQuery The query to test if <em>testQuery</em> is satisfied.
+	 * @param falseQuery The query to test if <em>testQuery</em> is not satisfied.
+	 */
 	public IfThenQuery(Queryable testQuery, Queryable trueQuery, Queryable falseQuery) {
 		this.testQuery = testQuery;
 		this.trueQuery = trueQuery;
 		this.falseQuery = falseQuery;
 	}
 
+	/**
+	 * @param testQuery Test query: if satisfied, test the <em>trueQuery</em>.
+	 * @param trueQuery The query to test if testQuery is satisfied.
+	 */
 	public IfThenQuery(Queryable testQuery, Queryable trueQuery) {
 		this.testQuery = testQuery;
 		this.trueQuery = trueQuery;
@@ -73,7 +82,7 @@ public class IfThenQuery extends QueryAdaptor {
 	}
 
 	/**
-	 * Getter for the test query determining the outcome
+	 * Test query determining the outcome
 	 * @return the test query
 	 */
 	public Queryable getTestQuery() {
@@ -81,7 +90,7 @@ public class IfThenQuery extends QueryAdaptor {
 	}
 
 	/**
-	 * Getter for the query applied when the test query is satisfied
+	 * The query applied when the test query is satisfied
 	 * @return the <em>trueQuery</em>
 	 */
 	public Queryable getTrueQuery() {
@@ -89,8 +98,8 @@ public class IfThenQuery extends QueryAdaptor {
 	}
 
 	/**
-	 * Getter for the query applied when the test query is not satisfied
-	 * @return the <em>falseQuery</em>
+	 * The query applied when the test query is not satisfied
+	 * @return the falseQuery</em>
 	 */
 	public Queryable getFalseQuery() {
 		return falseQuery;
@@ -104,23 +113,6 @@ public class IfThenQuery extends QueryAdaptor {
 		return result;
 	}
 
-//	@Override
-//	public Query process(Object item) {
-//		defaultProcess(item);
-//		testQuery.process(item);
-//		if (testQuery.satisfied()) {
-//			trueQuery.process(item);
-//			result = trueQuery.getResult();
-//			satisfied = trueQuery.satisfied();
-//		} else {
-//			falseQuery.process(item);
-//			result = falseQuery.getResult();
-//			satisfied = falseQuery.satisfied();
-//		}
-//		return this;
-//	}
-
-	// TODO Untested 
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);	

@@ -34,7 +34,7 @@ import au.edu.anu.qgraph.queries.Queryable;
 import au.edu.anu.omhtk.util.IntegerRange;
 
 /**
- * Checks if an object is an {@link IntegerRange}.
+ * Checks if an object is an {@link IntegerRange} object.
  * 
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
@@ -47,12 +47,16 @@ import au.edu.anu.omhtk.util.IntegerRange;
  * 
  * @author Shayne Flint - 26/3/2012
  * 
- * @see au.edu.anu.qgraph.queries.CoreQueries#isIntegerRange() CoreQueries.isIntegerRange()
+ * @see au.edu.anu.qgraph.queries.CoreQueries#isIntegerRange()
+ *      CoreQueries.isIntegerRange()
  *
  */
 
 public class IsIntegerRange extends QueryAdaptor {
 
+	/**
+	 * Default no parameter constructor.
+	 */
 	public IsIntegerRange() {
 	}
 
@@ -60,7 +64,8 @@ public class IsIntegerRange extends QueryAdaptor {
 	public Queryable submit(Object input) {
 		initInput(input);
 		if (!(input instanceof IntegerRange))
-			errorMsg = "Expected '"+IntegerRange.class.getName()+"' but found '"+input.getClass().getName()+"'.";
+			errorMsg = "Expected '" + IntegerRange.class.getName() + "' but found '" + input.getClass().getName()
+					+ "'.";
 		return this;
 	}
 

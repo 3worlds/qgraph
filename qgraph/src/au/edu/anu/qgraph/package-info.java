@@ -128,11 +128,11 @@
  *     
  * <tr><td>{@link au.edu.anu.qgraph.queries.graph.element.ElementName ElementName}</td> 
  * 	   <td>check  that a graph element matches one of a serie of identifiers/names</td>
- *     <td>{@link fr.cnrs.iees.identity.Identity Identity}</td> <tr/>
+ *     <td>{@link fr.cnrs.iees.omugi.identity.Identity Identity}</td> <tr/>
  *     
  * <tr><td>{@link au.edu.anu.qgraph.queries.graph.element.ElementProperty ElementProperty}</td> 
  * 	   <td>check  that a graph element has a given property and optionally a value for this property</td>
- *     <td>{@link fr.cnrs.iees.properties.ReadOnlyPropertyList ReadOnlyPropertyList},
+ *     <td>{@link fr.cnrs.iees.omugi.properties.ReadOnlyPropertyList ReadOnlyPropertyList},
  *     {@link fr.cnrs.iees.omugi.graph.ReadOnlyDataHolder ReadOnlyDataHolder},</td> <tr/>
  *     
  * <tr><td>{@link au.edu.anu.qgraph.queries.graph.node.NodeEdges NodeEdges}</td> 

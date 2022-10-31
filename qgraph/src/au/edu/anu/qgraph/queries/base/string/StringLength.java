@@ -33,7 +33,7 @@ import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
 
 /**
- * <p>A query to get the length of a {@link String}.</p>
+ * <p>A query to return the length of an input {@link String}.</p>
  * 
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
@@ -52,21 +52,12 @@ import au.edu.anu.qgraph.queries.Queryable;
 
 public class StringLength extends QueryAdaptor {
 	
+	/**
+	 * Parameterless constructor.
+	 */
 	public StringLength() {
 	}
 
-//	@Override
-//	public StringLength process(Object item) {
-//		defaultProcess(item);
-//		String localItem = (String)item;
-//		result = localItem.length();
-//		satisfied = true;
-//		return this;
-//	}
-//
-//	public String toString() {
-//		return "[String length]";
-//	}
 
 	@Override
 	public Queryable submit(Object input) {

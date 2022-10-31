@@ -54,6 +54,9 @@ import au.edu.anu.qgraph.queries.base.AndQuery;
  */
 public class IsEnumeration extends AndQuery {
 
+	/**
+	 * Parameterless constructor.
+	 */
 	public IsEnumeration() {
 		addQuery(hasTheLabel("enumeration"), hasProperty("literals", isStringList()));
 	}

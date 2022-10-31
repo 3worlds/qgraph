@@ -33,17 +33,24 @@ import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
 
 /**
- * WTF is this class for ???
+ * Pop all queries in the stack. 
+ * <p>
+ * This query can be used based on some conditional such as {@link IfThenQuery}.
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
 
+
 public class ResetQuery extends QueryAdaptor{
 		
-	public ResetQuery() {
+	private ResetQuery() {
 	}
 
+	/**
+	 * Static factory for the resetQuery.
+	 * @return new RestQuery instance.
+	 */
 	public static Queryable reset() {
 		return new ResetQuery();
 	}

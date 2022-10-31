@@ -32,19 +32,37 @@ package au.edu.anu.qgraph.queries.graph.uml;
 import au.edu.anu.omhtk.util.IntegerRange;
 
 /**
- * The four main multiplicities used in UML.
- * Plus 0..0.
+ * The four main multiplicities used in UML. Plus 0..0.
  * 
  * @author Shayne Flint - 29/3/2012
- *
  */
 public enum Multiplicity {
 
-	ZERO, ONE, ONE_MANY, ZERO_ONE, ZERO_MANY;
+	/**
+	 * 0..0
+	 */
+	ZERO,
+	/**
+	 * 1..1
+	 */
+	ONE, 
+	/**
+	 * 1..*
+	 */
+	ONE_MANY, 
+	/**
+	 * 0..1
+	 */
+	ZERO_ONE, 
+	/**
+	 * 0..*
+	 */
+	ZERO_MANY;
 
 	/**
-	 * Read a String argument into a multiplicity enum value. Throws an Exception if the String does
-	 * not represent a multiplicity.
+	 * Read a String argument into a multiplicity enum value. Throws an Exception if
+	 * the String does not represent a multiplicity.
+	 * 
 	 * @param str the String to parse
 	 * @return the multiplicity
 	 */
@@ -65,9 +83,12 @@ public enum Multiplicity {
 	}
 
 	/**
-	 * Build a multiplicity enum value from two integers matching the two ends of the multiplicity.
+	 * Build a multiplicity enum value from two integers matching the two ends of
+	 * the multiplicity.
+	 * 
 	 * @param first the lower end of the multiplicity (0 or 1)
-	 * @param last the upper end of the multiplicity (1 or {@code Integer.MAX_VALUE})
+	 * @param last  the upper end of the multiplicity (1 or
+	 *              {@code Integer.MAX_VALUE})
 	 * @return the multiplicity
 	 */
 	public static Multiplicity valueFrom(int first, int last) {
@@ -85,8 +106,9 @@ public enum Multiplicity {
 	}
 
 	/**
-	 * Convert a mutiplicity String into an {@link IntegerRange} instance.
-	 * @param str
+	 * Convert a multiplicity String into an {@link IntegerRange} instance.
+	 * 
+	 * @param str String representation of the multiplicity.
 	 * @return the multiplicity
 	 */
 	public static IntegerRange stringToIntegerRange(String str) {
@@ -99,12 +121,13 @@ public enum Multiplicity {
 			IntegerRange result = new IntegerRange(from, to);
 			return result;
 		} catch (NumberFormatException e) {
-			throw new IllegalArgumentException("Multiplicity string wrongly formatted: " + str,e);
+			throw new IllegalArgumentException("Multiplicity string wrongly formatted: " + str, e);
 		}
 	}
 
 	/**
 	 * Build a multiplicity enum value from an {@link IntegerRange}.
+	 * 
 	 * @param range the range
 	 * @return the multiplicity
 	 */
@@ -114,7 +137,8 @@ public enum Multiplicity {
 
 	/**
 	 * Convert a mutiplicity into an {@link IntegerRange} instance.
-	 * @return  the range matching this multiplicity
+	 * 
+	 * @return the range matching this multiplicity
 	 */
 	public IntegerRange asIntegerRange() {
 		switch (this) {
@@ -129,7 +153,7 @@ public enum Multiplicity {
 //		case ZERO_MANY:
 //			return new IntegerRange(0, Integer.MAX_VALUE);
 		default:
-			//case ZERO_MANY
+			// case ZERO_MANY
 			return new IntegerRange(0, Integer.MAX_VALUE);
 		}
 	}

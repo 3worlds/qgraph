@@ -38,9 +38,9 @@ import fr.cnrs.iees.omugi.properties.ReadOnlyPropertyList;
  * <p>A {@link Queryable} to check that an object has a property and (optionally) a value.</p>
  * <dl>
  * <dt>Type of input to {@code process()}</dt>
- * <dd>{@link fr.cnrs.iees.properties.ReadOnlyPropertyList ReadOnlyPropertyList} or 
+ * <dd>{@link fr.cnrs.iees.omugi.properties.ReadOnlyPropertyList ReadOnlyPropertyList} or 
  * {@link fr.cnrs.iees.omugi.graph.ReadOnlyDataHolder ReadOnlyDataHolder} (remember that
- * {@link fr.cnrs.iees.properties.SimplePropertyList SimplePropertyList} and 
+ * {@link fr.cnrs.iees.omugi.properties.SimplePropertyList SimplePropertyList} and 
  * {@link fr.cnrs.iees.omugi.graph.DataHolder DataHolder} are descendants of these, and as such
  * also constitute valid input)</dd>
  * <dt>Type of result</dt>

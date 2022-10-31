@@ -33,7 +33,9 @@ import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
 
 /**
- * <p>Check if an object is an UML multiplicity.</p>
+ * <p>
+ * Check if an object is an UML multiplicity.
+ * </p>
  * 
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
@@ -46,10 +48,14 @@ import au.edu.anu.qgraph.queries.Queryable;
  * 
  * @author Shayne Flint - 26/3/2012
  * 
- * @see au.edu.anu.qgraph.queries.CoreQueries#isMultiplicity() CoreQueries.isMultiplicity()
+ * @see au.edu.anu.qgraph.queries.CoreQueries#isMultiplicity()
+ *      CoreQueries.isMultiplicity()
  */
 public class IsMultiplicity extends QueryAdaptor {
 
+	/**
+	 * Parameterless constructor.
+	 */
 	public IsMultiplicity() {
 	}
 
@@ -57,7 +63,7 @@ public class IsMultiplicity extends QueryAdaptor {
 	public Queryable submit(Object input) {
 		initInput(input);
 		if (!(input instanceof Multiplicity))
-			errorMsg = "Expected "+Multiplicity.class.getName()+ " but found "+input.getClass().getName()+".";			
+			errorMsg = "Expected " + Multiplicity.class.getName() + " but found " + input.getClass().getName() + ".";
 		return this;
 	}
 

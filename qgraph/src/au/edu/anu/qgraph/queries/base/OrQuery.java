@@ -52,12 +52,18 @@ import au.edu.anu.qgraph.queries.Queryable;
  */
 public class OrQuery extends QueryList {
 
+	/**
+	 * @param queries List of queries to test for this query.
+	 */
 	public OrQuery(Queryable... queries) {
 		super(queries);
 	}
 
 	/**
 	 * Argument can be of any class.
+	 * 	 * <p>
+	 * The query will be satisfied if any query in the list is satisfied.
+
 	 */
 	@Override
 	public Queryable submit(Object input) {

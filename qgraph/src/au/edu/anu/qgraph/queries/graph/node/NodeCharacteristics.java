@@ -34,7 +34,9 @@ import au.edu.anu.qgraph.queries.Queryable;
 import fr.cnrs.iees.omugi.graph.Node;
 
 /**
- * <p>Check if a {@link Node} is a leaf or root node.</p>
+ * <p>
+ * Check if a {@link Node} is a leaf or root node.
+ * </p>
  * 
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
@@ -42,7 +44,8 @@ import fr.cnrs.iees.omugi.graph.Node;
  * <dt>Type of result</dt>
  * <dd>same as input ({@code result=input})</dd>
  * <dt>Fails if</dt>
- * <dd>input {@code Node} is not a leaf/root as requested in the constructor</dd>
+ * <dd>input {@code Node} is not a leaf/root as requested in the
+ * constructor</dd>
  * </dl>
  * 
  * @see au.edu.anu.qgraph.queries.CoreQueries#isLeaf() CoreQueries.isLeaf()
@@ -53,16 +56,29 @@ import fr.cnrs.iees.omugi.graph.Node;
  */
 public class NodeCharacteristics extends QueryAdaptor {
 
+	/**
+	 * Enum to designate nodes as either a root or leaf node in a tree graph.
+	 * 
+	 * @author Shayne Flint - 2/4/2012
+	 *
+	 */
 	public enum RootLeaf {
-		ROOT, LEAF;
+		/**
+		 *  to check if node is root
+		 */
+		ROOT, 
+		/**
+		 * to check if node is leaf
+		 */
+		LEAF;
 	}
 
 	private RootLeaf mode;
 
 	/**
 	 * 
-	 * @param mode {@code RootLeaf.ROOT} to check if node is root or {@code RootLeaf.LEAF} to
-	 * check if node is leaf
+	 * @param mode {@code RootLeaf.ROOT} to check if node is root or
+	 *             {@code RootLeaf.LEAF} to check if node is leaf
 	 */
 	public NodeCharacteristics(RootLeaf mode) {
 		this.mode = mode;
@@ -71,7 +87,7 @@ public class NodeCharacteristics extends QueryAdaptor {
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);
-		Node localItem = (Node)input;
+		Node localItem = (Node) input;
 		boolean ok = true;
 		switch (mode) {
 		case ROOT:
@@ -84,9 +100,8 @@ public class NodeCharacteristics extends QueryAdaptor {
 			break;
 		}
 		if (!ok)
-			errorMsg = "Expected '"+localItem.toShortString()+"' to be "+mode+" node.";
+			errorMsg = "Expected '" + localItem.toShortString() + "' to be " + mode + " node.";
 		return this;
 	}
-	
 
 }

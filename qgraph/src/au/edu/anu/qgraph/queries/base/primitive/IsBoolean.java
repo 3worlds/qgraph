@@ -34,7 +34,7 @@ import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
 
 /**
- * <p>Check if an object is a {@code boolean}.</p>
+ * <p>Check if an object is a {@code Boolean}.</p>
  * 
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
@@ -52,6 +52,9 @@ import au.edu.anu.qgraph.queries.Queryable;
  */
 public class IsBoolean extends QueryAdaptor {
 
+	/**
+	 * Default no parameter constructor.
+	 */
 	public IsBoolean() {
 	}
 

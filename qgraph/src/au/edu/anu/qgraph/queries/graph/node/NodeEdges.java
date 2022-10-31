@@ -38,7 +38,7 @@ import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
 
 /**
- * <p>A Query to select {@link fr.cnrs.iees.graph.Edge Edge}s linked to a {@link fr.cnrs.iees.graph.Node Node}.</p>
+ * <p>A Query to select {@link fr.cnrs.iees.omugi.graph.Edge Edge}s linked to a {@link fr.cnrs.iees.omugi.graph.Node Node}.</p>
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
  * <dd>{@code Node}</dd>

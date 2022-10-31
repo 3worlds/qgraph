@@ -33,7 +33,10 @@ import au.edu.anu.qgraph.queries.QueryAdaptor;
 import au.edu.anu.qgraph.queries.Queryable;
 
 /**
- * <p>Check if a {@link String} contains the {@code String} that was passed to the constructor.</p>
+ * <p>
+ * Check if a {@link String} contains the {@code String} that was passed to the
+ * constructor.
+ * </p>
  * 
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
@@ -41,18 +44,22 @@ import au.edu.anu.qgraph.queries.Queryable;
  * <dt>Type of result</dt>
  * <dd>same as input ({@code result=input})</dd>
  * <dt>Fails if</dt>
- * <dd>input does not contain the {@code String} passed to the  constructor</dd>
+ * <dd>input does not contain the {@code String} passed to the constructor</dd>
  * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
  * 
- * @see au.edu.anu.qgraph.queries.CoreQueries#containsSubstring(String) CoreQueries.containsSubstring(...)
+ * @see au.edu.anu.qgraph.queries.CoreQueries#containsSubstring(String)
+ *      CoreQueries.containsSubstring(...)
  *
  */
 public class ContainsSubstring extends QueryAdaptor {
-	
+
 	private String str;
-	
+
+	/**
+	 * @param str The string used to test if the input string is contained within.
+	 */
 	public ContainsSubstring(String str) {
 		this.str = str;
 	}
@@ -60,9 +67,9 @@ public class ContainsSubstring extends QueryAdaptor {
 	@Override
 	public Queryable submit(Object input) {
 		initInput(input);
-		String localItem = (String)input;
-		if (localItem.indexOf(str)<0)
-			errorMsg = "Expected '"+localItem+"' to contain '"+str+"'.";
+		String localItem = (String) input;
+		if (localItem.indexOf(str) < 0)
+			errorMsg = "Expected '" + localItem + "' to contain '" + str + "'.";
 		return this;
 	}
 

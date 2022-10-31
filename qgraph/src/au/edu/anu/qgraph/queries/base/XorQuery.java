@@ -51,6 +51,9 @@ import au.edu.anu.qgraph.queries.Queryable;
  */
 public class XorQuery extends QueryList {
 
+	/**
+	 * @param queries List of queries to test.
+	 */
 	public XorQuery(Queryable... queries) {
 		super(queries);
 	}

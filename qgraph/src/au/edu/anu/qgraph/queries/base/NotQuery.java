@@ -33,8 +33,10 @@ import au.edu.anu.qgraph.queries.QueryList;
 import au.edu.anu.qgraph.queries.Queryable;
 
 /**
- * <p>Query testing if all its sub-queries are not satisfied. Will stop checking at the first 
- * sub-query success.</p>
+ * <p>
+ * Query testing if all its sub-queries are not satisfied. Will stop checking at
+ * the first sub-query success.
+ * </p>
  * 
  * <dl>
  * <dt>Type of input to {@code submit()}</dt>
@@ -42,22 +44,29 @@ import au.edu.anu.qgraph.queries.Queryable;
  * <dt>Type of result</dt>
  * <dd>same as input ({@code result=input})</dd>
  * <dt>Fails if</dt>
- * <dd><em>any</em> of the queries passed to the constructor is satisfied when applied to input</dd>
+ * <dd><em>any</em> of the queries passed to the constructor is satisfied when
+ * applied to input</dd>
  * </dl>
  * 
  * @author Shayne Flint - 26/3/2012
  * 
- * @see au.edu.anu.qgraph.queries.CoreQueries#notQuery(Queryable...) CoreQueries.notQuery(...)
+ * @see au.edu.anu.qgraph.queries.CoreQueries#notQuery(Queryable...)
+ *      CoreQueries.notQuery(...)
  *
  */
 public class NotQuery extends QueryList {
-	
+
+	/**
+	 * @param queries Array of queries to test for this query.
+	 */
 	public NotQuery(Queryable... queries) {
 		super(queries);
 	}
 
 	/**
 	 * Argument can be of any class.
+	 * <p>
+	 * The query will be satisfied iff all queries in the list are not satisfied.
 	 */
 	@Override
 	public Queryable submit(Object input) {

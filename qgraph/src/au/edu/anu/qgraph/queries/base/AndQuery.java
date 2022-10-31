@@ -53,12 +53,17 @@ import au.edu.anu.qgraph.queries.Queryable;
  */
 public class AndQuery extends QueryList {
 
+	/**
+	 * @param queries Array of queries to test for this query.
+	 */
 	public AndQuery(Queryable... queries) {
 		super(queries);
 	}
 
 	/**
 	 * Argument can be of any class.
+	 * <p>
+	 * The query will be satisfied iff all queries in the list are satisfied.
 	 */
 	@Override
 	public Queryable submit(Object input) {

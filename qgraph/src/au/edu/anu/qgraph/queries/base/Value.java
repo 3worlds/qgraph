@@ -55,6 +55,9 @@ public class Value extends QueryAdaptor {
 
 	private Object obj;
 	
+	/**
+	 * @param obj Object to be returned upon {@code submit()}
+	 */
 	public Value(Object obj) {
 		this.obj = obj;
 	}

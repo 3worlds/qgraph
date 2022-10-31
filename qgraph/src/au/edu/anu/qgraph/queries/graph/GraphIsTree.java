@@ -35,15 +35,19 @@ import au.edu.anu.qgraph.queries.Queryable;
 
 /**
  * CAUTION: this implementation is not finished
+ * Satisfied if input is an instance of Graph<Node, Edge> .
+ * This is not correct since the graph should be a TreeGraph
  * 
  * @author Shayne Flint - 26/3/2012
  *
  */
-// NOT TESTED
-// UNFINISEHD
 
 public class GraphIsTree extends QueryAdaptor {
 
+	/**
+	 * Factory method to instantiate a {@code GraphIsTree} query.
+	 * @return GraphIsTree query
+	 */
 	public static GraphIsTree isTree() {
 		return new GraphIsTree();
 	}

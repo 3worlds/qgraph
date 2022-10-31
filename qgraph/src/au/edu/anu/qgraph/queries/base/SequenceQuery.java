@@ -58,6 +58,12 @@ import au.edu.anu.qgraph.queries.Queryable;
  */
 public class SequenceQuery extends QueryList {
 
+	/**
+	 * Construct a query comprising a list of queries to submit in sequential order.
+	 * <p>
+	 * Reset and Pop queries are special cases. They are used to clear and pop queries in the query stacknever submitted 
+	 * @param queries Queries to process
+	 */
 	public SequenceQuery(Queryable... queries) {
 		super(queries);
 	}

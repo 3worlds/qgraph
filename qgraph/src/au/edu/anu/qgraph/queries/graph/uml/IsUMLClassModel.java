@@ -48,13 +48,16 @@ import au.edu.anu.qgraph.queries.base.AndQuery;
  * 1..* edes to UML classes and 0..* edges to UML associations.</dd>
  * </dl>
  * 
- * <p>Note: implemented as an AndQuery.</p>
+ * <p>Note: Implemented as an AndQuery.</p>
  * 
  * @author Shayne Flint - 30/4/02012
  *
  */
 public class IsUMLClassModel extends AndQuery {
 
+	/**
+	 * Parameterless constructor.
+	 */
 	public IsUMLClassModel() {		
 		addQuery(
 			hasTheLabel("classModel"),

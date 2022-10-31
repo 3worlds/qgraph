@@ -85,10 +85,12 @@ public class CoreQueries {
 	// General
 	//
 	/**
-	 * <p>Test if all its sub-queries are satisfied. Will stop checking at the first 
-	 * sub-query failure.</p>
+	 * <p>
+	 * Test if all its sub-queries are satisfied. Will stop checking at the first
+	 * sub-query failure.
+	 * </p>
 	 * 
-	 * @param queries  the queries to check
+	 * @param queries the queries to check
 	 * @return the resulting AndQuery query
 	 */
 	public static Queryable andQuery(Queryable... queries) {
@@ -96,8 +98,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Test if all its sub-queries are <em>not</em> satisfied. Will stop checking at the first 
-	 * sub-query success.</p>
+	 * <p>
+	 * Test if all its sub-queries are <em>not</em> satisfied. Will stop checking at
+	 * the first sub-query success.
+	 * </p>
 	 * 
 	 * @param queries the queries to check
 	 * @return the resulting NotQuery query
@@ -107,8 +111,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Test if at least one its sub-queries is satisfied. Will stop checking at the first 
-	 * sub-query success.</p>
+	 * <p>
+	 * Test if at least one its sub-queries is satisfied. Will stop checking at the
+	 * first sub-query success.
+	 * </p>
 	 * 
 	 * @param queries the queries to check
 	 * @return the resulting OrQuery query
@@ -118,7 +124,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Test if <em>exactly one</em> of its sub-queries is satisfied.</p>
+	 * <p>
+	 * Test if <em>exactly one</em> of its sub-queries is satisfied.
+	 * </p>
+	 * 
 	 * @param queries the queries to check
 	 * @return the resulting XorQuery query
 	 */
@@ -393,14 +402,33 @@ public class CoreQueries {
 		return new IsIntegerRange();
 	}
 
+	/**
+	 * Factory method to instance a {@link isClass} query from an vararg of java
+	 * classes.
+	 * 
+	 * @param classList array of classes
+	 * @return Instance of {@link isClass} query.
+	 */
 	public static Queryable isClass(Class<?>... classList) {
 		return new IsClass(classList);
 	}
 
+	/**
+	 * Factory method to create an {@link isClass} query from an vararg of java
+	 * class names.
+	 * 
+	 * @param classNames array of class names.
+	 * @return Instance of {@link isClass} query.
+	 */
 	public static Queryable isClass(String... classNames) {
 		return new IsClass(classNames);
 	}
 
+	/**
+	 * Factory method to instance a {@link isStringList} query.
+	 * 
+	 * @return Instance of {@link isStringList} query.
+	 */
 	public static Queryable isStringList() {
 		return new IsStringList();
 	}
@@ -410,43 +438,75 @@ public class CoreQueries {
 
 	/**
 	 * 
-	 * @return
+	 * @return A selection query requiring one and only one element.
 	 */
 	public static SelectQuery selectOne() {
 		return new SelectQuery().returnOne().multiplicity(Multiplicity.ONE);
 	}
 
+	/**
+	 * @param q Query to test membership against.
+	 * @return A selection query requiring one and only one element the satisfies
+	 *         the given query.
+	 */
 	public static SelectQuery selectOne(Queryable q) {
 		return selectOne().query(q);
 	}
 
+	/**
+	 * @return A selection query requiring zero of one element.
+	 */
 	public static SelectQuery selectZeroOrOne() {
 		return new SelectQuery().returnOne().multiplicity(Multiplicity.ZERO_ONE);
 	}
 
+	/**
+	 * @param q The query to satisfy for membership.
+	 * @return A selection query requiring zero or one element the satisfy the given
+	 *         query.
+	 */
 	public static SelectQuery selectZeroOrOne(Queryable q) {
 		return selectZeroOrOne().query(q);
 	}
 
+	/**
+	 * @return A selection query requiring zero or many elements.
+	 */
 	public static SelectQuery selectZeroOrMany() {
 		return new SelectQuery().returnMany().multiplicity(Multiplicity.ZERO_MANY);
 	}
 
+	/**
+	 * @param q The query to satisfy for membership.
+	 * @return A selection query requiring zero or many elements the satisfy the
+	 *         given query.
+	 */
 	public static SelectQuery selectZeroOrMany(Queryable q) {
 		return selectZeroOrMany().query(q);
 	}
 
+	/**
+	 * @return A selection query requiring one or many elements.
+	 */
 	public static SelectQuery selectOneOrMany() {
 		return new SelectQuery().returnMany().multiplicity(Multiplicity.ONE_MANY);
 	}
 
+	/**
+	 * @param q The query to satisfy for membership.
+	 * @return A selection query requiring zero or many elements the satisfy the
+	 *         given query.
+	 */
 	public static SelectQuery selectOneOrMany(Queryable q) {
 		return selectOneOrMany().query(q);
 	}
 
 	// Strings : Testing up to here except for some node element tests
 	/**
-	 * <p>Check if a {@link String} starts with a given sequence of characters.</p>
+	 * <p>
+	 * Check if a {@link String} starts with a given sequence of characters.
+	 * </p>
+	 * 
 	 * @param s the initial String inputs must start with
 	 * @return the StartsWith query
 	 */
@@ -455,7 +515,8 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if a {@link String} ends with the {@code String} passed as argument.</p>
+	 * Check if a {@link String} ends with the {@code String} passed as argument.
+	 * 
 	 * @param s the string to search for
 	 * @return the resulting EndsWith query
 	 */
@@ -464,7 +525,9 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if a {@link String} contains the {@code String} that was passed to the constructor.</p>
+	 * Check if a {@link String} contains the {@code String} that was passed to the
+	 * constructor.
+	 * 
 	 * @param str the string to search for
 	 * @return the resulting ContainsSubstring query
 	 */
@@ -473,7 +536,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if a {@link String} represents the class passed to the constructor.</p>
+	 * <p>
+	 * Check if a {@link String} represents the class passed to the constructor.
+	 * </p>
+	 * 
 	 * @param parentClass the class to compare to
 	 * @return the resulting ClassQuery query
 	 */
@@ -482,7 +548,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if a {@link String} represents the class passed to the constructor.</p>
+	 * <p>
+	 * Check if a {@link String} represents the class passed to the constructor.
+	 * </p>
+	 * 
 	 * @param parentClassName the class to compare to
 	 * @return the resulting ClassQuery query
 	 */
@@ -491,7 +560,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 *  <p>Check if a {@link String} represents a date.</p>
+	 * <p>
+	 * Check if a {@link String} represents a date.
+	 * </p>
+	 * 
 	 * @return the resulting DateString query
 	 */
 	public static Queryable isDateString() {
@@ -499,7 +571,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if a {@link String} represents a real number ({@code Double}).</p>
+	 * <p>
+	 * Check if a {@link String} represents a real number ({@code Double}).
+	 * </p>
+	 * 
 	 * @return the RealString query
 	 */
 	public static Queryable isRealString() {
@@ -507,7 +582,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if a {@link String} represents an integer number.</p>
+	 * <p>
+	 * Check if a {@link String} represents an integer number.
+	 * </p>
+	 * 
 	 * @return the IntegerString query
 	 */
 	public static Queryable isIntegerString() {
@@ -515,7 +593,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if a {@link String} represents a long integer number.</p>
+	 * <p>
+	 * Check if a {@link String} represents a long integer number.
+	 * </p>
+	 * 
 	 * @return the LongString query to do the check
 	 */
 	public static Queryable isLongString() {
@@ -523,7 +604,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if a {@link String} represents an enum field.</p>
+	 * <p>
+	 * Check if a {@link String} represents an enum field.
+	 * </p>
+	 * 
 	 * @param valueList the list of enum values to compare to
 	 * @return the resulting EnumerationString query
 	 */
@@ -532,7 +616,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if a {@link String} represents an enum field.</p>
+	 * <p>
+	 * Check if a {@link String} represents an enum field.
+	 * </p>
+	 * 
 	 * @param enumList the list of enum values to compare to
 	 * @return the resulting EnumerationString query
 	 */
@@ -541,7 +628,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if a {@link String} represents the name of an existing file.</p>
+	 * <p>
+	 * Check if a {@link String} represents the name of an existing file.
+	 * </p>
+	 * 
 	 * @return the resulting FileQuery query
 	 */
 	public static Queryable isFileName() {
@@ -549,7 +639,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if a {@link String} represents an IPv4 address.</p>
+	 * <p>
+	 * Check if a {@link String} represents an IPv4 address.
+	 * </p>
+	 * 
 	 * @return the resulting InetAddressString query
 	 */
 	public static Queryable isInetAddress() {
@@ -557,7 +650,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if a {@link String} matches a regular expression pattern.</p>
+	 * <p>
+	 * Check if a {@link String} matches a regular expression pattern.
+	 * </p>
+	 * 
 	 * @param pattern a regular expression
 	 * @return the PatternString query initialised with pattern
 	 */
@@ -568,7 +664,8 @@ public class CoreQueries {
 	// Size
 	//
 	/**
-	 * Check that the size of the input (of class {@link fr.cnrs.iees.omhtk.Sizeable Sizeable}) is within range
+	 * Check that the size of the input (of class {@link fr.cnrs.iees.omhtk.Sizeable
+	 * Sizeable}) is within range
 	 * 
 	 * @param min the lower end of the range
 	 * @param max the upper end of the range
@@ -579,7 +676,8 @@ public class CoreQueries {
 	}
 
 	/**
-	 * Check that the size of the input (of class {@link fr.cnrs.iees.omhtk.Sizeable Sizeable}) is above minimum
+	 * Check that the size of the input (of class {@link fr.cnrs.iees.omhtk.Sizeable
+	 * Sizeable}) is above minimum
 	 * 
 	 * @param min the minimum
 	 * @return the resulting SizeQuery query
@@ -589,7 +687,8 @@ public class CoreQueries {
 	}
 
 	/**
-	 * Check that the size of the input (of class {@link fr.cnrs.iees.omhtk.Sizeable Sizeable}) is below maximum
+	 * Check that the size of the input (of class {@link fr.cnrs.iees.omhtk.Sizeable
+	 * Sizeable}) is below maximum
 	 * 
 	 * @param max the maximum
 	 * @return the resulting SizeQuery query
@@ -599,7 +698,8 @@ public class CoreQueries {
 	}
 
 	/**
-	 * Check that the size of the input (of class {@link fr.cnrs.iees.omhtk.Sizeable Sizeable}) is within range
+	 * Check that the size of the input (of class {@link fr.cnrs.iees.omhtk.Sizeable
+	 * Sizeable}) is within range
 	 * 
 	 * @param range the range
 	 * @return the resulting SizeQuery query
@@ -666,7 +766,8 @@ public class CoreQueries {
 	/**
 	 * Checks that an element (=graph node or edge) has one of the unique
 	 * identifiers ({@code id}) passed as arguments. Will work for any
-	 * {@link fr.cnrs.iees.identity.Identity Identity} implementation, actually.
+	 * {@link fr.cnrs.iees.omugi.identity.Identity Identity} implementation,
+	 * actually.
 	 * 
 	 * @param names the names/ids to compare to
 	 * @return the resulting ElementName query
@@ -757,6 +858,7 @@ public class CoreQueries {
 	//
 	/**
 	 * Get all the children of the {@code TreeNode} passed to {@code submit(...)}.
+	 * 
 	 * @return an instance of the TreeQuery query
 	 */
 	public static Queryable children() {
@@ -765,7 +867,9 @@ public class CoreQueries {
 	}
 
 	/**
-	 * Get all the parents (up to the tree root) of the {@code TreeNode} passed to {@code submit(...)}.
+	 * Get all the parents (up to the tree root) of the {@code TreeNode} passed to
+	 * {@code submit(...)}.
+	 * 
 	 * @return an instance of the TreeQuery query
 	 */
 	public static Queryable parent() {
@@ -774,8 +878,9 @@ public class CoreQueries {
 	}
 
 	/**
-	 * Get all the parents (up to the tree root) of the {@code TreeNode} passed to {@code submit(...)},
-	 * provided that they satisfy the query.
+	 * Get all the parents (up to the tree root) of the {@code TreeNode} passed to
+	 * {@code submit(...)}, provided that they satisfy the query.
+	 * 
 	 * @param q the query parents must satisfy
 	 * @return an instance of the TreeQuery query
 	 */
@@ -784,8 +889,9 @@ public class CoreQueries {
 	}
 
 	/**
-	 * Get all the sub-tree (i.e. all children's children's...'s children) of the {@code TreeNode} 
-	 * passed to {@code submit(...)}.
+	 * Get all the sub-tree (i.e. all children's children's...'s children) of the
+	 * {@code TreeNode} passed to {@code submit(...)}.
+	 * 
 	 * @return an instance of the TreeQuery query
 	 */
 	public static Queryable childTree() {
@@ -794,9 +900,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * Get all the sub-tree (i.e. all children's children's...'s children) of the {@code TreeNode} 
-	 * passed to {@code submit(...)} provided that they satisfy the query.
-	 * @param q
+	 * Get all the entire sub-tree of the {@code TreeNode} passed to
+	 * {@code submit(...)} provided that they satisfy the query.
+	 * 
+	 * @param q The query to test for inclusion.
 	 * @return an instance of the TreeQuery query
 	 */
 	public static Queryable childTree(Queryable q) {
@@ -804,7 +911,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>A Query to select in-{@link Edge}s linked to a {@link Node}.</p>
+	 * <p>
+	 * A Query to select in-{@link Edge}s linked to a {@link Node}.
+	 * </p>
+	 * 
 	 * @return an instance of the NodeEdges query
 	 */
 	public static Queryable inEdges() {
@@ -812,7 +922,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>A Query to select in-{@link Edge}s of a {@link Node} that satisfy a query.</p>
+	 * <p>
+	 * A Query to select in-{@link Edge}s of a {@link Node} that satisfy a query.
+	 * </p>
+	 * 
 	 * @param q a query that edges must satisfy
 	 * @return an instance of the NodeEdges query
 	 */
@@ -821,7 +934,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>A Query to select out-{@link Edge}s linked to a {@link Node}.</p>
+	 * <p>
+	 * A Query to select out-{@link Edge}s linked to a {@link Node}.
+	 * </p>
+	 * 
 	 * @return an instance of the NodeEdges query
 	 */
 	public static Queryable outEdges() {
@@ -829,7 +945,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>A Query to select in-{@link Edge}s of a {@link Node} that satisfy a query.</p>
+	 * <p>
+	 * A Query to select in-{@link Edge}s of a {@link Node} that satisfy a query.
+	 * </p>
+	 * 
 	 * @param q a query that edges must satisfy
 	 * @return an instance of the NodeEdges query
 	 */
@@ -838,10 +957,12 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if a {@link Node} that satisfies a query has  number of {@link Edge}s  
-	 * that match a multiplicity.</p>
+	 * <p>
+	 * Check if a {@link Node} that satisfies a query has number of {@link Edge}s
+	 * that match a multiplicity.
+	 * </p>
 	 * 
-	 * @param nodeQuery the query applied to the node
+	 * @param nodeQuery    the query applied to the node
 	 * @param multiplicity the multiplicity of edges
 	 * @return an instance of HasEdges query
 	 */
@@ -850,10 +971,12 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if a {@link Node} that satisfies a query has  number of in-{@link Edge}s  
-	 * that match a multiplicity.</p>
+	 * <p>
+	 * Check if a {@link Node} that satisfies a query has number of in-{@link Edge}s
+	 * that match a multiplicity.
+	 * </p>
 	 * 
-	 * @param nodeQuery the query applied to the node
+	 * @param nodeQuery    the query applied to the node
 	 * @param multiplicity the multiplicity of edges
 	 * @return an instance of HasEdges query
 	 */
@@ -862,10 +985,12 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if a {@link Node} that satisfies a query has  number of out-{@link Edge}s  
-	 * that match a multiplicity.</p>
+	 * <p>
+	 * Check if a {@link Node} that satisfies a query has number of
+	 * out-{@link Edge}s that match a multiplicity.
+	 * </p>
 	 * 
-	 * @param nodeQuery the query applied to the node
+	 * @param nodeQuery    the query applied to the node
 	 * @param multiplicity the multiplicity of edges
 	 * @return an instance of HasEdges query
 	 */
@@ -874,7 +999,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if a {@link TreeNode} has a parent that satisfies a query.</p>
+	 * <p>
+	 * Check if a {@link TreeNode} has a parent that satisfies a query.
+	 * </p>
+	 * 
 	 * @param query the query the parent must satisfy
 	 * @return an instance of HasParent query
 	 */
@@ -883,7 +1011,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if a {@link TreeNode} has a parent.</p>
+	 * <p>
+	 * Check if a {@link TreeNode} has a parent.
+	 * </p>
+	 * 
 	 * @return an instance of HasParent query
 	 */
 	public static Queryable hasParent() {
@@ -891,7 +1022,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if a {@link Node} is the same as the one passed to the constructor.</p>
+	 * <p>
+	 * Check if a {@link Node} is the same as the one passed to the constructor.
+	 * </p>
+	 * 
 	 * @param node the node instance to compare to
 	 * @return an instance of IsNode query
 	 */
@@ -900,7 +1034,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if a {@link Node} is found in the list of nodes passed to the constructor.</p>
+	 * <p>
+	 * Check if a {@link Node} is found in the list of nodes passed to the
+	 * constructor.
+	 * </p>
 	 * 
 	 * @param nodes nodes to match
 	 * @return an instance of IsOneOf query
@@ -910,7 +1047,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if a {@link Node} is a root node.</p>
+	 * <p>
+	 * Check if a {@link Node} is a root node.
+	 * </p>
+	 * 
 	 * @return an instance of NodeCharacteristics query
 	 */
 	public static Queryable isRoot() {
@@ -918,7 +1058,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if a {@link Node} is a leaf node.</p>
+	 * <p>
+	 * Check if a {@link Node} is a leaf node.
+	 * </p>
+	 * 
 	 * @return an instance of NodeCharacteristics query
 	 */
 	public static Queryable isLeaf() {
@@ -928,7 +1071,10 @@ public class CoreQueries {
 	// ------------------- Node lists
 	//
 	/**
-	 * <p> A {@link Queryable} to select in-edges of a list of Nodes.</p>
+	 * <p>
+	 * A {@link Queryable} to select in-edges of a list of Nodes.
+	 * </p>
+	 * 
 	 * @return an instance of NodeListEdges query
 	 */
 	public static Queryable nodeListInEdges() {
@@ -936,7 +1082,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p> A {@link Queryable} to select out-edges of a list of Nodes.</p>
+	 * <p>
+	 * A {@link Queryable} to select out-edges of a list of Nodes.
+	 * </p>
+	 * 
 	 * @return an instance of NodeListEdges query
 	 */
 	public static Queryable nodeListOutEdges() {
@@ -944,7 +1093,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p> A {@link Queryable} to select all edges of a list of Nodes.</p>
+	 * <p>
+	 * A {@link Queryable} to select all edges of a list of Nodes.
+	 * </p>
+	 * 
 	 * @return an instance of NodeListEdges query
 	 */
 	public static Queryable nodeListEdges() {
@@ -994,7 +1146,10 @@ public class CoreQueries {
 	//
 
 	/**
-	 * <p>A {@link Queryable} to select the end Node of an Edge</p>
+	 * <p>
+	 * A {@link Queryable} to select the end Node of an Edge
+	 * </p>
+	 * 
 	 * @return the EdgeNodes query
 	 */
 	public static Queryable endNode() {
@@ -1002,7 +1157,10 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>A {@link Queryable} to select the start Node of an Edge</p>
+	 * <p>
+	 * A {@link Queryable} to select the start Node of an Edge
+	 * </p>
+	 * 
 	 * @return the EdgeNodes query
 	 */
 	public static Queryable startNode() {
@@ -1051,24 +1209,29 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if an {@link Edge} matches the one passed as argument.</p>
+	 * <p>
+	 * Check if an {@link Edge} matches the one passed as argument.
+	 * </p>
+	 * 
 	 * @param edge the edge to compare to
 	 * @return the IsEdge query
 	 */
 	public static Queryable isEdge(Edge edge) {
 		return new IsEdge(edge);
 	}
-	
+
 	/**
-	 * <p>Check that the tip {@link Node}s of an {@link Edge} ends satisfy their respective
-	 * queries and that they have a specific {@link Node#classId() classId()}; also checks
-	 * the {@link Edge#classId() classId()}.</p>
+	 * <p>
+	 * Check that the tip {@link Node}s of an {@link Edge} ends satisfy their
+	 * respective queries and that they have a specific {@link Node#classId()
+	 * classId()}; also checks the {@link Edge#classId() classId()}.
+	 * </p>
 	 * 
 	 * @param startNodeQuery a query to check on the start node
-	 * @param endNodeQuery a query to check on the end node
-	 * @param startLabel a class identifier the start node must match
-	 * @param label a class identifier the edge must match
-	 * @param endLabel a class identifier the end node must match
+	 * @param endNodeQuery   a query to check on the end node
+	 * @param startLabel     a class identifier the start node must match
+	 * @param label          a class identifier the edge must match
+	 * @param endLabel       a class identifier the end node must match
 	 * @return the EdgeQuery query
 	 */
 	public static EdgeQuery isEdge(Queryable startNodeQuery, Queryable endNodeQuery, String startLabel, String label,
@@ -1077,12 +1240,15 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check that the tip {@link Node}s of an {@link Edge} ends satisfy their respective
-	 * queries and that the {@link Edge#classId() classId()} matches the label.</p>
+	 * <p>
+	 * Check that the tip {@link Node}s of an {@link Edge} ends satisfy their
+	 * respective queries and that the {@link Edge#classId() classId()} matches the
+	 * label.
+	 * </p>
 	 * 
 	 * @param startNodeQuery a query to check on the start node
-	 * @param endNodeQuery a query to check on the end node
-	 * @param label a class identifier the edge must match
+	 * @param endNodeQuery   a query to check on the end node
+	 * @param label          a class identifier the edge must match
 	 * @return the EdgeQuery query
 	 */
 	public static EdgeQuery isEdge(Queryable startNodeQuery, Queryable endNodeQuery, String label) {
@@ -1090,31 +1256,42 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check that the tip {@link Node}s of an {@link Edge} ends satisfy their respective
-	 * queries.</p>
+	 * <p>
+	 * Check that the tip {@link Node}s of an {@link Edge} ends satisfy their
+	 * respective queries.
+	 * </p>
 	 * 
 	 * @param startNodeQuery a query to check on the start node
-	 * @param endNodeQuery a query to check on the end node
+	 * @param endNodeQuery   a query to check on the end node
 	 * @return the EdgeQuery query
 	 */
 	public static EdgeQuery isEdge(Queryable startNodeQuery, Queryable endNodeQuery) {
 		return new EdgeQuery(startNodeQuery, endNodeQuery);
 	}
-	
+
 	// UML
 	//
 	/**
-	 * <p>Check if an object is a UML multiplicity.</p>
+	 * <p>
+	 * Check if an object is a UML multiplicity.
+	 * </p>
+	 * 
 	 * @return an instance of IsMultiplicity query
 	 */
 	public static Queryable isMultiplicity() {
 		return new IsMultiplicity();
 	}
-	
+
 	/**
-	 * <p>Check if an object is an UML enumeration.</p>
-	 * <p>CAUTION: this is different from a java enumeration. see {@link CoreQueries#isEnum(Enum...)}
-	 * or {@link CoreQueries#isEnumStrings(String...)} if that is what you want to test.
+	 * <p>
+	 * Check if an object is an UML enumeration.
+	 * </p>
+	 * <p>
+	 * CAUTION: this is different from a java enumeration. see
+	 * {@link CoreQueries#isEnum(Enum...)} or
+	 * {@link CoreQueries#isEnumStrings(String...)} if that is what you want to
+	 * test.
+	 * 
 	 * @return an instance of the IsEnumeration query
 	 */
 	public static IsEnumeration isEnumeration() {
@@ -1122,24 +1299,33 @@ public class CoreQueries {
 	}
 
 	/**
-	 * <p>Check if an object is an UML attribute.</p>
-	 * @return an instance of the IsUMLAttribute query
+	 * <p>
+	 * Check if an object is an UML attribute.
+	 * </p>
+	 * 
+	 * @return fluid interface
 	 */
 	public static IsUMLAttribute isAttribute() {
 		return new IsUMLAttribute();
 	}
 
 	/**
-	 * <p>Check if an object is an UML association.</p>
-	 * @return an instance of the IsUMLAssociation query
+	 * <p>
+	 * Check if an object is an UML association.
+	 * </p>
+	 * 
+	 * @return fluid interface
 	 */
 	public static IsUMLAssociation isAssociation() {
 		return new IsUMLAssociation();
 	}
 
 	/**
-	 * <p>Check if an object is an UML class.</p>
-	 * @return
+	 * <p>
+	 * Check if an object is an UML class.
+	 * </p>
+	 * 
+	 * @return fluid interface
 	 */
 	public static IsUMLClass isUMLClass() {
 		return new IsUMLClass();

@@ -61,8 +61,8 @@ public class CountQuery extends QueryAdaptor {
 
 	/**
 	 * Constructor with min and max (caution: no check that min&lt;max). 
-	 * @param min
-	 * @param max
+	 * @param min The minimum value (inclusive).
+	 * @param max The maximum value (inclusive).
 	 */
 	public CountQuery(int min, int max) {
 		this.min = min;

@@ -61,6 +61,9 @@ import fr.cnrs.iees.omugi.graph.Direction;
 
 public class IsUMLAttribute extends AndQuery {
 
+	/**
+	 * Parameterless constructor.
+	 */
 	public IsUMLAttribute() {
 		addQuery(hasTheLabel("attribute"), hasProperty("name"));
 		addQuery(new OrQuery(hasProperty("type"), 

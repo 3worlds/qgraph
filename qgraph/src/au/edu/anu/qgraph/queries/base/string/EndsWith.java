@@ -54,13 +54,12 @@ public class EndsWith extends QueryAdaptor {
 	
 	private String str;
 	
+	/**
+	 * @param str  The String used to test if the input string ends with.
+	 */
 	public EndsWith(String str) {
 		this.str = str;
 	}
-
-//	public static Queryable endsWith(String str) {
-//		return new EndsWith(str);
-//	}
 
 
 	@Override
